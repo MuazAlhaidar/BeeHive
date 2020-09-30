@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "rwx",
+    "password": "Death to them.",
+    "database": "jotario",
+    "host": "127.0.0.1",
+    "dialect": "mariadb"
+  },
+  "test": {
+
+    "username": "rwx",
+    "password": "Death to them.",
+    "database": "jotario",
+    "host": "127.0.0.1",
+    "dialect": "mariadb"
+  },
+  "production": {
+
+    "username": "rwx",
+    "password": "Death to them.",
+    "database": "jotario",
+    "host": "127.0.0.1",
+    "dialect": "mariadb"
+  }
+}
