@@ -1,4 +1,4 @@
-% Created 2020-09-28 Mon 22:04
+% Created 2020-10-05 Mon 17:57
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -27,16 +27,17 @@
 \begin{document}
 
 \maketitle
-
+\section*{Checklist}
+\label{sec:orge65d1fa}
 \section*{Terminal}
-\label{sec:org15011c6}
+\label{sec:org5bba858}
 \begin{center}
 \emph{I've got to take man lessons} - The Fauves
 \end{center}
 Before you even start, you will have to be comfortable with the terminal. I know \texttt{Monier} did the intelligent thing and got a mac, so he has a nice terminal with \texttt{zsh} installed. \texttt{Kevin} you're in security, so I hope you can use a terminal. Still, leave nothign to chance, as such I won't leave this to chance.
 
 \subsection*{How to shell}
-\label{sec:org366773a}
+\label{sec:org4661e60}
 \begin{center}
 \texttt{:()\{ :|:\& \};:}  - Forkbomb. Don't run this plz you'll break your computer
 \end{center}
@@ -51,7 +52,7 @@ Don't look up hour longs tutoirals or read some long article: you don't lookup h
 
 
 \subsection*{Hello World}
-\label{sec:org3277ede}
+\label{sec:orgdf4f6b3}
 \begin{center}
 \emph{Can we just say C'est la vie?} - Cibo Matto
 \end{center}
@@ -61,6 +62,11 @@ This is just how to get the prgoramming running. This is important to go first, 
 \item[{Install}] Node.js comes with a lot of stuff to install. To get all dependices, run \texttt{npm run prog-install} (bit backwards I know but do this ok?)
 \item[{Database setup}] This part is going to be a little trickly, and has it's own section.
 \item[{Running.}] Once you got the databse, \texttt{npm run code}, and you should get something like this
+\begin{verbatim}
+tree -L 3 -I "node_modules"
+\end{verbatim}
+\texttt{npm run server}
+
 \begin{verbatim}
 > student-engagment-app@1.0.0 code /home/zaki/Shool/sem/proj
 > concurrently "nodemon node ." "npm run client"
@@ -96,14 +102,11 @@ This is just how to get the prgoramming running. This is important to go first, 
 [1] Note that the development build is not optimized.
 [1] To create a production build, use yarn build.
 [1] 
-
-
-
 \end{verbatim}
 \end{description}
 
 \subsubsection*{Setting SQL up}
-\label{sec:orgb1c818d}
+\label{sec:org0c45744}
 \begin{center}
 \emph{While my guitar gently weeps} - The Beatles
 \end{center}
@@ -116,7 +119,7 @@ This part is gonna suck. Nobody is going to like this part. I didn't like writin
 \end{itemize}
 
 \subsubsection*{SQL after install}
-\label{sec:org16a2fc5}
+\label{sec:org336c8f6}
 \begin{center}
 \emph{This places sucks!} - Descendents
 \end{center}
@@ -157,17 +160,16 @@ But if you do need to mess around/expeirment, here's some \texttt{SQL} cheatshee
 \end{itemize}
 
 \subsubsection*{}
-\label{sec:org62f0325}
+\label{sec:orgf214317}
 
 \section*{Directory Structure}
-\label{sec:org2a7ae67}
+\label{sec:orgdbddbd5}
 \begin{center}
 \emph{Walk this way, talk this way} - Aerosmith
 \end{center}
 Right now the directory is divided into three areas: 
 \begin{verbatim}
 .
-|-- #Setup.org#
 |-- README.md
 |-- client
 |   |-- README.md
@@ -186,12 +188,36 @@ Right now the directory is divided into three areas:
 |       |-- setupTests.js
 |       `-- web
 |-- docs
+|-- nodemon.js
 |-- package-lock.json
 |-- package.json
 `-- server
-    `-- index.js
+    |-- config
+    |   |-- config.json
+    |   |-- keys.js
+    |   `-- keys.ts
+    |-- index.ts
+    |-- migrations
+    |   `-- 20200930180329-create-test.js
+    |-- model
+    |   |-- Test.js
+    |   `-- Test.ts
+    |-- routes
+    |   |-- test.ts
+    |   `-- users.js
+    |-- seeders
+    |-- test
+    |   |-- config
+    |   |   `-- config.json
+    |   |-- migrations
+    |   |-- models
+    |   |   `-- index.js
+    |   |-- seeders
+    |   `-- test.ts
+    |-- testmodel.js
+    `-- tsconfig.json
 
-7 directories, 16 files
+17 directories, 29 files
 \end{verbatim}
 
 \begin{description}
@@ -200,10 +226,28 @@ Right now the directory is divided into three areas:
 \end{description}
 
 \section*{Server}
-\label{sec:org602f5c0}
+\label{sec:org9304f35}
 \begin{center}
 \emph{Is he live or dead? Has he thoughts within his head? We'll just pass him there Why should we even care?} - Black Sabath
 \end{center}
 
-The server is where things will get real buckeros. R
+The server is where things will get real buckeros. \texttt{SQL}, \texttt{API} calls, all that good shit. 
+
+Well, to be fair, I already did the hard work. 
+
+\subsection*{Database operations}
+\label{sec:org7779f21}
+\begin{center}
+\emph{Thou shalt not change table schema manually} - MVC-O-Gistics
+\end{center}
+Let's bring back the \texttt{tree}, expect with particular focus to releavnt things
+\begin{verbatim}
+tree server/ -L 2
+\end{verbatim}
+
+The best way to understand what's going on here is just to explian what each folder does
+
+\begin{description}
+\item[{config}] Server's configuration. In it holds \texttt{keys.ts}, which holds the username/password and database. This is unique to your setup: create a user, then set it's username and password in \texttt{keys/keys.ts}.
+\end{description}
 \end{document}

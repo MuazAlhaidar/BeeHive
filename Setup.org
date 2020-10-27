@@ -1,7 +1,7 @@
 #+TITLE: Getting This project working
 #+AUTHOR: Nephew Zaki
 #+OPTIONS: num:nil toc:nil
-
+* Checklist
 * Terminal
   #+begin_center
   /I've got to take man lessons/ - The Fauves
@@ -29,6 +29,76 @@
    - Install :: Node.js comes with a lot of stuff to install. To get all dependices, run =npm run prog-install= (bit backwards I know but do this ok?)
    - Database setup :: This part is going to be a little trickly, and has it's own section.
    - Running. :: Once you got the databse, =npm run code=, and you should get something like this
+     #+begin_src sh :results output
+     tree -L 3 -I "node_modules"
+     #+end_src
+
+     #+RESULTS:
+     #+begin_example
+     .
+     |-- README.md
+     |-- Setup.org
+     |-- Setup.org.org
+     |-- Setup.pdf
+     |-- Setup.tex
+     |-- client
+     |   |-- README.md
+     |   |-- package-lock.json
+     |   |-- package.json
+     |   |-- public
+     |   |   |-- favicon.ico
+     |   |   |-- index.html
+     |   |   |-- logo192.png
+     |   |   |-- logo512.png
+     |   |   |-- manifest.json
+     |   |   `-- robots.txt
+     |   |-- src
+     |   |   |-- App.css
+     |   |   |-- App.js
+     |   |   |-- App.test.js
+     |   |   |-- android
+     |   |   |-- api
+     |   |   |-- index.css
+     |   |   |-- index.js
+     |   |   |-- logo.svg
+     |   |   |-- serviceWorker.js
+     |   |   |-- setupTests.js
+     |   |   `-- web
+     |   `-- yarn.lock
+     |-- docs
+     |   `-- SD1_Documents.pdf
+     |-- nodemon.js
+     |-- package-lock.json
+     |-- package.json
+     |-- plan.org
+     `-- server
+         |-- config
+         |   |-- config.json
+         |   |-- keys.js
+         |   `-- keys.ts
+         |-- index.ts
+         |-- migrations
+         |   `-- 20200930180329-create-test.js
+         |-- model
+         |   |-- Test.js
+         |   `-- Test.ts
+         |-- routes
+         |   |-- test.ts
+         |   `-- users.js
+         |-- seeders
+         |-- test
+         |   |-- config
+         |   |-- migrations
+         |   |-- models
+         |   |-- seeders
+         |   `-- test.ts
+         |-- testmodel.js
+         `-- tsconfig.json
+
+     18 directories, 40 files
+     #+end_example
+     =npm run server=
+
      #+begin_example
 > student-engagment-app@1.0.0 code /home/zaki/Shool/sem/proj
 > concurrently "nodemon node ." "npm run client"
@@ -163,8 +233,48 @@ tree   -I "node_modules|*pdf|*tex|*org|*png|*txt|*html|*ico|public|*yarn*"
 /Is he live or dead? Has he thoughts within his head? We'll just pass him there Why should we even care?/ - Black Sabath
 #+end_center
 
-The server is where things will get real buckeros. =SQL=, =API= calls, all that good shit
-** TODO Create Running server
-** TODO Create models
-** TODO Create routes that query to models
-** TODO Change model, and check what needs to be done
+The server is where things will get real buckeros. =SQL=, =API= calls, all that good shit. 
+
+Well, to be fair, I already did the hard work. 
+
+** Database operations
+#+begin_center
+/Thou shalt not change table schema manually/ - MVC-O-Gistics
+#+end_center
+Let's bring back the =tree=, expect with particular focus to releavnt things
+#+begin_src sh :results output
+tree server/ -L 2
+#+end_src
+
+#+RESULTS:
+#+begin_example
+server/
+|-- config
+|   |-- config.json
+|   |-- keys.js
+|   `-- keys.ts
+|-- index.ts
+|-- migrations
+|   `-- 20200930180329-create-test.js
+|-- model
+|   |-- Test.js
+|   `-- Test.ts
+|-- routes
+|   |-- test.ts
+|   `-- users.js
+|-- seeders
+|-- test
+|   |-- config
+|   |-- migrations
+|   |-- models
+|   |-- seeders
+|   `-- test.ts
+|-- testmodel.js
+`-- tsconfig.json
+
+10 directories, 12 files
+#+end_example
+
+The best way to understand what's going on here is just to explian what each folder does
+
+- config :: Server's configuration. In it holds =keys.ts=, which holds the username/password and database. This is unique to your setup: create a user, then set it's username and password in =keys/keys.ts=.
