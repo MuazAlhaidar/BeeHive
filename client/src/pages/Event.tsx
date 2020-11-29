@@ -3,60 +3,66 @@ import * as React from "react";
 
 // export default function AddEvent(){
 // export default const AddEvent: React.FC = () => {
-function AddEvent(){
+// function AddEvent(props:{userid:string, sendevent:()=>void}){
+function AddEvent(props:{userid:string, sendevent:any}){
     const [name, setName] = React.useState("");
     const [Description, setDescription] = React.useState("");
     const [Address, setAddress] = React.useState("");
     const [Date, setDate] = React.useState("");
     const [Time, setTime] = React.useState("");
-    const [AuthorID, setAuthorID] = React.useState("");
 
     const handleSubmit = (evt:any) => {
-	evt.preventDefault();
-	console.log( 
-	    {
-	    name:{name}.name,
-	    Description:{Description}.Description,
-	    Address:{Address}.Address,
-	    Date:{Date}.Date,
-	    Time:{Time}.Time,
-	    AuthorID:{AuthorID}.AuthorID,
-	    }
-	)
-	// TODO create a function to pass the data above to a event class
-	// To be appended to a table
+	    evt.preventDefault();
+	    props.sendevent({name}.name, {Description}.Description, {Address}.Address, {Date}.Date, {Time}.Time)
+	    // TODO create a function to pass the data above to a event class
+	    // To be appended to a table
     }
 
     return (
 	    <div>
-	    <h1> Send 'me The Event</h1>
+		    <h1> Send 'me The Event</h1>
 		    <form onSubmit={handleSubmit} >
-		    <label> Event Name </label><br/>
-		    <input type="text" id="Name" value={name} onChange={e => setName(e.target.value)} /><br/>
+			    <label> Event Name </label><br/>
+			    <input type="text" id="Name" value={name} onChange={e => setName(e.target.value)} /><br/>
 
-		    <label> Description </label><br/>
-		    <input type="text" id="Description" value={Description} onChange={e => setDescription(e.target.value)} /><br/>
+			    <label> Description </label><br/>
+			    <input type="text" id="Description" value={Description} onChange={e => setDescription(e.target.value)} /><br/>
 
-		    <label> Address </label><br/>
-		    <input type="text" id="Address" value={Address} onChange={e => setAddress(e.target.value)} /><br/>
+			    <label> Address </label><br/>
+			    <input type="text" id="Address" value={Address} onChange={e => setAddress(e.target.value)} /><br/>
 
-		    <label> Date </label><br/>
-		    <input type="text" id="Date" value={Date} onChange={e => setDate(e.target.value)} /><br/>
+			    <label> Date </label><br/>
+			    <input type="text" id="Date" value={Date} onChange={e => setDate(e.target.value)} /><br/>
 
-		    <label> Time </label><br/>
-		    <input type="text" id="Time" value={Time} onChange={e => setTime(e.target.value)} /><br/>
+			    <label> Time </label><br/>
+			    <input type="text" id="Time" value={Time} onChange={e => setTime(e.target.value)} /><br/>
 
-		    <label> AuthorID </label><br/>
-		    <input type="text" id="AuthorID" value={AuthorID} onChange={e => setAuthorID(e.target.value)} /><br/>
+			    {/* <label> AuthorID </label><br/> */}
+			    {/* <input type="text" id="AuthorID" value={AuthorID} onChange={e => setAuthorID(e.target.value)} /><br/> */}
 
-		    <input type="submit" value="Submit" />
+			    <input type="submit" value="Submit" />
 		    </form> 
 
-		    </div>
+	    </div>
     )
 }
-export default class EventPage extends React.Component{
+type MyProps = {
+	// using `interface` is also ok
+	userid: string;
+};
+
+export default class EventPage extends React.Component<MyProps>{
+	constructor(public props:MyProps){
+		super(props);
+	}
+	getNewEvent(name:string, description:string, address:string, date:string, time:string){
+	}
+
+
+
 	render(){
-		return <h1> I am your Turbo Lover! </h1>
+		return <div>
+			<AddEvent userid={this.props.userid} sendevent={this.getNewEvent}/>
+		</div>
 	}
 }

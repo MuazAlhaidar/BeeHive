@@ -28,7 +28,7 @@ function App() {
 							</p>
 						</Route>
 						<Route path="/Events">
-							<EventPage/>
+							<EventPage userid="MU/ZA" />
 						</Route>
 						<Route path="/LogIn">
 							{" "}
