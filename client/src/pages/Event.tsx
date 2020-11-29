@@ -1,8 +1,9 @@
 import * as React from "react";
 
-// export default function EventPage(){
-// export default const EventPage: React.FC = () => {
-export default function EventPage(){
+
+// export default function AddEvent(){
+// export default const AddEvent: React.FC = () => {
+function AddEvent(){
     const [name, setName] = React.useState("");
     const [Description, setDescription] = React.useState("");
     const [Address, setAddress] = React.useState("");
@@ -53,4 +54,9 @@ export default function EventPage(){
 
 		    </div>
     )
+}
+export default class EventPage extends React.Component{
+	render(){
+		return <h1> I am your Turbo Lover! </h1>
+	}
 }
