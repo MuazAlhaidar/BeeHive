@@ -1,5 +1,4 @@
 import React from "react";
-import Background from "../Images/LogInPage - Background.png";
 import LogoAndTitle from "../Components/LogoAndTitle";
 import LogInPanel from "../Components/LogInPanel";
 import SignUpButton from "../Components/SignUpButton";
