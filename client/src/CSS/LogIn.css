@@ -3,4 +3,16 @@
   border: solid green 2px;
   flex-grow: 1;
   height: 100vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.Login-TitleAndLogo {
+  align-self: flex-start;
+}
+
+.Login-LoginPanel {
+  flex-grow: 1;
+  padding-top: 20vh;
 }

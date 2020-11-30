@@ -1,14 +1,18 @@
 import React from "react";
 import LogoAndTitle from "../Components/LogoAndTitle";
+import LogInPanel from "../Components/LogInPanel";
 
 import "../CSS/LogIn.css";
 
 function LogIn() {
   return (
     <div className="Login">
-      <header className="Login-Header">
+      <div className="Login-TitleAndLogo">
         <LogoAndTitle />
-      </header>
+      </div>
+      <div className="Login-LoginPanel">
+        <LogInPanel />
+      </div>
     </div>
   );
 }
