@@ -5,6 +5,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background: url(../Images/LogInPage - Background.png) no-repeat center fixed;
+  background-size: cover;
 }
 
 .Login-TitleAndLogo {
