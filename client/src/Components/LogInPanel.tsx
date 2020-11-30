@@ -28,7 +28,7 @@ function LogInPanel() {
         <button className="LoginPanel-LoginAsGuest">Login as Guest</button>
         <button className="LoginPanel-Login">Login</button>
       </div>
-      <Link className="LoginPanel-ForgotPassword" to="/SignUp">
+      <Link className="LoginPanel-ForgotPassword" to="/ForgotPassword">
         Forgot Password?
       </Link>
     </div>

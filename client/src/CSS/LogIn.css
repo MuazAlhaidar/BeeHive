@@ -1,6 +1,5 @@
 .Login {
   display: flex;
-  border: solid green 2px;
   flex-grow: 1;
   height: 100vh;
   align-items: center;
@@ -12,7 +11,19 @@
   align-self: flex-start;
 }
 
+.Login-SignUpButton {
+  margin-right: 2vw;
+}
+
 .Login-LoginPanel {
   flex-grow: 1;
   padding-top: 20vh;
+}
+
+.Login-Top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100vw;
 }
