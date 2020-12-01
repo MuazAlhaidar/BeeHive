@@ -51,7 +51,7 @@ function AddEvent(props:{userid:string, sendevent:any}){
 // export default const AddEvent: React.FC = () => {
 // function AddEvent(props:{userid:string, sendevent:()=>void}){
 // TODO put correct event type
-function ChangeEvent(props:{Event:any, sendEdit:any, sendevent:any}}){
+function ChangeEvent(props:{Event:any, sendEdit:any}){
     const [name, setName] = React.useState("");
     const [Description, setDescription] = React.useState("");
     const [Address, setAddress] = React.useState("");
@@ -66,7 +66,7 @@ function ChangeEvent(props:{Event:any, sendEdit:any, sendevent:any}}){
 	    // props.sendevent({name}.name, {Description}.Description, {Address}.Address, {Date}.Date, {Time}.Time)
 	    // TODO create a function to pass the data above to a event class
 	    // To be appended to a table
-	    props.sendevent({name}.name, {Description}.Description, {Address}.Address, {Date}.Date, {Time}.Time)
+	    props.sendEdit({name}.name, {Description}.Description, {Address}.Address, {Date}.Date, {Time}.Time)
     }
 
     return (
