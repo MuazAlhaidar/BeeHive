@@ -51,7 +51,7 @@ function AddEvent(props:{userid:string, sendevent:any}){
 // export default const AddEvent: React.FC = () => {
 // function AddEvent(props:{userid:string, sendevent:()=>void}){
 // TODO put correct event type
-function ChangeEvent(props:{Event:any, sendEdit:any}){
+function ChangeEvent(props:{Event:any, sendEdit:any, sendevent:any}}){
     const [name, setName] = React.useState("");
     const [Description, setDescription] = React.useState("");
     const [Address, setAddress] = React.useState("");
