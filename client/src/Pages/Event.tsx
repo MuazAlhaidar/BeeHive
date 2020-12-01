@@ -66,6 +66,7 @@ function ChangeEvent(props:{Event:any, sendEdit:any}){
 	    // props.sendevent({name}.name, {Description}.Description, {Address}.Address, {Date}.Date, {Time}.Time)
 	    // TODO create a function to pass the data above to a event class
 	    // To be appended to a table
+	    console.log("FUCK", {name}.name, {Description}.Description, {Address}.Address, {Date}.Date, {Time}.Time)
 	    props.sendEdit({name}.name, {Description}.Description, {Address}.Address, {Date}.Date, {Time}.Time)
     }
 
@@ -180,7 +181,10 @@ export default class EventPage extends React.Component<MyProps, {events:any, edi
                 }
         }
 
-        EditEvent(Event:any){
+        EditEvent(name:string, description:string, address:string, date:string, time:string){
+                this.state.events[this.state.curEditId]={name, description, address, date, time}
+                console.log("ROCK", this.state.events)
+                this.setState({events:this.state.events});
 
         }
 
