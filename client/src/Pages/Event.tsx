@@ -50,23 +50,25 @@ function AddEvent(props:{userid:string, sendevent:any}){
 // export default function AddEvent(){
 // export default const AddEvent: React.FC = () => {
 // function AddEvent(props:{userid:string, sendevent:()=>void}){
-function ChangeEvent(props:{userid:string, sendevent:any}){
-    const [name, setName] = React.useState("");
-    const [Description, setDescription] = React.useState("");
-    const [Address, setAddress] = React.useState("");
-    const [Date, setDate] = React.useState("");
-    const [Time, setTime] = React.useState("");
+// TODO put correct event type
+function ChangeEvent(props:{Event:any, sendEdit:any}){
+    const [name, setName] = React.useState(props.Event.name);
+    const [Description, setDescription] = React.useState(props.Event.description);
+    const [Address, setAddress] = React.useState(props.Event.address);
+    const [Date, setDate] = React.useState(props.Event.date);
+    const [Time, setTime] = React.useState(props.Event.time);
+    console.log("Info", props.Event);
 
     const handleSubmit = (evt:any) => {
 	    evt.preventDefault();
-	    props.sendevent({name}.name, {Description}.Description, {Address}.Address, {Date}.Date, {Time}.Time)
+	    // props.sendevent({name}.name, {Description}.Description, {Address}.Address, {Date}.Date, {Time}.Time)
 	    // TODO create a function to pass the data above to a event class
 	    // To be appended to a table
     }
 
     return (
 	    <div>
-		    <h1> Send 'me The Event</h1>
+                    <h1> Oh my GODDD </h1>
 		    <form onSubmit={handleSubmit} >
 			    <label> Event Name </label><br/>
 			    <input type="text" id="Name" value={name} onChange={e => setName(e.target.value)} /><br/>
@@ -86,7 +88,7 @@ function ChangeEvent(props:{userid:string, sendevent:any}){
 			    {/* <label> AuthorID </label><br/> */}
 			    {/* <input type="text" id="AuthorID" value={AuthorID} onChange={e => setAuthorID(e.target.value)} /><br/> */}
 
-			    <input type="submit" value="Submit" />
+			    <input type="submit" value="Change Entry?" />
 		    </form> 
 
 	    </div>
@@ -96,14 +98,14 @@ function ChangeEvent(props:{userid:string, sendevent:any}){
 type EventType={ name:string, description:string, address:string, date:string, time:string};
 
 // function ViewEvents(Events:[EventType]){
-function ViewEvents(props:{Events:any, DeleteEvents:any, editEvent:any}){
+function ViewEvents(props:{Events:any, DeleteEvents:any, showEditEvent:any}){
 	return(
 		<div>
 			{
 				props.Events.map((event:EventType, id:number) =>(
 				<tr> 
 					<th><button onClick={() =>props.DeleteEvents(id)}>  Delete Event </button></th>
-					<th><button onClick={() =>props.editEvent(id)}>  Edit Event </button></th>
+					<th><button onClick={() =>props.showEditEvent(id)}>  Edit Event </button></th>
 					<th> {event.name} </th>
 					<th> {event.description} </th>
 					<th> {event.address} </th>
@@ -126,7 +128,7 @@ export default class EventPage extends React.Component<MyProps, {events:any, edi
 		super(props);
 		this.state ={events:[
 			{name:"muaz roasting event", description:"we gonna roast him so bad", address:"eel street", date:"everyday", time:"12:61" }
-			,{name:"yea yea yea yea!", description:"smoke weed everyday", address:"zaki's house", date:"every saturday", time:"04:20" }
+			,{name:"yea yea yea yea!", description:"yeayea", address:"zaki's house", date:"every saturday", time:"04:20" }
 		]
                 ,edit:false
                 ,curEditId:-1
@@ -144,24 +146,34 @@ export default class EventPage extends React.Component<MyProps, {events:any, edi
 		this.setState({events: this.state.events});
 	}
 
-	editEvent(id:number){
+	showEditEvent(id:number){
 		let currEvent = this.state.events[id];
-                if(id == this.state.curEditId)
+                if(id == this.state.curEditId){
                         this.setState({edit:!this.state.edit});
+                        this.setState({curEditId:-1});
+                }
+
                 else{
                         this.setState({edit:true});
                         this.setState({curEditId:id});
                 }
 	}
 
+        EditEvent(Event:any){
+
+        }
+
 
 
 	render(){
                 console.log(this.state.curEditId, this.state.edit);
 		return <div>
-			{this.state.edit ? <h1> Rocka hola!{this.state.curEditId} </h1> : null}
+                        {this.state.edit ? <div> 
+                                <h1> Rocka hola {this.state.curEditId} {this.state.edit} </h1>
+                                <ChangeEvent Event={this.state.events[this.state.curEditId]} sendEdit={this.EditEvent.bind(this)} />
+                        </div>: null}
 			<AddEvent userid={this.props.userid} sendevent={this.getNewEvent.bind(this)}/>
-			<ViewEvents  Events={this.state.events} DeleteEvents={this.deleteEvent.bind(this)} editEvent={this.editEvent.bind(this)}  />
+			<ViewEvents  Events={this.state.events} DeleteEvents={this.deleteEvent.bind(this)} showEditEvent={this.showEditEvent.bind(this)}  />
 
 		</div>
 	}
