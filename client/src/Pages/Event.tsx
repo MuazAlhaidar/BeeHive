@@ -22,7 +22,7 @@ function AddEvent(props:{userid:string, sendevent:any}){
 	    <div>
 		    <h1> Send 'me The Event</h1>
 		    <form onSubmit={handleSubmit} >
-			    <label> Event Name </label><br/>
+			    <label> Event Name </label>
 			    <input type="text" id="Name" value={name} onChange={e => setName(e.target.value)} /><br/>
 
 			    <label> Description </label><br/>
@@ -52,46 +52,67 @@ function AddEvent(props:{userid:string, sendevent:any}){
 // function AddEvent(props:{userid:string, sendevent:()=>void}){
 // TODO put correct event type
 function ChangeEvent(props:{Event:any, sendEdit:any}){
-    const [name, setName] = React.useState(props.Event.name);
-    const [Description, setDescription] = React.useState(props.Event.description);
-    const [Address, setAddress] = React.useState(props.Event.address);
-    const [Date, setDate] = React.useState(props.Event.date);
-    const [Time, setTime] = React.useState(props.Event.time);
-    console.log("Info", props.Event);
+    const [name, setName] = React.useState("");
+    const [Description, setDescription] = React.useState("");
+    const [Address, setAddress] = React.useState("");
+    const [Date, setDate] = React.useState("");
+    const [Time, setTime] = React.useState("");
+
+
+
 
     const handleSubmit = (evt:any) => {
 	    evt.preventDefault();
 	    // props.sendevent({name}.name, {Description}.Description, {Address}.Address, {Date}.Date, {Time}.Time)
 	    // TODO create a function to pass the data above to a event class
 	    // To be appended to a table
+	    props.sendevent({name}.name, {Description}.Description, {Address}.Address, {Date}.Date, {Time}.Time)
     }
 
     return (
 	    <div>
                     <h1> Oh my GODDD </h1>
-		    <form onSubmit={handleSubmit} >
-			    <label> Event Name </label><br/>
-			    <input type="text" id="Name" value={name} onChange={e => setName(e.target.value)} /><br/>
+                    <form onSubmit={handleSubmit} >
+                            <table>
+                                    <tr>
+                                            <th> <label> Event Name<b>:</b> </label></th>
+                                            <th> <label >  {props.Event.name} </label></th> 
+                                            <th> <input type="text" id="Name" value={name} onChange={e => setName(e.target.value)} /> </th>
+                                    </tr>
 
-			    <label> Description </label><br/>
-			    <input type="text" id="Description" value={Description} onChange={e => setDescription(e.target.value)} /><br/>
 
-			    <label> Address </label><br/>
-			    <input type="text" id="Address" value={Address} onChange={e => setAddress(e.target.value)} /><br/>
+                                    <tr>
+                                            <th> <label> Description </label> </th>
+                                            <th> <label> {props.Event.description}</label> </th>
+                                            <th> <input type="text" id="Description" value={Description} onChange={e => setDescription(e.target.value)} /> </th>
+                                    </tr>
 
-			    <label> Date </label><br/>
-			    <input type="text" id="Date" value={Date} onChange={e => setDate(e.target.value)} /><br/>
+                                    <tr>
+                                            <th> <label> Address </label> </th>
+                                            <th> <label> {props.Event.address}</label> </th>
+                                            <th> <input type="text" id="Address" value={Address} onChange={e => setAddress(e.target.value)} /> </th>
+                                    </tr>
 
-			    <label> Time </label><br/>
-			    <input type="text" id="Time" value={Time} onChange={e => setTime(e.target.value)} /><br/>
+                                    <tr>
+                                            <th> <label> Date </label> </th>
+                                            <th> <label> {props.Event.date}</label> </th>
+                                            <th> <input type="text" id="Date" value={Date} onChange={e => setDate(e.target.value)} /> </th>
+                                    </tr>
 
-			    {/* <label> AuthorID </label><br/> */}
-			    {/* <input type="text" id="AuthorID" value={AuthorID} onChange={e => setAuthorID(e.target.value)} /><br/> */}
+                                    <tr>
+                                            <th> <label> Time </label> </th>
+                                            <th> <label> {props.Event.time}</label> </th>
+                                            <th> <input type="text" id="Time" value={Time} onChange={e => setTime(e.target.value)} /> </th>
+                                    </tr>
 
-			    <input type="submit" value="Change Entry?" />
-		    </form> 
+                                    <tr>
+                                            <input type="submit" value="Change Entry?" />
+                                    </tr>
+                            </table>
 
-	    </div>
+                    </form> 
+
+            </div>
     )
 }
 
@@ -99,55 +120,55 @@ type EventType={ name:string, description:string, address:string, date:string, t
 
 // function ViewEvents(Events:[EventType]){
 function ViewEvents(props:{Events:any, DeleteEvents:any, showEditEvent:any}){
-	return(
-		<div>
-			{
-				props.Events.map((event:EventType, id:number) =>(
-				<tr> 
-					<th><button onClick={() =>props.DeleteEvents(id)}>  Delete Event </button></th>
-					<th><button onClick={() =>props.showEditEvent(id)}>  Edit Event </button></th>
-					<th> {event.name} </th>
-					<th> {event.description} </th>
-					<th> {event.address} </th>
-					<th> {event.date} </th>
-					<th> {event.time} </th>
-				</tr>
-			))}
-				</div>
-			);
+        return(
+                <div>
+                        {
+                                props.Events.map((event:EventType, id:number) =>(
+                                        <tr> 
+                                                <th><button onClick={() =>props.DeleteEvents(id)}>  Delete Event </button></th>
+                                                <th><button onClick={() =>props.showEditEvent(id)}>  Edit Event </button></th>
+                                                <th> {event.name} </th>
+                                                <th> {event.description} </th>
+                                                <th> {event.address} </th>
+                                                <th> {event.date} </th>
+                                                <th> {event.time} </th>
+                                        </tr>
+                                ))}
+                </div>
+        );
 
 }
 
 type MyProps = {
-	// using `interface` is also ok
-	userid: string;
+        // using `interface` is also ok
+        userid: string;
 };
 
 export default class EventPage extends React.Component<MyProps, {events:any, edit:boolean, curEditId:number}>{
-	constructor(public props:MyProps){
-		super(props);
-		this.state ={events:[
-			{name:"muaz roasting event", description:"we gonna roast him so bad", address:"eel street", date:"everyday", time:"12:61" }
-			,{name:"yea yea yea yea!", description:"yeayea", address:"zaki's house", date:"every saturday", time:"04:20" }
-		]
+        constructor(public props:MyProps){
+                super(props);
+                this.state ={events:[
+                        {name:"muaz roasting event", description:"we gonna roast him so bad", address:"eel street", date:"everyday", time:"12:61" }
+                        ,{name:"yea yea yea yea!", description:"yeayea", address:"zaki's house", date:"every saturday", time:"04:20" }
+                ]
                 ,edit:false
                 ,curEditId:-1
 
-		};
-	}
-	getNewEvent(name:string, description:string, address:string, date:string, time:string){
-		this.state.events.push({name, description, address, date, time});
-		this.setState({events: this.state.events});
-	}
+                };
+        }
+        getNewEvent(name:string, description:string, address:string, date:string, time:string){
+                this.state.events.push({name, description, address, date, time});
+                this.setState({events: this.state.events});
+        }
 
-	deleteEvent(id:number){
-		alert("Email people goign to event " +  this.state.events[id].name + " about the event's cancelilation");
-		this.state.events.splice(id,1);
-		this.setState({events: this.state.events});
-	}
+        deleteEvent(id:number){
+                alert("Email people goign to event " +  this.state.events[id].name + " about the event's cancelilation");
+                this.state.events.splice(id,1);
+                this.setState({events: this.state.events});
+        }
 
-	showEditEvent(id:number){
-		let currEvent = this.state.events[id];
+        showEditEvent(id:number){
+                let currEvent = this.state.events[id];
                 if(id == this.state.curEditId){
                         this.setState({edit:!this.state.edit});
                         this.setState({curEditId:-1});
@@ -157,7 +178,7 @@ export default class EventPage extends React.Component<MyProps, {events:any, edi
                         this.setState({edit:true});
                         this.setState({curEditId:id});
                 }
-	}
+        }
 
         EditEvent(Event:any){
 
@@ -165,17 +186,17 @@ export default class EventPage extends React.Component<MyProps, {events:any, edi
 
 
 
-	render(){
+        render(){
                 console.log(this.state.curEditId, this.state.edit);
-		return <div>
+                return <div>
                         {this.state.edit ? <div> 
                                 <h1> Rocka hola {this.state.curEditId} {this.state.edit} </h1>
                                 <ChangeEvent Event={this.state.events[this.state.curEditId]} sendEdit={this.EditEvent.bind(this)} />
                         </div>: null}
-			<AddEvent userid={this.props.userid} sendevent={this.getNewEvent.bind(this)}/>
-			<ViewEvents  Events={this.state.events} DeleteEvents={this.deleteEvent.bind(this)} showEditEvent={this.showEditEvent.bind(this)}  />
+                        <AddEvent userid={this.props.userid} sendevent={this.getNewEvent.bind(this)}/>
+                        <ViewEvents  Events={this.state.events} DeleteEvents={this.deleteEvent.bind(this)} showEditEvent={this.showEditEvent.bind(this)}  />
 
-		</div>
-	}
+                </div>
+        }
 }
 
