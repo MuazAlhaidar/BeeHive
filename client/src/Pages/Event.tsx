@@ -121,14 +121,16 @@ type MyProps = {
 	userid: string;
 };
 
-export default class EventPage extends React.Component<MyProps, {events:any, edit:boolean}>{
+export default class EventPage extends React.Component<MyProps, {events:any, edit:boolean, curEditId:number}>{
 	constructor(public props:MyProps){
 		super(props);
 		this.state ={events:[
 			{name:"muaz roasting event", description:"we gonna roast him so bad", address:"eel street", date:"everyday", time:"12:61" }
 			,{name:"yea yea yea yea!", description:"smoke weed everyday", address:"zaki's house", date:"every saturday", time:"04:20" }
-		],
-		edit:false
+		]
+                ,edit:false
+                ,curEditId:-1
+
 		};
 	}
 	getNewEvent(name:string, description:string, address:string, date:string, time:string){
@@ -144,14 +146,20 @@ export default class EventPage extends React.Component<MyProps, {events:any, edi
 
 	editEvent(id:number){
 		let currEvent = this.state.events[id];
-		this.setState({edit:true});
+                if(id == this.state.curEditId)
+                        this.setState({edit:!this.state.edit});
+                else{
+                        this.setState({edit:true});
+                        this.setState({curEditId:id});
+                }
 	}
 
 
 
 	render(){
+                console.log(this.state.curEditId, this.state.edit);
 		return <div>
-			{this.state.edit ? <h1> Rocka hola! </h1> : null}
+			{this.state.edit ? <h1> Rocka hola!{this.state.curEditId} </h1> : null}
 			<AddEvent userid={this.props.userid} sendevent={this.getNewEvent.bind(this)}/>
 			<ViewEvents  Events={this.state.events} DeleteEvents={this.deleteEvent.bind(this)} editEvent={this.editEvent.bind(this)}  />
 
