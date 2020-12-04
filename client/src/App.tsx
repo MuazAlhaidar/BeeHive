@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./Components/LogoAndTitle";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import EventPage from "./Pages/Event";
