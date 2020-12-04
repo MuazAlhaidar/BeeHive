@@ -3,7 +3,7 @@ import logo from "./Components/LogoAndTitle";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import EventPage from "./Pages/Event";
-
+import Groups from "./Pages/Groups";
 import LogIn from "./Pages/LogIn";
 import LogoAndTitle from "./Components/LogoAndTitle";
 
@@ -16,6 +16,7 @@ function App() {
             <Link to="/"> Welcome to Hell </Link>
             <Link to="/Events"> Events </Link>
             <Link to="/LogIn"> LogIn </Link>
+            <Link to="/Groups"> Groups </Link>
           </div>
           <Switch>
             <Route exact path="/">
@@ -28,10 +29,13 @@ function App() {
               </p>
             </Route>
             <Route path="/Events">
-              <EventPage />
+              <EventPage userid="MU/ZA" />
             </Route>
             <Route path="/LogIn">
               <LogIn />
+            </Route>
+            <Route path="/Groups">
+              <Groups />
             </Route>
           </Switch>
         </Router>
