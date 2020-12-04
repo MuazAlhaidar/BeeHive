@@ -14,7 +14,7 @@ function App() {
         <Router>
           <div className="App-navbar">
             <Link to="/"> Welcome to Hell </Link>
-            <Link to="/Events" > Events </Link>
+            <Link to="/Events"> Events </Link>
             <Link to="/LogIn"> LogIn </Link>
             <Link to="/Groups"> Groups </Link>
           </div>
@@ -29,7 +29,7 @@ function App() {
               </p>
             </Route>
             <Route path="/Events">
-              <EventPage userid="MU/AZ"/>
+              <EventPage userid="MU/ZA" />
             </Route>
             <Route path="/LogIn">
               <LogIn />
