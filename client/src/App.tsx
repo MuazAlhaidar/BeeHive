@@ -34,10 +34,8 @@ function App() {
             <Route path="/LogIn">
               <LogIn />
             </Route>
-            <Route>
-              <Route path="/Groups">
-                <Groups />
-              </Route>
+            <Route path="/Groups">
+              <Groups />
             </Route>
           </Switch>
         </Router>
