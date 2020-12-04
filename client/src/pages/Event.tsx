@@ -383,7 +383,6 @@ export default class EventPage extends React.Component<
           DeleteEvents={this.deleteEvent.bind(this)}
           showEditEvent={this.showEditEvent.bind(this)}
         />
-        <div></div>
       </div>
     );
   }
