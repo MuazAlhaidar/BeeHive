@@ -1,0 +1,38 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  /* background-color: #ebc99e; */
+
+  background-color: #fde2c4;
+  min-height: 100vh;
+  display: flex;
+  border: solid black 5px;
+  color: rgb(131, 60, 2);
+  flex-flow: column wrap;
+}
+
+.App-navbar {
+  display: flex;
+  border: solid red 2px;
+  color: #f58032;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 20px;
+  width: 100vw;
+}
+
+.App-logo {
+  height: 20vh;
+}
+
+.App-link {
+  color: #f58032;
+}
+
+.App-LogoAndTitle {
+  display: flex;
+  width: fit-content;
+}
