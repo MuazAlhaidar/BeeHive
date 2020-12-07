@@ -7,6 +7,7 @@ import LogIn from "./Pages/LogIn";
 import LogoAndTitle from "./Components/LogoAndTitle";
 
 function App() {
+  const [name, setName] = React.useState("");
   return (
     <div className="App">
       <header className="App-header">
@@ -14,7 +15,7 @@ function App() {
           <div className="App-navbar">
             <Link to="/"> Welcome to Hell </Link>
             <Link to="/Events"> Events </Link>
-            <Link to="/LogIn"> LogIn </Link>
+            <Link to="/LogIn" > LogIn </Link>
             <Link to="/Groups"> Groups </Link>
           </div>
           <Switch>
@@ -22,7 +23,7 @@ function App() {
               <div className="App-LogoAndTitle">
                 <LogoAndTitle />
               </div>
-              <h1> Hands off my property </h1>
+                    { name=="" ? <h1>Login Plz kay thanks </h1> : <h1> Hello {name}: How are ya? </h1>  } 
               <p>
                 Welcome to <code>BeeHive</code>!
               </p>
@@ -31,7 +32,8 @@ function App() {
               <EventPage userid="MU/ZA" />
             </Route>
             <Route path="/LogIn">
-              <LogIn />
+              {/* <LogIn setuser={setName}/> */}
+              <LogIn setName={setName}/>
             </Route>
             <Route path="/Groups">
               <Groups />
