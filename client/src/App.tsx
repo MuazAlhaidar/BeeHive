@@ -13,9 +13,9 @@ function App() {
       <header className="App-header">
         <Router>
           <div className="App-navbar">
-            <Link to="/"> Welcome to Hell </Link>
+            <Link to="/"> Welcome</Link>
             <Link to="/Events"> Events </Link>
-            <Link to="/LogIn" > LogIn </Link>
+            <Link to="/LogIn"> LogIn </Link>
             <Link to="/Groups"> Groups </Link>
           </div>
           <Switch>
@@ -23,7 +23,7 @@ function App() {
               <div className="App-LogoAndTitle">
                 <LogoAndTitle />
               </div>
-                    { name=="" ? <h1>Login Plz kay thanks </h1> : <h1> Hello {name}: How are ya? </h1>  } 
+              {name == "" ? <h1>Login</h1> : <h1> Hello {name}</h1>}
               <p>
                 Welcome to <code>BeeHive</code>!
               </p>
@@ -33,7 +33,7 @@ function App() {
             </Route>
             <Route path="/LogIn">
               {/* <LogIn setuser={setName}/> */}
-              <LogIn setName={setName}/>
+              <LogIn setName={setName} />
             </Route>
             <Route path="/Groups">
               <Groups />
