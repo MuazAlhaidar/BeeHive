@@ -1,10 +1,9 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
+import EventPage from "./Pages/Event";
+import GroupPage from "./Pages/Group";
 import LogIn from "./Pages/LogIn";
-import EventPage from "./Pages/Events";
-import Groups from "./Pages/Group";
 import LogoAndTitle from "./Components/LogoAndTitle";
 
 function App() {
@@ -35,7 +34,7 @@ function App() {
               <LogIn />
             </Route>
             <Route path="/Groups">
-              <Groups />
+              <GroupPage groupName="kevin cool" />
             </Route>
           </Switch>
         </Router>
