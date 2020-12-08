@@ -2,7 +2,8 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import EventPage from "./Pages/Event";
+import LogIn from "./Pages/LogIn";
+import EventPage from "./Pages/Events";
 import Groups from "./Pages/Group";
 import LogoAndTitle from "./Components/LogoAndTitle";
 
