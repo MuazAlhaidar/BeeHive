@@ -1,0 +1,11 @@
+.SignUpButton {
+  background-color: #ffffff;
+  border: 2px solid lightgray;
+  color: #ff9442;
+  box-shadow: 3px 3px 5px gray;
+  width: 90px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  height: 40px;
+}
