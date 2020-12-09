@@ -6,10 +6,10 @@ import "../Components/groupList";
 
 function AddGroup(props: { userid: string; sendevent: any }) {
   const [name, setName] = React.useState("");
-
+  const [description, setDescription] = React.useState("");
   const handleSubmit = (evt: any) => {
     evt.preventDefault();
-    props.sendevent({ name }.name);
+    props.sendevent({ name }.name, { description }.description);
     // TODO create a function to pass the data above to a event class
     // To be appended to a table
   };
@@ -27,6 +27,13 @@ function AddGroup(props: { userid: string; sendevent: any }) {
         />
         <br />
 
+        <label> Contact Info </label>
+        <input
+          type="text"
+          id="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
         {/* <label> AuthorID </label><br/> */}
         {/* <input type="text" id="AuthorID" value={AuthorID} onChange={e => setAuthorID(e.target.value)} /><br/> */}
 
@@ -38,14 +45,14 @@ function AddGroup(props: { userid: string; sendevent: any }) {
 
 function ChangeGroup(props: { Group: any; sendEdit: any }) {
   const [name, setName] = React.useState("");
-
+  const [description, setDescription] = React.useState("");
   const handleSubmit = (evt: any) => {
     evt.preventDefault();
     // props.sendevent({name}.name, {Description}.Description, {Address}.Address, {Date}.Date, {Time}.Time)
     // TODO create a function to pass the data above to a event class
     // To be appended to a table
-    console.log("FUCK", { name }.name);
-    props.sendEdit({ name }.name);
+    console.log("FUCK", { name }.name, { description }.description);
+    props.sendEdit({ name }.name, { description }.description);
   };
 
   return (
@@ -75,6 +82,27 @@ function ChangeGroup(props: { Group: any; sendEdit: any }) {
               />{" "}
             </th>
           </tr>
+
+          <tr>
+            <th>
+              {" "}
+              <label> Contact Infor </label>{" "}
+            </th>
+            <th>
+              {" "}
+              <label> {props.Group.description}</label>{" "}
+            </th>
+
+            <th>
+              {" "}
+              <input
+                type="text"
+                id="Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />{" "}
+            </th>
+          </tr>
           <tr>
             <input type="submit" value="Change Entry?" />
           </tr>
@@ -86,6 +114,7 @@ function ChangeGroup(props: { Group: any; sendEdit: any }) {
 
 type GroupType = {
   name: string;
+  description: string;
 };
 
 function ViewEvents(props: {
@@ -110,6 +139,7 @@ function ViewEvents(props: {
             </button>
           </th>
           <th> {group.name} </th>
+          <th> {group.description}</th>
         </tr>
       ))}
     </div>
@@ -131,24 +161,26 @@ export default class GroupPage extends React.Component<
       groups: [
         {
           name: "Good Group",
+          description: "777-777-7777",
         },
         {
           name: "Bad Group",
+          description: "123-456-7890",
         },
       ],
       edit: false,
       curEditId: -1,
     };
   }
-  getNewGroup(name: string) {
-    this.state.groups.push({ name });
+  getNewGroup(name: string, description: string) {
+    this.state.groups.push({ name, description });
     this.setState({ groups: this.state.groups });
   }
   deleteGroup(id: number) {
     alert(
-      "Email people goign to event " +
+      "Are you sure you would like to delete group " +
         this.state.groups[id].name +
-        " about the event's cancelilation"
+        " ?"
     );
     this.state.groups.splice(id, 1);
     this.setState({ groups: this.state.groups });
@@ -164,9 +196,10 @@ export default class GroupPage extends React.Component<
     }
   }
 
-  EditEvent(name: string) {
+  EditEvent(name: string, description: string) {
     this.state.groups[this.state.curEditId] = {
       name,
+      description,
     };
     console.log("ROCK", this.state.groups);
     this.setState({ groups: this.state.groups });
@@ -174,7 +207,7 @@ export default class GroupPage extends React.Component<
   render() {
     console.log(this.state.curEditId, this.state.edit);
     return (
-      <div>
+      <div className="Group">
         {this.state.edit ? (
           <div>
             <h1>
