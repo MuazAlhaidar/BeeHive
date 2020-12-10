@@ -46,6 +46,7 @@ function AddGroup(props: { userid: string; sendevent: any }) {
 function ChangeGroup(props: { Group: any; sendEdit: any }) {
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
+  const [members, setMembers] = React.useState("");
   const handleSubmit = (evt: any) => {
     evt.preventDefault();
     // props.sendevent({name}.name, {Description}.Description, {Address}.Address, {Date}.Date, {Time}.Time)
@@ -100,6 +101,27 @@ function ChangeGroup(props: { Group: any; sendEdit: any }) {
                 id="Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+              />{" "}
+            </th>
+          </tr>
+
+          <tr>
+            <th>
+              {" "}
+              <label> Members </label>{" "}
+            </th>
+            <th>
+              {" "}
+              <label> {props.Group.members}</label>{" "}
+            </th>
+
+            <th>
+              {" "}
+              <input
+                type="text"
+                id="Members"
+                value={members}
+                onChange={(e) => setMembers(e.target.value)}
               />{" "}
             </th>
           </tr>
