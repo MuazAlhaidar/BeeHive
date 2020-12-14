@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import EventPage from "./Pages/Events";
 import GroupPage from "./Pages/Group";
 import LogIn from "./Pages/LogIn";
+import ContactUs from "./Pages/ContactUs";
 import LogoAndTitle from "./Components/LogoAndTitle";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Link to="/Events"> Events </Link>
             <Link to="/LogIn"> LogIn </Link>
             <Link to="/Groups"> Groups </Link>
+            <Link to="/ContactUs"> Contact Us </Link>
           </div>
           <Switch>
             <Route exact path="/">
@@ -37,6 +39,9 @@ function App() {
             </Route>
             <Route path="/Groups">
               <GroupPage groupName="kevin cool" />
+            </Route>
+            <Route path="/ContactUs">
+              <ContactUs />
             </Route>
           </Switch>
         </Router>
