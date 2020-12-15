@@ -10,7 +10,11 @@ function AddGroup(props: { userid: string; sendevent: any }) {
   const [members, setMembers] = React.useState("");
   const handleSubmit = (evt: any) => {
     evt.preventDefault();
-    props.sendevent({ name }.name, { description }.description);
+    props.sendevent(
+      { name }.name,
+      { description }.description,
+      { members }.members
+    );
     // TODO create a function to pass the data above to a event class
     // To be appended to a table
   };
@@ -211,8 +215,8 @@ export default class GroupPage extends React.Component<
       curEditId: -1,
     };
   }
-  getNewGroup(name: string, description: string) {
-    this.state.groups.push({ name, description });
+  getNewGroup(name: string, description: string, members: string) {
+    this.state.groups.push({ name, description, members });
     this.setState({ groups: this.state.groups });
   }
   deleteGroup(id: number) {
