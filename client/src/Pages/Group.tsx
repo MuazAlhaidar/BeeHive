@@ -22,7 +22,7 @@ function AddGroup(props: { userid: string; sendevent: any }) {
   return (
     <div>
       <h1>Add Group</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="Group-AddGroup" onSubmit={handleSubmit}>
         <label> Group Name </label>
         <input
           type="text"
@@ -50,7 +50,7 @@ function AddGroup(props: { userid: string; sendevent: any }) {
           onChange={(e) => setMembers(e.target.value)}
         />
         <br />
-        <input type="submit" value="Submit" />
+        <input className="Group-AddBtn" type="submit" value="Submit" />
       </form>
     </div>
   );
