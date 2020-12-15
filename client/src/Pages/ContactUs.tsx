@@ -11,8 +11,10 @@ function ContactUs() {
           <LogoandTitle />
         </div>
       </div>
-      <div className="ContactUs-Info">
-        <ContactUsInfo />
+      <div className="ContactUs-Body">
+        <div className="ContactUs-Info">
+          <ContactUsInfo />
+        </div>
       </div>
     </div>
   );
