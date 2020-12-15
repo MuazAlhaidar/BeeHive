@@ -16,9 +16,9 @@ function AddGroup(props: { userid: string; sendevent: any }) {
 
   return (
     <div>
-      <h1> Send 'me The Group</h1>
+      <h1>Add Group</h1>
       <form onSubmit={handleSubmit}>
-        <label> Event Name </label>
+        <label> Group Name </label>
         <input
           type="text"
           id="Name"
@@ -58,7 +58,7 @@ function ChangeGroup(props: { Group: any; sendEdit: any }) {
 
   return (
     <div>
-      <h1> Nice </h1>
+      <h1> Edit Group Information </h1>
       <form onSubmit={handleSubmit}>
         <table>
           <tr>
@@ -66,7 +66,7 @@ function ChangeGroup(props: { Group: any; sendEdit: any }) {
               {" "}
               <label>
                 {" "}
-                Event Name<b>:</b>{" "}
+                Group Name<b>:</b>{" "}
               </label>
             </th>
             <th>
@@ -87,7 +87,7 @@ function ChangeGroup(props: { Group: any; sendEdit: any }) {
           <tr>
             <th>
               {" "}
-              <label> Contact Infor </label>{" "}
+              <label> Contact Information </label>{" "}
             </th>
             <th>
               {" "}
@@ -139,7 +139,7 @@ type GroupType = {
   description: string;
 };
 
-function ViewEvents(props: {
+function ViewGroups(props: {
   Groups: any;
   DeleteGroup: any;
   showEditGroup: any;
@@ -157,7 +157,7 @@ function ViewEvents(props: {
           <th>
             <button onClick={() => props.showEditGroup(id)}>
               {" "}
-              Edit Event{" "}
+              Edit Group{" "}
             </button>
           </th>
           <th> {group.name} </th>
@@ -218,7 +218,7 @@ export default class GroupPage extends React.Component<
     }
   }
 
-  EditEvent(name: string, description: string) {
+  EditGroup(name: string, description: string) {
     this.state.groups[this.state.curEditId] = {
       name,
       description,
@@ -232,13 +232,9 @@ export default class GroupPage extends React.Component<
       <div className="Group">
         {this.state.edit ? (
           <div>
-            <h1>
-              {" "}
-              This is a prototype {this.state.curEditId} {this.state.edit}{" "}
-            </h1>
             <ChangeGroup
               Group={this.state.groups[this.state.curEditId]}
-              sendEdit={this.EditEvent.bind(this)}
+              sendEdit={this.EditGroup.bind(this)}
             />
           </div>
         ) : null}
@@ -246,7 +242,7 @@ export default class GroupPage extends React.Component<
           userid={this.props.groupName}
           sendevent={this.getNewGroup.bind(this)}
         />
-        <ViewEvents
+        <ViewGroups
           Groups={this.state.groups}
           DeleteGroup={this.deleteGroup.bind(this)}
           showEditGroup={this.showEditGroup.bind(this)}
