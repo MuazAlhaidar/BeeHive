@@ -35,10 +35,10 @@ function LogIn(props: { setName: any }) {
   function displaystatus() {
     switch (status) {
       case 0:
-        return <h1> Identify yourself </h1>;
+        return <h1> Log In </h1>;
         break;
       case -1:
-        return <h1> Failed hacker </h1>;
+        return <h1> Log in failed </h1>;
         break;
       case 1:
         return (

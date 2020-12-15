@@ -5,11 +5,12 @@
 .App-header {
   /* background-color: #ebc99e; */
 
-  background-color: #fde2c4;
+  background: url("./Images/LogInPage\ -\ Background.png") no-repeat center
+    fixed;
   min-height: 100vh;
   display: flex;
   border: solid black 5px;
-  color: rgb(131, 60, 2);
+  color: rgb(12, 6, 1);
   flex-flow: column wrap;
 }
 
@@ -22,6 +23,9 @@
   justify-content: space-evenly;
   height: 20px;
   width: 100vw;
+  position: fixed;
+  top: 0;
+  background: #ff9d5b;
 }
 
 .App-logo {

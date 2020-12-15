@@ -25,7 +25,7 @@ function AddEvent(props: { userid: string; sendevent: any }) {
 
   return (
     <div>
-      <h1> Send 'me The Event</h1>
+      <h1> Add Event</h1>
       <form onSubmit={handleSubmit}>
         <label> Event Name </label>
         <input
@@ -120,7 +120,7 @@ function ChangeEvent(props: { Event: any; sendEdit: any }) {
 
   return (
     <div>
-      <h1> Oh my GODDD </h1>
+      <h1> Edit Event </h1>
       <form onSubmit={handleSubmit}>
         <table>
           <tr>
@@ -290,16 +290,16 @@ export default class EventPage extends React.Component<
     this.state = {
       events: [
         {
-          name: "muaz roasting event",
-          description: "we gonna roast him so bad",
-          address: "eel street",
-          date: "everyday",
+          name: "HR event",
+          description: "employee engagement",
+          address: "3525 walnut",
+          date: "december 5th",
           time: "12:61",
         },
         {
-          name: "yea yea yea yea!",
-          description: "yeayea",
-          address: "zaki's house",
+          name: "IT event",
+          description: "Employee learning",
+          address: "63542 everything",
           date: "every saturday",
           time: "04:20",
         },

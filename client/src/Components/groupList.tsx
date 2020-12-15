@@ -1,12 +1,12 @@
 import React from "react";
 import LogoAndTitle from "../Components/LogoAndTitle";
-function LogIn() {
+function Group() {
   return (
-    <div className="Login">
-      <header className="Login-Header">
+    <div className="Group">
+      <header className="Group-Header">
         <LogoAndTitle />
       </header>
     </div>
   );
 }
-export default LogIn;
+export default Group;

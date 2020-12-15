@@ -15,8 +15,8 @@ function App() {
         <Router>
           <div className="App-navbar">
             <Link to="/"> Welcome</Link>
-            <Link to="/Events"> Events </Link>
             <Link to="/LogIn"> LogIn </Link>
+            <Link to="/Events"> Events </Link>
             <Link to="/Groups"> Groups </Link>
             <Link to="/ContactUs"> Contact Us </Link>
           </div>
@@ -25,10 +25,11 @@ function App() {
               <div className="App-LogoAndTitle">
                 <LogoAndTitle />
               </div>
-              {name == "" ? <h1>Login</h1> : <h1> Hello {name}</h1>}
-              <p>
-                Welcome to <code>BeeHive</code>!
-              </p>
+              {name == "" ? (
+                <h1>Welcome to beehive</h1>
+              ) : (
+                <h1> Hello {name}</h1>
+              )}
             </Route>
             <Route path="/Events">
               <EventPage userid="MU/ZA" />
