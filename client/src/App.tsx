@@ -14,11 +14,21 @@ function App() {
       <header className="App-header">
         <Router>
           <div className="App-navbar">
-            <Link to="/"> Welcome</Link>
-            <Link to="/LogIn"> LogIn </Link>
-            <Link to="/Events"> Events </Link>
-            <Link to="/Groups"> Groups </Link>
-            <Link to="/ContactUs"> Contact Us </Link>
+            <Link className="App-link" to="/">
+              Welcome
+            </Link>
+            <Link className="App-link" to="/LogIn">
+              LogIn
+            </Link>
+            <Link className="App-link" to="/Events">
+              Events
+            </Link>
+            <Link className="App-link" to="/Groups">
+              Groups
+            </Link>
+            <Link className="App-link" to="/ContactUs">
+              Contact Us
+            </Link>
           </div>
           <Switch>
             <Route exact path="/">

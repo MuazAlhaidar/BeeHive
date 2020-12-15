@@ -33,7 +33,9 @@
 }
 
 .App-link {
-  color: #f58032;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .App-LogoAndTitle {
