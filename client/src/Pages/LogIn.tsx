@@ -53,7 +53,6 @@ function LogIn(props: { setName: any }) {
 
   return (
     <div className="Login">
-      {displaystatus()}
       <div className="Login-Top">
         <div className="Login-TitleAndLogo">
           <LogoAndTitle />
@@ -65,6 +64,7 @@ function LogIn(props: { setName: any }) {
       <div className="Login-LoginPanel">
         <LogInPanel changeUser={checkuser} />
       </div>
+      {displaystatus()}
     </div>
   );
 }
