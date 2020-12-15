@@ -28,6 +28,7 @@ function AddEvent(props: { userid: string; sendevent: any }) {
       <h1> Add Event</h1>
       <form onSubmit={handleSubmit}>
         <label> Event Name </label>
+        <br />
         <input
           type="text"
           id="Name"
