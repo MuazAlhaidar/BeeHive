@@ -62,7 +62,11 @@ function ChangeGroup(props: { Group: any; sendEdit: any }) {
     // TODO create a function to pass the data above to a event class
     // To be appended to a table
     console.log("FUCK", { name }.name, { description }.description);
-    props.sendEdit({ name }.name, { description }.description);
+    props.sendEdit(
+      { name }.name,
+      { description }.description,
+      { members }.members
+    );
   };
 
   return (
@@ -146,6 +150,7 @@ function ChangeGroup(props: { Group: any; sendEdit: any }) {
 type GroupType = {
   name: string;
   description: string;
+  members: string;
 };
 
 function ViewGroups(props: {
@@ -171,6 +176,7 @@ function ViewGroups(props: {
           </th>
           <th> {group.name} </th>
           <th> {group.description}</th>
+          <th> {group.members}</th>
         </tr>
       ))}
     </div>
@@ -193,10 +199,12 @@ export default class GroupPage extends React.Component<
         {
           name: "Good Group",
           description: "777-777-7777",
+          members: "Muaz, Omar",
         },
         {
           name: "Bad Group",
           description: "123-456-7890",
+          members: "Kevin, Zaki",
         },
       ],
       edit: false,
@@ -227,10 +235,11 @@ export default class GroupPage extends React.Component<
     }
   }
 
-  EditGroup(name: string, description: string) {
+  EditGroup(name: string, description: string, members: string) {
     this.state.groups[this.state.curEditId] = {
       name,
       description,
+      members,
     };
     console.log("ROCK", this.state.groups);
     this.setState({ groups: this.state.groups });
