@@ -91,7 +91,7 @@ function AddEvent(props: { userid: string; sendevent: any }) {
 // function AddEvent(props:{userid:string, sendevent:()=>void}){
 // TODO put correct event type
 function ChangeEvent(props: { Event: any; sendEdit: any }) {
-  const [name, setName] = React.useState("");
+  const [Name, setName] = React.useState("");
   const [Description, setDescription] = React.useState("");
   const [Address, setAddress] = React.useState("");
   const [Date, setDate] = React.useState("");
@@ -104,14 +104,14 @@ function ChangeEvent(props: { Event: any; sendEdit: any }) {
     // To be appended to a table
     console.log(
       "FUCK",
-      { name }.name,
+      { Name }.Name,
       { Description }.Description,
       { Address }.Address,
       { Date }.Date,
       { Time }.Time
     );
     props.sendEdit(
-      { name }.name,
+      { Name }.Name,
       { Description }.Description,
       { Address }.Address,
       { Date }.Date,
@@ -141,7 +141,7 @@ function ChangeEvent(props: { Event: any; sendEdit: any }) {
               <input
                 type="text"
                 id="Name"
-                value={name}
+                value={Name}
                 onChange={(e) => setName(e.target.value)}
               />{" "}
             </th>
