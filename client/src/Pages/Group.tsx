@@ -7,6 +7,7 @@ import "../Components/groupList";
 function AddGroup(props: { userid: string; sendevent: any }) {
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
+  const [members, setMembers] = React.useState("");
   const handleSubmit = (evt: any) => {
     evt.preventDefault();
     props.sendevent({ name }.name, { description }.description);
@@ -36,7 +37,15 @@ function AddGroup(props: { userid: string; sendevent: any }) {
         />
         {/* <label> AuthorID </label><br/> */}
         {/* <input type="text" id="AuthorID" value={AuthorID} onChange={e => setAuthorID(e.target.value)} /><br/> */}
-
+        <br />
+        <label> Members </label>
+        <input
+          type="text"
+          id="Members"
+          value={members}
+          onChange={(e) => setMembers(e.target.value)}
+        />
+        <br />
         <input type="submit" value="Submit" />
       </form>
     </div>
