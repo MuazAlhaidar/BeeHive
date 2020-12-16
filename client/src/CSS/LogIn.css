@@ -12,6 +12,7 @@
 }
 
 .Login-SignUpButton {
+  align-self: flex-end;
   margin-right: 2vw;
 }
 
@@ -22,8 +23,8 @@
 
 .Login-Top {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-end;
   width: 100vw;
+  height: fit-content;
 }

@@ -16,16 +16,30 @@
 
 .App-navbar {
   display: flex;
-  border: solid red 2px;
   color: #f58032;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-evenly;
-  height: 20px;
+  height: 60px;
+  align-items: center;
   width: 100vw;
   position: fixed;
   top: 0;
-  background: #ff9d5b;
+  background: white;
+  border-bottom: 2px solid #f58032;
+}
+
+.App-Logo {
+  display: flex;
+  flex-grow: 1;
+  justify-content: left;
+  padding-left: 2vw;
+}
+
+.App-Links {
+  display: flex;
+  flex-grow: 8;
+  justify-content: space-around;
 }
 
 .App-logo {
@@ -33,7 +47,7 @@
 }
 
 .App-link {
-  color: white;
+  color: #f58032;
   font-weight: 600;
   text-decoration: none;
 }
@@ -41,4 +55,8 @@
 .App-LogoAndTitle {
   display: flex;
   width: fit-content;
+}
+
+body {
+  padding-top: 65px;
 }

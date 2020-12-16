@@ -54,12 +54,7 @@ function LogIn(props: { setName: any }) {
   return (
     <div className="Login">
       <div className="Login-Top">
-        <div className="Login-TitleAndLogo">
-          <LogoAndTitle />
-        </div>
-        <div className="Login-SignUpButton">
-          <SignUpButton />
-        </div>
+        <SignUpButton />
       </div>
       <div className="Login-LoginPanel">
         <LogInPanel changeUser={checkuser} />

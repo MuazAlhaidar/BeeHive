@@ -362,7 +362,7 @@ export default class EventPage extends React.Component<
   render() {
     console.log(this.state.curEditId, this.state.edit);
     return (
-      <div>
+      <div className="Events">
         {this.state.edit ? (
           <div>
             <h1>
