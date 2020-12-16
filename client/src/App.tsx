@@ -23,9 +23,6 @@ function App() {
               <Link className="App-link" to="/">
                 Welcome
               </Link>
-              <Link className="App-link" to="/LogIn">
-                LogIn
-              </Link>
               <Link className="App-link" to="/Events">
                 Events
               </Link>
@@ -49,18 +46,24 @@ function App() {
               )}
             </Route>
             <Route path="/Events">
-              <EventPage userid="MU/ZA" />
+              {name == "" ? (
+                <LogIn setName={setName} />
+              ) : (
+                <EventPage userid="MU/ZA" />
+              )}
             </Route>
             <Route path="/LogIn">
-              {/* <LogIn setuser={setName}/> */}
               <LogIn setName={setName} />
             </Route>
             <Route path="/Signup">
-              {/* <LogIn setuser={setName}/> */}
               <SignUp setName={setName} />
             </Route>
             <Route path="/Groups">
-              <GroupPage groupName="kevin cool" />
+              {name == "" ? (
+                <LogIn setName={setName} />
+              ) : (
+                <GroupPage groupName="kevin cool" />
+              )}
             </Route>
             <Route path="/ContactUs">
               <ContactUs />
