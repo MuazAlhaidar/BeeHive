@@ -1,4 +1,5 @@
 import * as React from "react";
+import "../CSS/Events.css";
 
 // export default function AddEvent(){
 // export default const AddEvent: React.FC = () => {
@@ -80,7 +81,7 @@ function AddEvent(props: { userid: string; sendevent: any }) {
         {/* <label> AuthorID </label><br/> */}
         {/* <input type="text" id="AuthorID" value={AuthorID} onChange={e => setAuthorID(e.target.value)} /><br/> */}
 
-        <input type="submit" value="Submit" />
+        <input className="Events-AddBtn" type="submit" value="Submit" />
       </form>
     </div>
   );
@@ -126,14 +127,9 @@ function ChangeEvent(props: { Event: any; sendEdit: any }) {
         <table>
           <tr>
             <th>
-              {" "}
-              <label>
-                {" "}
-                Event Name<b>:</b>{" "}
-              </label>
+              <label>Event Name:</label>
             </th>
             <th>
-              {" "}
               <label> {props.Event.name} </label>
             </th>
             <th>
@@ -150,7 +146,7 @@ function ChangeEvent(props: { Event: any; sendEdit: any }) {
           <tr>
             <th>
               {" "}
-              <label> Description </label>{" "}
+              <label> Description: </label>{" "}
             </th>
             <th>
               {" "}
@@ -170,7 +166,7 @@ function ChangeEvent(props: { Event: any; sendEdit: any }) {
           <tr>
             <th>
               {" "}
-              <label> Address </label>{" "}
+              <label> Address: </label>{" "}
             </th>
             <th>
               {" "}
@@ -190,7 +186,7 @@ function ChangeEvent(props: { Event: any; sendEdit: any }) {
           <tr>
             <th>
               {" "}
-              <label> Date </label>{" "}
+              <label> Date: </label>{" "}
             </th>
             <th>
               {" "}
@@ -210,7 +206,7 @@ function ChangeEvent(props: { Event: any; sendEdit: any }) {
           <tr>
             <th>
               {" "}
-              <label> Time </label>{" "}
+              <label> Time: </label>{" "}
             </th>
             <th>
               {" "}
@@ -228,7 +224,11 @@ function ChangeEvent(props: { Event: any; sendEdit: any }) {
           </tr>
 
           <tr>
-            <input type="submit" value="Change Entry?" />
+            <input
+              className="Events-EditEvents"
+              type="submit"
+              value="Change Entry?"
+            />
           </tr>
         </table>
       </form>
@@ -255,13 +255,19 @@ function ViewEvents(props: {
       {props.Events.map((event: EventType, id: number) => (
         <tr>
           <th>
-            <button onClick={() => props.DeleteEvents(id)}>
+            <button
+              className="Events-DeleteEvents"
+              onClick={() => props.DeleteEvents(id)}
+            >
               {" "}
               Delete Event{" "}
             </button>
           </th>
           <th>
-            <button onClick={() => props.showEditEvent(id)}>
+            <button
+              className="Events-EditEvents"
+              onClick={() => props.showEditEvent(id)}
+            >
               {" "}
               Edit Event{" "}
             </button>
@@ -322,9 +328,9 @@ export default class EventPage extends React.Component<
 
   deleteEvent(id: number) {
     alert(
-      "Email people goign to event " +
+      "Email people going to event " +
         this.state.events[id].name +
-        " about the event's cancelilation"
+        " about the event's cancelation"
     );
     this.state.events.splice(id, 1);
     this.setState({ events: this.state.events });
