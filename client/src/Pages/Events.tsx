@@ -371,10 +371,6 @@ export default class EventPage extends React.Component<
       <div className="Events">
         {this.state.edit ? (
           <div>
-            <h1>
-              {" "}
-              Rocka hola {this.state.curEditId} {this.state.edit}{" "}
-            </h1>
             <ChangeEvent
               Event={this.state.events[this.state.curEditId]}
               sendEdit={this.EditEvent.bind(this)}
