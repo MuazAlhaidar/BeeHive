@@ -167,32 +167,34 @@ function ViewGroups(props: {
   showEditGroup: any;
 }) {
   return (
-    <div>
-      {props.Groups.map((group: GroupType, id: number) => (
-        <tr>
-          <th>
-            <button
-              className="Group-DeleteGroup"
-              onClick={() => props.DeleteGroup(id)}
-            >
-              {" "}
-              Delete Group{" "}
-            </button>
-          </th>
-          <th>
-            <button
-              className="Group-EditGroup"
-              onClick={() => props.showEditGroup(id)}
-            >
-              {" "}
-              Edit Group{" "}
-            </button>
-          </th>
-          <th> {group.name} </th>
-          <th> {group.description}</th>
-          <th> {group.members}</th>
-        </tr>
-      ))}
+    <div className="Group-GroupListBox">
+      <div className="Group-GroupList">
+        {props.Groups.map((group: GroupType, id: number) => (
+          <tr>
+            <th>
+              <button
+                className="Group-DeleteGroup"
+                onClick={() => props.DeleteGroup(id)}
+              >
+                {" "}
+                Delete Group{" "}
+              </button>
+            </th>
+            <th>
+              <button
+                className="Group-EditGroup"
+                onClick={() => props.showEditGroup(id)}
+              >
+                {" "}
+                Edit Group{" "}
+              </button>
+            </th>
+            <th> {group.name} </th>
+            <th> {group.description}</th>
+            <th> {group.members}</th>
+          </tr>
+        ))}
+      </div>
     </div>
   );
 }

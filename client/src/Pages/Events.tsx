@@ -251,34 +251,36 @@ function ViewEvents(props: {
   showEditEvent: any;
 }) {
   return (
-    <div>
-      {props.Events.map((event: EventType, id: number) => (
-        <tr>
-          <th>
-            <button
-              className="Events-DeleteEvents"
-              onClick={() => props.DeleteEvents(id)}
-            >
-              {" "}
-              Delete Event{" "}
-            </button>
-          </th>
-          <th>
-            <button
-              className="Events-EditEvents"
-              onClick={() => props.showEditEvent(id)}
-            >
-              {" "}
-              Edit Event{" "}
-            </button>
-          </th>
-          <th> {event.name} </th>
-          <th> {event.description} </th>
-          <th> {event.address} </th>
-          <th> {event.date} </th>
-          <th> {event.time} </th>
-        </tr>
-      ))}
+    <div className="Events-EventListBox">
+      <div className="Events-EventList">
+        {props.Events.map((event: EventType, id: number) => (
+          <tr>
+            <th>
+              <button
+                className="Events-DeleteEvents"
+                onClick={() => props.DeleteEvents(id)}
+              >
+                {" "}
+                Delete Event{" "}
+              </button>
+            </th>
+            <th>
+              <button
+                className="Events-EditEvents"
+                onClick={() => props.showEditEvent(id)}
+              >
+                {" "}
+                Edit Event{" "}
+              </button>
+            </th>
+            <th> {event.name} </th>
+            <th> {event.description} </th>
+            <th> {event.address} </th>
+            <th> {event.date} </th>
+            <th> {event.time} </th>
+          </tr>
+        ))}
+      </div>
     </div>
   );
 }
