@@ -1,7 +1,6 @@
 import React from "react";
 import LogoAndTitle from "../Components/LogoAndTitle";
-import LogInPanel from "../Components/LogInPanel";
-import SignUpButton from "../Components/SignUpButton";
+import SignInPanel from "../Components/SignInPanel";
 
 import { Link, Redirect } from "react-router-dom";
 import "../CSS/LogIn.css";
@@ -35,7 +34,7 @@ function LogIn(props: { setName: any }) {
   function displaystatus() {
     switch (status) {
       case 0:
-        return <h1> Log In </h1>;
+        return <h1> Sign Up </h1>;
         break;
       case -1:
         return <h1> Log in failed </h1>;
@@ -57,12 +56,9 @@ function LogIn(props: { setName: any }) {
         <div className="Login-TitleAndLogo">
           <LogoAndTitle />
         </div>
-        <div className="Login-SignUpButton">
-          <SignUpButton />
-        </div>
       </div>
-      <div className="Login-LoginPanel">
-        <LogInPanel changeUser={checkuser} />
+      <div className="Login-SignInPanel">
+        <SignInPanel changeUser={checkuser} />
       </div>
       {displaystatus()}
     </div>
