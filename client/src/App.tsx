@@ -41,7 +41,7 @@ function App() {
             <Route exact path="/">
               {name == "" ? (
                 <div>
-                  <h1>Welcome to beehive</h1>
+                  <h1>Welcome to BeeHive</h1>
                   <img src={Logo} width="222" height="200" />
                 </div>
               ) : (
