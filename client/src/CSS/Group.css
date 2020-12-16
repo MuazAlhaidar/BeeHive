@@ -34,14 +34,14 @@
 
 .Group-DeleteGroup {
   background-color: #ffffff;
-  border: 2px solid lightgray;
+  border: 1px solid lightgray;
   color: #ff9442;
   box-shadow: 3px 3px 5px gray;
   width: fit-content;
   height: 30px;
   border-radius: 5px;
   font-weight: bold;
-  margin: 10px 2px 10px 10px;
+  margin: 10px 5px 10px 10px;
 }
 
 .Group-GroupListBox {
@@ -54,4 +54,30 @@
   background-color: #f7f2eb;
   border-radius: 5px;
   width: 900px;
+}
+
+.Group-GroupListLabels {
+  padding-left: 100px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.Group-GroupInfo {
+  display: flex;
+  flex-grow: 1;
+  width: 615px;
+  margin-left: 10px;
+  justify-content: space-between;
+}
+
+.Group-EditGroupForm {
+  border: 1px solid #ff9442;
+  background-color: #f7f2eb;
+  border-radius: 5px;
+  width: 450px;
+}
+
+.Group-EditGroupFormBox {
+  display: flex;
+  justify-content: center;
 }

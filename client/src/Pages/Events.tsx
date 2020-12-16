@@ -123,115 +123,119 @@ function ChangeEvent(props: { Event: any; sendEdit: any }) {
   return (
     <div>
       <h1> Edit Event </h1>
-      <form onSubmit={handleSubmit}>
-        <table>
-          <tr>
-            <th>
-              <label>Event Name:</label>
-            </th>
-            <th>
-              <label> {props.Event.name} </label>
-            </th>
-            <th>
-              {" "}
-              <input
-                type="text"
-                id="Name"
-                value={Name}
-                onChange={(e) => setName(e.target.value)}
-              />{" "}
-            </th>
-          </tr>
+      <div className="Event-EditEventFormBox">
+        <div className="Event-EditEventForm">
+          <form onSubmit={handleSubmit}>
+            <table>
+              <tr>
+                <th>
+                  <label>Event Name:</label>
+                </th>
+                <th>
+                  <label> {props.Event.name} </label>
+                </th>
+                <th>
+                  {" "}
+                  <input
+                    type="text"
+                    id="Name"
+                    value={Name}
+                    onChange={(e) => setName(e.target.value)}
+                  />{" "}
+                </th>
+              </tr>
 
-          <tr>
-            <th>
-              {" "}
-              <label> Description: </label>{" "}
-            </th>
-            <th>
-              {" "}
-              <label> {props.Event.description}</label>{" "}
-            </th>
-            <th>
-              {" "}
-              <input
-                type="text"
-                id="Description"
-                value={Description}
-                onChange={(e) => setDescription(e.target.value)}
-              />{" "}
-            </th>
-          </tr>
+              <tr>
+                <th>
+                  {" "}
+                  <label> Description: </label>{" "}
+                </th>
+                <th>
+                  {" "}
+                  <label> {props.Event.description}</label>{" "}
+                </th>
+                <th>
+                  {" "}
+                  <input
+                    type="text"
+                    id="Description"
+                    value={Description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />{" "}
+                </th>
+              </tr>
 
-          <tr>
-            <th>
-              {" "}
-              <label> Address: </label>{" "}
-            </th>
-            <th>
-              {" "}
-              <label> {props.Event.address}</label>{" "}
-            </th>
-            <th>
-              {" "}
-              <input
-                type="text"
-                id="Address"
-                value={Address}
-                onChange={(e) => setAddress(e.target.value)}
-              />{" "}
-            </th>
-          </tr>
+              <tr>
+                <th>
+                  {" "}
+                  <label> Address: </label>{" "}
+                </th>
+                <th>
+                  {" "}
+                  <label> {props.Event.address}</label>{" "}
+                </th>
+                <th>
+                  {" "}
+                  <input
+                    type="text"
+                    id="Address"
+                    value={Address}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />{" "}
+                </th>
+              </tr>
 
-          <tr>
-            <th>
-              {" "}
-              <label> Date: </label>{" "}
-            </th>
-            <th>
-              {" "}
-              <label> {props.Event.date}</label>{" "}
-            </th>
-            <th>
-              {" "}
-              <input
-                type="text"
-                id="Date"
-                value={Date}
-                onChange={(e) => setDate(e.target.value)}
-              />{" "}
-            </th>
-          </tr>
+              <tr>
+                <th>
+                  {" "}
+                  <label> Date: </label>{" "}
+                </th>
+                <th>
+                  {" "}
+                  <label> {props.Event.date}</label>{" "}
+                </th>
+                <th>
+                  {" "}
+                  <input
+                    type="text"
+                    id="Date"
+                    value={Date}
+                    onChange={(e) => setDate(e.target.value)}
+                  />{" "}
+                </th>
+              </tr>
 
-          <tr>
-            <th>
-              {" "}
-              <label> Time: </label>{" "}
-            </th>
-            <th>
-              {" "}
-              <label> {props.Event.time}</label>{" "}
-            </th>
-            <th>
-              {" "}
-              <input
-                type="text"
-                id="Time"
-                value={Time}
-                onChange={(e) => setTime(e.target.value)}
-              />{" "}
-            </th>
-          </tr>
+              <tr>
+                <th>
+                  {" "}
+                  <label> Time: </label>{" "}
+                </th>
+                <th>
+                  {" "}
+                  <label> {props.Event.time}</label>{" "}
+                </th>
+                <th>
+                  {" "}
+                  <input
+                    type="text"
+                    id="Time"
+                    value={Time}
+                    onChange={(e) => setTime(e.target.value)}
+                  />{" "}
+                </th>
+              </tr>
 
-          <tr>
-            <input
-              className="Events-EditEvents"
-              type="submit"
-              value="Change Entry?"
-            />
-          </tr>
-        </table>
-      </form>
+              <tr>
+                <input
+                  className="Events-EditEvents"
+                  type="submit"
+                  value="Change Entry?"
+                />
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
@@ -253,6 +257,13 @@ function ViewEvents(props: {
   return (
     <div className="Events-EventListBox">
       <div className="Events-EventList">
+        <div className="Events-EventsListLabels">
+          <th>Names</th>
+          <th>Descrip.</th>
+          <th>Add.</th>
+          <th>Date</th>
+          <th>Time</th>
+        </div>
         {props.Events.map((event: EventType, id: number) => (
           <tr>
             <th>
@@ -273,11 +284,13 @@ function ViewEvents(props: {
                 Edit Event{" "}
               </button>
             </th>
-            <th> {event.name} </th>
-            <th> {event.description} </th>
-            <th> {event.address} </th>
-            <th> {event.date} </th>
-            <th> {event.time} </th>
+            <div className="Events-EventsInfo">
+              <th> {event.name} </th>
+              <th> {event.description} </th>
+              <th> {event.address} </th>
+              <th> {event.date} </th>
+              <th> {event.time} </th>
+            </div>
           </tr>
         ))}
       </div>
@@ -300,16 +313,16 @@ export default class EventPage extends React.Component<
       events: [
         {
           name: "HR event",
-          description: "employee engagement",
-          address: "3525 walnut",
-          date: "december 5th",
+          description: "Employee Greeting",
+          address: "3525 Walnut",
+          date: "12/5/2020",
           time: "12:61",
         },
         {
-          name: "IT event",
-          description: "Employee learning",
-          address: "63542 everything",
-          date: "every saturday",
+          name: "GH event",
+          description: "Employee Learning",
+          address: "4456 Sanitiy",
+          date: "12/6/2020",
           time: "04:20",
         },
       ],

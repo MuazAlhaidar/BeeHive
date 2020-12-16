@@ -76,81 +76,85 @@ function ChangeGroup(props: { Group: any; sendEdit: any }) {
   return (
     <div>
       <h1> Edit Group Information </h1>
-      <form onSubmit={handleSubmit}>
-        <table>
-          <tr>
-            <th>
-              {" "}
-              <label>
-                {" "}
-                Group Name<b>:</b>{" "}
-              </label>
-            </th>
-            <th>
-              {" "}
-              <label> {props.Group.name} </label>
-            </th>
-            <th>
-              {" "}
-              <input
-                type="text"
-                id="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />{" "}
-            </th>
-          </tr>
+      <div className="Group-EditGroupFormBox">
+        <div className="Group-EditGroupForm">
+          <form onSubmit={handleSubmit}>
+            <table>
+              <tr>
+                <th>
+                  {" "}
+                  <label>
+                    {" "}
+                    Group Name<b>:</b>{" "}
+                  </label>
+                </th>
+                <th>
+                  {" "}
+                  <label> {props.Group.name} </label>
+                </th>
+                <th>
+                  {" "}
+                  <input
+                    type="text"
+                    id="Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />{" "}
+                </th>
+              </tr>
 
-          <tr>
-            <th>
-              {" "}
-              <label> Contact Information: </label>{" "}
-            </th>
-            <th>
-              {" "}
-              <label> {props.Group.description}</label>{" "}
-            </th>
+              <tr>
+                <th>
+                  {" "}
+                  <label> Contact Information: </label>{" "}
+                </th>
+                <th>
+                  {" "}
+                  <label> {props.Group.description}</label>{" "}
+                </th>
 
-            <th>
-              {" "}
-              <input
-                type="text"
-                id="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />{" "}
-            </th>
-          </tr>
+                <th>
+                  {" "}
+                  <input
+                    type="text"
+                    id="Description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />{" "}
+                </th>
+              </tr>
 
-          <tr>
-            <th>
-              {" "}
-              <label> Members: </label>{" "}
-            </th>
-            <th>
-              {" "}
-              <label> {props.Group.members}</label>{" "}
-            </th>
+              <tr>
+                <th>
+                  {" "}
+                  <label> Members: </label>{" "}
+                </th>
+                <th>
+                  {" "}
+                  <label> {props.Group.members}</label>{" "}
+                </th>
 
-            <th>
-              {" "}
-              <input
-                type="text"
-                id="Members"
-                value={members}
-                onChange={(e) => setMembers(e.target.value)}
-              />{" "}
-            </th>
-          </tr>
-          <tr>
-            <input
-              className="Group-EditGroup"
-              type="submit"
-              value="Change Entry?"
-            />
-          </tr>
-        </table>
-      </form>
+                <th>
+                  {" "}
+                  <input
+                    type="text"
+                    id="Members"
+                    value={members}
+                    onChange={(e) => setMembers(e.target.value)}
+                  />{" "}
+                </th>
+              </tr>
+              <tr>
+                <input
+                  className="Group-EditGroup"
+                  type="submit"
+                  value="Change Entry?"
+                />
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
@@ -169,6 +173,11 @@ function ViewGroups(props: {
   return (
     <div className="Group-GroupListBox">
       <div className="Group-GroupList">
+        <div className="Group-GroupListLabels">
+          <th>Name</th>
+          <th>Contact</th>
+          <th>Members</th>
+        </div>
         {props.Groups.map((group: GroupType, id: number) => (
           <tr>
             <th>
@@ -189,9 +198,11 @@ function ViewGroups(props: {
                 Edit Group{" "}
               </button>
             </th>
-            <th> {group.name} </th>
-            <th> {group.description}</th>
-            <th> {group.members}</th>
+            <div className="Group-GroupInfo">
+              <th> {group.name} </th>
+              <th> {group.description}</th>
+              <th> {group.members}</th>
+            </div>
           </tr>
         ))}
       </div>
