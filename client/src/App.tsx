@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import EventPage from "./Pages/Events";
 import GroupPage from "./Pages/Group";
 import LogIn from "./Pages/LogIn";
+import SignUp from "./Pages/SignUp";
 import ContactUs from "./Pages/ContactUs";
 import LogoAndTitle from "./Components/LogoAndTitle";
 
@@ -29,6 +30,10 @@ function App() {
             <Link className="App-link" to="/ContactUs">
               Contact Us
             </Link>
+
+            <Link className="App-link" to="/SignUp">
+                    Sign Up
+            </Link>
           </div>
           <Switch>
             <Route exact path="/">
@@ -47,6 +52,10 @@ function App() {
             <Route path="/LogIn">
               {/* <LogIn setuser={setName}/> */}
               <LogIn setName={setName} />
+            </Route>
+            <Route path="/Signup">
+              {/* <LogIn setuser={setName}/> */}
+              <SignUp setName={setName} />
             </Route>
             <Route path="/Groups">
               <GroupPage groupName="kevin cool" />
