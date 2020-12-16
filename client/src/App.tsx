@@ -7,6 +7,7 @@ import LogIn from "./Pages/LogIn";
 import SignUp from "./Pages/SignUp";
 import ContactUs from "./Pages/ContactUs";
 import LogoAndTitle from "./Components/LogoAndTitle";
+import Logo from "./Images/Members App Logo - White Large.png";
 
 function App() {
   const [name, setName] = React.useState("");
@@ -15,33 +16,34 @@ function App() {
       <header className="App-header">
         <Router>
           <div className="App-navbar">
-            <Link className="App-link" to="/">
-              Welcome
-            </Link>
-            <Link className="App-link" to="/LogIn">
-              LogIn
-            </Link>
-            <Link className="App-link" to="/Events">
-              Events
-            </Link>
-            <Link className="App-link" to="/Groups">
-              Groups
-            </Link>
-            <Link className="App-link" to="/ContactUs">
-              Contact Us
-            </Link>
-
-            <Link className="App-link" to="/SignUp">
-                    Sign Up
-            </Link>
+            <div className="App-Logo">
+              <img src={Logo} width="50" height="45" />
+            </div>
+            <div className="App-Links">
+              <Link className="App-link" to="/">
+                Welcome
+              </Link>
+              <Link className="App-link" to="/LogIn">
+                LogIn
+              </Link>
+              <Link className="App-link" to="/Events">
+                Events
+              </Link>
+              <Link className="App-link" to="/Groups">
+                Groups
+              </Link>
+              <Link className="App-link" to="/ContactUs">
+                Contact Us
+              </Link>
+            </div>
           </div>
           <Switch>
             <Route exact path="/">
-              <div className="App-LogoAndTitle">
-                <LogoAndTitle />
-              </div>
               {name == "" ? (
-                <h1>Welcome to beehive</h1>
+                <div>
+                  <h1>Welcome to beehive</h1>
+                  <img src={Logo} width="222" height="200" />
+                </div>
               ) : (
                 <h1> Hello {name}</h1>
               )}

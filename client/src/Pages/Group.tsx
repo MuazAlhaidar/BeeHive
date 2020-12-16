@@ -104,7 +104,7 @@ function ChangeGroup(props: { Group: any; sendEdit: any }) {
           <tr>
             <th>
               {" "}
-              <label> Contact Information </label>{" "}
+              <label> Contact Information: </label>{" "}
             </th>
             <th>
               {" "}
@@ -125,7 +125,7 @@ function ChangeGroup(props: { Group: any; sendEdit: any }) {
           <tr>
             <th>
               {" "}
-              <label> Members </label>{" "}
+              <label> Members: </label>{" "}
             </th>
             <th>
               {" "}

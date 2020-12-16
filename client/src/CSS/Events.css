@@ -1,15 +1,9 @@
-.Group {
+.Events {
   flex-grow: 1;
   height: 100vh;
 }
 
-.Group-AddGroup {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.Group-AddBtn {
+.Events-AddBtn {
   background-color: #ff9442;
   border: 1px solid #ff9442;
   box-shadow: 3px 3px 5px gray;
@@ -22,7 +16,7 @@
   margin-bottom: 10px;
 }
 
-.Group-EditGroup {
+.Events-EditEvents {
   background-color: #ff9442;
   border: 1px solid black;
   color: #ffffff;
@@ -32,7 +26,7 @@
   font-weight: bold;
 }
 
-.Group-DeleteGroup {
+.Events-DeleteEvents {
   background-color: #ffffff;
   border: 2px solid lightgray;
   color: #ff9442;
