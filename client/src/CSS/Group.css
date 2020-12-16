@@ -22,3 +22,25 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.Group-EditGroup {
+  background-color: #ff9442;
+  border: 1px solid black;
+  color: #ffffff;
+  width: fit-content;
+  height: 30px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.Group-DeleteGroup {
+  background-color: #ffffff;
+  border: 2px solid lightgray;
+  color: #ff9442;
+  box-shadow: 3px 3px 5px gray;
+  width: fit-content;
+  height: 30px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin: 10px 2px 10px 10px;
+}

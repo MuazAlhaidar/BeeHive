@@ -143,7 +143,11 @@ function ChangeGroup(props: { Group: any; sendEdit: any }) {
             </th>
           </tr>
           <tr>
-            <input type="submit" value="Change Entry?" />
+            <input
+              className="Group-EditGroup"
+              type="submit"
+              value="Change Entry?"
+            />
           </tr>
         </table>
       </form>
@@ -167,13 +171,19 @@ function ViewGroups(props: {
       {props.Groups.map((group: GroupType, id: number) => (
         <tr>
           <th>
-            <button onClick={() => props.DeleteGroup(id)}>
+            <button
+              className="Group-DeleteGroup"
+              onClick={() => props.DeleteGroup(id)}
+            >
               {" "}
               Delete Group{" "}
             </button>
           </th>
           <th>
-            <button onClick={() => props.showEditGroup(id)}>
+            <button
+              className="Group-EditGroup"
+              onClick={() => props.showEditGroup(id)}
+            >
               {" "}
               Edit Group{" "}
             </button>
