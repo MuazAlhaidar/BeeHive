@@ -17,7 +17,7 @@ function App() {
         <Router>
           <div className="App-navbar">
             <div className="App-Logo">
-              <img src={Logo} width="50" height="45" />
+              <LogoAndTitle />
             </div>
             <div className="App-Links">
               <Link className="App-link" to="/">
