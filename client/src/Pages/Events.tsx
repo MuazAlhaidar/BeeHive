@@ -352,8 +352,7 @@ export default class EventPage extends React.Component<
   }
 
   showEditEvent(id: number) {
-    let currEvent = this.state.events[id];
-    if (id == this.state.curEditId) {
+    if (id === this.state.curEditId) {
       this.setState({ edit: !this.state.edit });
       this.setState({ curEditId: -1 });
     } else {

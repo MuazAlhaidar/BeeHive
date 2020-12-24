@@ -6,7 +6,7 @@ import "../CSS/LogoAndTitle.css";
 function LogoAndTitle() {
   return (
     <div className="Logo">
-      <img src={logo} className="Logo-Img" />
+      <img src={logo} alt="BeeHive Logo" className="Logo-Img" />
       <h1 className="Logo-Font">BeeHive</h1>
     </div>
   );

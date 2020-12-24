@@ -1,9 +1,8 @@
 import React from "react";
-import LogoAndTitle from "../Components/LogoAndTitle";
 import LogInPanel from "../Components/LogInPanel";
 import SignUpButton from "../Components/SignUpButton";
 
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import "../CSS/LogIn.css";
 type UserType = { username: string; password: string };
 
@@ -21,7 +20,7 @@ function LogIn(props: { setName: any }) {
   ]);
 
   function checkuser(username: string, password: string): boolean {
-    if (Users.get(username) == password) {
+    if (Users.get(username) === password) {
       setUser(username);
       setStatus(1);
       props.setName(username);
@@ -36,10 +35,8 @@ function LogIn(props: { setName: any }) {
     switch (status) {
       case 0:
         return <h1> Log In </h1>;
-        break;
       case -1:
         return <h1> Log in failed </h1>;
-        break;
       case 1:
         return (
           <div>
@@ -47,7 +44,6 @@ function LogIn(props: { setName: any }) {
             <h1> Welcome {user} </h1> <Redirect push to="/" />{" "}
           </div>
         );
-        break;
     }
   }
 

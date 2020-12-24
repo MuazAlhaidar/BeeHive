@@ -1,18 +1,12 @@
 import React from "react";
-import LogoAndTitle from "../Components/LogoAndTitle";
 import SignInPanel from "../Components/SignInPanel";
 
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import "../CSS/LogIn.css";
-type UserType = { username: string; password: string };
 
 function LogIn(props: { setName: any }) {
   const [user, setUser] = React.useState("");
   const [status, setStatus] = React.useState(0);
-  var listUsers = [
-    { username: "user", password: "pass" },
-    { username: "admin", password: "pass" },
-  ];
   let Users = new Map([
     ["user", "pass"],
     ["admin", "pass"],
@@ -35,10 +29,8 @@ function LogIn(props: { setName: any }) {
     switch (status) {
       case 0:
         return <h1> Sign Up </h1>;
-        break;
       case -1:
         return <h1> Log in failed </h1>;
-        break;
       case 1:
         return (
           <div>
@@ -46,7 +38,6 @@ function LogIn(props: { setName: any }) {
             <h1> Welcome {user} </h1> <Redirect push to="/" />{" "}
           </div>
         );
-        break;
     }
   }
 

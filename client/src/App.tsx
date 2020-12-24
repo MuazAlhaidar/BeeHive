@@ -36,17 +36,17 @@ function App() {
           </div>
           <Switch>
             <Route exact path="/">
-              {name == "" ? (
+              {name === "" ? (
                 <div>
                   <h1>Welcome to BeeHive</h1>
-                  <img src={Logo} width="222" height="200" />
+                  <img src={Logo} alt="BeeHive Logo" width="222" height="200" />
                 </div>
               ) : (
                 <h1> Hello {name}</h1>
               )}
             </Route>
             <Route path="/Events">
-              {name == "" ? (
+              {name === "" ? (
                 <LogIn setName={setName} />
               ) : (
                 <EventPage userid="MU/ZA" />
@@ -59,7 +59,7 @@ function App() {
               <SignUp setName={setName} />
             </Route>
             <Route path="/Groups">
-              {name == "" ? (
+              {name === "" ? (
                 <LogIn setName={setName} />
               ) : (
                 <GroupPage groupName="kevin cool" />

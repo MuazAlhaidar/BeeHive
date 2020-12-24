@@ -1,5 +1,4 @@
 import React from "react";
-import LogoandTitle from "../Components/LogoAndTitle";
 import ContactUsInfo from "../Components/ContactUsInfo";
 import "../CSS/ContactUs.css";
 

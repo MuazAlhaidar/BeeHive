@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import "../CSS/Group.css";
-import LogoAndTitle from "../Components/LogoAndTitle";
-import { group } from "console";
 import "../Components/groupList";
 
 function AddGroup(props: { userid: string; sendevent: any }) {
@@ -252,8 +250,7 @@ export default class GroupPage extends React.Component<
     this.setState({ groups: this.state.groups });
   }
   showEditGroup(id: number) {
-    let currEvent = this.state.groups[id];
-    if (id == this.state.curEditId) {
+    if (id === this.state.curEditId) {
       this.setState({ edit: !this.state.edit });
       this.setState({ curEditId: -1 });
     } else {
