@@ -26,6 +26,12 @@ function App() {
               <Link className="App-link" to="/Events">
                 Events
               </Link>
+              <Link className="App-link" to="/MyEvents">
+                MyEvents
+              </Link>
+              <Link className="App-link" to="/MyGroups">
+                MyGroups
+              </Link>
               <Link className="App-link" to="/Groups">
                 Groups
               </Link>
@@ -68,6 +74,8 @@ function App() {
             <Route path="/ContactUs">
               <ContactUs />
             </Route>
+            <Route path="/MyEvents"></Route>
+            <Route path="/MyGroups"></Route>
           </Switch>
         </Router>
       </header>
