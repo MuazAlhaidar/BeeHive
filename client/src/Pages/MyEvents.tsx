@@ -36,12 +36,11 @@ function MyEvents() {
     }
   );
   const [events, setEvents] = React.useState(fakeEvents);
-  const [reset, setReset] = React.useState(true);
-  let eventIndex = 0;
+  const [eventIndex, setEventIndex] = React.useState(0);
 
   const selectEvent = (i: number) => {
-    eventIndex = i === undefined ? 0 : i;
-    setReset(!reset);
+    let index = i === undefined ? 0 : i;
+    setEventIndex(index);
   };
 
   const addEvent = (
