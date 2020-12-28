@@ -1,5 +1,5 @@
 module.exports ={
 	user: "rwx",
-	pass: "Death to them.",
+	pass: "I am Sofa King.",
 	database: "dev-student"
 }

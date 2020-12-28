@@ -12,10 +12,12 @@ router.get('/', (req,res)=>{
 
 router.post("/new", (req,res)=>{
 	const newProject = Project.build({
-		title: "Joesph joestar",
-		description: "Hermit a purple"
+		stand_user: "Joesph joestar",
+		stand: "Hermit a purple"
+                ,gay:9
 	});
-	newProject.save().then(pos => console.log("Wowee")).catch(err => console.log(err));
+        newProject.save().then(res => res.json(res)).catch(err => res.status(404).send(err))
+	// newProject.save().then(pos => console.log("Wowee")).catch(err => console.log(err));
 
 
 });

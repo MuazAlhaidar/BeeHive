@@ -7,21 +7,18 @@ const sequelize = new Sequelize(_config.database, _config.user, _config.pass, {
 
 
 const Project = sequelize.define('project', {
-	title: {
+	stand_user: {
 		type: Sequelize.STRING,
 		allowNull: false
 	},
-	jotario:{
-		type: Sequelize.STRING,
+	gay:{
+		type: Sequelize.INTEGER,
 		allowNull: false
 	},
-	description:{
+	stand:{
 		type: Sequelize.TEXT,
 		allowNull: false
-	},
-
-},{
-	tableName: "user"
+                
 })
 
 

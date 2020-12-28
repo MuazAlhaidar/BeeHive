@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "rwx",
-    "password": "Death to them.",
+    "password": "I am Sofa King.",
     "database": "jotario",
     "host": "127.0.0.1",
     "dialect": "mariadb"
