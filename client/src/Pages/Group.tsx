@@ -1,6 +1,6 @@
 import React from "react";
 import "../CSS/Group.css";
-import "../Components/groupList";
+import "../Components/GroupsList";
 
 function AddGroup(props: { userid: string; sendevent: any }) {
   const [name, setName] = React.useState("");
