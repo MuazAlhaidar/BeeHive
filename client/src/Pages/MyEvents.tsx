@@ -73,6 +73,9 @@ function MyEvents() {
           time={events[eventIndex].time}
           date={events[eventIndex].date}
           description={events[eventIndex].description}
+          removeEvent={() => {
+            removeEvent(eventIndex);
+          }}
         />
       </div>
     </div>

@@ -6,9 +6,17 @@ interface EventInfo {
   time: string;
   date: string;
   description: string;
+  removeEvent: () => void;
 }
 
-function EventsForm({ name, address, time, date, description }: EventInfo) {
+function EventsForm({
+  name,
+  address,
+  time,
+  date,
+  description,
+  removeEvent,
+}: EventInfo) {
   return (
     <div>
       <div>{name}</div>
@@ -25,7 +33,7 @@ function EventsForm({ name, address, time, date, description }: EventInfo) {
           <button>Email Members</button>
         </div>
         <div>
-          <button>Delete Event</button>
+          <button onClick={removeEvent}>Delete Event</button>
         </div>
       </div>
     </div>
