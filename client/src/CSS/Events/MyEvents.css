@@ -1,0 +1,15 @@
+.MyEvents {
+  flex-grow: 1;
+  border: 1px solid green;
+  display: flex;
+}
+
+.MyEvents-EventList {
+  flex-grow: 1;
+  border: 1px solid red;
+}
+
+.MyEvents-EventManager {
+  flex-grow: 5;
+  border: 1px solid blue;
+}
