@@ -1,5 +1,5 @@
 import React from "react";
-import LogoAndTitle from "./LogoAndTitle";
+import LogoAndTitle from "../LogoAndTitle";
 
 function Group() {
   return (
