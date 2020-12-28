@@ -14,13 +14,6 @@ interface EventInfo {
 function MyEvents() {
   const fakeEvents = Array<EventInfo>(
     {
-      name: "",
-      address: "",
-      time: "",
-      date: "",
-      description: "",
-    },
-    {
       name: "HR event",
       address: "5648 Thing St.",
       time: "00:00 AM",
@@ -67,16 +60,29 @@ function MyEvents() {
         <EventList eventList={events} selectEvent={selectEvent} />
       </div>
       <div className="MyEvents-EventManager">
-        <EventsForm
-          name={events[eventIndex].name}
-          address={events[eventIndex].address}
-          time={events[eventIndex].time}
-          date={events[eventIndex].date}
-          description={events[eventIndex].description}
-          removeEvent={() => {
-            removeEvent(eventIndex);
-          }}
-        />
+        {eventIndex > events.length - 1 ? (
+          <EventsForm
+            name={""}
+            address={""}
+            time={""}
+            date={""}
+            description={""}
+            removeEvent={() => {
+              removeEvent(eventIndex);
+            }}
+          />
+        ) : (
+          <EventsForm
+            name={events[eventIndex].name}
+            address={events[eventIndex].address}
+            time={events[eventIndex].time}
+            date={events[eventIndex].date}
+            description={events[eventIndex].description}
+            removeEvent={() => {
+              removeEvent(eventIndex);
+            }}
+          />
+        )}
       </div>
     </div>
   );

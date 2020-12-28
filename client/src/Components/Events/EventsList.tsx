@@ -21,16 +21,14 @@ function EventList({ eventList, selectEvent }: IProps) {
     <div>
       <button className="EventList-AddButton">+</button>
       {events.map((curEvent, index) => {
-        if (index != 0) {
-          return (
-            <Event
-              key={`event-${index}`}
-              name={curEvent.name}
-              index={index}
-              selectEvent={selectEvent}
-            />
-          );
-        }
+        return (
+          <Event
+            key={`event-${index}`}
+            name={curEvent.name}
+            index={index}
+            selectEvent={selectEvent}
+          />
+        );
       })}
     </div>
   );
