@@ -1,7 +1,39 @@
 import React from "react";
+import Event from "./Event";
 
-function EventList() {
-  return <div></div>;
+interface EventInfo {
+  name: string;
+  address: string;
+  time: string;
+  date: string;
+  description: string;
+}
+
+interface IProps {
+  eventList: Array<EventInfo>;
+  selectEvent: (i: number) => void;
+}
+
+function EventList({ eventList, selectEvent }: IProps) {
+  const events = eventList;
+
+  return (
+    <div>
+      <button className="EventList-AddButton">+</button>
+      {events.map((curEvent, index) => {
+        if (index != 0) {
+          return (
+            <Event
+              key={`event-${index}`}
+              name={curEvent.name}
+              index={index}
+              selectEvent={selectEvent}
+            />
+          );
+        }
+      })}
+    </div>
+  );
 }
 
 export default EventList;

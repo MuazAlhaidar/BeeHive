@@ -1,6 +1,14 @@
 import React from "react";
 
-function EventsForm() {
+interface EventInfo {
+  name: string;
+  address: string;
+  time: string;
+  date: string;
+  description: string;
+}
+
+function EventsForm({ name, address, time, date, description }: EventInfo) {
   return <div></div>;
 }
 
