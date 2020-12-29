@@ -10,6 +10,7 @@ import SignUp from "./Pages/SignUp";
 import ContactUs from "./Pages/ContactUs";
 import LogoAndTitle from "./Components/LogoAndTitle";
 import Logo from "./Images/Members App Logo - White Large.png";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [name, setName] = React.useState("");
