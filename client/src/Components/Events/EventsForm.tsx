@@ -19,21 +19,31 @@ function EventsForm({
 }: EventInfo) {
   return (
     <div>
-      <div>{name}</div>
-      <div>
-        <div>{address}</div>
-        <div>{time}</div>
-        <div>{date}</div>
-      </div>
-      <div>{description}</div>
       <div>
         <div>
-          <button>Edit Event</button>
-          <button>Members</button>
-          <button>Email Members</button>
+          <div className="EventsForm-Name">{name}</div>
+          <div>
+            <div className="EventsForm-Address">{address}</div>
+            <div className="EventsForm-Time">{time}</div>
+            <div className="EventsForm-Date">{date}</div>
+          </div>
         </div>
         <div>
-          <button onClick={removeEvent}>Delete Event</button>
+          <button></button>
+          <button></button>
+        </div>
+      </div>
+      <div className="EventsForm-Description">{description}</div>
+      <div>
+        <div>
+          <button className="EventsForm-BrightButton">Edit Event</button>
+          <button className="EventsForm-BrightButton">Members</button>
+          <button className="EventsForm-BrightButton">Email Members</button>
+        </div>
+        <div>
+          <button className="EventsForm-DarkButton" onClick={removeEvent}>
+            Delete Event
+          </button>
         </div>
       </div>
     </div>
