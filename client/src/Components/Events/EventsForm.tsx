@@ -1,5 +1,5 @@
 import React from "react";
-import "../CSS/Events/EventsForm.css";
+import "../../CSS/Events/EventsForm.css";
 
 interface EventInfo {
   name: string;
