@@ -1,9 +1,14 @@
 
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "ES5",
-        "outDir": "../.server_build",
-        "rootDir": "."
-    }
+        "compilerOptions": {
+                "module": "commonjs",
+                "target": "ES5",
+                "outDir": "../.server_build",
+                "rootDir": ".",
+                "compilerOptions": {
+                        "lib": [
+                                "es2015"
+                        ]
+                }
+        }
 }

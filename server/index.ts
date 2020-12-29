@@ -9,24 +9,26 @@ app.use(express.json())
 
 
 // DB setup
+const User = require('./model/User.ts');
 const Test = require('./model/Test.ts');
 
 // Dtabase initalize
 async function initialize() {
 	// create db if it doesn't already exist
-	const db = require('./config/keys.ts');
+	const db = require('./config/config.json')["development"];
+
 	const {Sequelize} = require('sequelize');
 	const mariadb = require('mariadb')
 	const pool = mariadb.createPool({
 		host: db.host,
-		user: db.user,
-		password: db.pass,
+		user: db.username,
+		password: db.password,
 		connectionLimit: 5
 	});
 	pool.getConnection()
 	.then(conn => {
 		conn.query(`CREATE database if not exists  ${db.database} ;`)
-		const sequelize = new Sequelize(db.database, db.user, db.pass,{
+		const sequelize = new Sequelize(db.database, db.username, db.password,{
 			dialect: 'mariadb',
 			logging: console.log
 		})
@@ -41,13 +43,20 @@ async function initialize() {
 		/* remember this, and don't gloss over it */
 
 		// sequelize.sync()
+                // If DEV=true, it will erase everything. 
 		if( process.env.DEV == "true"){
-			sequelize.sync()
-		}
-		else{
+			// sequelize.sync()
 			sequelize.sync({force:true})
 			.then(() => {
 				Test.sync({force:true});
+				User.sync({force:true});
+			});
+		}
+		else{
+			sequelize.sync({force:false})
+			.then(() => {
+				Test.sync({force:false});
+				User.sync({force:false});
 			});
 		}
 	})
@@ -67,6 +76,7 @@ initialize();
 // Routes setup
 // const users = require('./routes/users.ts'); app.use('/api/users', users);
 const test = require('./routes/test.ts'); app.use('/api/test', test);
+const user = require('./routes/users.ts'); app.use('/api/user', user);
 
 const port = process.env.PORT || 4200;
 
