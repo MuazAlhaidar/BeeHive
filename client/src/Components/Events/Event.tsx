@@ -1,4 +1,5 @@
 import React from "react";
+import "../../CSS/Events/Event.css";
 import EventsForm from "./EventsForm";
 
 interface IProps {

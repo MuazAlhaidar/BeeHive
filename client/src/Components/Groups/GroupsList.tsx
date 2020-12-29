@@ -1,13 +1,7 @@
 import React from "react";
-import LogoAndTitle from "../LogoAndTitle";
+import "../../CSS/Groups/GroupsList.css";
 
 function Group() {
-  return (
-    <div className="Group">
-      <header className="Group-Header">
-        <LogoAndTitle />
-      </header>
-    </div>
-  );
+  return <div className="GroupsList"></div>;
 }
 export default Group;

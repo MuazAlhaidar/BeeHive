@@ -59,7 +59,7 @@ function MyEvents() {
       <div className="MyEvents-EventList">
         <EventList eventList={events} selectEvent={selectEvent} />
       </div>
-      <div className="MyEvents-EventManager">
+      <div className="MyEvents-EventForm">
         {eventIndex > events.length - 1 ? (
           <EventsForm
             name={""}

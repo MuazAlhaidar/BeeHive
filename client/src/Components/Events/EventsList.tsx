@@ -1,4 +1,5 @@
 import React from "react";
+import "../CSS/Events/EventsList.css";
 import Event from "./Event";
 
 interface EventInfo {
