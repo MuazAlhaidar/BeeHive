@@ -9,8 +9,7 @@ app.use(express.json())
 
 
 // DB setup
-const User = require('./model/User.ts');
-const Test = require('./model/Test.ts');
+const User = require('./users/Model.ts');
 
 // Dtabase initalize
 async function initialize() {
@@ -45,14 +44,12 @@ async function initialize() {
 		// sequelize.sync()
 		sequelize.sync({force:true})
 		    .then(() => {
-			Test.sync({force:true});
 			User.sync({force:true});
 		    });
 	    }
 	    else{
 		sequelize.sync({force:false})
 		    .then(() => {
-			Test.sync({force:false});
 			User.sync({force:false});
 		    });
 	    }
@@ -72,7 +69,7 @@ initialize();
 // // Routing
 // Routes setup
 // const users = require('./routes/users.ts'); app.use('/api/users', users);
-const users = require('./routes/users.ts'); app.use('/api/users', users);
+const users = require('./users/Route.ts'); app.use('/api/users', users);
 
 const port = process.env.PORT || 4200;
 
