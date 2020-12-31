@@ -1,0 +1,59 @@
+#+TITLE: My tasks
+#+AUTHOR: Zaki
+[[https://github.com/HawaiinPizza/beehive/issues?q=assignee%3AHawaiinPizza+is%3Aopen][My issues]] 
+* Terminatology
+  - $function(field1, field2)=(status_code, data, (side effect))$ :: The abstraction function of this request, with a status code and sent data. If $( )$ is found in returning data, it's an indicating of a *side-effect*, or something that chagnes the database. We're not using [[https://archive.rebeccablacktech.com/g/thread/79445066/#79457938][Haskell]], so while we can't escape side effects, we cna at least be aware of them.
+
+* User authetication
+** DONE Creating new user  
+   CLOSED: [2020-12-29 Tue 18:48]
+   - State "DONE"       from              [2020-12-29 Tue 18:48]
+   When creating a new user, these codes can happen. This will be read from the HTTP status
+   - [X] 200(Success new usre) :: The user has been created successfully
+   - [X] 401(Duplicated username/email) :: The user's email/username is already in the table, thus is invalid
+   - [X] 402(Invalid values) ::  the database is getting the input is incomplete
+   - [X] 403(Other eror) :: Some other error has been raised, not sure what it is.
+** DONE Logining
+   CLOSED: [2020-12-30 Wed 20:13]
+   - State "DONE"       from "TODO"       [2020-12-30 Wed 20:13]
+   #+begin_center
+   $Login(username,password)=(status_code, data)$
+   #+end_center
+   - Correct login (200/email/id) :: If a entry in the user table has the corresponding username/password, return 200 and it's userid and email (as well as other information)
+   - Missing Entry (400) :: If the request does not have all correct entries, then reject it and send 400 error
+   - Incorrect Creditnals (401) :: The username and password fields have been entered, yet is not in the database.
+   - Other (404) :: Some other error has occured. :(
+** TODO Reset Password
+   #+begin_center
+   - Reset_Request(email) = (status, reset_url) :: For now
+   - Reset_Request(email) = (status, (send email to user of reset_url))
+   - Reset_URL(token) = (status, (change password for user))
+   #+end_center
+   The whole process goes like this: a user makes a request ot reset the password. The database  finds the user form the email, adn generates two things: a =resetPassword_token= and =resetPassword_expiry=.
+
+** TODO Encryption
+   #+begin_center
+   - $Password_Encryption(password) = (encrypted_password)$
+   - $Password_Decryption(encrypted_password) = (password)$
+   - $ResetPassword_GenerateUrl(time, user) = (resetpassword_token)$
+* Other
+** TODO fix http status codes.
+
+
+* Notes   
+** Stack
+     + [[https://www.typescriptlang.org/docs/][Typescript]] :: Langauge of choice
+     + [[https://developer.mozilla.org/en-US/docs/Web/javascript][Javascript]] :: For general javascript stuff
+     + [[https://reactnative.dev/][React Native]] :: Phone interface
+     + [[https://reactjs.org/docs/getting-started.html][React]] :: Wbe interface
+     + [[https://sequelize.org/][Sequelize]] :: MVC with SQL
+     + [[http://expressjs.com/][Express]] :: Web framework for node.js
+** Other
+   - nodemon :: [[https://github.com/remy/nodemon][allows for recompiling progrma when saving]]
+   - Axois :: [[https://www.npmjs.com/package/axios][Library for making http calls]]
+   - [[https://requests.readthedocs.io/en/master/][Requests (for testing)]]
+   - Jest :: [[https://jestjs.io/][Unit testing]]
+   - SQL Queries :: [[https://mariadb.com/kb/en/documentation/][Mariadb]]
+     + https://www.w3schools.com/sql/
+     + 
+   
