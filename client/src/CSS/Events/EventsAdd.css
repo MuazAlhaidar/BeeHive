@@ -1,0 +1,7 @@
+.EventsAdd-Background {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+}

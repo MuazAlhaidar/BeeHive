@@ -57,7 +57,11 @@ function MyEvents() {
   return (
     <div className="MyEvents">
       <div className="MyEvents-EventList">
-        <EventList eventList={events} selectEvent={selectEvent} />
+        <EventList
+          eventList={events}
+          selectEvent={selectEvent}
+          addEvent={addEvent}
+        />
       </div>
       <div className="MyEvents-EventForm">
         {eventIndex > events.length - 1 ? (
