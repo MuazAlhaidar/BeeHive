@@ -46,7 +46,7 @@
      + [[https://developer.mozilla.org/en-US/docs/Web/javascript][Javascript]] :: For general javascript stuff
      + [[https://reactnative.dev/][React Native]] :: Phone interface
      + [[https://reactjs.org/docs/getting-started.html][React]] :: Wbe interface
-     + [[https://sequelize.org/][Sequelize]] :: MVC with SQL
+     + [[https://sequelize.org/][Sequelize]] :: SQL frontend for NOde.js
      + [[http://expressjs.com/][Express]] :: Web framework for node.js
 ** Other
    - nodemon :: [[https://github.com/remy/nodemon][allows for recompiling progrma when saving]]

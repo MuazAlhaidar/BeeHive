@@ -67,5 +67,5 @@ async function reset_password(_email){
 }
 
 new_user({username:"MF DOOM", email:"1"})
-reset_password("2")
+.then(res=> console.log(res))
 
