@@ -23,7 +23,9 @@
    - Missing Entry (400) :: If the request does not have all correct entries, then reject it and send 400 error
    - Incorrect Creditnals (401) :: The username and password fields have been entered, yet is not in the database.
    - Other (404) :: Some other error has occured. :(
-** TODO Reset Password
+** DONE Reset Password
+   CLOSED: [2021-01-01 Fri 11:12]
+   - State "DONE"       from "TODO"       [2021-01-01 Fri 11:12]
    #+begin_center
    - [X] Reset_Request(email) = (status) :: For now
    - [ ] Reset_URL(token) = (status, (change password for user))
@@ -32,10 +34,14 @@
    The whole process goes like this: a user makes a request ot reset the password. The database  finds the user form the email, adn generates two things: a =resetPassword_token= and =resetPassword_expiry=.
 
 ** TODO Encryption
+* User authetication frontend
+  - [ ] Signup
+  - [ ] Login
+  - [ ] Reset Password
    #+begin_center
-   - $Password_Encryption(password) = (encrypted_password)$
-   - $Password_Decryption(encrypted_password) = (password)$
-   - $ResetPassword_GenerateUrl(time, user) = (resetpassword_token)$
+    - $Password_Encryption(password) = (encrypted_password)$
+    - $Password_Decryption(encrypted_password) = (password)$
+    - $ResetPassword_GenerateUrl(time, user) = (resetpassword_token)$
 * Other
 ** TODO fix http status codes.
 

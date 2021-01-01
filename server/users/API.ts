@@ -1,0 +1,69 @@
+const axios = require("axios")
+// Change port to be dynamic,
+let baseurl = "http://localhost:4200/api/users/";
+
+async function axiosGet(url:string, _data:any){
+        // return axios.get(baseurl+url, { data: {_data}  })
+        // return axios.get(baseurl+url, { data: _data  }, {headers:{'Content-Type':'application/json'}} )
+		return axios.get(baseurl+url, _data,{
+			headers:{ 'Content-Type': 'application/json' }
+		})
+
+
+}
+async function axiosPost(url:string, _data:any){
+        return axios.post(baseurl+url,   _data , {headers:{'Content-Type':'application/json'}})
+}
+
+async function login(_username:string, _password:string){
+        // return axiosPost("login", { username:_username, password:_password} )
+        return axiosPost("login", { username:_username, password:_password} )
+        .then(() => {  return true })
+        .catch(() => {  return false })
+}
+
+
+async function new_user( user:any ){
+        return axiosPost("new",  {
+                username:user.username,
+                password:user.password,
+                email:user.email,
+                role_id:user.role_id,
+                points:user.points 
+        })
+        .then(() => {return 0})
+        .catch((err:any)=>{
+                switch(err.response.status){
+                        case 401:
+                                return 1;
+                        case 402:
+                                return 2;
+                        case 403:
+                                return -1;
+                        default:
+                                return err.response.status
+                }
+        })
+
+}
+new_user({username:"DIO", password:"JOJO", email:"WARS", role_id:2, points:4})
+.then(res => console.log(res))
+
+async function reset_password(_email:string){
+        return axiosPost("reset_request", {email:_email})
+        .then(ret =>  true )
+        .catch(ret => false )
+
+}
+
+async function reset_token(_token:string, _newpass:string){
+        return axiosPost("reset_token",{token:_token, password:_newpass} )
+        .then(res => true)
+        .catch(res => false)
+
+}
+
+
+export { login,new_user,reset_password, reset_token}
+// module.exports= { login,new_user,reset_password, reset_token}
+

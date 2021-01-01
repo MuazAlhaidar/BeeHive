@@ -1,10 +1,25 @@
-const User = require("./user.ts");
+const User = require("../users/API.ts");
 
 const _user="user"+new Date();
 const _email="email"+new Date();
 const _pass="pass"+new Date();
+function genrandom(credintals:any={}){
+        var user  = { username:credintals["username"], password:credintals["password"], email:credintals["email"], role_id:credintals["role_id"], points:credintals["points"], }
+        for(let key in user){
+                if(user[key] === undefined && key!=="points" && key!=="role_id"){
+                        // Maybe chagne size/length?
+                        user[key]= Math.random().toString(36);
+                }
+                else if(user[key] === undefined){
+                        user[key]=Math.floor( Math.random()*(10-0)+0)
+                }
+
+        }
+        return user
+}
+
 test("Add new user and login", done =>{
-        User.new_user({username:_user, email:_email, password:_pass})
+        User.new_user({username:_user, email:_email, password:_pass, role_id:2, points:5 })
         .then(res =>{
                 User.login(_user, _pass)
                 .then(res=>{
@@ -24,14 +39,15 @@ test("Add new user and login", done =>{
 });
 
 
+
 test("Add existing user failure due to duplicated", done=>{
-        User.new_user({username:_user})
+        User.new_user(genrandom( {username:_user}))
         .then(res => {
                 expect(res).toBe(1)
                 done()
         })
         .catch(err => done(err))
-        User.new_user({email:_email})
+        User.new_user(genrandom({email:_email}))
         .then(res => {
                 expect(res).toBe(1)
                 done()
@@ -41,7 +57,7 @@ test("Add existing user failure due to duplicated", done=>{
 
 test("Reset password request", done=>{
         User.reset_password("MF DOOM")
-        .then(res => { expect(res).toBe(false); done()})
+        .then(res =>  expect(res).toBe(false))
         .catch(err => done(err))
 
         User.reset_password(_email)
