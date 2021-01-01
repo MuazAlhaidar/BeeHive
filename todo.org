@@ -36,7 +36,7 @@
 ** TODO Encryption
 * User authetication frontend
   - [ ] Signup
-  - [ ] Login
+  - [X] Login
   - [ ] Reset Password
    #+begin_center
     - $Password_Encryption(password) = (encrypted_password)$
