@@ -52,6 +52,7 @@ function MyEvents() {
     const e = events.slice();
     e.splice(i, 1);
     setEvents(e);
+    setEventIndex(events.length);
   };
 
   return (
