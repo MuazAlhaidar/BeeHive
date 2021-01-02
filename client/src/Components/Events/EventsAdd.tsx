@@ -14,16 +14,25 @@ interface IProps {
 }
 
 function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
-  const [name, setName] = React.useState("");
-  const [address, setAddress] = React.useState("");
-  const [time, setTime] = React.useState("");
-  const [date, setDate] = React.useState("");
-  const [description, setDescription] = React.useState("");
+  const [newEvent, setNewEvent] = React.useState({
+    name: "",
+    address: "",
+    time: "",
+    date: "",
+    description: "",
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    addEvent(name, address, time, date, description);
+    addEvent(
+      newEvent.name,
+      newEvent.address,
+      newEvent.time,
+      newEvent.date,
+      newEvent.description
+    );
     setShowModal(!showModal);
+    setNewEvent({ name: "", address: "", time: "", date: "", description: "" });
   };
 
   return (
@@ -38,8 +47,16 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                   placeholder="Name"
                   type="name"
                   id="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={newEvent.name}
+                  onChange={(e) =>
+                    setNewEvent({
+                      name: e.target.value,
+                      address: newEvent.address,
+                      time: newEvent.time,
+                      date: newEvent.date,
+                      description: newEvent.description,
+                    })
+                  }
                 />
               </div>
               <div>
@@ -48,8 +65,16 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                   placeholder="Address"
                   type="address"
                   id="address"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
+                  value={newEvent.address}
+                  onChange={(e) =>
+                    setNewEvent({
+                      name: newEvent.name,
+                      address: e.target.value,
+                      time: newEvent.time,
+                      date: newEvent.date,
+                      description: newEvent.description,
+                    })
+                  }
                 />
               </div>
               <div>
@@ -58,8 +83,16 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                   placeholder="Time"
                   type="time"
                   id="time"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
+                  value={newEvent.time}
+                  onChange={(e) =>
+                    setNewEvent({
+                      name: newEvent.name,
+                      address: newEvent.address,
+                      time: e.target.value,
+                      date: newEvent.date,
+                      description: newEvent.description,
+                    })
+                  }
                 />
               </div>
               <div>
@@ -68,8 +101,16 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                   placeholder="Date"
                   type="date"
                   id="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  value={newEvent.date}
+                  onChange={(e) =>
+                    setNewEvent({
+                      name: newEvent.name,
+                      address: newEvent.address,
+                      time: newEvent.time,
+                      date: e.target.value,
+                      description: newEvent.description,
+                    })
+                  }
                 />
               </div>
               <div>
@@ -78,8 +119,16 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                   placeholder="Description"
                   type="description"
                   id="description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  value={newEvent.description}
+                  onChange={(e) =>
+                    setNewEvent({
+                      name: newEvent.name,
+                      address: newEvent.address,
+                      time: newEvent.time,
+                      date: newEvent.date,
+                      description: e.target.value,
+                    })
+                  }
                 />
               </div>
               <div>
