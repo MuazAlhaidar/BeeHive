@@ -60,8 +60,8 @@
    | Name     | Type    | Description                                                |
    |----------+---------+------------------------------------------------------------|
    | ID       | Integer | Unique Id for the relationship between an Event and a user |
-   | Event ID | Integer | Unique Id for an event                                     |
    | User ID  | Integer | Unique Id for a user                                       |
+   | Event ID | Integer | Unique Id for an event                                     |
    | Attended | Boolean | Whether a user has attended an event                       |
    | RSVP     | Boolean | Whether a user has RSVPed to an event                      |
 
