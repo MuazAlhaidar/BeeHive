@@ -8,10 +8,12 @@ app.use( cors());
 app.use(express.json())
 
 
-// DB setup
-const User = require('./users/Model.ts');
 
 // Dtabase initalize
+const User = require('./users/Model.ts')
+const Event = require('./events/EventModel.ts')
+const EventMembers = require('./events/EventMember.ts')
+
 async function initialize() {
     // create db if it doesn't already exist
     const db = require('./config/config.json')["development"];
@@ -27,7 +29,12 @@ async function initialize() {
     pool.getConnection()
 	.then(conn => {
 	    conn.query(`CREATE database if not exists  ${db.database} ;`)
-	    const sequelize = new Sequelize(db)
+	    // const sequelize = new Sequelize(db)
+            const sequelize = new Sequelize(db.database, db.username, db.password, {
+                    dialect: 'mariadb',
+                    logging: false
+            })
+
 	    // Creating tables based on models
 
 	    /* In the event the tables/database is not setup/ or change size, this overrides that */
@@ -41,17 +48,14 @@ async function initialize() {
 	    sequelize.sync()
 	    // If DEV=true, it will erase everything. 
 	    if( process.env.DEV == "true"){
-		// sequelize.sync()
 		sequelize.sync({force:true})
-		    .then(() => {
-			User.sync({force:true});
-		    });
+                Promise.all([sequelize.sync({force:true}), EventMembers.drop(), User.sync({force:true}), Event.sync({force:true})])
+                .then(()=>{
+                        EventMembers.sync({force:true});
+                })
 	    }
 	    else{
 		sequelize.sync({force:false})
-		    .then(() => {
-			User.sync({force:false});
-		    });
 	    }
 	})
 	.catch(err =>{
@@ -70,6 +74,7 @@ initialize();
 // Routes setup
 // const users = require('./routes/users.ts'); app.use('/api/users', users);
 const users = require('./users/Route.ts'); app.use('/api/users', users);
+const events = require('./events/Route.ts'); app.use('/api/events', events);
 
 const port = process.env.PORT || 4200;
 

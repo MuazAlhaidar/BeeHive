@@ -46,8 +46,6 @@ async function new_user( user:any ){
         })
 
 }
-new_user({username:"DIO", password:"JOJO", email:"WARS", role_id:2, points:4})
-.then(res => console.log(res))
 
 async function reset_password(_email:string){
         return axiosPost("reset_request", {email:_email})
@@ -64,6 +62,6 @@ async function reset_token(_token:string, _newpass:string){
 }
 
 
-export { login,new_user,reset_password, reset_token}
+export {axiosPost,axiosGet,  login,new_user,reset_password, reset_token}
 // module.exports= { login,new_user,reset_password, reset_token}
 
