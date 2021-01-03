@@ -1,0 +1,13 @@
+.EventList-Top {
+  display: flex;
+  justify-content: right;
+}
+
+.EventList-AddButton {
+  border: none;
+  font-size: 30px;
+  font-weight: 100;
+  color: #f58032;
+  background-color: white;
+  padding-right: 15px;
+}

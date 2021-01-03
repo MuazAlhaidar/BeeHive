@@ -9,7 +9,7 @@ interface IProps {
 
 function Event({ name, index, selectEvent }: IProps) {
   return (
-    <div>
+    <div className="Event">
       <button
         className="Event-Button"
         onClick={() => {

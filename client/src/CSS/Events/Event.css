@@ -1,0 +1,17 @@
+.Event {
+  display: flex;
+  padding: 0px 15px 0px 8px;
+  background-color: #ffffff;
+}
+
+.Event-Button {
+  flex-grow: 1;
+  height: 40px;
+  text-align: left;
+  font-size: 15px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #f58032;
+  background-color: #ffffff;
+}

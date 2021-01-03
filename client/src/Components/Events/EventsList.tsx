@@ -34,9 +34,11 @@ function EventList({ eventList, selectEvent, addEvent }: IProps) {
 
   return (
     <div>
-      <button className="EventList-AddButton" onClick={toggle}>
-        +
-      </button>
+      <div className="EventList-Top">
+        <button className="EventList-AddButton" onClick={toggle}>
+          +
+        </button>
+      </div>
       <EventAdd
         addEvent={addEvent}
         showModal={showModal}
