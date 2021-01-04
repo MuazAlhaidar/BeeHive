@@ -34,16 +34,16 @@ function EventList({ eventList, selectEvent, addEvent }: IProps) {
 
   return (
     <div>
-      <div className="EventList-Top">
-        <button className="EventList-AddButton" onClick={toggle}>
-          +
-        </button>
-      </div>
       <EventAdd
         addEvent={addEvent}
         showModal={showModal}
         setShowModal={setShowModal}
       />
+      <div className="EventList-Top">
+        <button className="EventList-AddButton" onClick={toggle}>
+          +
+        </button>
+      </div>
       {events.map((curEvent, index) => {
         return (
           <Event

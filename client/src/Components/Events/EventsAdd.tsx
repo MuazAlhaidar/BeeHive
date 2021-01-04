@@ -39,13 +39,13 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
     <div>
       {showModal ? (
         <div className="EventsAdd-Background">
-          <div className="EventsAdd-AddForm">
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="name">Name</label>
+          <div className="EventsAdd-AddFormDiv">
+            <form className="EventsAdd-AddForm" onSubmit={handleSubmit}>
+              <div className="EventsAdd-NameDiv">
                 <input
+                  className="EventsAdd-Name"
                   placeholder="Name"
-                  type="name"
+                  type="text"
                   id="name"
                   value={newEvent.name}
                   onChange={(e) =>
@@ -59,11 +59,11 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                   }
                 />
               </div>
-              <div>
-                <label htmlFor="address">Address</label>
+              <div className="EventsAdd-AddressTimeDateDiv">
                 <input
+                  className="EventsAdd-Address"
                   placeholder="Address"
-                  type="address"
+                  type="text"
                   id="address"
                   value={newEvent.address}
                   onChange={(e) =>
@@ -76,10 +76,8 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                     })
                   }
                 />
-              </div>
-              <div>
-                <label htmlFor="time">Time</label>
                 <input
+                  className="EventsAdd-Time"
                   placeholder="Time"
                   type="time"
                   id="time"
@@ -94,10 +92,8 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                     })
                   }
                 />
-              </div>
-              <div>
-                <label htmlFor="date">Date</label>
                 <input
+                  className="EventsAdd-Date"
                   placeholder="Date"
                   type="date"
                   id="date"
@@ -113,11 +109,11 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                   }
                 />
               </div>
-              <div>
-                <label htmlFor="description">Description</label>
-                <input
+              <div className="EventsAdd-DescriptionDiv">
+                <textarea
+                  className="EventsAdd-Description"
                   placeholder="Description"
-                  type="description"
+                  aria-multiline
                   id="description"
                   value={newEvent.description}
                   onChange={(e) =>
@@ -131,7 +127,7 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                   }
                 />
               </div>
-              <div>
+              <div className="EventsAdd-AddBtnDiv">
                 <input
                   className="EventsAdd-AddBtn"
                   type="submit"
