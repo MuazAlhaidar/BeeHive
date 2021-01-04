@@ -29,6 +29,7 @@ const EventMember = sequelize.define('eventmember', {
     }
     ,Attended: {type: Sequelize.BOOLEAN, allowNull: false}
     ,RSVP: {type: Sequelize.BOOLEAN, allowNull: false}
+    ,Manager: {type: Sequelize.BOOLEAN, allowNull: false}
 })
 
 // EventMember.hasOne(User)

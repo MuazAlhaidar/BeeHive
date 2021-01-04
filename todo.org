@@ -55,7 +55,6 @@
    | Descirption | String   |
    | Address     | Date     |
    | Time        | String   |
-   | Manager     | id       |
   - Event Member :: People tasksed to manage the event
    | Name     | Type    | Description                                                |
    |----------+---------+------------------------------------------------------------|
@@ -64,16 +63,18 @@
    | Event ID | Integer | Unique Id for an event                                     |
    | Attended | Boolean | Whether a user has attended an event                       |
    | RSVP     | Boolean | Whether a user has RSVPed to an event                      |
+   | Manager  | Boolean | Who can update/delte/rsvp shit                             |
 
 
 ** Tasks
 *** CRUD   
-   - [ ] Create :: $Create(userid, event_fields) = (event_created, event_id, (New Event_Member entry with (eventid, userid, false, false, true)))$
-   - [ ] Read :: 
+   - [X] Create :: $Create(userid, event_fields) = (event_created, event_id, (New Event_Member entry with (eventid, userid, false, false, true)))$
+   - [X] Read :: $Read(eventid) = (event details)$
    - [ ] Update :: 
    - [ ] Delete :: 
 *** Other    
-    - [ ] Transfer Manager :: 
+    - [ ] Transfer Manager ::
+    - [ ]  :: 
 
 * Other
 ** TODO RefacotrRefactor code
