@@ -24,40 +24,40 @@ async function login(_username:string, _password:string){
 
 
 async function new_user( user:any ){
-        return axiosPost("new",  {
-                username:user.username,
-                password:user.password,
-                email:user.email,
-                role_id:user.role_id,
-                points:user.points 
-        })
-        .then(() => {return 0})
-        .catch((err:any)=>{
-                switch(err.response.status){
-                        case 401:
-                                return 1;
-                        case 402:
-                                return 2;
-                        case 403:
-                                return -1;
-                        default:
-                                return err.response.status
-                }
-        })
+    return axiosPost("new",  {
+	username:user.username,
+	password:user.password,
+	email:user.email,
+	role_id:user.role_id,
+	points:user.points 
+    })
+	.then(ret => {return [0, ret]})
+	.catch((err:any)=>{
+	    switch(err.response.status){
+		case 401:
+		    return [1, undefined];
+		case 402:
+		    return [2, undefined];
+		case 403:
+		    return [-1,undefined];
+		default:
+		    return err.response.status
+	    }
+	})
 
 }
 
 async function reset_password(_email:string){
-        return axiosPost("reset_request", {email:_email})
-        .then(ret =>  true )
-        .catch(ret => false )
+    return axiosPost("reset_request", {email:_email})
+	.then(ret =>  true )
+	.catch(ret => false )
 
 }
 
 async function reset_token(_token:string, _newpass:string){
-        return axiosPost("reset_token",{token:_token, password:_newpass} )
-        .then(res => true)
-        .catch(res => false)
+    return axiosPost("reset_token",{token:_token, password:_newpass} )
+	.then(res => true)
+	.catch(res => false)
 
 }
 

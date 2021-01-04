@@ -20,7 +20,7 @@ function genrandom(credintals:any={}){
 
 test("Add new user and login", done =>{
         User.new_user({username:_user, email:_email, password:_pass, role_id:2, points:5 })
-        .then(res =>{
+            .then(() =>{
                 User.login(_user, _pass)
                 .then(res=>{
                         expect(res).toBe(true)
@@ -43,13 +43,13 @@ test("Add new user and login", done =>{
 test("Add existing user failure due to duplicated", done=>{
         User.new_user(genrandom( {username:_user}))
         .then(res => {
-                expect(res).toBe(1)
+                expect(res[0]).toBe(1)
                 done()
         })
         .catch(err => done(err))
         User.new_user(genrandom({email:_email}))
         .then(res => {
-                expect(res).toBe(1)
+                expect(res[0]).toBe(1)
                 done()
         })
         .catch(err => done(err))
