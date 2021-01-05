@@ -11,6 +11,7 @@ async function axiosPost(url:string, _data:any){
 
 
 async function newEvent(name:string, desc:string, address:string, time:Date, manager:number):Promise<Boolean>{
+    // console.log(manager)
     return axiosPost("new", {Name:name,  Description:desc, Address:address, Time:time, Manager:manager})
 	.then(ret => true)
 	.catch(err =>  false)
@@ -23,16 +24,30 @@ async function getEvent(_id:number){
     
     return axiosGet("get", {id:_id})
 	.then(res => res)
-	.catch(err =>  {console.log(err); {}} )
+	// .catch(err =>  {console.log(err); {}} )
+	.catch(err =>  { {}} )
     
 }
 
 async function update(_id:number, _name:undefined|string, _desc:undefined|string, _address:undefined|string, _time:undefined|Date, _manager:undefined|number){
-    return axiosPost("update", {id:_id, Name:_name,  Description:_desc, Address:_address, Time:_time, Manager:_manager})
+    return axiosPost("update2", {id:_id, Name:_name,  Description:_desc, Address:_address, Time:_time, Manager:_manager})
 	.then(res => res)
-	.catch(err => {console.log(err); {}})
+	// .catch(err => {console.log(err); {}})
+	.catch(err => { {}})
 }
 
-export {axiosGet, axiosPost, newEvent, getEvent, update}
-// module.exports= { login,new_user,reset_password, reset_token}
+async function getAllEvents(){
+    return axiosGet("getall", undefined)
+	.then(res => res)
+	// .catch(err => {console.log(err); undefined})
+	.catch(err => { undefined})
+}
 
+async function Delete(_id:number){
+    return axiosPost("delete", {id:_id})
+	.then(res => {return true})
+	.catch(err => false)
+}
+
+export {axiosGet, axiosPost, newEvent, getEvent, update, getAllEvents, Delete}
+// module.exports= { login,new_user,reset_password, reset_token}

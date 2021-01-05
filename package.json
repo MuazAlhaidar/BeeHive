@@ -9,7 +9,7 @@
 		"server": "DEV=true nodemon ",
 		"prod_server": "nodemon ",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
-		"test": "jest"
+		"test": "jest --verbose"
 	},
 	"author": "Muaz Alhaider",
 	"license": "ISC",

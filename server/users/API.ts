@@ -31,10 +31,11 @@ async function new_user( user:any ){
 	role_id:user.role_id,
 	points:user.points 
     })
-	.then(ret => {return [0, ret]})
+	.then(ret => {return [0, ret.data.id]})
 	.catch((err:any)=>{
 	    switch(err.response.status){
 		case 401:
+		    // console.log(user, err.response.data)
 		    return [1, undefined];
 		case 402:
 		    return [2, undefined];
