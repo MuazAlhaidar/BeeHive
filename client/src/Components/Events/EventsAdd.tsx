@@ -35,6 +35,11 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
     setNewEvent({ name: "", address: "", time: "", date: "", description: "" });
   };
 
+  const handleCancel = () => {
+    setShowModal(!showModal);
+    setNewEvent({ name: "", address: "", time: "", date: "", description: "" });
+  };
+
   return (
     <div>
       {showModal ? (
@@ -127,7 +132,10 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                   }
                 />
               </div>
-              <div className="EventsAdd-AddBtnDiv">
+              <div className="EventsAdd-BtnDiv">
+                <button className="EventsAdd-CancelBtn" onClick={handleCancel}>
+                  Cancel
+                </button>
                 <input
                   className="EventsAdd-AddBtn"
                   type="submit"

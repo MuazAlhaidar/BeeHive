@@ -84,7 +84,7 @@
   border-radius: 5px;
 }
 
-.EventsAdd-AddBtnDiv {
+.EventsAdd-BtnDiv {
   display: flex;
   justify-content: right;
   margin-top: 15px;
@@ -102,4 +102,18 @@
   background-color: #ff9442;
   color: #ffffff;
   align-self: flex-end;
+}
+
+.EventsAdd-CancelBtn {
+  border: 2px solid #ff9442;
+  box-shadow: 2px 2px 2px gray;
+  width: fit-content;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: #ffffff;
+  color: #ff9442;
+  align-self: flex-end;
+  margin-right: 15px;
 }
