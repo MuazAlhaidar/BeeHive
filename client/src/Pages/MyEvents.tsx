@@ -17,14 +17,14 @@ function MyEvents() {
       name: "HR event",
       address: "5648 Thing St.",
       time: "88:88",
-      date: "88/88/8888",
+      date: "8888-88-88",
       description: "Thing thang",
     },
     {
       name: "CR event",
       address: "8459 Thang St.",
       time: "88:88",
-      date: "88/88/8888",
+      date: "8888-88-88",
       description: "Thang thing",
     }
   );

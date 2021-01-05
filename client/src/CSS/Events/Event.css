@@ -2,6 +2,7 @@
   display: flex;
   padding: 0px 15px 0px 8px;
   background-color: #ffffff;
+  word-break: break-all;
 }
 
 .Event-Button {
@@ -14,4 +15,5 @@
   border-right: none;
   border-bottom: 1px solid #f58032;
   background-color: #ffffff;
+  word-break: break-all;
 }

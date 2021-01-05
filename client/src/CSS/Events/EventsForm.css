@@ -42,10 +42,16 @@
   background-color: #ffffff;
 }
 
+.EventsForm-NameDiv {
+  display: flex;
+}
+
 .EventsForm-Name {
+  display: flex;
   justify-content: left;
   padding-left: 5px;
   margin-bottom: 15px;
+  flex-grow: 1;
 }
 
 .EventsForm-Address {

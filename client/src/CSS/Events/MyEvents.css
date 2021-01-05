@@ -6,6 +6,7 @@
 .MyEvents-EventList {
   flex-grow: 1;
   min-width: 285px;
+  max-width: 285px;
   background-color: white;
   border-right: 2px solid #ff9442;
 }

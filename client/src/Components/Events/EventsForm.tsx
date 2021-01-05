@@ -24,7 +24,9 @@ function EventsForm({
     <div className="EventsForm">
       <div className="EventsForm-Top">
         <div className="EventsForm-NameAddressTimeDateGroup">
-          <div className="EventsForm-Name">{name}</div>
+          <div className="EventsForm-NameDiv">
+            <div className="EventsForm-Name">{name}</div>
+          </div>
           <div className="EventsForm-AddressTimeDateGroup">
             <div className="EventsForm-Address">{address}</div>
             <div className="EventsForm-Time">{time}</div>
