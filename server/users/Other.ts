@@ -24,7 +24,7 @@ function resetPassword_token(user){
         // secret = crypto.randomBytes(25)+hash.digest(user)
 
         // NOTE Right now lol it makes the databse looks really weird so here you go 
-        secret = user+"chicken"
+        secret = user+"zaki"
         return secret
 
 }

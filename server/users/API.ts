@@ -18,8 +18,8 @@ async function axiosPost(url:string, _data:any){
 async function login(_username:string, _password:string){
         // return axiosPost("login", { username:_username, password:_password} )
         return axiosPost("login", { username:_username, password:_password} )
-        .then(() => {  return true })
-        .catch(() => {  return false })
+        .then(res => res.id)
+        .catch(err => -1)
 }
 
 
@@ -35,7 +35,6 @@ async function new_user( user:any ){
 	.catch((err:any)=>{
 	    switch(err.response.status){
 		case 401:
-		    // console.log(user, err.response.data)
 		    return [1, undefined];
 		case 402:
 		    return [2, undefined];
@@ -55,14 +54,25 @@ async function reset_password(_email:string){
 
 }
 
-async function reset_token(_token:string, _newpass:string){
-    return axiosPost("reset_token",{token:_token, password:_newpass} )
-	.then(res => true)
-	.catch(res => false)
+async function reset_token(_token:string, _newpass:string, what:boolean){
+        if(what==true ){
+                return axiosPost("reset_token",{token:_token, password:_newpass, FUCK:"SHIT"} )
+                .then(res => true)
+                .catch(res => false)
+        }
+        else{
+                return axiosPost("reset_token",{token:_token, password:_newpass} )
+                .then(res => true)
+                .catch(res => false)
+        }
 
 }
+async function reset_url(_token:string){
+        return axiosPost("reset_url",{token:_token} )
+        .then(res => true)
+        .catch(res => false)
+}
 
-
-export {axiosPost,axiosGet,  login,new_user,reset_password, reset_token}
+export {axiosPost,axiosGet,  login,new_user,reset_password, reset_token, reset_url}
 // module.exports= { login,new_user,reset_password, reset_token}
 

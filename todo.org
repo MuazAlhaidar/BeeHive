@@ -39,9 +39,10 @@
    * [ ] Email people who RSVP ::
    * [ ] Signin to an event :: 
 ** TODO USer Management
-   - [ ] Login ::
-   - [ ] Sign up ::
-   - [ ] Reset Password ::
+   - [X] Sign up :: A new user is created in the database
+   - [X] Login :: A user logins and the databse sends their ID to them.
+   - [X] Reset Password :: A request to send the password to an email
+   - [ ] Clicking Reset Password ::  When clicking on reset password, it will take them to a new page, which they have hte option to reset the password
    - [ ] Encryption/Decryption of password :: 
 ** TODO Other
    + [ ] Manage poitns for member ::

@@ -10,14 +10,13 @@ const {or, and, gt, lt} = Sequelize.Op;
  * @desc Get all the events
  */
 router.get("/getall", (req,res)=>{
-	// .then(ret => {res.status(200).send(ret.map(x => {console.log(x.dataValues); x.dataValues}))})
     Event.findAll()
 	.then(ret => {
-                // console.log("TAGGGGGGGGGGGGGGGGGGG",ret)
                 const values = ret.map(x => x.dataValues);
                 res.status(200).send(values);
         })
-        .catch(err => {console.log(err); res.sendStatus(404)})
+        // .catch(err => {console.log(err); res.sendStatus(404)})
+        .catch(err => {res.sendStatus(404)})
     
 })
 /* @route POST api/events/new
@@ -46,8 +45,10 @@ router.post("/new", (req,res)=>{
 		,RSVP: false
 		,Manager:true
 	    })
-		.then(() =>{console.log(ret); res.sendStatus(200)})
-		.catch(err => {console.log(err); res.status(404).send(err)})
+		// .then(() =>{console.log(ret); res.sendStatus(200)})
+		.then(() =>{res.sendStatus(200)})
+		// .catch(err => {console.log(err); res.status(404).send(err)})
+		.catch(err => {res.status(404).send(err)})
 	    // .catch(err => {console.log(err); res.status(404).send(err)})
 
 	})
@@ -121,9 +122,9 @@ router.post("/delete", (req, res)=>{
         .then( ret=>{
                    Event.destroy({where:{id: req.body.id}})
                    .then( () => {res.sendStatus(200); return})
-                   .catch( err => {console.log("NOOOOOOOOOOO\nNOOOOOOOOOOOOO",err); res.status(404).send(err); return})
+                   .catch( err => { res.status(404).send(err); return})
         })
-        .catch( err => {console.log("NOOOOOOOOOOO\nNOOOOOOOOOOOOO", err); res.status(404).send(err); return})
+        .catch( err => { res.status(404).send(err); return})
 })
 
 export {}

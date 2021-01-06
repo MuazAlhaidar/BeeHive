@@ -44,7 +44,7 @@ router.post("/new", (req,res)=>{
 	    
 	}
     })
-	.catch(err => {console.log(err); res.status(403).send(err)})
+	.catch(err => { res.status(403).send(err)})
 
 
 });
@@ -66,7 +66,7 @@ router.post("/login", (req, res)=>{
 	    return;
 	}
 	else
-	    res.status(200).send({id:found.dataValues.id, email:found.dataValues.email})
+	    res.status(200).send({id:found.dataValues.id})
     })
 	.catch(err => {
 	    res.status(404).send(err)
@@ -111,7 +111,6 @@ router.post("/reset_request", (req, res)=>{
 	     )
 	.catch(ret => res.status(404).send(ret))
 })
-
 // @route POST api/users/reset_token
 // @desc Once given a token, reset the password
 router.post("/reset_token", (req, res)=>{
@@ -122,24 +121,53 @@ router.post("/reset_token", (req, res)=>{
 	resetPassword_token:null,
 	resetPassword_expiry:null
     }, {where:{
-	[and]:[
-	    {resetPassword_token: _token}
+	    resetPassword_token: _token
 	    // Used to make sure resetPasswords exprie. 
 	    // Can't be unit tested, so just do a check in the database
 	    // Maybe manually change this entry in the database?
-	    ,{resetPassword_expiry: {[gt]: new Date()}} 
-	]
+	    ,resetPassword_expiry: {[gt]: new Date()} 
+	
     }})
-	.then(ret =>{
-	    if(ret[0] === 0){
-		res.sendStatus(404)
-	    }
-	    else{
-		res.sendStatus(200)
-	    }
-	})
+    .then(ret =>{
+
+            if(ret[0] === 0){
+                    res.sendStatus(404)
+                    return;
+            }
+            else{
+                    res.sendStatus(200)
+                    return;
+            }
+
+    })
+    .catch(err => {console.log(err); res.sendStatus(404)})
 
 })
 
+
+// @route POST api/users/url
+// @desc Give user power to reset the password
+router.post("/reset_url" , (req, res)=>{
+        let _token = req.body.token;
+        User.findOne({ where:{
+                [and]:[
+                        {resetPassword_token: _token}
+                        ,{resetPassword_expiry: {[gt]: new Date()}} 
+                ]
+        }} )
+        .then(ret => {
+                if(ret===null){
+                        res.sendStatus(404)
+                        return;
+                }
+                else{
+                        // console.log(ret.dataValues);
+                        res.sendStatus(200)
+                        return;
+                }
+        })
+        .catch(err => {console.log("welp FUCK",err); res.sendStatus(404)})
+
+})
 export {}
 module.exports = router;

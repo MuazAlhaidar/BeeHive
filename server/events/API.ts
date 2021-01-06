@@ -11,7 +11,6 @@ async function axiosPost(url:string, _data:any){
 
 
 async function newEvent(name:string, desc:string, address:string, time:Date, manager:number):Promise<Boolean>{
-    // console.log(manager)
     return axiosPost("new", {Name:name,  Description:desc, Address:address, Time:time, Manager:manager})
 	.then(ret => true)
 	.catch(err =>  false)
@@ -24,7 +23,6 @@ async function getEvent(_id:number){
     
     return axiosGet("get", {id:_id})
 	.then(res => res)
-	// .catch(err =>  {console.log(err); {}} )
 	.catch(err =>  { {}} )
     
 }
@@ -32,14 +30,12 @@ async function getEvent(_id:number){
 async function update(_id:number, _name:undefined|string, _desc:undefined|string, _address:undefined|string, _time:undefined|Date, _manager:undefined|number){
     return axiosPost("update2", {id:_id, Name:_name,  Description:_desc, Address:_address, Time:_time, Manager:_manager})
 	.then(res => res)
-	// .catch(err => {console.log(err); {}})
 	.catch(err => { {}})
 }
 
 async function getAllEvents(){
     return axiosGet("getall", undefined)
 	.then(res => res)
-	// .catch(err => {console.log(err); undefined})
 	.catch(err => { undefined})
 }
 
