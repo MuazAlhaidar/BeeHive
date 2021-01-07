@@ -23,36 +23,33 @@ router.get("/getall", (req,res)=>{
  * @desc Create a new event
  */
 router.post("/new", (req,res)=>{
-    let fields=["Name", "Description", "Address", "Time", "Manager"]
-    for(let field in fields){
-	if(req.body[fields[field]] === undefined){
-	    res.status(402).send("Fields have been changed")
-	    return;
-	}
-    }
-    Event.create({
-	Name: req.body.Name
-	,Description: req.body.Description
-	,Address: req.body.Address
-	,Time: req.body.Time
-    })
-	.then(ret =>   {
-	    // User.findAll({where:{ username:req.body.Manager}})
-	    EventMember.create({
-		User: req.body.Manager
-		,Event: ret.dataValues.id
-		,Attended: false
-		,RSVP: false
-		,Manager:true
-	    })
-		// .then(() =>{console.log(ret); res.sendStatus(200)})
-		.then(() =>{res.sendStatus(200)})
-		// .catch(err => {console.log(err); res.status(404).send(err)})
-		.catch(err => {res.status(404).send(err)})
-	    // .catch(err => {console.log(err); res.status(404).send(err)})
+        let fields=["Name", "Description", "Address", "Time", "Manager"]
+        for(let field in fields){
+                if(req.body[fields[field]] === undefined){
+                        res.status(402).send("Fields have been changed")
+                        return;
+                }
+        }
+        Event.create({
+         Name: req.body.Name
+        ,Description: req.body.Description
+        ,Address: req.body.Address
+        ,Time: req.body.Time
+        })
+        .then(ret =>   {
+                // User.findAll({where:{ username:req.body.Manager}})
+                EventMember.create({
+                        User: req.body.Manager
+                ,Event: ret.dataValues.id
+                ,Attended: false
+                ,RSVP: false
+                ,Manager:true
+                })
+                .then(() =>{res.sendStatus(200)})
+                .catch(err => {res.status(404).send(err)})
 
-	})
-	.catch(err => res.status(404).send(err))
+        })
+        .catch(err => res.status(404).send(err))
 
 
 })
