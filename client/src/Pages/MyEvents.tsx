@@ -3,12 +3,18 @@ import "../CSS/Events/MyEvents.css";
 import EventList from "../Components/Events/EventsList";
 import EventsForm from "../Components/Events/EventsForm";
 
+interface MemberInfo {
+  name: string;
+  points: number;
+}
+
 interface EventInfo {
   name: string;
   address: string;
   time: string;
   date: string;
   description: string;
+  members: Array<MemberInfo> | null;
 }
 
 function MyEvents() {
@@ -19,6 +25,10 @@ function MyEvents() {
       time: "88:88",
       date: "8888-88-88",
       description: "Thing thang",
+      members: [
+        { name: "john", points: 0 },
+        { name: "Thomas", points: 0 },
+      ],
     },
     {
       name: "CR event",
@@ -26,6 +36,10 @@ function MyEvents() {
       time: "88:88",
       date: "8888-88-88",
       description: "Thang thing",
+      members: [
+        { name: "John", points: 0 },
+        { name: "Lisa", points: 0 },
+      ],
     }
   );
   const [events, setEvents] = React.useState(fakeEvents);
@@ -44,7 +58,7 @@ function MyEvents() {
     description: string
   ) => {
     const e = events.slice();
-    e.push({ name, address, time, date, description });
+    e.push({ name, address, time, date, description, members: null });
     setEvents(e);
   };
 
