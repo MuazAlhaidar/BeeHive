@@ -5,16 +5,23 @@
 }
 
 .MyGroups-GroupList {
-  flex-grow: 1;
-  border: 1px solid red;
+  min-width: 285px;
+  max-width: 285px;
+  max-height: 93.5vh;
+  overflow: auto;
+  background-color: white;
+  border-right: 2px solid #ff9442;
 }
 
 .MyGroups-GroupForm {
-  flex-grow: 5;
+  flex-grow: 1;
   border: 1px solid blue;
 }
 
 .MyGroups-MemberList {
-  flex-grow: 1.5;
-  border: 1px solid violet;
+  min-width: 285px;
+  max-width: 285px;
+  max-height: 93.5vh;
+  overflow: auto;
+  background-color: white;
 }

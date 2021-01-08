@@ -1,16 +1,17 @@
 .MyEvents {
-  flex-grow: 1;
   display: flex;
+  flex-grow: 1;
 }
 
 .MyEvents-EventList {
-  flex-grow: 1;
   min-width: 285px;
   max-width: 285px;
+  max-height: 93.5vh;
+  overflow: auto;
   background-color: white;
   border-right: 2px solid #ff9442;
 }
 
 .MyEvents-EventForm {
-  flex-grow: 5;
+  flex-grow: 1;
 }
