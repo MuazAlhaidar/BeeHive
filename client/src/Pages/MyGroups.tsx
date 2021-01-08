@@ -1,5 +1,5 @@
 import React from "react";
-import GroupList from "../Components/Groups/GroupsList";
+import GroupsList from "../Components/Groups/GroupsList";
 import GroupForm from "../Components/Groups/GroupsForm";
 import MemberList from "../Components/Members/MemberList";
 import "../CSS/Groups/MyGroups.css";
@@ -11,7 +11,7 @@ interface MemberInfo {
 interface GroupInfo {
   name: string;
   contactInfo: string;
-  members: Array<MemberInfo>;
+  members: Array<MemberInfo> | null;
 }
 
 function MyGroups() {
@@ -36,11 +36,7 @@ function MyGroups() {
     setGroupIndex(index);
   };
 
-  const addGroup = (
-    name: string,
-    contactInfo: string,
-    members: Array<MemberInfo>
-  ) => {
+  const addGroup = (name: string, contactInfo: string, members: null) => {
     const g = groups.slice();
     g.push({ name, contactInfo, members });
     setGroups(g);
@@ -56,7 +52,11 @@ function MyGroups() {
   return (
     <div className="MyGroups">
       <div className="MyGroups-GroupList">
-        <GroupList />
+        <GroupsList
+          groupList={groups}
+          selectGroup={selectGroup}
+          addGroup={addGroup}
+        />
       </div>
       <div className="MyGroups-GroupForm">
         <GroupForm />

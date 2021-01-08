@@ -1,5 +1,6 @@
 .Event {
   display: flex;
+  height: fit-content;
   padding: 0px 15px 0px 8px;
   background-color: #ffffff;
   word-break: break-all;
