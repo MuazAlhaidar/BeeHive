@@ -19,7 +19,7 @@
     - Members and owners can add/remove points for members and allows them to see a global leaderboard. It also tracks people who do join an event.
      
 *** User Authentication
-    - Application can log users in and assign users to either owners, members, or non-members. If the user forgets their password, there are steps they can take to get it back. 
+    - Application can log users in and assign users to either owners, members, or non-members. If the user forgets their password, there are steps they can take to get it back.
      
 *** Contact Us
     - A page that has the information of the organization, such as phone numbers, email address, or mailing address.
@@ -47,5 +47,6 @@
 ** TODO Other
    + [ ] Manage poitns for member ::
    + [ ] Contact Us for orgainzation ::
-   + [ ] Leaderboard :: 
+   + [ ] Leaderboard ::
+   + [ ] Logging fucntion :: Generate logging function for database
 * Plan  
