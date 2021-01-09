@@ -15,7 +15,7 @@ router.get("/getall", (req,res)=>{
                 const values = ret.map(x => x.dataValues);
                 res.status(200).send(values);
         })
-        .catch(err => {console.log(err); res.sendStatus(404)})
+        .catch(err => {res.sendStatus(404)})
         // .catch(err => {res.sendStatus(404)})
 
 })
@@ -62,12 +62,15 @@ router.get("/get", (req, res)=>{
 
 
 router.post("/update", (req, res)=>{
-        // console.log(req.body)
         Event.findOne({where:{id:req.body.id}})
         .then(ret => {
-                Promise.all([Event.update({Name: req.body.Name ,Description: req.body.Description ,Address: req.body.Address ,Time: req.body.Time}, {where:{id:req.body.id}})])
-
-                res.status(200).send({Event:{ Name: req.body.Name ,Description: req.body.Description ,Address: req.body.Address ,Time: req.body.Time} })
+                Event.update({Name: req.body.Name ,Description: req.body.Description ,Address: req.body.Address ,Time: req.body.Time}, {where:{id:req.body.id}})
+                .then(ret2=>{
+                        if(ret2[0]===0)
+                                res.status(404).send("Didn't found event")
+                        else
+                                res.status(200).send({Event:{ Name: req.body.Name ,Description: req.body.Description ,Address: req.body.Address ,Time: req.body.Time} })
+                })
         })
         .catch(err => res.status(404).send("Unable to update event") )
 
@@ -77,7 +80,12 @@ router.post("/delete", (req, res)=>{
         EventMember.destroy({ where: {Event: req.body.id}})
         .then( ret=>{
                 Event.destroy({where:{id: req.body.id}})
-                .then( () => {res.sendStatus(200); return})
+                .then(ret => {
+                        console.log("WOW", ret);
+                        if(ret===0) {res.sendStatus(404)}
+                                else res.sendStatus(200);
+                        return
+                })
                 .catch( err => { res.status(404).send(err); return})
         })
         .catch( err => { res.status(404).send(err); return})

@@ -13,8 +13,8 @@ async function axiosPost(url:string, _data:any){
 async function newEvent(name:string, desc:string, address:string, time:Date, manager:number){
         return axiosPost("new", {Name:name,  Description:desc, Address:address, Time:time, Manager:manager})
         .then(ret => {  return ret.data })
+        .catch(err => { return undefined})
         // .catch(err => {console.log(err); return err})
-        .catch(err => { return err})
 }
 
 async function getEvent(_id:number){
@@ -35,7 +35,7 @@ async function update(_id:number, _name:undefined|string, _desc:undefined|string
         // return axiosPost("update2", {id:_id, Name:_name,  Description:_desc, Address:_address, Time:_time, Manager:_manager})
         return axiosPost("update", {id:_id, Name:_name,  Description:_desc, Address:_address, Time:_time})
         .then(res => res.data)
-        .catch(err => { {}})
+        .catch(err => {undefined})
 }
 
 async function getAllEvents(){
