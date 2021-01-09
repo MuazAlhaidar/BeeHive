@@ -26,7 +26,7 @@ router.post("/new", (req,res)=>{
         let fields=["Name", "Description", "Address", "Time", "Manager"]
         for(let field in fields){
                 if(req.body[fields[field]] === undefined){
-                        res.status(402).send("Fields have been changed")
+                        res.status(402).send("The field "+fields[field]+" does not appeear")
                         return;
                 }
         }

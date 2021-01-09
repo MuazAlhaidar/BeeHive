@@ -12,8 +12,9 @@ async function axiosPost(url:string, _data:any){
 
 async function newEvent(name:string, desc:string, address:string, time:Date, manager:number){
         return axiosPost("new", {Name:name,  Description:desc, Address:address, Time:time, Manager:manager})
-        .then(ret => {  console.log("THIS IS WHATS RETURN", ret.data); return ret.data })
-        .catch(err => {console.log("Welp fuck"); return undefined})
+        .then(ret => {  return ret.data })
+        // .catch(err => {console.log(err); return err})
+        .catch(err => { return err})
 }
 
 async function getEvent(_id:number){
