@@ -59,7 +59,23 @@ function MyGroups() {
         />
       </div>
       <div className="MyGroups-GroupForm">
-        <GroupForm />
+        {groupIndex > groups.length - 1 ? (
+          <GroupForm
+            name={""}
+            contactInfo={""}
+            removeGroup={() => {
+              removeGroup(groupIndex);
+            }}
+          />
+        ) : (
+          <GroupForm
+            name={groups[groupIndex].name}
+            contactInfo={groups[groupIndex].contactInfo}
+            removeGroup={() => {
+              removeGroup(groupIndex);
+            }}
+          />
+        )}
       </div>
       <div className="MyGroups-MemberList">
         <MemberList />

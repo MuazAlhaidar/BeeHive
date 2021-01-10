@@ -1,0 +1,75 @@
+.GroupsForm,
+.GroupsForm-Name,
+.GroupsForm-ContactInfo,
+.GroupsForm-BrightButtonGroup,
+.GroupsForm-DarkButtonGroup,
+.GroupsForm-Bottom {
+  display: flex;
+}
+
+.GroupsForm {
+  flex-direction: column;
+  padding: 15px 15px;
+}
+
+.GroupsForm-Bottom {
+  flex-direction: row;
+  padding-top: 25px;
+}
+
+.GroupsForm-Name {
+  border: 2px solid lightgray;
+  align-items: center;
+  height: 25px;
+  background-color: #ffffff;
+}
+
+.GroupsForm-Name {
+  justify-content: left;
+  padding-left: 5px;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+.GroupsForm-ContactInfo {
+  justify-content: left;
+  padding: 5px 5px;
+  height: 78vh;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: auto;
+  border: 2px solid lightgray;
+  text-align: left;
+  background-color: #ffffff;
+}
+
+.GroupsForm-BrightButtonGroup {
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.GroupsForm-DarkButtonGroup {
+  flex-grow: 80;
+  justify-content: right;
+}
+
+.GroupsForm-BrightButton,
+.GroupsForm-DarkButton {
+  border: 2px solid #ff9442;
+  box-shadow: 2px 2px 2px gray;
+  width: fit-content;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.GroupsForm-BrightButton {
+  background-color: #ffffff;
+  color: #ff9442;
+}
+
+.GroupsForm-DarkButton {
+  background-color: #ff9442;
+  color: #ffffff;
+}

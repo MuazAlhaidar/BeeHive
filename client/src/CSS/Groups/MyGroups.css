@@ -1,7 +1,6 @@
 .MyGroups {
   display: flex;
   flex-grow: 1;
-  border: 1px solid green;
 }
 
 .MyGroups-GroupList {
@@ -15,7 +14,6 @@
 
 .MyGroups-GroupForm {
   flex-grow: 1;
-  border: 1px solid blue;
 }
 
 .MyGroups-MemberList {
