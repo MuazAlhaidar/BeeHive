@@ -11,7 +11,7 @@ interface MemberInfo {
 interface GroupInfo {
   name: string;
   contactInfo: string;
-  members: Array<MemberInfo> | null;
+  members: Array<MemberInfo>;
 }
 
 function MyGroups() {
@@ -19,14 +19,16 @@ function MyGroups() {
     {
       name: "HR Group",
       contactInfo: "313-995-7488",
-      members: [{ name: "john" }, { name: "Thomas" }],
+      members: [{ name: "John" }, { name: "Thomas" }],
     },
     {
       name: "PR Group",
       contactInfo: "313-555-6598",
-      members: [{ name: "john" }],
+      members: [{ name: "John" }],
     }
   );
+
+  const emptyMembersList = new Array<MemberInfo>();
 
   const [groups, setGroups] = React.useState(fakeGroup);
   const [groupIndex, setGroupIndex] = React.useState(0);
@@ -36,7 +38,11 @@ function MyGroups() {
     setGroupIndex(index);
   };
 
-  const addGroup = (name: string, contactInfo: string, members: null) => {
+  const addGroup = (
+    name: string,
+    contactInfo: string,
+    members: Array<MemberInfo>
+  ) => {
     const g = groups.slice();
     g.push({ name, contactInfo, members });
     setGroups(g);
@@ -78,7 +84,11 @@ function MyGroups() {
         )}
       </div>
       <div className="MyGroups-MemberList">
-        <MemberList />
+        {groupIndex > groups.length - 1 ? (
+          <MemberList memberList={emptyMembersList} />
+        ) : (
+          <MemberList memberList={groups[groupIndex].members} />
+        )}
       </div>
     </div>
   );

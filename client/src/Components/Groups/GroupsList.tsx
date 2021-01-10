@@ -3,6 +3,10 @@ import "../../CSS/Groups/GroupsList.css";
 import Group from "./Group";
 import GroupsAdd from "./GroupsAdd";
 
+interface MemberInfo {
+  name: string;
+}
+
 interface GroupInfo {
   name: string;
   contactInfo: string;
@@ -11,7 +15,11 @@ interface GroupInfo {
 interface IProps {
   groupList: Array<GroupInfo>;
   selectGroup: (i: number) => void;
-  addGroup: (name: string, contactInfo: string, members: null) => void;
+  addGroup: (
+    name: string,
+    contactInfo: string,
+    members: Array<MemberInfo>
+  ) => void;
 }
 
 function GroupsList({ groupList, selectGroup, addGroup }: IProps) {

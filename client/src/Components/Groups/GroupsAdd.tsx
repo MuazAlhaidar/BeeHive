@@ -1,8 +1,16 @@
 import React from "react";
 import "../../CSS/Groups/GroupsAdd.css";
 
+interface MemberInfo {
+  name: string;
+}
+
 interface IProps {
-  addGroup: (name: string, contactInfo: string, members: null) => void;
+  addGroup: (
+    name: string,
+    contactInfo: string,
+    members: Array<MemberInfo>
+  ) => void;
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
 }
@@ -13,9 +21,11 @@ function GroupsAdd({ addGroup, showModal, setShowModal }: IProps) {
     contactInfo: "",
   });
 
+  const emptyMembersList = new Array<MemberInfo>();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    addGroup(newGroup.name, newGroup.contactInfo, null);
+    addGroup(newGroup.name, newGroup.contactInfo, emptyMembersList);
     setShowModal(!showModal);
     setNewGroup({ name: "", contactInfo: "" });
   };
