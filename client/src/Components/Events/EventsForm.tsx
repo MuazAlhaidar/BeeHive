@@ -2,6 +2,7 @@ import React from "react";
 import TwitterLogo from "../../Images/Twitter_Social_Icon_Rounded_Square_Color.png";
 import FacebookLogo from "../../Images/f_logo_RGB-Blue_58.png";
 import EmailModal from "../EmailModal";
+import EventEdit from "./EventsEdit";
 import "../../CSS/Events/EventsForm.css";
 
 interface EventInfo {
@@ -22,14 +23,23 @@ function EventsForm({
   removeEvent,
 }: EventInfo) {
   const [showEmailModal, setShowEmailModal] = React.useState(false);
+  const [showEventEditModal, setShowEventEditModal] = React.useState(false);
 
   const toggleEmailModal = () => {
     setShowEmailModal(!showEmailModal);
   };
 
+  const toggleEventEditModal = () => {
+    setShowEventEditModal(!showEventEditModal);
+  };
+
   return (
     <div className="EventsForm">
       <EmailModal showModal={showEmailModal} setShowModal={setShowEmailModal} />
+      <EventEdit
+        showModal={showEventEditModal}
+        setShowModal={setShowEventEditModal}
+      />
       <div className="EventsForm-Top">
         <div className="EventsForm-NameAddressTimeDateGroup">
           <div className="EventsForm-NameDiv">
@@ -57,7 +67,12 @@ function EventsForm({
       </div>
       <div className="EventsForm-Bottom">
         <div className="EventsForm-BrightButtonGroup">
-          <button className="EventsForm-BrightButton">Edit Event</button>
+          <button
+            className="EventsForm-BrightButton"
+            onClick={toggleEventEditModal}
+          >
+            Edit Event
+          </button>
           <button className="EventsForm-BrightButton">Members</button>
           <button
             className="EventsForm-BrightButton"
