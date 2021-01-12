@@ -64,5 +64,11 @@ async function Signin(_Event:number, _User:number){
         .catch(err => {console.log(err); return false})
 }
 
-export {axiosGet, axiosPost, newEvent, getEvent, update, getAllEvents, Delete, Invite, Signin}
+async function Transfer(_Event:number, _User:number ){
+        return axiosPost("transfer",{Event:_Event, Manager:_User})
+        .then(res => true)
+        .catch(err => {console.log(err); return false})
+}
+
+export {axiosGet, axiosPost, newEvent, getEvent, update, getAllEvents, Delete, Invite, Signin, Transfer}
 // module.exports= { login,new_user,reset_password, reset_token}

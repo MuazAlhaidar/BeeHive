@@ -124,5 +124,35 @@ router.post("/signin", (req, res)=>{
         })
         .catch(err => {console.log(err);  res.sendStatus(200)});
 })
+
+
+// TODO This can lead to security exploit, of people transfering event ot yourself
+/* @route POST api/events/transfer
+ * @desc Transfer event to another user
+ * @body {Event:EventId, Manager:UserId}
+ */
+router.post("/transfer", (req, res)=>{
+        let user = req.body.Manager
+        let event = req.body.Event;
+        EventMember.update({Manager:false}, {where:{Manager:true, Event:event}})
+                .then(ret =>{
+                        if(ret[0]===0){
+                                console.log("Error: no events found");
+                                res.sendStatus(404);
+                        }
+                        else{
+                                EventMember.update({Manager:true}, {where:{User:user, Event:event}})
+                                .then(ret2=>{
+                                        if(ret2[0]===0){
+                                                EventMember.create({Manager:true, User:user, Event:event, RSVP:false, Attended:false} )
+                                                res.sendStatus(200);
+                                        }
+                                        else
+                                                res.sendStatus(200);
+                                })
+                        }
+                })
+                .catch(err => {console.log(err); res.sendStatus(404)})
+})
 export {}
 module.exports = router;
