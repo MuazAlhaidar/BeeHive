@@ -15,17 +15,17 @@
 
 .EventsForm {
   flex-direction: column;
-  padding: 15px 15px;
 }
 
 .EventsForm-Top {
   display: flex;
   flex-direction: row;
+  padding: 15px 15px;
 }
 
 .EventsForm-Bottom {
   flex-direction: row;
-  padding-top: 25px;
+  padding: 15px 15px 10px 15px;
 }
 
 .EventsForm-NameAddressTimeDateGroup {
@@ -88,6 +88,10 @@
 .EventsForm-SocialMediaButtons-Facebook {
   padding-bottom: 5px;
   width: 35px;
+}
+
+.EventsForm-DescriptionDiv {
+  padding: 0px 15px;
 }
 
 .EventsForm-Description {
