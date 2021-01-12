@@ -50,5 +50,19 @@ async function Delete(_id:number){
         .catch(err => false)
 }
 
-export {axiosGet, axiosPost, newEvent, getEvent, update, getAllEvents, Delete}
+ /* @body {Event:EventId, Invited:[User1Id, User2Id]} */
+async function Invite(_Event:number, _Users:[number]){
+        return axiosPost("invite", {Event:_Event, Invited:_Users})
+        .then(res => true)
+        .catch(err => false)
+}
+
+ /*@body {Event:EventId, User:UserId} */
+async function Signin(_Event:number, _User:number){
+        return axiosPost("signin", {Event:_Event, User:_User})
+        .then(res => true)
+        .catch(err => {console.log(err); return false})
+}
+
+export {axiosGet, axiosPost, newEvent, getEvent, update, getAllEvents, Delete, Invite, Signin}
 // module.exports= { login,new_user,reset_password, reset_token}

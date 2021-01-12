@@ -77,11 +77,13 @@ router.post("/update", (req, res)=>{
 })
 
 router.post("/delete", (req, res)=>{
+        // NOTE
+        // At this poitn, I cant be fecking bothered to get 
+        // notifications ot members when an event is deleted in.
         EventMember.destroy({ where: {Event: req.body.id}})
         .then( ret=>{
                 Event.destroy({where:{id: req.body.id}})
                 .then(ret => {
-                        console.log("WOW", ret);
                         if(ret===0) {res.sendStatus(404)}
                                 else res.sendStatus(200);
                         return
@@ -91,5 +93,36 @@ router.post("/delete", (req, res)=>{
         .catch( err => { res.status(404).send(err); return})
 })
 
+/* @route POST api/events/invite
+ * @desc Invite a set of users to an event
+ * @body {Event:EventId, Invited:[User1Id, User2Id]}
+ */
+router.post("/invite", (req, res)=>{
+        let users = req.body.Invited
+        let Event = req.body.Event
+        users.forEach((value)=> {
+                EventMember.create({ User: value,Event: Event,Attended: false ,RSVP: true ,Manager:false })
+                .catch(err => res.status(404).send("Error in RSVPing people"))
+        })
+        res.sendStatus(200)
+
+})
+
+/* @route POST api/envite/signin
+ * @desc User signs in to an event
+ *@body {Event:EventId, User:UserId} */
+router.post("/signin", (req, res)=>{
+        let user = req.body.User
+        let event = req.body.Event
+        EventMember.update({Attended:true}, {where:{Event:event, user:user}})
+        .then(ret=>{
+                if(ret[0] === 0){
+                        EventMember.create({Attended:true, Manager:false, RSVP:false, User:user, Event:event}, {where:{Event:event, user:user}})
+
+                }
+                res.sendStatus(200)
+        })
+        .catch(err => {console.log(err);  res.sendStatus(200)});
+})
 export {}
 module.exports = router;

@@ -34,11 +34,13 @@
    + [ ] Email people in a group :: 
 ** TODO Event Mangement
    * [X] CRUD Event :: Create, adn read/update/delete evnets that exist and NOT exist
-   * [ ] Invite people to event ::
-   * [ ] Make social media post ::
-   * [ ] Email people who RSVP ::
-   * [ ] Signin to an event :: 
-** TODO User Management
+     Note: I have not added any kind of notification to email people who have been RSVP. That will have to be done /later/, when we have access to it.
+   * [X] Invite people to event :: Invite people ot an event by making new eventmember entries
+   * [X] Signin to an event ::
+   * [ ] Transfer manager role :: 
+** DONE User Management
+   CLOSED: [2021-01-12 Tue 08:16]
+   - State "DONE"       from "TODO"       [2021-01-12 Tue 08:16]
    - [X] Sign up :: A new user is created in the database
    - [X] Login :: A user logins and the databse sends their ID to them.
    - [X] Reset Password :: A request to send the password to an email
@@ -49,4 +51,7 @@
    + [ ] Contact Us for orgainzation ::
    + [ ] Leaderboard ::
    + [ ] Logging fucntion :: Generate logging function for database
+** TODO Social media shit     
+   * [ ] Make social media post ::
+   * [ ] Email people who RSVP ::
 * Plan  
