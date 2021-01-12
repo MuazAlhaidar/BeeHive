@@ -3,6 +3,8 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import EventPage from "./Pages/Events";
 import GroupPage from "./Pages/Group";
+import MyEventsPage from "./Pages/MyEvents";
+import MyGroupsPage from "./Pages/MyGroups";
 import LogIn from "./Pages/LogIn";
 import SignUp from "./Pages/SignUp";
 import ContactUs from "./Pages/ContactUs";
@@ -74,8 +76,12 @@ function App() {
             <Route path="/ContactUs">
               <ContactUs />
             </Route>
-            <Route path="/MyEvents"></Route>
-            <Route path="/MyGroups"></Route>
+            <Route path="/MyEvents">
+              <MyEventsPage />
+            </Route>
+            <Route path="/MyGroups">
+              <MyGroupsPage />
+            </Route>
           </Switch>
         </Router>
       </header>

@@ -1,0 +1,91 @@
+.GroupsAdd-Background {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.GroupsAdd-AddFormDiv {
+  display: flex;
+  border: 2px solid #ff9442;
+  border-radius: 8px;
+  background-color: white;
+  width: 125vh;
+  height: 90vh;
+  margin-top: 10px;
+}
+
+.GroupsAdd-AddForm {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px;
+  flex-grow: 1;
+}
+
+.GroupsAdd-NameDiv {
+  display: flex;
+  width: auto;
+  margin-bottom: 15px;
+}
+
+.GroupsAdd-Name {
+  display: flex;
+  flex-grow: 1;
+  height: 25px;
+  border: 2px solid black;
+  padding-left: 5px;
+  border-radius: 5px;
+}
+
+.GroupsAdd-ContactInfoDiv {
+  display: flex;
+  flex-grow: 1;
+}
+
+.GroupsAdd-ContactInfo {
+  display: flex;
+  flex-grow: 1;
+  border: 2px solid black;
+  padding: 8px 8px;
+  font-size: 13px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  resize: none;
+  border-radius: 5px;
+}
+
+.GroupsAdd-BtnDiv {
+  display: flex;
+  justify-content: right;
+  margin-top: 15px;
+}
+
+.GroupsAdd-CancelBtn {
+  border: 2px solid #ff9442;
+  box-shadow: 2px 2px 2px gray;
+  width: fit-content;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: #ffffff;
+  color: #ff9442;
+  align-self: flex-end;
+  margin-right: 15px;
+}
+
+.GroupsAdd-AddBtn {
+  border: 2px solid #ff9442;
+  box-shadow: 2px 2px 2px gray;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: #ff9442;
+  color: #ffffff;
+  align-self: flex-end;
+}

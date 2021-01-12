@@ -1,0 +1,119 @@
+.EventsAdd-Background {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.EventsAdd-AddFormDiv {
+  display: flex;
+  border: 2px solid #ff9442;
+  border-radius: 8px;
+  background-color: white;
+  width: 125vh;
+  height: 90vh;
+  margin-top: 10px;
+}
+
+.EventsAdd-AddForm {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px;
+  flex-grow: 1;
+}
+
+.EventsAdd-NameDiv {
+  display: flex;
+  width: auto;
+  margin-bottom: 15px;
+}
+
+.EventsAdd-Name {
+  display: flex;
+  flex-grow: 1;
+  height: 25px;
+  border: 2px solid black;
+  padding-left: 5px;
+  border-radius: 5px;
+}
+
+.EventsAdd-AddressTimeDateDiv {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.EventsAdd-Address {
+  display: flex;
+  height: 25px;
+  border: 2px solid black;
+  padding-left: 5px;
+  border-radius: 5px;
+  flex-grow: 1;
+}
+
+.EventsAdd-Time {
+  border: 2px solid black;
+  padding-left: 5px;
+  margin-left: 15px;
+  margin-right: 15px;
+  border-radius: 5px;
+}
+
+.EventsAdd-Date {
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.EventsAdd-DescriptionDiv {
+  display: flex;
+  flex-grow: 1;
+}
+
+.EventsAdd-Description {
+  display: flex;
+  flex-grow: 1;
+  border: 2px solid black;
+  padding: 8px 8px;
+  font-size: 13px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  resize: none;
+  border-radius: 5px;
+}
+
+.EventsAdd-BtnDiv {
+  display: flex;
+  justify-content: right;
+  margin-top: 15px;
+}
+
+.EventsAdd-AddBtn {
+  border: 2px solid #ff9442;
+  box-shadow: 2px 2px 2px gray;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: #ff9442;
+  color: #ffffff;
+  align-self: flex-end;
+}
+
+.EventsAdd-CancelBtn {
+  border: 2px solid #ff9442;
+  box-shadow: 2px 2px 2px gray;
+  width: fit-content;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: #ffffff;
+  color: #ff9442;
+  align-self: flex-end;
+  margin-right: 15px;
+}

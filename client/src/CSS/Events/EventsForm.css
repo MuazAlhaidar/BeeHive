@@ -1,0 +1,138 @@
+.EventsForm,
+.EventsForm,
+.EventsForm-Bottom,
+.EventsForm-Name,
+.EventsForm-AddressTimeDateGroup,
+.EventsForm-Address,
+.EventsForm-Time,
+.EventsForm-Date,
+.EventsForm-SocialMediaButtons,
+.EventsForm-Description,
+.EventsForm-BrightButtonGroup,
+.EventsForm-DarkButtonGroup {
+  display: flex;
+}
+
+.EventsForm {
+  flex-direction: column;
+}
+
+.EventsForm-Top {
+  display: flex;
+  flex-direction: row;
+  padding: 15px 15px;
+}
+
+.EventsForm-Bottom {
+  flex-direction: row;
+  padding: 15px 15px 10px 15px;
+}
+
+.EventsForm-NameAddressTimeDateGroup {
+  flex-grow: 20;
+}
+
+.EventsForm-Name,
+.EventsForm-Address,
+.EventsForm-Time,
+.EventsForm-Date {
+  border: 2px solid lightgray;
+  align-items: center;
+  height: 25px;
+  background-color: #ffffff;
+}
+
+.EventsForm-NameDiv {
+  display: flex;
+}
+
+.EventsForm-Name {
+  display: flex;
+  justify-content: left;
+  padding-left: 5px;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+.EventsForm-Address {
+  flex-grow: 100;
+  padding-left: 5px;
+  margin-right: 15px;
+}
+
+.EventsForm-Time {
+  padding-left: 5px;
+  padding-right: 5px;
+  min-width: 50px;
+  margin-right: 15px;
+}
+
+.EventsForm-Date {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.EventsForm-AddressTimeDateGroup {
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.EventsForm-SocialMediaButtons {
+  flex-direction: column;
+  width: 100px;
+  align-items: center;
+}
+
+.EventsForm-SocialMediaButtons-Twitter,
+.EventsForm-SocialMediaButtons-Facebook {
+  padding-bottom: 5px;
+  width: 35px;
+}
+
+.EventsForm-DescriptionDiv {
+  padding: 0px 15px;
+}
+
+.EventsForm-Description {
+  justify-content: left;
+  padding: 5px 5px;
+  height: 74vh;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: auto;
+  border: 2px solid lightgray;
+  text-align: left;
+  background-color: #ffffff;
+}
+
+.EventsForm-BrightButtonGroup {
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.EventsForm-DarkButtonGroup {
+  flex-grow: 25;
+  justify-content: right;
+}
+
+.EventsForm-BrightButton,
+.EventsForm-DarkButton {
+  border: 2px solid #ff9442;
+  box-shadow: 2px 2px 2px gray;
+  width: fit-content;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.EventsForm-BrightButton {
+  background-color: #ffffff;
+  color: #ff9442;
+}
+
+.EventsForm-DarkButton {
+  background-color: #ff9442;
+  color: #ffffff;
+}
