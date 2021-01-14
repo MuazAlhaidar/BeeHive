@@ -43,12 +43,20 @@ function EventsForm({
       <div className="EventsForm-Top">
         <div className="EventsForm-NameAddressTimeDateGroup">
           <div className="EventsForm-NameDiv">
+            <label className="EventsForm-NameLabel">Name</label>
             <div className="EventsForm-Name">{name}</div>
           </div>
           <div className="EventsForm-AddressTimeDateGroup">
-            <div className="EventsForm-Address">{address}</div>
-            <div className="EventsForm-Time">{time}</div>
-            <div className="EventsForm-Date">{date}</div>
+            <div className="EventsForm-AddressTimeDateLabel">
+              <label className="EventsForm-AddressLabel">Address</label>
+              <label className="EventsForm-TimeLabel">Time</label>
+              <label className="EventsForm-DateLabel">Date</label>
+            </div>
+            <div className="EventsForm-AddressTimeDateInfo">
+              <div className="EventsForm-Address">{address}</div>
+              <div className="EventsForm-Time">{time}</div>
+              <div className="EventsForm-Date">{date}</div>
+            </div>
           </div>
         </div>
         <div className="EventsForm-SocialMediaButtons">
@@ -63,6 +71,7 @@ function EventsForm({
         </div>
       </div>
       <div className="EventsForm-DescriptionDiv">
+        <label className="EventsForm-DescriptionLabel">Description</label>
         <div className="EventsForm-Description">{description}</div>
       </div>
       <div className="EventsForm-Bottom">

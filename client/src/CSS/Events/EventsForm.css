@@ -20,7 +20,7 @@
 .EventsForm-Top {
   display: flex;
   flex-direction: row;
-  padding: 15px 15px;
+  padding: 15px 15px 0px 15px;
 }
 
 .EventsForm-Bottom {
@@ -43,6 +43,11 @@
 }
 
 .EventsForm-NameDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.EventsForm-NameLabel {
   display: flex;
 }
 
@@ -72,21 +77,47 @@
   padding-right: 5px;
 }
 
+.EventsForm-AddressLabel {
+  display: flex;
+  flex-grow: 1;
+}
+
+.EventsForm-TimeLabel {
+  display: flex;
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 65px;
+}
+
+.EventsForm-DateLabel {
+  display: flex;
+  width: 96px;
+}
+
 .EventsForm-AddressTimeDateGroup {
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   margin-bottom: 15px;
+}
+
+.EventsForm-AddressTimeDateInfo {
+  display: flex;
+}
+
+.EventsForm-AddressTimeDateLabel {
+  display: flex;
 }
 
 .EventsForm-SocialMediaButtons {
   flex-direction: column;
   width: 100px;
   align-items: center;
+  justify-content: space-around;
 }
 
 .EventsForm-SocialMediaButtons-Twitter,
 .EventsForm-SocialMediaButtons-Facebook {
-  padding-bottom: 5px;
+  padding-top: 5px;
   width: 35px;
 }
 
@@ -94,10 +125,14 @@
   padding: 0px 15px;
 }
 
+.EventsForm-DescriptionLabel {
+  display: flex;
+}
+
 .EventsForm-Description {
   justify-content: left;
   padding: 5px 5px;
-  height: 74vh;
+  height: 68vh;
   white-space: pre-wrap;
   word-break: break-all;
   overflow: auto;

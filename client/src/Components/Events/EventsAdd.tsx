@@ -47,9 +47,9 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
           <div className="EventsAdd-AddFormDiv">
             <form className="EventsAdd-AddForm" onSubmit={handleSubmit}>
               <div className="EventsAdd-NameDiv">
+                <label className="EventsAdd-NameLabel">Name</label>
                 <input
                   className="EventsAdd-Name"
-                  placeholder="Name"
                   type="text"
                   id="name"
                   value={newEvent.name}
@@ -65,59 +65,65 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                 />
               </div>
               <div className="EventsAdd-AddressTimeDateDiv">
-                <input
-                  className="EventsAdd-Address"
-                  placeholder="Address"
-                  type="text"
-                  id="address"
-                  value={newEvent.address}
-                  onChange={(e) =>
-                    setNewEvent({
-                      name: newEvent.name,
-                      address: e.target.value,
-                      time: newEvent.time,
-                      date: newEvent.date,
-                      description: newEvent.description,
-                    })
-                  }
-                />
-                <input
-                  className="EventsAdd-Time"
-                  placeholder="Time"
-                  type="time"
-                  id="time"
-                  value={newEvent.time}
-                  onChange={(e) =>
-                    setNewEvent({
-                      name: newEvent.name,
-                      address: newEvent.address,
-                      time: e.target.value,
-                      date: newEvent.date,
-                      description: newEvent.description,
-                    })
-                  }
-                />
-                <input
-                  className="EventsAdd-Date"
-                  placeholder="Date"
-                  type="date"
-                  id="date"
-                  value={newEvent.date}
-                  onChange={(e) =>
-                    setNewEvent({
-                      name: newEvent.name,
-                      address: newEvent.address,
-                      time: newEvent.time,
-                      date: e.target.value,
-                      description: newEvent.description,
-                    })
-                  }
-                />
+                <div className="EventsAdd-AddressTimeDateLabels">
+                  <label className="EventsAdd-AddressLabel">Address</label>
+                  <label className="EventsAdd-TimeLabel">Time</label>
+                  <label className="EventsAdd-DateLabel">Date</label>
+                </div>
+                <div className="EventsAdd-AddressTimeDateInputs">
+                  <input
+                    className="EventsAdd-Address"
+                    type="text"
+                    id="address"
+                    value={newEvent.address}
+                    onChange={(e) =>
+                      setNewEvent({
+                        name: newEvent.name,
+                        address: e.target.value,
+                        time: newEvent.time,
+                        date: newEvent.date,
+                        description: newEvent.description,
+                      })
+                    }
+                  />
+                  <input
+                    className="EventsAdd-Time"
+                    type="time"
+                    id="time"
+                    value={newEvent.time}
+                    onChange={(e) =>
+                      setNewEvent({
+                        name: newEvent.name,
+                        address: newEvent.address,
+                        time: e.target.value,
+                        date: newEvent.date,
+                        description: newEvent.description,
+                      })
+                    }
+                  />
+                  <input
+                    className="EventsAdd-Date"
+                    type="date"
+                    id="date"
+                    value={newEvent.date}
+                    onChange={(e) =>
+                      setNewEvent({
+                        name: newEvent.name,
+                        address: newEvent.address,
+                        time: newEvent.time,
+                        date: e.target.value,
+                        description: newEvent.description,
+                      })
+                    }
+                  />
+                </div>
               </div>
               <div className="EventsAdd-DescriptionDiv">
+                <label className="EventsAdd-DescriptionLabel">
+                  Description
+                </label>
                 <textarea
                   className="EventsAdd-Description"
-                  placeholder="Description"
                   aria-multiline
                   id="description"
                   value={newEvent.description}

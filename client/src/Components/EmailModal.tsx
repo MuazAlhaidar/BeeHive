@@ -30,9 +30,9 @@ function EmailModal({ showModal, setShowModal }: IProps) {
           <div className="EmailModal-FormDiv">
             <form className="EmailModal-Form" onSubmit={handleSend}>
               <div className="EmailModal-SubjectDiv">
+                <label className="EmailModal-SubjectLabel">Subject</label>
                 <input
                   className="EmailModal-Subject"
-                  placeholder="Subject"
                   type="text"
                   id="subject"
                   value={email.subject}
@@ -45,9 +45,9 @@ function EmailModal({ showModal, setShowModal }: IProps) {
                 />
               </div>
               <div className="EmailModal-BodyDiv">
+                <label className="EmailModal-BodyLabel">Body</label>
                 <textarea
                   className="EmailModal-Body"
-                  placeholder="Body"
                   aria-multiline
                   id="body"
                   value={email.body}

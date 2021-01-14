@@ -29,6 +29,12 @@
   display: flex;
   width: auto;
   margin-bottom: 15px;
+  flex-direction: column;
+}
+
+.EventEdit-NameLabel {
+  display: flex;
+  align-self: flex-start;
 }
 
 .EventEdit-Name {
@@ -43,10 +49,36 @@
 .EventEdit-AddressTimeDateDiv {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   margin-bottom: 15px;
 }
 
-.EventsAdd-Address {
+.EventEdit-AddressTimeDateLabels {
+  display: flex;
+}
+
+.EventEdit-AddressTimeDateInputs {
+  display: flex;
+}
+
+.EventEdit-AddressLabel {
+  display: flex;
+  flex-grow: 1;
+}
+
+.EventEdit-TimeLabel {
+  display: flex;
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 110px;
+}
+
+.EventEdit-DateLabel {
+  display: flex;
+  width: 120px;
+}
+
+.EventEdit-Address {
   display: flex;
   height: 25px;
   border: 2px solid black;
@@ -56,6 +88,7 @@
 }
 
 .EventEdit-Time {
+  display: flex;
   border: 2px solid black;
   padding-left: 5px;
   margin-left: 15px;
@@ -64,6 +97,7 @@
 }
 
 .EventEdit-Date {
+  display: flex;
   border: 2px solid black;
   border-radius: 5px;
 }
@@ -71,6 +105,11 @@
 .EventEdit-DescriptionDiv {
   display: flex;
   flex-grow: 1;
+  flex-direction: column;
+}
+
+.EventEdit-DescriptionLabel {
+  display: flex;
 }
 
 .EventEdit-Description {

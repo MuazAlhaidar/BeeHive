@@ -26,8 +26,13 @@
 
 .EmailModal-SubjectDiv {
   display: flex;
+  flex-direction: column;
   width: auto;
   margin-bottom: 15px;
+}
+
+.EmailModal-SubjectLabel {
+  display: flex;
 }
 
 .EmailModal-Subject {
@@ -42,6 +47,11 @@
 .EmailModal-BodyDiv {
   display: flex;
   flex-grow: 1;
+  flex-direction: column;
+}
+
+.EmailModal-BodyLabel {
+  display: flex;
 }
 
 .EmailModal-Body {
