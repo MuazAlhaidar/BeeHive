@@ -28,8 +28,14 @@ function GroupsForm({ name, contactInfo, removeGroup }: GroupInfo) {
         showModal={showGroupEditModal}
         setShowModal={setShowGroupEditModal}
       />
-      <div className="GroupsForm-Name">{name}</div>
-      <div className="GroupsForm-ContactInfo">{contactInfo}</div>
+      <div className="GroupsForm-NameDiv">
+        <label className="GroupsForm-NameLabel">Name</label>
+        <div className="GroupsForm-Name">{name}</div>
+      </div>
+      <div className="GroupsForm-ContactInfoDiv">
+        <label className="GroupsForm-ContactInfoLabel">Contact Info</label>
+        <div className="GroupsForm-ContactInfo">{contactInfo}</div>
+      </div>
       <div className="GroupsForm-Bottom">
         <div className="GroupsForm-BrightButtonGroup">
           <button

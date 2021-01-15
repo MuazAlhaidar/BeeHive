@@ -17,6 +17,7 @@ function MemberList({ memberList }: IProps) {
   return (
     <div>
       <div className="MemberList-Top">
+        <label className="MemberList-MemberListLabel">Members</label>
         <button className="MemberList-DeleteButton">x</button>
         <button className="MemberList-AddButton">+</button>
       </div>

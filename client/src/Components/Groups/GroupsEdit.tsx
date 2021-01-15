@@ -30,9 +30,9 @@ function GroupsEdit({ showModal, setShowModal }: IProps) {
           <div className="GroupsEdit-EditFormDiv">
             <form className="GroupsEdit-EditForm" onSubmit={handleSubmit}>
               <div className="GroupsEdit-NameDiv">
+                <label className="GroupsEdit-NameLabel">Name</label>
                 <input
                   className="GroupsEdit-Name"
-                  placeholder="Name"
                   type="text"
                   id="name"
                   value={curGroup.name}
@@ -45,9 +45,11 @@ function GroupsEdit({ showModal, setShowModal }: IProps) {
                 />
               </div>
               <div className="GroupsEdit-ContactInfoDiv">
+                <label className="GroupsEdit-ContactInfoLabel">
+                  ContactInfo
+                </label>
                 <textarea
                   className="GroupsEdit-ContactInfo"
-                  placeholder="ContactInfo"
                   aria-multiline
                   id="contactInfo"
                   value={curGroup.contactInfo}

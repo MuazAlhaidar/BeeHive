@@ -28,7 +28,12 @@
 .GroupsEdit-NameDiv {
   display: flex;
   width: auto;
+  flex-direction: column;
   margin-bottom: 15px;
+}
+
+.GroupsEdit-NameLabel {
+  display: flex;
 }
 
 .GroupsEdit-Name {
@@ -42,7 +47,12 @@
 
 .GroupsEdit-ContactInfoDiv {
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
+}
+
+.GroupsEdit-ContactInfoLabel {
+  display: flex;
 }
 
 .GroupsEdit-ContactInfo {

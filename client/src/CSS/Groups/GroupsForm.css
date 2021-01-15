@@ -16,25 +16,41 @@
   padding: 15px 15px 10px 15px;
 }
 
+.GroupsForm-NameDiv {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 15px 15px 15px;
+  padding-top: 15px;
+}
+
+.GroupsForm-NameLabel {
+  display: flex;
+}
+
 .GroupsForm-Name {
   border: 2px solid lightgray;
   align-items: center;
   height: 25px;
   background-color: #ffffff;
-}
-
-.GroupsForm-Name {
   justify-content: left;
   padding-left: 5px;
-  margin: 15px 15px;
   flex-grow: 1;
+}
+
+.GroupsForm-ContactInfoDiv {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 15px;
+}
+
+.GroupsForm-ContactInfoLabel {
+  display: flex;
 }
 
 .GroupsForm-ContactInfo {
   justify-content: left;
   padding: 5px 5px;
-  margin: 0px 15px;
-  height: 78vh;
+  height: 75vh;
   white-space: pre-wrap;
   word-break: break-all;
   overflow: auto;

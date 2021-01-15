@@ -42,9 +42,9 @@ function GroupsAdd({ addGroup, showModal, setShowModal }: IProps) {
           <div className="GroupsAdd-AddFormDiv">
             <form className="GroupsAdd-AddForm" onSubmit={handleSubmit}>
               <div className="GroupsAdd-NameDiv">
+                <label className="GroupsAdd-NameLabel">Name</label>
                 <input
                   className="GroupsAdd-Name"
-                  placeholder="Name"
                   type="text"
                   id="name"
                   value={newGroup.name}
@@ -57,9 +57,11 @@ function GroupsAdd({ addGroup, showModal, setShowModal }: IProps) {
                 />
               </div>
               <div className="GroupsAdd-ContactInfoDiv">
+                <label className="GroupsAdd-ContactInfoLabel">
+                  ContactInfo
+                </label>
                 <textarea
                   className="GroupsAdd-ContactInfo"
-                  placeholder="ContactInfo"
                   aria-multiline
                   id="contactInfo"
                   value={newGroup.contactInfo}

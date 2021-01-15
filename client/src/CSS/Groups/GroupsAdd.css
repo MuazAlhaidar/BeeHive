@@ -28,6 +28,11 @@
   display: flex;
   width: auto;
   margin-bottom: 15px;
+  flex-direction: column;
+}
+
+.GroupsAdd-NameLabel {
+  display: flex;
 }
 
 .GroupsAdd-Name {
@@ -42,6 +47,11 @@
 .GroupsAdd-ContactInfoDiv {
   display: flex;
   flex-grow: 1;
+  flex-direction: column;
+}
+
+.GroupsAdd-ContactInfoLabel {
+  display: flex;
 }
 
 .GroupsAdd-ContactInfo {
