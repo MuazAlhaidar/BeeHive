@@ -1,15 +1,26 @@
+.EmailModal-Background,
+.EmailModal-FormDiv,
+.EmailModal-Form,
+.EmailModal-SubjectDiv,
+.EmailModal-SubjectLabel,
+.EmailModal-Subject,
+.EmailModal-BodyDiv,
+.EmailModal-BodyLabel,
+.EmailModal-Body,
+.EmailModal-BtnDiv {
+  display: flex;
+}
+
 .EmailModal-Background {
   width: 90%;
   height: 95%;
   position: fixed;
-  display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.7);
 }
 
 .EmailModal-FormDiv {
-  display: flex;
   border: 2px solid #ff9442;
   border-radius: 8px;
   background-color: white;
@@ -18,25 +29,18 @@
 }
 
 .EmailModal-Form {
-  display: flex;
   flex-direction: column;
   padding: 20px 20px;
   flex-grow: 1;
 }
 
 .EmailModal-SubjectDiv {
-  display: flex;
   flex-direction: column;
   width: auto;
   margin-bottom: 15px;
 }
 
-.EmailModal-SubjectLabel {
-  display: flex;
-}
-
 .EmailModal-Subject {
-  display: flex;
   flex-grow: 1;
   height: 25px;
   border: 2px solid black;
@@ -45,17 +49,11 @@
 }
 
 .EmailModal-BodyDiv {
-  display: flex;
   flex-grow: 1;
   flex-direction: column;
 }
 
-.EmailModal-BodyLabel {
-  display: flex;
-}
-
 .EmailModal-Body {
-  display: flex;
   flex-grow: 1;
   border: 2px solid black;
   padding: 8px 8px;
@@ -67,7 +65,6 @@
 }
 
 .EmailModal-BtnDiv {
-  display: flex;
   justify-content: right;
   margin-top: 15px;
 }

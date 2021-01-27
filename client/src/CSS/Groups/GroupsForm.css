@@ -1,5 +1,9 @@
 .GroupsForm,
+.GroupsForm-NameDiv,
+.GroupsForm-NameLabel,
 .GroupsForm-Name,
+.GroupsForm-ContactInfoDiv,
+.GroupsForm-ContactInfoLabel,
 .GroupsForm-ContactInfo,
 .GroupsForm-BrightButtonGroup,
 .GroupsForm-DarkButtonGroup,
@@ -17,14 +21,9 @@
 }
 
 .GroupsForm-NameDiv {
-  display: flex;
   flex-direction: column;
   margin: 0px 15px 15px 15px;
   padding-top: 15px;
-}
-
-.GroupsForm-NameLabel {
-  display: flex;
 }
 
 .GroupsForm-Name {
@@ -38,13 +37,8 @@
 }
 
 .GroupsForm-ContactInfoDiv {
-  display: flex;
   flex-direction: column;
   margin: 0px 15px;
-}
-
-.GroupsForm-ContactInfoLabel {
-  display: flex;
 }
 
 .GroupsForm-ContactInfo {

@@ -1,15 +1,35 @@
+.EventEdit-Background,
+.EventEdit-EditFormDiv,
+.EventEdit-EditForm,
+.EventEdit-NameDiv,
+.EventEdit-NameLabel,
+.EventEdit-Name,
+.EventEdit-AddressTimeDateDiv,
+.EventEdit-AddressTimeDateLabels,
+.EventEdit-AddressTimeDateInputs,
+.EventEdit-AddressLabel,
+.EventEdit-TimeLabel,
+.EventEdit-DateLabel,
+.EventEdit-Address,
+.EventEdit-Time,
+.EventEdit-Date,
+.EventEdit-DescriptionDiv,
+.EventEdit-DescriptionLabel,
+.EventEdit-Description,
+.EventEdit-BtnDiv {
+  display: flex;
+}
+
 .EventEdit-Background {
   width: 90%;
   height: 95%;
   position: fixed;
-  display: flex;
   justify-content: left;
   padding-left: 50px;
   background-color: rgba(0, 0, 0, 0.7);
 }
 
 .EventEdit-EditFormDiv {
-  display: flex;
   border: 2px solid #ff9442;
   border-radius: 8px;
   background-color: white;
@@ -19,26 +39,22 @@
 }
 
 .EventEdit-EditForm {
-  display: flex;
   flex-direction: column;
   padding: 20px 20px;
   flex-grow: 1;
 }
 
 .EventEdit-NameDiv {
-  display: flex;
   width: auto;
   margin-bottom: 15px;
   flex-direction: column;
 }
 
 .EventEdit-NameLabel {
-  display: flex;
   align-self: flex-start;
 }
 
 .EventEdit-Name {
-  display: flex;
   flex-grow: 1;
   height: 25px;
   border: 2px solid black;
@@ -47,39 +63,26 @@
 }
 
 .EventEdit-AddressTimeDateDiv {
-  display: flex;
   justify-content: space-between;
   flex-direction: column;
   margin-bottom: 15px;
 }
 
-.EventEdit-AddressTimeDateLabels {
-  display: flex;
-}
-
-.EventEdit-AddressTimeDateInputs {
-  display: flex;
-}
-
 .EventEdit-AddressLabel {
-  display: flex;
   flex-grow: 1;
 }
 
 .EventEdit-TimeLabel {
-  display: flex;
   margin-left: 15px;
   margin-right: 15px;
   width: 110px;
 }
 
 .EventEdit-DateLabel {
-  display: flex;
   width: 120px;
 }
 
 .EventEdit-Address {
-  display: flex;
   height: 25px;
   border: 2px solid black;
   padding-left: 5px;
@@ -88,7 +91,6 @@
 }
 
 .EventEdit-Time {
-  display: flex;
   border: 2px solid black;
   padding-left: 5px;
   margin-left: 15px;
@@ -97,23 +99,16 @@
 }
 
 .EventEdit-Date {
-  display: flex;
   border: 2px solid black;
   border-radius: 5px;
 }
 
 .EventEdit-DescriptionDiv {
-  display: flex;
   flex-grow: 1;
   flex-direction: column;
 }
 
-.EventEdit-DescriptionLabel {
-  display: flex;
-}
-
 .EventEdit-Description {
-  display: flex;
   flex-grow: 1;
   border: 2px solid black;
   padding: 8px 8px;
@@ -125,7 +120,6 @@
 }
 
 .EventEdit-BtnDiv {
-  display: flex;
   justify-content: right;
   margin-top: 15px;
 }

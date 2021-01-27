@@ -1,10 +1,13 @@
-.MemberList-Top {
+.MemberList-Top,
+.MemberList-MemberListLabel {
   display: flex;
+}
+
+.MemberList-Top {
   justify-content: right;
 }
 
 .MemberList-MemberListLabel {
-  display: flex;
   align-self: center;
   flex-grow: 1;
   padding-top: 8px;

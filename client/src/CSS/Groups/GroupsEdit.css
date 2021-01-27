@@ -1,15 +1,26 @@
+.GroupsEdit-Background,
+.GroupsEdit-EditFormDiv,
+.GroupsEdit-EditForm,
+.GroupsEdit-NameDiv,
+.GroupsEdit-NameLabel,
+.GroupsEdit-Name,
+.GroupsEdit-ContactInfoDiv,
+.GroupsEdit-ContactInfoLabel,
+.GroupsEdit-ContactInfo,
+.GroupsEdit-BtnDiv {
+  display: flex;
+}
+
 .GroupsEdit-Background {
   width: 90%;
   height: 95%;
   position: fixed;
-  display: flex;
   justify-content: left;
   padding-left: 50px;
   background-color: rgba(0, 0, 0, 0.7);
 }
 
 .GroupsEdit-EditFormDiv {
-  display: flex;
   border: 2px solid #ff9442;
   border-radius: 8px;
   background-color: white;
@@ -19,25 +30,18 @@
 }
 
 .GroupsEdit-EditForm {
-  display: flex;
   flex-direction: column;
   padding: 20px 20px;
   flex-grow: 1;
 }
 
 .GroupsEdit-NameDiv {
-  display: flex;
   width: auto;
   flex-direction: column;
   margin-bottom: 15px;
 }
 
-.GroupsEdit-NameLabel {
-  display: flex;
-}
-
 .GroupsEdit-Name {
-  display: flex;
   flex-grow: 1;
   height: 25px;
   border: 2px solid black;
@@ -46,17 +50,11 @@
 }
 
 .GroupsEdit-ContactInfoDiv {
-  display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
-.GroupsEdit-ContactInfoLabel {
-  display: flex;
-}
-
 .GroupsEdit-ContactInfo {
-  display: flex;
   flex-grow: 1;
   border: 2px solid black;
   padding: 8px 8px;
@@ -68,7 +66,6 @@
 }
 
 .GroupsEdit-BtnDiv {
-  display: flex;
   justify-content: right;
   margin-top: 15px;
 }
