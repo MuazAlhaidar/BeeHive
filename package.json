@@ -6,17 +6,19 @@
 	"scripts": {
 		"prog-install": "npm install --prefix client && npm install ",
 		"client": "npm run start --prefix client",
-		"server": " nodemon ",
+		"server": "DEV=true nodemon ",
+		"prod_server": "nodemon ",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "jest --verbose"
 	},
 	"author": "Muaz Alhaider",
 	"license": "ISC",
 	"dependencies": {
+		"body-parser": "^1.19.0",
 		"concurrently": "^5.3.0",
 		"cors": "^2.8.5",
 		"express": "^4.17.1",
-		"mariadb": "^2.5.1",
+		"mariadb": "^2.5.2",
 		"mysql": "^2.18.1",
 		"mysql2": "^2.2.5",
 		"nodemon": "^2.0.6",
@@ -24,7 +26,11 @@
 		"sequelize-cli": "^6.2.0"
 	},
 	"devDependencies": {
-		"ts-node": "^9.0.0",
-		"typescript": "^4.1.2"
+		"@types/jest": "^26.0.19",
+		"axios": "^0.21.1",
+		"jest": "^26.6.3",
+		"ts-jest": "^26.4.4",
+		"ts-node": "^9.1.1",
+		"typescript": "^4.1.3"
 	}
 }
