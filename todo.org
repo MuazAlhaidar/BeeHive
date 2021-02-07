@@ -1,5 +1,5 @@
 #+TITLE: My tasks
-#+AUTHOR: Zaki
+#+AUTHOR: Anon
 [[https://github.com/HawaiinPizza/beehive/issues?q=assignee%3AHawaiinPizza+is%3Aopen][My issues]] 
 [[https://youneedawiki.com/app/page/1AfpKY4ZLh0dtjsUQ6efOzJrXFSs19ALv][Documenation]]
 * Specifications
@@ -27,11 +27,6 @@
 ** Database
    [[file:img/table.png][Relationships]]
 * Tasks
-** TODO Group Mangement
-   + [ ] CRUD Groups ::
-   + [ ] Add/remove people from group ::
-   + [ ] Modify contact info ::
-   + [ ] Email people in a group :: 
 ** DONE Event Mangement
    CLOSED: [2021-01-12 Tue 10:39]
    - State "DONE"       from "TODO"       [2021-01-12 Tue 10:39]
@@ -48,12 +43,28 @@
    - [X] Reset Password :: A request to send the password to an email
    - [X] Clicking Reset Password ::  When clicking on reset password, it will take them to a new page, which they have hte option to reset the password
    - [ ] Encryption/Decryption of password :: 
-** TODO Other
+** TODO Group Mangement
+   + [ ] CRUD Groups ::
+   + [ ] Add/remove people from group ::
+   + [ ] Modify contact info ::
+** TODO Non-Social media
    + [ ] Manage poitns for member ::
    + [ ] Contact Us for orgainzation ::
    + [ ] Leaderboard ::
    + [ ] Logging fucntion :: Generate logging function for database
-** TODO Social media shit     
+** TODO Social media stuff     
    * [ ] Make social media post ::
    * [ ] Email people who RSVP ::
-* Plan  
+   + [ ] Email people in a group :: 
+* Middleware
+** TODO Event Mangement
+   - [ ] CRUD Event :: Create, adn read/update/delete evnets that exist and NOT exist
+     Note: I have not added any kind of notification to email people who have been RSVP. That will have to be done /later/, when we have access to it.
+   - [ ] Invite people to event :: Invite people ot an event by making new eventmember entries
+   - [ ] Signin to an event ::
+   - [ ] Transfer manager role :: 
+** TODO User Management
+   - [ ] Sign up :: A new user is created in the database
+   - [ ] Login :: A user logins and the databse sends their ID to them.
+   - [ ] Reset Password :: A request to send the password to an email
+   - [ ] Clicking Reset Password ::  When clicking on reset password, it will take them to a new page, which they have hte option to reset the password

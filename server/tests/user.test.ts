@@ -72,7 +72,6 @@ test("Reset password request", done=>{
 test("Reset password token", done=>{
         User.reset_password(_email)
         .then(() => {
-                /*
                 User.reset_token("FUCK", "Chciekn fruit")
                 .then(res => {expect(res).toBe(false); done()})
                 .catch(err => done(err))
@@ -80,7 +79,6 @@ test("Reset password token", done=>{
                 User.reset_url(gentoken(_email))
                 .then(res => {expect(res).toBe(true); done()})
                 .catch(err => done(err))
-                */
                done();
 
         })
