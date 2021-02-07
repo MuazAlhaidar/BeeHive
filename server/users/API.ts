@@ -48,23 +48,16 @@ async function new_user( user:any ){
 }
 
 async function reset_password(_email:string){
-    return axiosPost("reset_request", {email:_email})
-	.then(ret =>  true )
-	.catch(ret => false )
+        return axiosPost("reset_request", {email:_email})
+        .then(ret =>  true )
+        .catch(ret => false )
 
 }
 
-async function reset_token(_token:string, _newpass:string, what:boolean){
-        if(what==true ){
-                return axiosPost("reset_token",{token:_token, password:_newpass, FUCK:"SHIT"} )
-                .then(res => true)
-                .catch(res => false)
-        }
-        else{
-                return axiosPost("reset_token",{token:_token, password:_newpass} )
-                .then(res => true)
-                .catch(res => false)
-        }
+async function reset_token(_token:string, _newpass:string){
+        return axiosPost("reset_token",{token:_token, password:_newpass} )
+        .then(res => true)
+        .catch(res => false)
 
 }
 async function reset_url(_token:string){

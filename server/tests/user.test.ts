@@ -2,6 +2,8 @@ const User = require("../users/API.ts");
 
 const _user="user"+new Date();
 const _email="email"+new Date();
+// const _email =a.getMonth()+"."+a.getDate()+"."+a.getFullYear()+"."+a.getHours()+""+a.getMinutes()+"@gmail.com"
+const realmail = "zakahmed@umich.edu"
 const _pass="pass"+new Date();
 function genrandom(credintals:any={}){
         var user  = { username:credintals["username"], password:credintals["password"], email:credintals["email"], role_id:credintals["role_id"], points:credintals["points"], }
@@ -62,20 +64,20 @@ test("Reset password request", done=>{
         .then(res =>  expect(res).toBe(false))
         .catch(err => done(err))
 
-        User.reset_password(_email)
+        User.reset_password(realmail)
         .then(res => {expect(res).toBe(true); done()})
         .catch(err => done(err))
 
 })
 
 test("Reset password token", done=>{
-        User.reset_password(_email)
+        User.reset_password(realmail)
         .then(() => {
                 User.reset_token("FUCK", "Chciekn fruit")
                 .then(res => {expect(res).toBe(false); done()})
                 .catch(err => done(err))
 
-                User.reset_url(gentoken(_email))
+                User.reset_url(gentoken(realmail))
                 .then(res => {expect(res).toBe(true); done()})
                 .catch(err => done(err))
                done();
@@ -85,12 +87,14 @@ test("Reset password token", done=>{
 
 })
 
-test("Resetting the password once and for all", done=>{
+test("Resetting the password once and for all", async done=>{
         // Once we change password tokenizer, change this
-        User.reset_token(gentoken(_email),  "Chciekn fruit", false)
+        let tmpuser = await  User.new_user({username: "JOJO", email:realmail, password:"Shadow", role_id:0, points:0})
+        await User.reset_password(realmail)
+        User.reset_token(gentoken(realmail),  "dio", false)
         .then(res => {expect(res).toBe(true)
 
-              User.reset_token(gentoken(_email),  "FUCK", true)
+              User.reset_token(gentoken(realmail),  "FUCK", true)
               .then(res => {expect(res).toBe(false); done()})
               .catch(err => done(err))
         })

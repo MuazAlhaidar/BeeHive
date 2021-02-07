@@ -4,6 +4,7 @@ const User = require("./Model.ts");
 const Sequelize = require("sequelize")
 const {or, and, gt, lt} = Sequelize.Op;
 const Other = require("./Other.ts")
+const nodemailer = require("nodemailer")
 
 // @route POST api/users/new
 // @desc Crete a new user
@@ -87,6 +88,7 @@ router.post("/login", (req, res)=>{
 router.post("/reset_request", (req, res)=>{
     let _email = req.body.email;
     const token = Other.resetPassword_token(_email);
+    console.log("TOKEN IS", token)
     const days_till_expiry = 3
     if(_email==undefined){
 	res.sendStatus(401);
@@ -104,44 +106,83 @@ router.post("/reset_request", (req, res)=>{
 	.then(ret => {
 	    if(ret[0] === 0){
 		res.sendStatus(403)
-	    }
-	    else{
-		res.status(200).send(token)
-	    }
-	}
-	     )
-	.catch(ret => res.status(404).send(ret))
+            }
+            else{
+                    const re=/\S+@\S+\.\S+/
+                    if(! re.test(_email)){
+                            console.log("WRONG EMAIL FORMAT" + _email)
+                            res.status(404).send("Wrong email format")
+                            return;
+                    }
+                        
+
+                    try{
+                            // https://www.w3schools.com/nodejs/nodejs_email.asp
+                            // Once we have an email server/other shit, we will use this
+                            var transporter = nodemailer.createTransport({
+                                    service: 'gmail',
+                                    auth: {
+                                            user: '12xx.supersussupersus.xx21@gmail.com',
+                                            pass: '~j5Gfs!:~qOL&Wla6rf>V[$_?'
+                                    }
+                            });
+                            var mailOptions = {
+                                    from: '12xx.supersussupersus.xx21@gmail.com',
+                                    to:_email,
+                                    subject:"Beehvie password reset",
+                                    text: 'Hello user, you have made a request to reset your password. In '+new Date(result.setDate(result.getDate()+ days_till_expiry))+" this password reset request will be invalid. \n if you did indeed made the request, go to http://localhost:4200/resetpassword?token="+token
+                            };
+
+                            transporter.sendMail(mailOptions, function(error, info){
+                                    if (error) {
+                                            console.log(error);
+                                    } else {
+                                            console.log('Email sent: ' + info.response);
+                                    }
+                            }); 
+                            console.log("JOJO")
+                            res.status(200).send(token)
+                    }
+                    catch(e){
+                            console.log("dio")
+                            res.status(404).send(e)
+                    }
+            }
+        }
+             )
+             .catch(ret => res.status(404).send(ret))
 })
+
 // @route POST api/users/reset_token
 // @desc Once given a token, reset the password
 router.post("/reset_token", (req, res)=>{
-    let _token = req.body.token;
-    let _newpass = req.body.password;
-    User.update({
-	password:_newpass,
-	resetPassword_token:null,
-	resetPassword_expiry:null
-    }, {where:{
-	    resetPassword_token: _token
-	    // Used to make sure resetPasswords exprie. 
-	    // Can't be unit tested, so just do a check in the database
-	    // Maybe manually change this entry in the database?
-	    ,resetPassword_expiry: {[gt]: new Date()} 
-	
-    }})
-    .then(ret =>{
+        let _token = req.body.token;
+        let _newpass = req.body.password;
+        User.update({
+                password:_newpass,
+                resetPassword_token:null,
+                resetPassword_expiry:null
+        }, {where:{
+                resetPassword_token: _token
+                // Used to make sure resetPasswords exprie. 
+                // Can't be unit tested, so just do a check in the database
+                // Maybe manually change this entry in the database?
+            ,resetPassword_expiry: {[gt]: new Date()} 
 
-            if(ret[0] === 0){
-                    res.sendStatus(404)
-                    return;
-            }
-            else{
-                    res.sendStatus(200)
-                    return;
-            }
+        }})
+        .then(ret =>{
 
-    })
-    .catch(err => {console.log(err); res.sendStatus(404)})
+                if(ret[0] === 0){
+                        res.sendStatus(404)
+                        return;
+                }
+                else{
+                        res.sendStatus(200)
+                        return;
+                }
+
+        })
+        .catch(err => {console.log(err); res.sendStatus(404)})
 
 })
 
@@ -158,11 +199,12 @@ router.post("/reset_url" , (req, res)=>{
         }} )
         .then(ret => {
                 if(ret===null){
+                        console.log("NOT FOUND", _token)
+
                         res.sendStatus(404)
                         return;
                 }
                 else{
-                        // console.log(ret.dataValues);
                         res.sendStatus(200)
                         return;
                 }

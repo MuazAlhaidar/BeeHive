@@ -10,6 +10,7 @@ import SignUp from "./Pages/SignUp";
 import ContactUs from "./Pages/ContactUs";
 import LogoAndTitle from "./Components/LogoAndTitle";
 import Logo from "./Images/Members App Logo - White Large.png";
+import ResetPass from "./Pages/ResetPass"
 
 function App() {
   const [name, setName] = React.useState("");
@@ -81,6 +82,9 @@ function App() {
             </Route>
             <Route path="/MyGroups">
               <MyGroupsPage />
+            </Route>
+            <Route path="/resetPassword">
+              <ResetPass />
             </Route>
           </Switch>
         </Router>
