@@ -39,7 +39,7 @@ async function new_user( user:any ){
 		case 402:
 		    return [2, undefined];
 		case 403:
-		    return [-1,undefined];
+		    return [3,undefined];
 		default:
 		    return err.response.status
 	    }

@@ -47,7 +47,6 @@ test("Add existing user failure due to duplicated", done=>{
         User.new_user(genrandom( {username:_user}))
         .then(res => {
                 expect(res[0]).toBe(1)
-                // done()
         })
         .catch(err => done(err))
         User.new_user(genrandom({email:_email}))

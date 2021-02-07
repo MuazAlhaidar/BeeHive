@@ -4,6 +4,7 @@ import "../CSS/LogInPanel.css";
 function LogInPanel(props: { changeUser: any }) {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [email, setEmail] = React.useState("");
 
   return (
     <div className="LoginPanel">
@@ -13,13 +14,23 @@ function LogInPanel(props: { changeUser: any }) {
           className="LoginPanel-Input"
           type="text"
           onChange={(e) => setUsername(e.target.value)}
-          id="Password"
+          id="Username"
           value={username}
         />
-        <p className="LoginPanel-InputTitle">Enter a New Password</p>
+
+        <p className="LoginPanel-InputTitle">Enter your email</p>
         <input
           className="LoginPanel-Input"
           type="text"
+          onChange={(e) => setEmail(e.target.value)}
+          id="Email"
+          value={email}
+        />
+
+        <p className="LoginPanel-InputTitle">Enter a New Password</p>
+        <input
+          className="LoginPanel-Input"
+          type="password"
           id="Password"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
@@ -28,7 +39,7 @@ function LogInPanel(props: { changeUser: any }) {
       <div className="LoginPanel-Buttons">
         <button
           className="LoginPanel-Login"
-          onClick={() => props.changeUser(username, password)}
+          onClick={() => props.changeUser(username, password, email)}
         >
           Sign Up
         </button>

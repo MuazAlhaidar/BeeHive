@@ -11,7 +11,8 @@ const Other = require("./Other.ts")
 router.post("/new", (req,res)=>{
 
     // Checking if the fields are valid
-    let fields=["username", "password", "email", "points", "role_id"]
+    // let fields=["username", "password", "email", "points", "role_id"]
+    let fields=["username", "password", "email"]
 
     for(let field in fields){
 	if(req.body[fields[field]] === undefined){
@@ -44,7 +45,7 @@ router.post("/new", (req,res)=>{
 	    
 	}
     })
-	.catch(err => { res.status(403).send(err)})
+	.catch(err => { console.log(err); res.status(403).send(err)})
 
 
 });
