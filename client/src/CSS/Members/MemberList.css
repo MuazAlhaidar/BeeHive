@@ -1,0 +1,32 @@
+.MemberList-Top,
+.MemberList-MemberListLabel {
+  display: flex;
+}
+
+.MemberList-Top {
+  justify-content: right;
+}
+
+.MemberList-MemberListLabel {
+  align-self: center;
+  flex-grow: 1;
+  padding-top: 8px;
+  padding-left: 10px;
+}
+
+.MemberList-AddButton,
+.MemberList-DeleteButton {
+  border: none;
+  font-size: 30px;
+  font-weight: 100;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #f58032;
+  background-color: white;
+  padding-right: 15px;
+}
+
+.MemberList-DeleteButton {
+  font-size: 25px;
+  font-weight: 250;
+}

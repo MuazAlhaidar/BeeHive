@@ -1,0 +1,25 @@
+.MyGroups {
+  display: flex;
+  flex-grow: 1;
+}
+
+.MyGroups-GroupList {
+  min-width: 285px;
+  max-width: 285px;
+  max-height: 93.5vh;
+  overflow: auto;
+  background-color: white;
+  border-right: 2px solid #ff9442;
+}
+
+.MyGroups-GroupForm {
+  flex-grow: 1;
+}
+
+.MyGroups-MemberList {
+  min-width: 285px;
+  max-width: 285px;
+  max-height: 93.5vh;
+  overflow: auto;
+  background-color: white;
+}

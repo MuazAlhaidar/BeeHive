@@ -1,0 +1,160 @@
+.EventsForm,
+.EventsForm,
+.EventsForm-Top,
+.EventsForm-Bottom,
+.EventsForm-NameDiv,
+.EventsForm-NameLabel,
+.EventsForm-Name,
+.EventsForm-AddressTimeDateGroup,
+.EventsForm-Address,
+.EventsForm-Time,
+.EventsForm-Date,
+.EventsForm-AddressLabel,
+.EventsForm-TimeLabel,
+.EventsForm-DateLabel,
+.EventsForm-AddressTimeDateInfo,
+.EventsForm-AddressTimeDateLabel,
+.EventsForm-SocialMediaButtons,
+.EventsForm-DescriptionLabel,
+.EventsForm-Description,
+.EventsForm-BrightButtonGroup,
+.EventsForm-DarkButtonGroup {
+  display: flex;
+}
+
+.EventsForm {
+  flex-direction: column;
+}
+
+.EventsForm-Top {
+  flex-direction: row;
+  padding: 15px 15px 0px 15px;
+}
+
+.EventsForm-Bottom {
+  flex-direction: row;
+  padding: 15px 15px 10px 15px;
+}
+
+.EventsForm-NameAddressTimeDateGroup {
+  flex-grow: 20;
+}
+
+.EventsForm-Name,
+.EventsForm-Address,
+.EventsForm-Time,
+.EventsForm-Date {
+  border: 2px solid lightgray;
+  align-items: center;
+  height: 25px;
+  background-color: #ffffff;
+}
+
+.EventsForm-NameDiv {
+  flex-direction: column;
+}
+
+.EventsForm-Name {
+  justify-content: left;
+  padding-left: 5px;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+.EventsForm-Address {
+  flex-grow: 100;
+  padding-left: 5px;
+  margin-right: 15px;
+}
+
+.EventsForm-Time {
+  padding-left: 5px;
+  padding-right: 5px;
+  min-width: 50px;
+  margin-right: 15px;
+}
+
+.EventsForm-Date {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.EventsForm-AddressLabel {
+  flex-grow: 1;
+}
+
+.EventsForm-TimeLabel {
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 65px;
+}
+
+.EventsForm-DateLabel {
+  width: 96px;
+}
+
+.EventsForm-AddressTimeDateGroup {
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.EventsForm-SocialMediaButtons {
+  flex-direction: column;
+  width: 100px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.EventsForm-SocialMediaButtons-Twitter,
+.EventsForm-SocialMediaButtons-Facebook {
+  padding-top: 5px;
+  width: 35px;
+}
+
+.EventsForm-DescriptionDiv {
+  padding: 0px 15px;
+}
+
+.EventsForm-Description {
+  justify-content: left;
+  padding: 5px 5px;
+  height: 68vh;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: auto;
+  border: 2px solid lightgray;
+  text-align: left;
+  background-color: #ffffff;
+}
+
+.EventsForm-BrightButtonGroup {
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.EventsForm-DarkButtonGroup {
+  flex-grow: 25;
+  justify-content: right;
+}
+
+.EventsForm-BrightButton,
+.EventsForm-DarkButton {
+  border: 2px solid #ff9442;
+  box-shadow: 2px 2px 2px gray;
+  width: fit-content;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.EventsForm-BrightButton {
+  background-color: #ffffff;
+  color: #ff9442;
+}
+
+.EventsForm-DarkButton {
+  background-color: #ff9442;
+  color: #ffffff;
+}

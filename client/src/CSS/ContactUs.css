@@ -1,5 +1,11 @@
-.ContactUs {
+.ContactUs,
+.ContactUs-Top,
+.ContactUs-Info,
+.ContactUs-Body {
   display: flex;
+}
+
+.ContactUs {
   flex-grow: 1;
   height: 100vh;
   align-items: center;
@@ -12,14 +18,12 @@
 }
 
 .ContactUs-Top {
-  display: flex;
   align-items: center;
   justify-content: left;
   width: 100vw;
 }
 
 .ContactUs-Info {
-  display: flex;
   padding: 0px 80px 0px 80px;
   text-align: left;
   align-items: center;
@@ -35,7 +39,6 @@
 }
 
 .ContactUs-Body {
-  display: flex;
   flex-grow: 1;
   padding-top: 10vh;
 }
