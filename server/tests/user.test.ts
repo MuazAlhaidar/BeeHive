@@ -4,6 +4,8 @@ const _user="user"+new Date();
 const _email="email"+new Date();
 // const _email =a.getMonth()+"."+a.getDate()+"."+a.getFullYear()+"."+a.getHours()+""+a.getMinutes()+"@gmail.com"
 const realmail = "zakahmed@umich.edu"
+const realmail2 = "ahmedzakariya355@gmail.com"
+const realmail3 = "graphinetime@gmail.com"
 const _pass="pass"+new Date();
 function genrandom(credintals:any={}){
         var user  = { username:credintals["username"], password:credintals["password"], email:credintals["email"], role_id:credintals["role_id"], points:credintals["points"], }
@@ -25,7 +27,7 @@ function gentoken(email){
 
 test("Add new user and login", done =>{
         User.new_user({username:_user, email:_email, password:_pass, role_id:2, points:5 })
-            .then(() =>{
+        .then(() =>{
                 User.login(_user, _pass)
                 .then(res=>{
                         expect(res).not.toBe(-1)
@@ -59,42 +61,48 @@ test("Add existing user failure due to duplicated", done=>{
         .catch(err => done(err))
 })
 
-test("Reset password request", done=>{
+test("Reset password request", async done=>{
+        let tmpuser = await  User.new_user({username: "JOTARIO!!", email:realmail3, password:"Shadow", role_id:0, points:0})
         User.reset_password("MF DOOM")
         .then(res =>  expect(res).toBe(false))
         .catch(err => done(err))
 
-        User.reset_password(realmail)
+        User.reset_password(realmail3)
         .then(res => {expect(res).toBe(true); done()})
         .catch(err => done(err))
 
 })
 
-test("Reset password token", done=>{
-        User.reset_password(realmail)
-        .then(() => {
-                User.reset_token("FUCK", "Chciekn fruit")
-                .then(res => {expect(res).toBe(false); done()})
+test("Reset password token", async done=>{
+        let tmpuser = await  User.new_user({username: "Diago", email:realmail2, password:"Shadow", role_id:0, points:0})
+        User.reset_password(realmail2)
+        .then(async res => {
+
+                User.reset_url(gentoken(realmail2))
+                .then(res => { expect(res).toBe(true)})
                 .catch(err => done(err))
 
-                User.reset_url(gentoken(realmail))
-                .then(res => {expect(res).toBe(true); done()})
+                User.reset_token("fake token")
+                .then(res => { expect(res).toBe(false)})
                 .catch(err => done(err))
-               done();
+
+
+                done();
 
         })
         .catch(err => done(err))
-
 })
+/*
+*/
 
 test("Resetting the password once and for all", async done=>{
         // Once we change password tokenizer, change this
-        let tmpuser = await  User.new_user({username: "JOJO", email:realmail, password:"Shadow", role_id:0, points:0})
-        await User.reset_password(realmail)
-        User.reset_token(gentoken(realmail),  "dio", false)
+        let tmpuser = await  User.new_user({username: "Diago", email:realmail2, password:"Shadow", role_id:0, points:0})
+        let tmp=await User.reset_password(realmail2)
+        User.reset_token(gentoken(realmail2),  "dio")
         .then(res => {expect(res).toBe(true)
 
-              User.reset_token(gentoken(realmail),  "FUCK", true)
+              User.reset_token(gentoken(realmail),  "FAILURE")
               .then(res => {expect(res).toBe(false); done()})
               .catch(err => done(err))
         })

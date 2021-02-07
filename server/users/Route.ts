@@ -117,6 +117,7 @@ router.post("/reset_request", (req, res)=>{
                         
 
                     try{
+                            /*
                             // https://www.w3schools.com/nodejs/nodejs_email.asp
                             // Once we have an email server/other shit, we will use this
                             var transporter = nodemailer.createTransport({
@@ -141,6 +142,7 @@ router.post("/reset_request", (req, res)=>{
                                     }
                             }); 
                             console.log("JOJO")
+                            */
                             res.status(200).send(token)
                     }
                     catch(e){
