@@ -22,11 +22,11 @@ function LogIn(props: { setName: any }) {
 
   function checkuser(username: string, password: string): Promise<boolean> {
           
-    // if (Users.get(username) === password) {
 
     return API.login(username, password)
     .then(res =>{
-            if(res){
+            if(res!=-1){
+                    console.log(res)
                     setUser(username);
                     setStatus(1);
                     props.setName(username);
@@ -36,6 +36,7 @@ function LogIn(props: { setName: any }) {
                     return false;
             }
     })
+    .catch( () => {setStatus(-1); return false})
   }
 
   function displaystatus() {

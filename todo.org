@@ -64,7 +64,7 @@
    - [ ] Signin to an event ::
    - [ ] Transfer manager role :: 
 ** TODO User Management
-   - [ ] Sign up :: A new user is created in the database
+   - [X] Sign up :: A new user is created in the database
    - [ ] Login :: A user logins and the databse sends their ID to them.
    - [ ] Reset Password :: A request to send the password to an email
    - [ ] Clicking Reset Password ::  When clicking on reset password, it will take them to a new page, which they have hte option to reset the password
