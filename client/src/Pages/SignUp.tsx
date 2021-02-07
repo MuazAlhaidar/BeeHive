@@ -15,57 +15,71 @@ function LogIn(props: { setName: any }) {
   ]);
 
   async  function  checkuser(_username: string, _password: string, _email:string): Promise<boolean> {
-          let res=await (API.new_user({username:_username, password:_password, email:_email, role_id:0, points:0}))
-          // Backend shit
-          switch(res[0]){
-                  case 0:
-                          setUser(_username)
-                          setStatus(0)
-                          props.setName(_username);
-                          return true;
-                          break;
-                  case 1:
-                          setStatus(1)
-                          break;
-                  case 2:
-                          setStatus(2)
-                          break;
-                  case 3:
-                          setStatus(3)
-                          break;
-          }
-          return false;
+	  // Checkinging fields
+	const re = /\S+@\S+\.\S+/
+	console.log(_email, re.test(_email))
+
+	  console.log(re.test(_email) )
+	  if(! re.test(_email)){
+		  setStatus(4)
+		  return false
+	  }
+
+
+	  let res=await (API.new_user({username:_username, password:_password, email:_email, role_id:0, points:0}))
+	  // Backend shit
+	  switch(res[0]){
+		  case 0:
+			  setUser(_username)
+		  setStatus(0)
+		  props.setName(_username);
+		  return true;
+		  break;
+		  case 1:
+			  setStatus(1)
+		  break;
+		  case 2:
+			  setStatus(2)
+		  break;
+		  case 3:
+			  setStatus(3)
+		  break;
+	  }
+	  return false;
 
 
   }
 
   function displaystatus() {
-          switch (status) {
-                  case -1:
-                          return <h1> Sign Up </h1>;
-                  case 1:
-                          return <h1> Sign up failed: username/email already in database</h1>;
-                  case 2:
-                          return <h1> Sign up failed: DEV ERROR: empty fields have been inserted</h1>;
-                  case 0:
-                          return (
-                                  <div>
-                                          {" "}
-                                          <h1> Welcome {user} </h1> <Redirect push to="/" />{" "}
-                                  </div>
-                  );
-                  default:
-                          return <h1> Sign up failed:  another reason </h1>
-          }
+	  switch (status) {
+		  case -1:
+			  return <h1> Sign Up </h1>;
+		  case 1:
+			  return <h1> Sign up failed: username/email already in database</h1>;
+		  case 2:
+			  return <h1> Sign up failed: DEV ERROR: empty fields have been inserted</h1>;
+		  case 4:
+			  return <h1> Sign up failed: Bad email format. </h1>;
+
+		  case 0:
+			  return (
+				  <div>
+					  {" "}
+					  <h1> Welcome {user} </h1> <Redirect push to="/" />{" "}
+				  </div>
+		  );
+		  default:
+			  return <h1> Sign up failed:  another reason </h1>
+	  }
   }
 
   return (
-          <div className="Login">
-                  <div className="Login-SignInPanel">
-                          <SignInPanel changeUser={checkuser} />
-                  </div>
-                  {displaystatus()}
-          </div>
+	  <div className="Login">
+		  <div className="Login-SignInPanel">
+			  <SignInPanel changeUser={checkuser} />
+		  </div>
+		  {displaystatus()}
+	  </div>
   );
 }
 
