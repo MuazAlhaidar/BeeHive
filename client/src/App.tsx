@@ -36,7 +36,7 @@ function App() {
           </div>
           <Switch>
             <Route exact path="/">
-              {name === "" ? <LogIn setName={setName} /> : <AllEvents />}
+              <AllEvents />
             </Route>
             <Route path="/LogIn">
               <LogIn setName={setName} />
