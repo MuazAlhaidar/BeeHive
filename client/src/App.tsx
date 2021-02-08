@@ -1,13 +1,12 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import EventPage from "./Pages/Events";
-import GroupPage from "./Pages/Group";
 import MyEventsPage from "./Pages/MyEvents";
 import MyGroupsPage from "./Pages/MyGroups";
 import LogIn from "./Pages/LogIn";
 import SignUp from "./Pages/SignUp";
 import ContactUs from "./Pages/ContactUs";
+import AllEvents from "./Pages/AllEvents";
 import LogoAndTitle from "./Components/LogoAndTitle";
 import Logo from "./Images/Members App Logo - White Large.png";
 import ResetPass from "./Pages/ResetPass"
@@ -25,19 +24,13 @@ function App() {
             </div>
             <div className="App-Links">
               <Link className="App-link" to="/">
-                Welcome
-              </Link>
-              <Link className="App-link" to="/Events">
-                Events
+                All Events
               </Link>
               <Link className="App-link" to="/MyEvents">
                 MyEvents
               </Link>
               <Link className="App-link" to="/MyGroups">
                 MyGroups
-              </Link>
-              <Link className="App-link" to="/Groups">
-                Groups
               </Link>
               <Link className="App-link" to="/ContactUs">
                 Contact Us
@@ -46,21 +39,7 @@ function App() {
           </div>
           <Switch>
             <Route exact path="/">
-              {name === "" ? (
-                <div>
-                  <h1>Welcome to BeeHive</h1>
-                  <img src={Logo} alt="BeeHive Logo" width="222" height="200" />
-                </div>
-              ) : (
-                <h1> Hello {name}</h1>
-              )}
-            </Route>
-            <Route path="/Events">
-              {name === "" ? (
-                <LogIn setName={setName} />
-              ) : (
-                <EventPage userid="MU/ZA" />
-              )}
+              <AllEvents />
             </Route>
             <Route path="/LogIn">
               <LogIn setName={setName} />
@@ -68,21 +47,14 @@ function App() {
             <Route path="/Signup">
               <SignUp setName={setName} />
             </Route>
-            <Route path="/Groups">
-              {name === "" ? (
-                <LogIn setName={setName} />
-              ) : (
-                <GroupPage groupName="kevin cool" />
-              )}
-            </Route>
             <Route path="/ContactUs">
               <ContactUs />
             </Route>
             <Route path="/MyEvents">
-              <MyEventsPage />
+              {name === "" ? <LogIn setName={setName} /> : <MyEventsPage />}
             </Route>
             <Route path="/MyGroups">
-              <MyGroupsPage />
+              {name === "" ? <LogIn setName={setName} /> : <MyGroupsPage />}
             </Route>
             <Route path="/resetPassword">
               <ResetPass />

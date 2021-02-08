@@ -12,6 +12,13 @@ interface EventInfo {
   date: string;
   description: string;
   removeEvent: () => void;
+  editEvent: (
+    name: string,
+    address: string,
+    time: string,
+    date: string,
+    description: string
+  ) => void;
 }
 
 function EventsForm({
@@ -21,6 +28,7 @@ function EventsForm({
   date,
   description,
   removeEvent,
+  editEvent,
 }: EventInfo) {
   const [showEmailModal, setShowEmailModal] = React.useState(false);
   const [showEventEditModal, setShowEventEditModal] = React.useState(false);
@@ -39,6 +47,7 @@ function EventsForm({
       <EventEdit
         showModal={showEventEditModal}
         setShowModal={setShowEventEditModal}
+        editEvent={editEvent}
       />
       <div className="EventsForm-Top">
         <div className="EventsForm-NameAddressTimeDateGroup">

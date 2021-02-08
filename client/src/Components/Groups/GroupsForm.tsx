@@ -7,9 +7,10 @@ interface GroupInfo {
   name: string;
   contactInfo: string;
   removeGroup: () => void;
+  editGroup: (name: string, contactInfo: string) => void;
 }
 
-function GroupsForm({ name, contactInfo, removeGroup }: GroupInfo) {
+function GroupsForm({ name, contactInfo, removeGroup, editGroup }: GroupInfo) {
   const [showEmailModal, setShowEmailModal] = React.useState(false);
   const [showGroupEditModal, setShowGroupEditModal] = React.useState(false);
 
@@ -27,6 +28,7 @@ function GroupsForm({ name, contactInfo, removeGroup }: GroupInfo) {
       <GroupsEdit
         showModal={showGroupEditModal}
         setShowModal={setShowGroupEditModal}
+        editGroup={editGroup}
       />
       <div className="GroupsForm-NameDiv">
         <label className="GroupsForm-NameLabel">Name</label>

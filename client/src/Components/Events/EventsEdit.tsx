@@ -4,9 +4,16 @@ import "../../CSS/Events/EventsEdit.css";
 interface IProps {
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
+  editEvent: (
+    name: string,
+    address: string,
+    time: string,
+    date: string,
+    description: string
+  ) => void;
 }
 
-function EventEdit({ showModal, setShowModal }: IProps) {
+function EventEdit({ showModal, setShowModal, editEvent }: IProps) {
   const [curEvent, setCurEvent] = React.useState({
     name: "",
     address: "",
@@ -17,6 +24,13 @@ function EventEdit({ showModal, setShowModal }: IProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    editEvent(
+      curEvent.name,
+      curEvent.address,
+      curEvent.time,
+      curEvent.date,
+      curEvent.description
+    );
     setShowModal(!showModal);
     setCurEvent({ name: "", address: "", time: "", date: "", description: "" });
   };

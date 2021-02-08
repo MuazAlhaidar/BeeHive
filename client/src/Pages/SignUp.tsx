@@ -50,6 +50,10 @@ function LogIn(props: { setName: any }) {
 
   }
 
+  function addUser(username: string, password: string) {
+    Users.set(username, password);
+  }
+
   function displaystatus() {
 	  switch (status) {
 		  case -1:

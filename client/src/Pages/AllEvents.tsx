@@ -1,7 +1,7 @@
 import React from "react";
 import "../CSS/Events/MyEvents.css";
-import EventList from "../Components/Events/EventsList";
-import EventsForm from "../Components/Events/EventsForm";
+import EventList from "../Components/Events/EventsList(view-only)";
+import EventsForm from "../Components/Events/EventsForm(view-only)";
 
 interface MemberInfo {
   name: string;
@@ -50,51 +50,10 @@ function MyEvents() {
     setEventIndex(index);
   };
 
-  const addEvent = (
-    name: string,
-    address: string,
-    time: string,
-    date: string,
-    description: string
-  ) => {
-    const e = events.slice();
-    e.push({ name, address, time, date, description, members: null });
-    setEvents(e);
-  };
-
-  const editEvent = (
-    name: string,
-    address: string,
-    time: string,
-    date: string,
-    description: string
-  ) => {
-    if (events[eventIndex] != undefined) {
-      const e = events.slice();
-      e[eventIndex].name = name;
-      e[eventIndex].address = address;
-      e[eventIndex].time = time;
-      e[eventIndex].date = date;
-      e[eventIndex].description = description;
-      setEvents(e);
-    }
-  };
-
-  const removeEvent = (i: number) => {
-    const e = events.slice();
-    e.splice(i, 1);
-    setEvents(e);
-    setEventIndex(events.length);
-  };
-
   return (
     <div className="MyEvents">
       <div className="MyEvents-EventList">
-        <EventList
-          eventList={events}
-          selectEvent={selectEvent}
-          addEvent={addEvent}
-        />
+        <EventList eventList={events} selectEvent={selectEvent} />
       </div>
       <div className="MyEvents-EventForm">
         {eventIndex > events.length - 1 ? (
@@ -104,10 +63,6 @@ function MyEvents() {
             time={""}
             date={""}
             description={""}
-            editEvent={editEvent}
-            removeEvent={() => {
-              removeEvent(eventIndex);
-            }}
           />
         ) : (
           <EventsForm
@@ -116,10 +71,6 @@ function MyEvents() {
             time={events[eventIndex].time}
             date={events[eventIndex].date}
             description={events[eventIndex].description}
-            editEvent={editEvent}
-            removeEvent={() => {
-              removeEvent(eventIndex);
-            }}
           />
         )}
       </div>
