@@ -48,6 +48,15 @@ function MyGroups() {
     setGroups(g);
   };
 
+  const editGroup = (name: string, contactInfo: string) => {
+    if (groups[groupIndex] != undefined) {
+      const g = groups.slice();
+      g[groupIndex].name = name;
+      g[groupIndex].contactInfo = contactInfo;
+      setGroups(g);
+    }
+  };
+
   const removeGroup = (i: number) => {
     const g = groups.slice();
     g.splice(i, 1);
@@ -69,6 +78,7 @@ function MyGroups() {
           <GroupForm
             name={""}
             contactInfo={""}
+            editGroup={editGroup}
             removeGroup={() => {
               removeGroup(groupIndex);
             }}
@@ -77,6 +87,7 @@ function MyGroups() {
           <GroupForm
             name={groups[groupIndex].name}
             contactInfo={groups[groupIndex].contactInfo}
+            editGroup={editGroup}
             removeGroup={() => {
               removeGroup(groupIndex);
             }}
