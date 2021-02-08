@@ -5,7 +5,7 @@ import * as API from "../api/User";
 import { Redirect } from "react-router-dom";
 import "../CSS/LogIn.css";
 
-function LogIn(props: { setName: any }) {
+function LogIn(props: { setName: any , setId:any}) {
   const [user, setUser] = React.useState("");
   const [status, setStatus] = React.useState(-1);
   let Users = new Map([
@@ -35,6 +35,7 @@ function LogIn(props: { setName: any }) {
 			  setUser(_username)
                           setStatus(0)
                           props.setName(_username);
+                           props.setId(res[1]);
                           return true;
 		  break;
 		  case 1:

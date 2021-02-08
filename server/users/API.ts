@@ -18,7 +18,7 @@ async function axiosPost(url:string, _data:any){
 async function login(_username:string, _password:string){
         // return axiosPost("login", { username:_username, password:_password} )
         return axiosPost("login", { username:_username, password:_password} )
-        .then(res => res.id)
+        .then(res =>   res.data.id)
         .catch(err => -1)
 }
 

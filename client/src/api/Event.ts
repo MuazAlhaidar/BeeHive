@@ -70,5 +70,5 @@ async function Transfer(_Event:number, _User:number ){
         .catch(err => { return false})
 }
 
-export {axiosGet, axiosPost, newEvent, getEvent, update, getAllEvents, Delete, Invite, Signin, Transfer}
+export {axiosGet, axiosPost, newEvent, getEvent, update, getAllEvents, Delete, Invite, Signin, Transfer};
 // module.exports= { login,new_user,reset_password, reset_token}
