@@ -2,6 +2,7 @@ import React from "react";
 import LogInPanel from "../Components/LogInPanel";
 import SignUpButton from "../Components/SignUpButton";
 
+import * as API from "../api/User";
 import { Redirect } from "react-router-dom";
 import "../CSS/LogIn.css";
 type UserType = { username: string; password: string };
@@ -19,16 +20,22 @@ function LogIn(props: { setName: any }) {
     ["Monier", "Motorsport 7"],
   ]);
 
-  function checkuser(username: string, password: string): boolean {
-    if (Users.get(username) === password) {
-      setUser(username);
-      setStatus(1);
-      props.setName(username);
-      return true;
-    } else {
-      setStatus(-1);
-      return false;
-    }
+  function checkuser(username: string, password: string): Promise<boolean> {
+          
+    // if (Users.get(username) === password) {
+
+    return API.login(username, password)
+    .then(res =>{
+            if(res){
+                    setUser(username);
+                    setStatus(1);
+                    props.setName(username);
+                    return true;
+            } else {
+                    setStatus(-1);
+                    return false;
+            }
+    })
   }
 
   function displaystatus() {
