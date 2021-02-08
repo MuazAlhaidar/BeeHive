@@ -19,7 +19,8 @@ function LogIn(props: { setName: any }) {
 	const re = /\S+@\S+\.\S+/
 	console.log(_email, re.test(_email))
 
-	  console.log(re.test(_email) )
+	  console.log("REGEX", re.test(_email) )
+
 	  if(! re.test(_email)){
 		  setStatus(4)
 		  return false
@@ -28,12 +29,13 @@ function LogIn(props: { setName: any }) {
 
 	  let res=await (API.new_user({username:_username, password:_password, email:_email, role_id:0, points:0}))
 	  // Backend shit
+          console.log("--------------------------")
 	  switch(res[0]){
 		  case 0:
 			  setUser(_username)
-		  setStatus(0)
-		  props.setName(_username);
-		  return true;
+                          setStatus(0)
+                          props.setName(_username);
+                          return true;
 		  break;
 		  case 1:
 			  setStatus(1)
@@ -57,7 +59,7 @@ function LogIn(props: { setName: any }) {
   function displaystatus() {
 	  switch (status) {
 		  case -1:
-			  return <h1> Sign Up </h1>;
+			  return <h1> Sign Up FUCK </h1>;
 		  case 1:
 			  return <h1> Sign up failed: username/email already in database</h1>;
 		  case 2:
@@ -80,7 +82,7 @@ function LogIn(props: { setName: any }) {
   return (
 	  <div className="Login">
 		  <div className="Login-SignInPanel">
-			  <SignInPanel changeUser={checkuser} />
+			  <SignInPanel addUser={checkuser} />
 		  </div>
 		  {displaystatus()}
 	  </div>

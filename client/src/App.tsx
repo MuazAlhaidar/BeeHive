@@ -9,8 +9,8 @@ import ContactUs from "./Pages/ContactUs";
 import AllEvents from "./Pages/AllEvents";
 import LogoAndTitle from "./Components/LogoAndTitle";
 import Logo from "./Images/Members App Logo - White Large.png";
-import ResetPass from "./Pages/ResetPass"
-import ResetReq from "./Pages/ResetReq"
+import ResetPass from "./Pages/ResetPass";
+import ResetReq from "./Pages/ResetReq";
 
 function App() {
   const [name, setName] = React.useState("");

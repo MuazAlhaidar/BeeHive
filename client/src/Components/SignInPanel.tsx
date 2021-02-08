@@ -39,7 +39,7 @@ function SignInPanel(props: { addUser: any }) {
       <div className="LoginPanel-Buttons">
         <button
           className="LoginPanel-Login"
-          onClick={() => props.addUser(username, password)}
+          onClick={() => props.addUser(username, password, email)}
         >
           Sign Up
         </button>
