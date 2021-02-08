@@ -1,7 +1,7 @@
 import React from "react";
 import "../CSS/LogInPanel.css";
 
-function LogInPanel(props: { changeUser: any }) {
+function SignInPanel(props: { addUser: any }) {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -28,7 +28,7 @@ function LogInPanel(props: { changeUser: any }) {
       <div className="LoginPanel-Buttons">
         <button
           className="LoginPanel-Login"
-          onClick={() => props.changeUser(username, password)}
+          onClick={() => props.addUser(username, password)}
         >
           Sign Up
         </button>
@@ -37,4 +37,4 @@ function LogInPanel(props: { changeUser: any }) {
   );
 }
 
-export default LogInPanel;
+export default SignInPanel;

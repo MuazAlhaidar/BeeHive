@@ -20,9 +20,15 @@ function LogIn(props: { setName: any }) {
       props.setName(username);
       return true;
     } else {
-      setStatus(-1);
-      return false;
+      addUser(username, password);
+      setStatus(1);
+      props.setName(username);
+      return true;
     }
+  }
+
+  function addUser(username: string, password: string) {
+    Users.set(username, password);
   }
 
   function displaystatus() {
@@ -44,7 +50,7 @@ function LogIn(props: { setName: any }) {
   return (
     <div className="Login">
       <div className="Login-SignInPanel">
-        <SignInPanel changeUser={checkuser} />
+        <SignInPanel addUser={checkuser} />
       </div>
       {displaystatus()}
     </div>
