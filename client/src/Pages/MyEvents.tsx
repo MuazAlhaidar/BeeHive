@@ -62,6 +62,24 @@ function MyEvents() {
     setEvents(e);
   };
 
+  const editEvent = (
+    name: string,
+    address: string,
+    time: string,
+    date: string,
+    description: string
+  ) => {
+    if (events[eventIndex] != undefined) {
+      const e = events.slice();
+      e[eventIndex].name = name;
+      e[eventIndex].address = address;
+      e[eventIndex].time = time;
+      e[eventIndex].date = date;
+      e[eventIndex].description = description;
+      setEvents(e);
+    }
+  };
+
   const removeEvent = (i: number) => {
     const e = events.slice();
     e.splice(i, 1);
@@ -86,6 +104,7 @@ function MyEvents() {
             time={""}
             date={""}
             description={""}
+            editEvent={editEvent}
             removeEvent={() => {
               removeEvent(eventIndex);
             }}
@@ -97,6 +116,7 @@ function MyEvents() {
             time={events[eventIndex].time}
             date={events[eventIndex].date}
             description={events[eventIndex].description}
+            editEvent={editEvent}
             removeEvent={() => {
               removeEvent(eventIndex);
             }}
