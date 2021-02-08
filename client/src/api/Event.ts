@@ -35,13 +35,13 @@ async function update(_id:number, _name:undefined|string, _desc:undefined|string
         // return axiosPost("update2", {id:_id, Name:_name,  Description:_desc, Address:_address, Time:_time, Manager:_manager})
         return axiosPost("update", {id:_id, Name:_name,  Description:_desc, Address:_address, Time:_time})
         .then(res => res.data)
-        .catch(err => {undefined})
+        .catch(err => undefined)
 }
 
 async function getAllEvents(){
         return axiosGet("getall", undefined)
         .then(res => res.data)
-        .catch(err => { undefined})
+        .catch(err =>  undefined)
 }
 
 async function Delete(_id:number){
