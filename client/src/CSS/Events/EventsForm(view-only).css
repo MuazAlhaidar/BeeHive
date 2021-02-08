@@ -1,0 +1,122 @@
+.EventsForm-view-only,
+.EventsForm-view-only,
+.EventsForm-view-only-Top,
+.EventsForm-view-only-NameDiv,
+.EventsForm-view-only-NameLabel,
+.EventsForm-view-only-Name,
+.EventsForm-view-only-AddressTimeDateGroup,
+.EventsForm-view-only-Address,
+.EventsForm-view-only-Time,
+.EventsForm-view-only-Date,
+.EventsForm-view-only-AddressLabel,
+.EventsForm-view-only-TimeLabel,
+.EventsForm-view-only-DateLabel,
+.EventsForm-view-only-AddressTimeDateInfo,
+.EventsForm-view-only-AddressTimeDateLabel,
+.EventsForm-view-only-SocialMediaButtons,
+.EventsForm-view-only-DescriptionLabel,
+.EventsForm-view-only-Description {
+  display: flex;
+}
+
+.EventsForm-view-only {
+  flex-direction: column;
+}
+
+.EventsForm-view-only-Top {
+  flex-direction: row;
+  padding: 15px 15px 0px 15px;
+}
+
+.EventsForm-view-only-NameAddressTimeDateGroup {
+  flex-grow: 20;
+}
+
+.EventsForm-view-only-Name,
+.EventsForm-view-only-Address,
+.EventsForm-view-only-Time,
+.EventsForm-view-only-Date {
+  border: 2px solid lightgray;
+  align-items: center;
+  height: 25px;
+  background-color: #ffffff;
+}
+
+.EventsForm-view-only-NameDiv {
+  flex-direction: column;
+}
+
+.EventsForm-view-only-Name {
+  justify-content: left;
+  padding-left: 5px;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+.EventsForm-view-only-Address {
+  flex-grow: 100;
+  padding-left: 5px;
+  margin-right: 15px;
+}
+
+.EventsForm-view-only-Time {
+  padding-left: 5px;
+  padding-right: 5px;
+  min-width: 50px;
+  margin-right: 15px;
+}
+
+.EventsForm-view-only-Date {
+  padding-left: 5px;
+  padding-right: 5px;
+  min-width: 82px;
+}
+
+.EventsForm-view-only-AddressLabel {
+  flex-grow: 1;
+}
+
+.EventsForm-view-only-TimeLabel {
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 65px;
+}
+
+.EventsForm-view-only-DateLabel {
+  width: 96px;
+}
+
+.EventsForm-view-only-AddressTimeDateGroup {
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.EventsForm-view-only-SocialMediaButtons {
+  flex-direction: column;
+  width: 100px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.EventsForm-view-only-SocialMediaButtons-Twitter,
+.EventsForm-view-only-SocialMediaButtons-Facebook {
+  padding-top: 5px;
+  width: 35px;
+}
+
+.EventsForm-view-only-DescriptionDiv {
+  padding: 0px 15px;
+}
+
+.EventsForm-view-only-Description {
+  justify-content: left;
+  padding: 5px 5px;
+  height: 73vh;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: auto;
+  border: 2px solid lightgray;
+  text-align: left;
+  background-color: #ffffff;
+}

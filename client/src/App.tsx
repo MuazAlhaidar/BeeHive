@@ -6,8 +6,8 @@ import MyGroupsPage from "./Pages/MyGroups";
 import LogIn from "./Pages/LogIn";
 import SignUp from "./Pages/SignUp";
 import ContactUs from "./Pages/ContactUs";
+import AllEvents from "./Pages/AllEvents";
 import LogoAndTitle from "./Components/LogoAndTitle";
-import Logo from "./Images/Members App Logo - White Large.png";
 
 function App() {
   const [name, setName] = React.useState("");
@@ -21,7 +21,7 @@ function App() {
             </div>
             <div className="App-Links">
               <Link className="App-link" to="/">
-                Welcome
+                All Events
               </Link>
               <Link className="App-link" to="/MyEvents">
                 MyEvents
@@ -36,14 +36,7 @@ function App() {
           </div>
           <Switch>
             <Route exact path="/">
-              {name === "" ? (
-                <div>
-                  <h1>Welcome to BeeHive</h1>
-                  <img src={Logo} alt="BeeHive Logo" width="222" height="200" />
-                </div>
-              ) : (
-                <h1> Hello {name}</h1>
-              )}
+              {name === "" ? <LogIn setName={setName} /> : <AllEvents />}
             </Route>
             <Route path="/LogIn">
               <LogIn setName={setName} />
