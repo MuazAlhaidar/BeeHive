@@ -77,10 +77,10 @@ function App() {
               <ContactUs />
             </Route>
             <Route path="/MyEvents">
-              <MyEventsPage />
+              {name === "" ? <LogIn setName={setName} /> : <MyEventsPage />}
             </Route>
             <Route path="/MyGroups">
-              <MyGroupsPage />
+              {name === "" ? <LogIn setName={setName} /> : <MyGroupsPage />}
             </Route>
           </Switch>
         </Router>
