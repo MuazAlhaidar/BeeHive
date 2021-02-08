@@ -47,8 +47,8 @@ async function new_user( user:any ){
 
 }
 
-async function reset_password(_email:string){
-        return axiosPost("reset_request", {email:_email})
+async function reset_password(_email:string, _test:boolean=false){
+        return axiosPost("reset_request", {email:_email, test:_test})
         .then(ret =>  true )
         .catch(ret => false )
 

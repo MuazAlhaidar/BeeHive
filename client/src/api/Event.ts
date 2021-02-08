@@ -61,13 +61,13 @@ async function Invite(_Event:number, _Users:[number]){
 async function Signin(_Event:number, _User:number){
         return axiosPost("signin", {Event:_Event, User:_User})
         .then(res => true)
-        .catch(err => {console.log(err); return false})
+        .catch(err => { return false})
 }
 
 async function Transfer(_Event:number, _User:number ){
         return axiosPost("transfer",{Event:_Event, Manager:_User})
         .then(res => true)
-        .catch(err => {console.log(err); return false})
+        .catch(err => { return false})
 }
 
 export {axiosGet, axiosPost, newEvent, getEvent, update, getAllEvents, Delete, Invite, Signin, Transfer}

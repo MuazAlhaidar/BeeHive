@@ -11,6 +11,7 @@ import ContactUs from "./Pages/ContactUs";
 import LogoAndTitle from "./Components/LogoAndTitle";
 import Logo from "./Images/Members App Logo - White Large.png";
 import ResetPass from "./Pages/ResetPass"
+import ResetReq from "./Pages/ResetReq"
 
 function App() {
   const [name, setName] = React.useState("");
@@ -85,6 +86,9 @@ function App() {
             </Route>
             <Route path="/resetPassword">
               <ResetPass />
+            </Route>
+            <Route path="/forgotpassword">
+              <ResetReq />
             </Route>
           </Switch>
         </Router>

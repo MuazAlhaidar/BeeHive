@@ -87,8 +87,12 @@ router.post("/login", (req, res)=>{
  */
 router.post("/reset_request", (req, res)=>{
     let _email = req.body.email;
+    let test= req.body.test
+    if(req.body.test === undefined){
+            test=false;
+    }
+
     const token = Other.resetPassword_token(_email);
-    console.log("TOKEN IS", token)
     const days_till_expiry = 3
     if(_email==undefined){
 	res.sendStatus(401);
@@ -117,32 +121,32 @@ router.post("/reset_request", (req, res)=>{
                         
 
                     try{
-                            /*
-                            // https://www.w3schools.com/nodejs/nodejs_email.asp
-                            // Once we have an email server/other shit, we will use this
-                            var transporter = nodemailer.createTransport({
-                                    service: 'gmail',
-                                    auth: {
-                                            user: '12xx.supersussupersus.xx21@gmail.com',
-                                            pass: '~j5Gfs!:~qOL&Wla6rf>V[$_?'
-                                    }
-                            });
-                            var mailOptions = {
-                                    from: '12xx.supersussupersus.xx21@gmail.com',
-                                    to:_email,
-                                    subject:"Beehvie password reset",
-                                    text: 'Hello user, you have made a request to reset your password. In '+new Date(result.setDate(result.getDate()+ days_till_expiry))+" this password reset request will be invalid. \n if you did indeed made the request, go to http://localhost:4200/resetpassword?token="+token
-                            };
+                            if(test===true){
+                                    // https://www.w3schools.com/nodejs/nodejs_email.asp
+                                    // Once we have an email server/other shit, we will use this
+                                    var transporter = nodemailer.createTransport({
+                                            service: 'gmail',
+                                            auth: {
+                                                    user: '12xx.supersussupersus.xx21@gmail.com',
+                                                    pass: '~j5Gfs!:~qOL&Wla6rf>V[$_?'
+                                            }
+                                    });
+                                    var mailOptions = {
+                                            from: '12xx.supersussupersus.xx21@gmail.com',
+                                            to:_email,
+                                            subject:"Beehvie password reset",
+                                            text: 'Hello user, you have made a request to reset your password. In '+new Date(result.setDate(result.getDate()+ days_till_expiry))+" this password reset request will be invalid. \n if you did indeed made the request, go to http://localhost:3000/resetpassword?token="+token
+                                    };
 
-                            transporter.sendMail(mailOptions, function(error, info){
-                                    if (error) {
-                                            console.log(error);
-                                    } else {
-                                            console.log('Email sent: ' + info.response);
-                                    }
-                            }); 
-                            console.log("JOJO")
-                            */
+                                    transporter.sendMail(mailOptions, function(error, info){
+                                            if (error) {
+                                                    console.log(error);
+                                            } else {
+                                                    console.log('Email sent: ' + info.response);
+                                            }
+                                    }); 
+                                    console.log("JOJO")
+                            }
                             res.status(200).send(token)
                     }
                     catch(e){
