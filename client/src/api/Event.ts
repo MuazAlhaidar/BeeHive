@@ -70,5 +70,11 @@ async function Transfer(_Event:number, _User:number ){
         .catch(err => { return false})
 }
 
-export {axiosGet, axiosPost, newEvent, getEvent, update, getAllEvents, Delete, Invite, Signin, Transfer};
+async function getEventManager(_id:number){
+        return axiosGet("man", {id:_id})
+        .then(res => res.data)
+        .catch(err => undefined)
+}
+
+export {axiosGet, axiosPost, newEvent, getEvent, update, getAllEvents, Delete, Invite, Signin, Transfer, getEventManager}
 // module.exports= { login,new_user,reset_password, reset_token}

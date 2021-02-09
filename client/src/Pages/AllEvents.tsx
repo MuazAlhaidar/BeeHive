@@ -19,6 +19,7 @@ interface EventInfo {
 }
 
 async function reload(){
+        console.log("ALLEVENTS")
         const allevents = await API.getAllEvents()
         const events = allevents.map((i:any) => {
                 var date_obj = new Date(i.Time)
@@ -53,11 +54,12 @@ function MyEvents() {
     }
   );
   const [events, setEvents] = React.useState(fakeEvents);
+  reload().then(res=>setEvents(res))
   React.useEffect(()=>{
-          reload().then(res=>setEvents(res))
+          console.log("LOADING")
           // setEvents(eventList)
 
-  })
+  }, [])
   const [eventIndex, setEventIndex] = React.useState(0);
 
   const selectEvent = (i: number) => {

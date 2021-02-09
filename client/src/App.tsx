@@ -53,7 +53,7 @@ function App() {
               <ContactUs />
             </Route>
             <Route path="/MyEvents">
-              {name === "" ? <LogIn setName={setName} setId={setId} /> : <MyEventsPage />}
+              {name === "" ? <LogIn setName={setName} setId={setId} /> : <MyEventsPage id={id} />}
             </Route>
             <Route path="/MyGroups">
               {name === "" ? <LogIn setName={setName} setId={setId}/> : <MyGroupsPage />}

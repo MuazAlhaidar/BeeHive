@@ -18,8 +18,8 @@ interface EventInfo {
         members: Array<MemberInfo> | null;
 }
 
-async function reload(){
-        const allevents = await API.getAllEvents()
+async function reload(id:number){
+        const allevents = await API.getEventManager(id)
         const events = allevents.map((i:any) => {
                 var date_obj = new Date(i.Time)
                 return {name:i.Name, description:i.Description, address:i.Address, time:date_obj.getHours()+date_obj.getMinutes(), date:date_obj.getFullYear()+"/"+date_obj.getMonth()+"/"+date_obj.getDate(), members: null}
@@ -27,7 +27,7 @@ async function reload(){
         return events;
 
 }
-function MyEvents() {
+function MyEvents(props: { id:any}) {
         const fakeEvents = Array<EventInfo>(
                 {
                         name: "HR event",
@@ -54,10 +54,10 @@ function MyEvents() {
         );
         const [events, setEvents] = React.useState(fakeEvents);
         React.useEffect(()=>{
-                reload().then(res=>setEvents(res))
+                reload(props.id).then(res=>setEvents(res))
                 // setEvents(eventList)
 
-        })
+        }, [])
         const [eventIndex, setEventIndex] = React.useState(0);
 
         const selectEvent = (i: number) => {
