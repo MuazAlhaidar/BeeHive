@@ -10,6 +10,7 @@ const {or, and, gt, lt} = Sequelize.Op;
  * @desc Get all the events
  */
 router.get("/getall", (req,res)=>{
+        console.log("HELP")
         Event.findAll()
         .then(ret => {
                 const values = ret.map(x => x.dataValues);

@@ -17,7 +17,6 @@ function App() {
   const [id, setId] = React.useState("");
   return (
     <div className="App">
-            <h1> {name} WHAT {id} </h1>
       <header className="App-header">
         <Router>
           <div className="App-navbar">

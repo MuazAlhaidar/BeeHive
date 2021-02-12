@@ -60,7 +60,7 @@ function LogIn(props: { setName: any , setId:any}) {
   function displaystatus() {
 	  switch (status) {
 		  case -1:
-			  return <h1> Sign Up FUCK </h1>;
+			  return <h1> Sign Up </h1>;
 		  case 1:
 			  return <h1> Sign up failed: username/email already in database</h1>;
 		  case 2:
