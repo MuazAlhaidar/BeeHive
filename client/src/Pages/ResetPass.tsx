@@ -1,3 +1,4 @@
+
 import React from "react";
 import {useLocation, useHistory} from "react-router-dom";
 import * as API from "../api/User"
@@ -76,3 +77,4 @@ function ResetPassword(props:{token:any}){
                 </div>
         );
 }
+
