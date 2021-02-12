@@ -44,7 +44,11 @@
    - [X] Clicking Reset Password ::  When clicking on reset password, it will take them to a new page, which they have hte option to reset the password
    - [ ] Encryption/Decryption of password :: 
 ** TODO Group Mangement
-   + [ ] CRUD Groups ::
+   + [X] CRUD Groups ::
+     + [X] Add
+     + [X] Read
+     + [X] Update
+     + [X] Remove
    + [ ] Add/remove people from group ::
    + [ ] Modify contact info ::
 ** TODO Non-Social media
@@ -58,7 +62,7 @@
    + [ ] Email people in a group :: 
 * Middleware
 ** TODO Event Mangement
-   - [ ] CRUD Event :: Create, adn read/update/delete evnets that exist and NOT exist
+   - [X] CRUD Event :: Create, adn read/update/delete evnets that exist and NOT exist
      Note: I have not added any kind of notification to email people who have been RSVP. That will have to be done /later/, when we have access to it.
    - [ ] Invite people to event :: Invite people ot an event by making new eventmember entries
    - [ ] Signin to an event ::
