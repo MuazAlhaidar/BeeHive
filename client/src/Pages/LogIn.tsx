@@ -7,7 +7,7 @@ import { Redirect } from "react-router-dom";
 import "../CSS/LogIn.css";
 type UserType = { username: string; password: string };
 
-function LogIn(props: { setName: any }) {
+function LogIn(props: { setName: any , setId:any}) {
   const [user, setUser] = React.useState("");
   const [status, setStatus] = React.useState(0);
   var listUsers = [
@@ -25,11 +25,12 @@ function LogIn(props: { setName: any }) {
 
     return API.login(username, password)
     .then(res =>{
+            console.log("WHAT THE HECK", res)
             if(res!=-1){
-                    console.log(res)
                     setUser(username);
                     setStatus(1);
                     props.setName(username);
+                    props.setId(res);
                     return true;
             } else {
                     setStatus(-1);

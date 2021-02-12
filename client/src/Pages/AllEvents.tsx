@@ -2,6 +2,7 @@ import React from "react";
 import "../CSS/Events/MyEvents.css";
 import EventList from "../Components/Events/EventsList(view-only)";
 import EventsForm from "../Components/Events/EventsForm(view-only)";
+import * as API from "../api/Event"
 
 interface MemberInfo {
   name: string;
@@ -17,6 +18,16 @@ interface EventInfo {
   members: Array<MemberInfo> | null;
 }
 
+async function reload(){
+        console.log("ALLEVENTS")
+        const allevents = await API.getAllEvents()
+        const events = allevents.map((i:any) => {
+                var date_obj = new Date(i.Time)
+                return {name:i.Name, description:i.Description, address:i.Address, time:date_obj.getHours()+date_obj.getMinutes(), date:date_obj.getFullYear()+"/"+date_obj.getMonth()+"/"+date_obj.getDate(), members: null}
+        })
+        return events;
+
+}
 function MyEvents() {
   const fakeEvents = Array<EventInfo>(
     {
@@ -43,6 +54,12 @@ function MyEvents() {
     }
   );
   const [events, setEvents] = React.useState(fakeEvents);
+  reload().then(res=>setEvents(res))
+  React.useEffect(()=>{
+          console.log("LOADING")
+          // setEvents(eventList)
+
+  }, [])
   const [eventIndex, setEventIndex] = React.useState(0);
 
   const selectEvent = (i: number) => {

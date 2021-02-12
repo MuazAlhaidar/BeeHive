@@ -154,5 +154,31 @@ router.post("/transfer", (req, res)=>{
                 })
                 .catch(err => {console.log(err); res.sendStatus(404)})
 })
+
+/*
+ * @route GET api/events/getmembersevents?=id
+ * @desc Get all events that an eventmember is invited to
+ * body {id:User's id}
+ */
+router.get("/man", async (req, res)=>{
+        let id = req.query.id
+        console.log("WOW")
+        if(id===undefined)
+                res.sendStatus(404)
+        else{
+                let invited = await EventMember.findAll({where:{User:id, Manager:true}})
+                let eventsid=(invited.map((i)=> i.dataValues.Event))
+                console.log(invited)
+                console.log(eventsid)
+
+                let events = []
+                await Promise.all(eventsid.map(async (id)=> Event.findOne({where:{id:id}})))
+                .then(ret=>{
+                        console.log(ret)
+                        res.status(200).send(ret)
+                })
+
+        }
+})
 export {}
 module.exports = router;

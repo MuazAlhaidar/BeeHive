@@ -14,8 +14,10 @@ import ResetReq from "./Pages/ResetReq";
 
 function App() {
   const [name, setName] = React.useState("");
+  const [id, setId] = React.useState("");
   return (
     <div className="App">
+            <h1> {name} WHAT {id} </h1>
       <header className="App-header">
         <Router>
           <div className="App-navbar">
@@ -42,19 +44,19 @@ function App() {
               <AllEvents />
             </Route>
             <Route path="/LogIn">
-              <LogIn setName={setName} />
+              <LogIn setName={setName} setId={setId}/>
             </Route>
             <Route path="/Signup">
-              <SignUp setName={setName} />
+              <SignUp setName={setName} setId={setId}/>
             </Route>
             <Route path="/ContactUs">
               <ContactUs />
             </Route>
             <Route path="/MyEvents">
-              {name === "" ? <LogIn setName={setName} /> : <MyEventsPage />}
+              {name === "" ? <LogIn setName={setName} setId={setId} /> : <MyEventsPage id={id} />}
             </Route>
             <Route path="/MyGroups">
-              {name === "" ? <LogIn setName={setName} /> : <MyGroupsPage />}
+              {name === "" ? <LogIn setName={setName} setId={setId}/> : <MyGroupsPage />}
             </Route>
             <Route path="/resetPassword">
               <ResetPass />

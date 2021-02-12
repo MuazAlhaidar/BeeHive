@@ -64,13 +64,17 @@ router.post("/login", (req, res)=>{
 	}
     }).then(found =>{
 	if(found === null){
+                console.log("1")
 	    res.status(401).send("Incorrect username/password")
 	    return;
 	}
-	else
+	else{
+                console.log(found.dataValues.id)
 	    res.status(200).send({id:found.dataValues.id})
+        }
     })
 	.catch(err => {
+                console.log("3")
 	    res.status(404).send(err)
 	})
 
