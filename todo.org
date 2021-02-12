@@ -43,14 +43,16 @@
    - [X] Reset Password :: A request to send the password to an email
    - [X] Clicking Reset Password ::  When clicking on reset password, it will take them to a new page, which they have hte option to reset the password
    - [ ] Encryption/Decryption of password :: 
-** TODO Group Mangement
+** DONE Group Mangement
+CLOSED: [2021-02-12 Fri 17:02]
+- State "DONE"       from "TODO"       [2021-02-12 Fri 17:02]
    + [X] CRUD Groups ::
      + [X] Add
      + [X] Read
      + [X] Update
      + [X] Remove
-   + [ ] Add/remove people from group ::
-   + [ ] Modify contact info ::
+   + [X] Add/remove people from group ::
+   + [X] Modify contact info ::
 ** TODO Non-Social media
    + [ ] Manage poitns for member ::
    + [ ] Contact Us for orgainzation ::
