@@ -68,7 +68,15 @@ CLOSED: [2021-02-12 Fri 17:02]
      Note: I have not added any kind of notification to email people who have been RSVP. That will have to be done /later/, when we have access to it.
    - [ ] Invite people to event :: Invite people ot an event by making new eventmember entries
    - [ ] Signin to an event ::
-   - [ ] Transfer manager role :: 
+   - [ ] Transfer manager role ::
+** TODO Gorup Managment     
+   + [ ] CRUD Groups ::
+     + [ ] Add
+     + [ ] Read
+     + [ ] Update
+     + [ ] Remove
+   + [ ] Add/remove people from group ::
+   + [ ] Modify contact info ::
 ** TODO User Management
    - [X] Sign up :: A new user is created in the database
    - [X] Login :: A user logins and the databse sends their ID to them.
