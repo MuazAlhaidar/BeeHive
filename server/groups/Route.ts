@@ -11,8 +11,22 @@ const {or, and, gt, lt} = Sequelize.Op;
  */
 router.get("/getgroup", async(req,res)=>{
         GroupMember.findAll({ where: {User:req.query.id}})
-        .then(ret=>{  res.status(200).send(ret) })
-        .catch(err => res.status(404).send(err))
+        .then(async ret=> { 
+               let _groups = await Promise.all(ret.map(async i => {
+                        let _id=i.dataValues.Group
+                        let meme= await Group.findOne({where:{id:_id}}) 
+                        return (meme.dataValues)
+                }))
+                let _groupmembers = await Promise.all(_groups.map(async i =>{
+                        let _id = i["id"]
+                        let meme = await GroupMember.findAll({where:{Group:_id}})
+                        return meme.map(i => i.dataValues)
+                }))
+                console.log(_groupmembers)
+
+                res.status(200).send({groups:_groups, groupmembers:_groupmembers}) 
+        })
+        .catch(err => {console.log(err); res.status(404).send(err)} )
 })
 
 /* @route POST api/groups/new
@@ -46,7 +60,6 @@ router.post("/new", async(req,res)=>{
                res.sendStatus(404)
         }
         catch(err){
-                console.log(err)
                 res.status(404).send("Other Error has happen")
         }
 })
@@ -83,7 +96,6 @@ router.post("/update", async(req,res)=>{
         let user = _tmp.dataValues
         if(user.role_id==1){
                 var ret=undefined
-                console.log(req.body)
                 if( req.body.name != undefined  && req.body.name != null  && req.body.name != ""  && req.body.name != '' && req.body.info != undefined  && req.body.info != null  && req.body.info != "" && req.body.info != ''){
                         ret=await Group.update({Name:req.body.name, ContactInfo:req.body.info}, {where:{id:req.body.id}})
                 }
@@ -121,7 +133,6 @@ router.post("/update", async(req,res)=>{
  */
 router.post("/addmembers", async(req,res)=>{
         var _tmp = await Userr.findOne({where:{id:req.body.userid}})
-        console.log(req.body)
         if(_tmp==undefined){
                 res.status(404).send("Owner is not even exist")
                 return;
@@ -150,7 +161,6 @@ router.post("/addmembers", async(req,res)=>{
                         User: req.body.member
                         ,Group:req.body.group}})
 
-                console.log(_tmp)
                 res.send(_tmp).status(200)
                 return
 

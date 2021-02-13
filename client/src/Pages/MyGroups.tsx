@@ -3,15 +3,38 @@ import GroupsList from "../Components/Groups/GroupsList";
 import GroupForm from "../Components/Groups/GroupsForm";
 import MemberList from "../Components/Members/MemberList";
 import "../CSS/Groups/MyGroups.css";
+import * as API from "../api/Groups"
 
 interface MemberInfo {
   name: string;
 }
 
 interface GroupInfo {
+  // id: number;
   name: string;
   contactInfo: string;
   members: Array<MemberInfo>;
+}
+
+async function reload(id:number){
+        const mygroups = await API.getGroup(id)
+        // const groups =  mygroups.data.groups.map((i:any)=>{
+        //         return {id:i.id, name: i.Name, contactInfo:i.ContactInfo, members: null}
+        // })
+        const groups = mygroups.data.groups.reduce(function(acc:any, cur:any){
+                if(acc[cur.id]===undefined)
+                        acc[cur.id]=[cur]
+                else
+                        acc[cur.id].push(cur)
+                return acc
+        }, {})
+        mygroups.data.groupmembers.forEach((i:any)=>{
+                groups[i[0].Group].members =  i
+        })
+        return groups
+
+    
+
 }
 
 function MyGroups() {
@@ -27,6 +50,12 @@ function MyGroups() {
       members: [{ name: "John" }],
     }
   );
+  React.useEffect(()=>{
+          reload(2)
+          .then(res=>{
+                  console.log(res)
+          })
+  }, [])
 
   const emptyMembersList = new Array<MemberInfo>();
 
