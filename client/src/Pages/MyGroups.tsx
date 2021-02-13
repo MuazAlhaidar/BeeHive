@@ -10,26 +10,22 @@ interface MemberInfo {
 }
 
 interface GroupInfo {
-  // id: number;
+  id: number;
   name: string;
   contactInfo: string;
   members: Array<MemberInfo>;
 }
 
 async function reload(id:number){
-        const mygroups = await API.getGroup(id)
-        // const groups =  mygroups.data.groups.map((i:any)=>{
-        //         return {id:i.id, name: i.Name, contactInfo:i.ContactInfo, members: null}
-        // })
-        const groups = mygroups.data.groups.reduce(function(acc:any, cur:any){
+        const data = await API.getGroup(id)
+        const groups = data.data.groups.reduce(function(acc:any, cur:any){
+                let tmp = {id:cur.id, name: cur.Name, contactInfo:cur.ContactInfo, members: []}
                 if(acc[cur.id]===undefined)
-                        acc[cur.id]=[cur]
-                else
-                        acc[cur.id].push(cur)
+                        acc[cur.id-1]=tmp
                 return acc
-        }, {})
-        mygroups.data.groupmembers.forEach((i:any)=>{
-                groups[i[0].Group].members =  i
+        }, new Array(data.data.groups.length))
+        data.data.groupmembers.forEach((i:any)=>{
+                groups[i[0].Group-1].members =  i
         })
         return groups
 
@@ -40,27 +36,30 @@ async function reload(id:number){
 function MyGroups() {
   const fakeGroup = Array<GroupInfo>(
     {
+    id: 1,
       name: "HR Group",
       contactInfo: "313-995-7488",
       members: [{ name: "John" }, { name: "Thomas" }],
     },
     {
+    id: 2,
       name: "PR Group",
       contactInfo: "313-555-6598",
       members: [{ name: "John" }],
     }
   );
-  React.useEffect(()=>{
-          reload(2)
-          .then(res=>{
-                  console.log(res)
-          })
-  }, [])
 
   const emptyMembersList = new Array<MemberInfo>();
 
   const [groups, setGroups] = React.useState(fakeGroup);
   const [groupIndex, setGroupIndex] = React.useState(0);
+
+  React.useEffect(()=>{
+          reload(2).then(res=> {
+                  console.log(res)
+                  setGroups(res)
+          })
+  }, [])
 
   const selectGroup = (i: number) => {
     let index = i === undefined ? 0 : i;
@@ -73,7 +72,8 @@ function MyGroups() {
     members: Array<MemberInfo>
   ) => {
     const g = groups.slice();
-    g.push({ name, contactInfo, members });
+    let id=0
+    g.push({id, name, contactInfo, members });
     setGroups(g);
   };
 
