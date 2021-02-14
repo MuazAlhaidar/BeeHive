@@ -20,9 +20,14 @@ router.get("/getgroup", async(req,res)=>{
                 let _groupmembers = await Promise.all(_groups.map(async i =>{
                         let _id = i["id"]
                         let meme = await GroupMember.findAll({where:{Group:_id}})
-                        return meme.map(i => i.dataValues)
+                        let meme2= meme.map(i => i.dataValues)
+                        return await Promise.all(meme2.map(async i =>  Userr.findOne({where:{id:i.id}})))
+
                 }))
-                console.log(_groupmembers)
+                _groupmembers.forEach(i=>{
+                        i.forEach(j=>{
+                        })
+                })
 
                 res.status(200).send({groups:_groups, groupmembers:_groupmembers}) 
         })

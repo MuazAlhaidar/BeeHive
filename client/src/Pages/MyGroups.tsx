@@ -16,18 +16,19 @@ interface GroupInfo {
   members: Array<MemberInfo>;
 }
 
-async function reload(id:number){
+async function reload(id:number):Promise<Array<GroupInfo>>{
         const data = await API.getGroup(id)
         const groups = data.data.groups.reduce(function(acc:any, cur:any){
                 let tmp = {id:cur.id, name: cur.Name, contactInfo:cur.ContactInfo, members: []}
                 if(acc[cur.id]===undefined)
-                        acc[cur.id-1]=tmp
+                        acc[cur.id]=tmp
                 return acc
-        }, new Array(data.data.groups.length))
+        }, {})
         data.data.groupmembers.forEach((i:any)=>{
-                groups[i[0].Group-1].members =  i
+                console.log(i)
+                groups[i[0].Group].members =  i
         })
-        return groups
+        return Object.values(groups)
 
     
 
@@ -56,7 +57,6 @@ function MyGroups() {
 
   React.useEffect(()=>{
           reload(2).then(res=> {
-                  console.log(res)
                   setGroups(res)
           })
   }, [])
