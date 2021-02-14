@@ -85,10 +85,14 @@ function MyGroups() {
 
     const editGroup = (name: string, contactInfo: string) => {
         if (groups[groupIndex] != undefined) {
-            const g = groups.slice();
-            g[groupIndex].name = name;
-            g[groupIndex].contactInfo = contactInfo;
-            setGroups(g);
+            API.updateGroup(props.id, groups[groupIndex].id, name, contactInfo)
+                .then(res=>{
+                    const g = groups.slice();
+                    g[groupIndex].name = name;
+                    g[groupIndex].contactInfo = contactInfo;
+                    setGroups(g);
+                    console.log(res)
+                })
         }
     };
 
