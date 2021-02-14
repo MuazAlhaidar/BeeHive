@@ -17,6 +17,8 @@ interface GroupInfo {
     members: Array<MemberInfo>;
 }
 
+const props={id:2}
+
 // async function reload(id:number){
 async function reload(id:number):Promise<Array<GroupInfo>>{
     const data = await API.getGroup(id)
@@ -57,7 +59,7 @@ function MyGroups() {
     const [groupIndex, setGroupIndex] = React.useState(0);
 
     React.useEffect(()=>{
-        reload(2).then(res=> {
+        reload(props.id).then(res=> {
             setGroups(res)
         })
     }, [])
@@ -72,10 +74,13 @@ function MyGroups() {
         contactInfo: string,
         members: any
     ) => {
-        const g = groups.slice();
-        let id=0
-        g.push({id, name, contactInfo, members });
-        setGroups(g);
+        API.newGroup(props.id, name, contactInfo).then(res=>{
+            const g = groups.slice();
+            let id=props.id
+            g.push({id, name, contactInfo, members });
+            setGroups(g);
+            console.log(res)
+        })
     };
 
     const editGroup = (name: string, contactInfo: string) => {
