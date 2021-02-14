@@ -78,6 +78,10 @@ router.post("/remove", async(req,res)=>{
     var _tmp = await Userr.findOne({where:{id:req.body.userid}})
     let user = _tmp.dataValues
     if(user.role_id==1){
+
+        let _tmp = await GroupMember.destroy({where:{Group:req.body.id}})
+        console.log(_tmp)
+        
         let ret=await Groupp.destroy({where:{id:req.body.id}})
         if(ret==1)
             res.send("Deleted Group").status(200)

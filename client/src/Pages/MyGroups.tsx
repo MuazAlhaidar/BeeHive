@@ -97,10 +97,14 @@ function MyGroups() {
     };
 
     const removeGroup = (i: number) => {
-        const g = groups.slice();
-        g.splice(i, 1);
-        setGroups(g);
-        setGroupIndex(groups.length);
+        API.removeGroup(props.id, groups[groupIndex].id)
+            .then(res=>{
+                const g = groups.slice();
+                g.splice(i, 1);
+                setGroups(g);
+                setGroupIndex(groups.length);
+                console.log(res)
+            })
     };
 
     return (
