@@ -2,13 +2,13 @@ import React from "react";
 import "../../CSS/Members/Member.css";
 
 interface IProps {
-  name: string;
+    username: string;
 }
 
-function Member({ name }: IProps) {
+function Member({ username }: IProps) {
   return (
     <div className="Member">
-      <button className="Member-Name">{name}</button>
+      <button className="Member-Name">{username}</button>
     </div>
   );
 }

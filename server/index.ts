@@ -51,7 +51,7 @@ async function initialize() {
 	    // If DEV=true, it will erase everything. 
 	    if( process.env.DEV == "true"){
 		sequelize.sync({force:true})
-                Promise.all([sequelize.sync({force:true}), EventMembers.drop(), GroupMembers.drop(), User.sync({force:true}), Group.sync({force:true}), Event.sync({force:true})])
+                Promise.all([ EventMembers.drop(), GroupMembers.drop(), sequelize.sync({force:true}), User.sync({force:true}), Group.sync({force:true}), Event.sync({force:true})])
                 .then(()=>{
                         EventMembers.sync({force:true});
                         GroupMembers.sync({force:true})

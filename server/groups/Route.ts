@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Userr = require("../users/Model.ts");
-const Group = require("./GroupModel.ts");
+const Groupp = require("./GroupModel.ts");
 const GroupMember = require("./GroupMember.ts");
 const Sequelize = require("sequelize")
 const {or, and, gt, lt} = Sequelize.Op;
@@ -9,27 +9,26 @@ const {or, and, gt, lt} = Sequelize.Op;
  * @desc Get all groups a member is from
  * @query: Id of the user
  */
+
+const _config = require("../config/keys.ts")
+const sequelize = new Sequelize(_config.database, _config.user, _config.pass, {
+        dialect: 'mariadb',
+        logging: false
+})
+
 router.get("/getgroup", async(req,res)=>{
         GroupMember.findAll({ where: {User:req.query.id}})
         .then(async ret=> { 
                let _groups = await Promise.all(ret.map(async i => {
                         let _id=i.dataValues.Group
-                        let meme= await Group.findOne({where:{id:_id}}) 
+                        let meme= await Groupp.findOne({where:{id:_id}}) 
                         return (meme.dataValues)
                 }))
-                let _groupmembers = await Promise.all(_groups.map(async i =>{
-                        let _id = i["id"]
-                        let meme = await GroupMember.findAll({where:{Group:_id}})
-                        let meme2= meme.map(i => i.dataValues)
-                        return await Promise.all(meme2.map(async i =>  Userr.findOne({where:{id:i.id}})))
+            let _groupmembers = await sequelize.query("select users.username, users.id as userid, groups.id as groupid from groupmembers inner join users on users.id=groupmembers.User inner join groups on groupmembers.Group=groups.id;")
 
-                }))
-                _groupmembers.forEach(i=>{
-                        i.forEach(j=>{
-                        })
-                })
 
-                res.status(200).send({groups:_groups, groupmembers:_groupmembers}) 
+                res.status(200).send({groups:_groups, groupmembers:_groupmembers[0]}) 
+                // res.status(200).send({groups:_groups}) 
         })
         .catch(err => {console.log(err); res.status(404).send(err)} )
 })
@@ -51,7 +50,7 @@ router.post("/new", async(req,res)=>{
                         return
                 }
                 if(user.role_id==1){
-                        let retme = await Group.create({Name:req.body.name, ContactInfo:req.body.info})
+                        let retme = await Groupp.create({Name:req.body.name, ContactInfo:req.body.info})
                         await GroupMember.create({User:req.body.id, Group:retme.id, Manager:true})
                         res.status(200).send(retme)
                         return;
@@ -62,7 +61,7 @@ router.post("/new", async(req,res)=>{
                 }
                 /*
                 */
-               res.sendStatus(404)
+                res.sendStatus(404)
         }
         catch(err){
                 res.status(404).send("Other Error has happen")
@@ -77,7 +76,7 @@ router.post("/remove", async(req,res)=>{
         var _tmp = await Userr.findOne({where:{id:req.body.userid}})
         let user = _tmp.dataValues
         if(user.role_id==1){
-                let ret=await Group.destroy({where:{id:req.body.id}})
+                let ret=await Groupp.destroy({where:{id:req.body.id}})
                 if(ret==1)
                         res.send("Deleted Group").status(200)
                 else
@@ -102,14 +101,14 @@ router.post("/update", async(req,res)=>{
         if(user.role_id==1){
                 var ret=undefined
                 if( req.body.name != undefined  && req.body.name != null  && req.body.name != ""  && req.body.name != '' && req.body.info != undefined  && req.body.info != null  && req.body.info != "" && req.body.info != ''){
-                        ret=await Group.update({Name:req.body.name, ContactInfo:req.body.info}, {where:{id:req.body.id}})
+                        ret=await Groupp.update({Name:req.body.name, ContactInfo:req.body.info}, {where:{id:req.body.id}})
                 }
                 else if( req.body.name !== undefined  && req.body.name !== null  && req.body.name !== ""&& req.body.name !== ''  ){
-                        ret=await Group.update({Name:req.body.name}, {where:{id:req.body.id}})
+                        ret=await Groupp.update({Name:req.body.name}, {where:{id:req.body.id}})
                 }
 
                 else if( req.body.info !== undefined  && req.body.info !== null  && req.body.info !== "" && req.body.info !== ''  ){
-                        ret=await Group.update({ContactInfo:req.body.info}, {where:{id:req.body.id}})
+                        ret=await Groupp.update({ContactInfo:req.body.info}, {where:{id:req.body.id}})
                 }
                 else{
                         res.status(404).send("Info and name isn't defined")
@@ -150,7 +149,7 @@ router.post("/addmembers", async(req,res)=>{
                         return;
                 }
                 let addmember = _tmp.dataValues
-                var _tmp = await Group.findOne({where:{id:req.body.group}})
+                var _tmp = await Groupp.findOne({where:{id:req.body.group}})
                 if(_tmp==undefined){
                         res.status(404).send("Group does not exist")
                         return;
@@ -199,7 +198,7 @@ router.post("/rmmembers", async(req,res)=>{
                         return;
                 }
                 let addmember = _tmp.dataValues
-                var _tmp = await Group.findOne({where:{id:req.body.group}})
+                var _tmp = await Groupp.findOne({where:{id:req.body.group}})
                 if(_tmp==undefined){
                         res.status(404).send("Group does not exist")
                         return;
