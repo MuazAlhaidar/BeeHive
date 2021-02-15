@@ -28,15 +28,3 @@ API.addmembers(user, 4, 4)
 API.addmembers(user, 4, 5)
 API.addmembers(user, 4, 6)
 API.addmembers(user, 4, 7)
-/*
-.then(res=>console.log(res))
-*/
-
-/*
-API.getGroup(user)
-.then(res=>{
-        console.log(res.data.groupmembers)
-})
-
-
-*/

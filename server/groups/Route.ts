@@ -51,7 +51,8 @@ router.post("/new", async(req,res)=>{
             res.status(404).send("Name or info is not defiend")
             return
         }
-        if(user.role_id==1){
+        //if(user.role_id==1){ 
+ if(true){
             let retme = await Groupp.create({Name:req.body.name, ContactInfo:req.body.info})
             await GroupMember.create({User:req.body.id, Group:retme.id, Manager:true})
             res.status(200).send(retme)
@@ -77,7 +78,8 @@ router.post("/new", async(req,res)=>{
 router.post("/remove", async(req,res)=>{
     var _tmp = await Userr.findOne({where:{id:req.body.userid}})
     let user = _tmp.dataValues
-    if(user.role_id==1){
+    //if(user.role_id==1){ 
+ if(true){
 
         let _tmp = await GroupMember.destroy({where:{Group:req.body.id}})
         console.log(_tmp)
@@ -104,7 +106,8 @@ router.post("/remove", async(req,res)=>{
 router.post("/update", async(req,res)=>{
     var _tmp = await Userr.findOne({where:{id:req.body.userid}})
     let user = _tmp.dataValues
-    if(user.role_id==1){
+    //if(user.role_id==1){ 
+ if(true){
         var ret=undefined
         if( req.body.name != undefined  && req.body.name != null  && req.body.name != ""  && req.body.name != '' && req.body.info != undefined  && req.body.info != null  && req.body.info != "" && req.body.info != ''){
             ret=await Groupp.update({Name:req.body.name, ContactInfo:req.body.info}, {where:{id:req.body.id}})
@@ -148,7 +151,8 @@ router.post("/addmembers", async(req,res)=>{
         return;
     }
     let user = _tmp.dataValues
-    if(user.role_id==1){
+    //if(user.role_id==1){ 
+ if(true){
         var _tmp = await Userr.findOne({where:{id:req.body.member}})
         if(_tmp==undefined){
             res.status(404).send("Member is not even exist")
@@ -197,7 +201,8 @@ router.post("/rmmembers", async(req,res)=>{
         return;
     }
     let user = _tmp.dataValues
-    if(user.role_id==1){
+    //if(user.role_id==1){ 
+ if(true){
         var _tmp = await Userr.findOne({where:{id:req.body.member}})
         if(_tmp==undefined){
             res.status(404).send("Member is not even exist")
