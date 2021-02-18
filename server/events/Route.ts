@@ -85,7 +85,7 @@ router.post("/delete", (req, res)=>{
                 Event.destroy({where:{id: req.body.id}})
                 .then(ret => {
                         if(ret===0) {res.sendStatus(404)}
-                                else res.sendStatus(200);
+                        else res.sendStatus(200);
                         return
                 })
                 .catch( err => { res.status(404).send(err); return})
@@ -135,24 +135,24 @@ router.post("/transfer", (req, res)=>{
         let user = req.body.Manager
         let event = req.body.Event;
         EventMember.update({Manager:false}, {where:{Manager:true, Event:event}})
-                .then(ret =>{
-                        if(ret[0]===0){
-                                console.log("Error: no events found");
-                                res.sendStatus(404);
-                        }
-                        else{
-                                EventMember.update({Manager:true}, {where:{User:user, Event:event}})
-                                .then(ret2=>{
-                                        if(ret2[0]===0){
-                                                EventMember.create({Manager:true, User:user, Event:event, RSVP:false, Attended:false} )
-                                                res.sendStatus(200);
-                                        }
-                                        else
-                                                res.sendStatus(200);
-                                })
-                        }
-                })
-                .catch(err => {console.log(err); res.sendStatus(404)})
+        .then(ret =>{
+                if(ret[0]===0){
+                        console.log("Error: no events found");
+                        res.sendStatus(404);
+                }
+                else{
+                        EventMember.update({Manager:true}, {where:{User:user, Event:event}})
+                        .then(ret2=>{
+                                if(ret2[0]===0){
+                                        EventMember.create({Manager:true, User:user, Event:event, RSVP:false, Attended:false} )
+                                        res.sendStatus(200);
+                                }
+                                else
+                                        res.sendStatus(200);
+                        })
+                }
+        })
+        .catch(err => {console.log(err); res.sendStatus(404)})
 })
 
 /*
@@ -179,6 +179,17 @@ router.get("/man", async (req, res)=>{
                 })
 
         }
+})
+
+/* 
+ * @route GET api/events/leaderboard
+ * @desc Get all users and hteri poitns
+ */
+router.get("/leaderboard", async(req, res)=>{
+        let users = await User.findAll({attributes:["username", "points"]});
+        res.send(users).status(200)
+
+
 })
 export {}
 module.exports = router;
