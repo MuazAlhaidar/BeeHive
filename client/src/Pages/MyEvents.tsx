@@ -94,6 +94,7 @@ function MyEvents(props: { id:any}) {
             let [hour, minute] = time.split(":").map(i => parseInt(i))
             let thedate = new Date(year, month-1, day, hour-5, minute)
             await API.update(events[eventIndex].id, name, description, address, thedate)
+            console.log("WOW")
             const e = events.slice();
             e[eventIndex].name = name;
             e[eventIndex].address = address;

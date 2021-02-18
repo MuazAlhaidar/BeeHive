@@ -3,106 +3,149 @@ import GroupsList from "../Components/Groups/GroupsList";
 import GroupForm from "../Components/Groups/GroupsForm";
 import MemberList from "../Components/Members/MemberList";
 import "../CSS/Groups/MyGroups.css";
+import * as API from "../api/Groups"
 
 interface MemberInfo {
-  name: string;
+    username: string;
+    id: number
 }
 
 interface GroupInfo {
-  name: string;
-  contactInfo: string;
-  members: Array<MemberInfo>;
+    id: number;
+    name: string;
+    contactInfo: string;
+    members: Array<MemberInfo>;
+}
+
+const props={id:2}
+
+// async function reload(id:number){
+async function reload(id:number):Promise<Array<GroupInfo>>{
+    const data = await API.getGroup(id)
+    const groups = data.data.groups.reduce(function(acc:any, cur:any){
+        let tmp = {id:cur.id, name: cur.Name, contactInfo:cur.ContactInfo, members: []}
+        if(acc[cur.id]===undefined)
+            acc[cur.id]=tmp
+        return acc
+    }, {})
+    data.data.groupmembers.forEach((i:any)=>{
+        groups[i.groupid].members.push(i)
+    })
+    return Object.values(groups)
+
+    
+
 }
 
 function MyGroups() {
-  const fakeGroup = Array<GroupInfo>(
-    {
-      name: "HR Group",
-      contactInfo: "313-995-7488",
-      members: [{ name: "John" }, { name: "Thomas" }],
-    },
-    {
-      name: "PR Group",
-      contactInfo: "313-555-6598",
-      members: [{ name: "John" }],
-    }
-  );
+    const fakeGroup = Array<GroupInfo>(
+        {
+            id: 1,
+            name: "HR Group",
+            contactInfo: "313-995-7488",
+            members: [{ id:0, username: "John" }, { id:0, username: "Thomas" }],
+        },
+        {
+            id: 2,
+            name: "PR Group",
+            contactInfo: "313-555-6598",
+            members: [{ id:0, username: "John" }],
+        }
+    );
 
-  const emptyMembersList = new Array<MemberInfo>();
+    const emptyMembersList = new Array<MemberInfo>();
 
-  const [groups, setGroups] = React.useState(fakeGroup);
-  const [groupIndex, setGroupIndex] = React.useState(0);
+    const [groups, setGroups] = React.useState(fakeGroup);
+    const [groupIndex, setGroupIndex] = React.useState(0);
 
-  const selectGroup = (i: number) => {
-    let index = i === undefined ? 0 : i;
-    setGroupIndex(index);
-  };
+    React.useEffect(()=>{
+        reload(props.id).then(res=> {
+            setGroups(res)
+        })
+    }, [])
 
-  const addGroup = (
-    name: string,
-    contactInfo: string,
-    members: Array<MemberInfo>
-  ) => {
-    const g = groups.slice();
-    g.push({ name, contactInfo, members });
-    setGroups(g);
-  };
+    const selectGroup = (i: number) => {
+        let index = i === undefined ? 0 : i;
+        setGroupIndex(index);
+    };
 
-  const editGroup = (name: string, contactInfo: string) => {
-    if (groups[groupIndex] != undefined) {
-      const g = groups.slice();
-      g[groupIndex].name = name;
-      g[groupIndex].contactInfo = contactInfo;
-      setGroups(g);
-    }
-  };
+    const addGroup = (
+        name: string,
+        contactInfo: string,
+        members: any
+    ) => {
+        API.newGroup(props.id, name, contactInfo).then(res=>{
+            const g = groups.slice();
+            let id=props.id
+            g.push({id, name, contactInfo, members });
+            setGroups(g);
+            console.log(res)
+        })
+    };
 
-  const removeGroup = (i: number) => {
-    const g = groups.slice();
-    g.splice(i, 1);
-    setGroups(g);
-    setGroupIndex(groups.length);
-  };
+    const editGroup = (name: string, contactInfo: string) => {
+        if (groups[groupIndex] != undefined) {
+            API.updateGroup(props.id, groups[groupIndex].id, name, contactInfo)
+                .then(res=>{
+                    const g = groups.slice();
+                    g[groupIndex].name = name;
+                    g[groupIndex].contactInfo = contactInfo;
+                    setGroups(g);
+                    console.log(res)
+                })
+        }
+    };
 
-  return (
-    <div className="MyGroups">
-      <div className="MyGroups-GroupList">
-        <GroupsList
-          groupList={groups}
-          selectGroup={selectGroup}
-          addGroup={addGroup}
-        />
-      </div>
-      <div className="MyGroups-GroupForm">
-        {groupIndex > groups.length - 1 ? (
-          <GroupForm
-            name={""}
-            contactInfo={""}
-            editGroup={editGroup}
-            removeGroup={() => {
-              removeGroup(groupIndex);
-            }}
-          />
-        ) : (
-          <GroupForm
-            name={groups[groupIndex].name}
-            contactInfo={groups[groupIndex].contactInfo}
-            editGroup={editGroup}
-            removeGroup={() => {
-              removeGroup(groupIndex);
-            }}
-          />
-        )}
-      </div>
-      <div className="MyGroups-MemberList">
-        {groupIndex > groups.length - 1 ? (
-          <MemberList memberList={emptyMembersList} />
-        ) : (
-          <MemberList memberList={groups[groupIndex].members} />
-        )}
-      </div>
-    </div>
-  );
+    const removeGroup = (i: number) => {
+        API.removeGroup(props.id, groups[groupIndex].id)
+            .then(res=>{
+                const g = groups.slice();
+                g.splice(i, 1);
+                setGroups(g);
+                setGroupIndex(groups.length);
+                console.log(res)
+            })
+    };
+
+    return (
+        <div className="MyGroups">
+            <div className="MyGroups-GroupList">
+            <GroupsList
+        groupList={groups}
+        selectGroup={selectGroup}
+        addGroup={addGroup}
+            />
+            </div>
+            <div className="MyGroups-GroupForm">
+            {groupIndex > groups.length - 1 ? (
+                <GroupForm
+                name={""}
+                contactInfo={""}
+                editGroup={editGroup}
+                removeGroup={() => {
+                    removeGroup(groupIndex);
+                }}
+                    />
+            ) : (
+                <GroupForm
+                name={groups[groupIndex].name}
+                contactInfo={groups[groupIndex].contactInfo}
+                editGroup={editGroup}
+                removeGroup={() => {
+                    removeGroup(groupIndex);
+                }}
+                    />
+            )}
+        </div>
+            <div className="MyGroups-MemberList">
+            {groupIndex > groups.length - 1 ? (
+                <MemberList memberList={emptyMembersList} />
+            ) : (
+                <MemberList memberList={groups[groupIndex].members} />
+            )}
+        </div>
+            </div>
+    );
 }
 
 export default MyGroups;

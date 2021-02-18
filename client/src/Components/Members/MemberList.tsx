@@ -3,12 +3,12 @@ import "../../CSS/Members/MemberList.css";
 
 import Member from "./Member";
 
-interface MemberInfo {
-  name: string;
+interface MemberMeme {
+    username: string;
 }
 
 interface IProps {
-  memberList: Array<MemberInfo>;
+  memberList: Array<MemberMeme>;
 }
 
 function MemberList({ memberList }: IProps) {
@@ -23,7 +23,7 @@ function MemberList({ memberList }: IProps) {
       </div>
       <div>
         {members.map((curMember) => {
-          return <Member name={curMember.name} />;
+          return <Member username={curMember.username} />;
         })}
       </div>
     </div>

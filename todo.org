@@ -43,10 +43,16 @@
    - [X] Reset Password :: A request to send the password to an email
    - [X] Clicking Reset Password ::  When clicking on reset password, it will take them to a new page, which they have hte option to reset the password
    - [ ] Encryption/Decryption of password :: 
-** TODO Group Mangement
-   + [ ] CRUD Groups ::
-   + [ ] Add/remove people from group ::
-   + [ ] Modify contact info ::
+** DONE Group Mangement
+CLOSED: [2021-02-12 Fri 17:02]
+- State "DONE"       from "TODO"       [2021-02-12 Fri 17:02]
+   + [X] CRUD Groups ::
+     + [X] Add
+     + [X] Read
+     + [X] Update
+     + [X] Remove
+   + [X] Add/remove people from group ::
+   + [X] Modify contact info ::
 ** TODO Non-Social media
    + [ ] Manage poitns for member ::
    + [ ] Contact Us for orgainzation ::
@@ -58,11 +64,19 @@
    + [ ] Email people in a group :: 
 * Middleware
 ** TODO Event Mangement
-   - [ ] CRUD Event :: Create, adn read/update/delete evnets that exist and NOT exist
+   - [X] CRUD Event :: Create, adn read/update/delete evnets that exist and NOT exist
      Note: I have not added any kind of notification to email people who have been RSVP. That will have to be done /later/, when we have access to it.
    - [ ] Invite people to event :: Invite people ot an event by making new eventmember entries
    - [ ] Signin to an event ::
-   - [ ] Transfer manager role :: 
+   - [ ] Transfer manager role ::
+** TODO Gorup Managment     
+   + [ ] CRUD Groups ::
+     + [ ] Add
+     + [ ] Read
+     + [ ] Update
+     + [ ] Remove
+   + [ ] Add/remove people from group ::
+   + [ ] Modify contact info ::
 ** TODO User Management
    - [X] Sign up :: A new user is created in the database
    - [X] Login :: A user logins and the databse sends their ID to them.

@@ -13,6 +13,8 @@ app.use(express.json())
 const User = require('./users/Model.ts')
 const Event = require('./events/EventModel.ts')
 const EventMembers = require('./events/EventMember.ts')
+const Group = require('./groups/GroupModel.ts')
+const GroupMembers = require('./groups/GroupMember.ts')
 
 async function initialize() {
     // create db if it doesn't already exist
@@ -49,9 +51,10 @@ async function initialize() {
 	    // If DEV=true, it will erase everything. 
 	    if( process.env.DEV == "true"){
 		sequelize.sync({force:true})
-                Promise.all([sequelize.sync({force:true}), EventMembers.drop(), User.sync({force:true}), Event.sync({force:true})])
+                Promise.all([ EventMembers.drop(), GroupMembers.drop(), sequelize.sync({force:true}), User.sync({force:true}), Group.sync({force:true}), Event.sync({force:true})])
                 .then(()=>{
                         EventMembers.sync({force:true});
+                        GroupMembers.sync({force:true})
                 })
 	    }
 	    else{
@@ -75,6 +78,7 @@ initialize();
 // const users = require('./routes/users.ts'); app.use('/api/users', users);
 const users = require('./users/Route.ts'); app.use('/api/users', users);
 const events = require('./events/Route.ts'); app.use('/api/events', events);
+const groups = require('./groups/Route.ts'); app.use('/api/groups', groups);
 
 const port = process.env.PORT || 4200;
 
