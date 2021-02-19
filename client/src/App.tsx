@@ -7,8 +7,8 @@ import LogIn from "./Pages/LogIn";
 import SignUp from "./Pages/SignUp";
 import ContactUs from "./Pages/ContactUs";
 import AllEvents from "./Pages/AllEvents";
+import Leaderboard from "./Pages/LeaderboardPage";
 import LogoAndTitle from "./Components/LogoAndTitle";
-import Logo from "./Images/Members App Logo - White Large.png";
 import ResetPass from "./Pages/ResetPass";
 import ResetReq from "./Pages/ResetReq";
 
@@ -33,6 +33,9 @@ function App() {
               <Link className="App-link" to="/MyGroups">
                 MyGroups
               </Link>
+              <Link className="App-link" to="/Leaderboard">
+                Leaderboard
+              </Link>
               <Link className="App-link" to="/ContactUs">
                 Contact Us
               </Link>
@@ -43,19 +46,30 @@ function App() {
               <AllEvents />
             </Route>
             <Route path="/LogIn">
-              <LogIn setName={setName} setId={setId}/>
+              <LogIn setName={setName} setId={setId} />
             </Route>
             <Route path="/Signup">
-              <SignUp setName={setName} setId={setId}/>
+              <SignUp setName={setName} setId={setId} />
             </Route>
             <Route path="/ContactUs">
               <ContactUs />
             </Route>
             <Route path="/MyEvents">
-              {name === "" ? <LogIn setName={setName} setId={setId} /> : <MyEventsPage id={id} />}
+              {name === "" ? (
+                <LogIn setName={setName} setId={setId} />
+              ) : (
+                <MyEventsPage id={id} />
+              )}
             </Route>
             <Route path="/MyGroups">
-              {name === "" ? <LogIn setName={setName} setId={setId}/> : <MyGroupsPage />}
+              {name === "" ? (
+                <LogIn setName={setName} setId={setId} />
+              ) : (
+                <MyGroupsPage />
+              )}
+            </Route>
+            <Route path="/Leaderboard">
+              <Leaderboard />
             </Route>
             <Route path="/resetPassword">
               <ResetPass />

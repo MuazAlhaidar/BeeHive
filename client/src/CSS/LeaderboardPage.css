@@ -1,0 +1,6 @@
+.Leaderboard-Module {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  padding-top: 3vh;
+}
