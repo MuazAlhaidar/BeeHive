@@ -49,19 +49,7 @@ async function reload(id: number) {
 }
 
 function MyEvents(props: { id: any }) {
-  const fakeEvents = Array<EventInfo>({
-    name: "HR event",
-    address: "5648 Thing St.",
-    time: "88:88",
-    date: "8888-88-88",
-    description: "Thing thang",
-    id: 2,
-    members: [
-      { name: "john", points: 0 },
-      { name: "Thomas", points: 0 },
-    ],
-  });
-  const [events, setEvents] = React.useState(fakeEvents);
+  const [events, setEvents] = React.useState(Array<EventInfo>());
   React.useEffect(() => {
     reload(props.id).then((res) => setEvents(res));
   }, []);
@@ -82,8 +70,6 @@ function MyEvents(props: { id: any }) {
     let [month, day, year] = date.split("-").map((i) => parseInt(i));
     let [hour, minute] = time.split(":").map((i) => parseInt(i));
     let thedate = new Date(year, month - 1, day, hour - 5, minute);
-    // console.log(date, time, year, month-1, day, hour-5, minute)
-    // console.log(thedate)
     let _tmp = await API.newEvent(
       name,
       description,
@@ -112,7 +98,6 @@ function MyEvents(props: { id: any }) {
     description: string
   ) => {
     if (events[eventIndex] != undefined) {
-      // API.update(e[eventIndex].id, name, description, address,
       let [month, day, year] = date.split("-").map((i) => parseInt(i));
       let [hour, minute] = time.split(":").map((i) => parseInt(i));
       let thedate = new Date(year, month - 1, day, hour - 5, minute);
