@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import * as API from "../api/User";
 import "../CSS/LogInPanel.css";
 
@@ -31,8 +31,7 @@ export default function Request(props: {}) {
             });
           }}
         >
-          {" "}
-          Submit Request?{" "}
+          Submit Request?
         </button>
       </form>
     </div>

@@ -52,7 +52,7 @@ function MyEvents(props: { id: any }) {
   const [events, setEvents] = React.useState(Array<EventInfo>());
   React.useEffect(() => {
     reload(props.id).then((res) => setEvents(res));
-  }, []);
+  });
   const [eventIndex, setEventIndex] = React.useState(0);
 
   const selectEvent = (i: number) => {
@@ -97,7 +97,7 @@ function MyEvents(props: { id: any }) {
     date: string,
     description: string
   ) => {
-    if (events[eventIndex] != undefined) {
+    if (events[eventIndex] !== undefined) {
       let [month, day, year] = date.split("-").map((i) => parseInt(i));
       let [hour, minute] = time.split(":").map((i) => parseInt(i));
       let thedate = new Date(year, month - 1, day, hour - 5, minute);

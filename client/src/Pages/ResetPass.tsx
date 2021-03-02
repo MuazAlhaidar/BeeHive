@@ -7,17 +7,16 @@ export default function Display(props: {}) {
   const [status, setStatus] = React.useState(0);
   const search = useLocation().search;
   const token = new URLSearchParams(search).get("token");
-  const request = API.reset_url("" + token).then((res) => {
-    if (res) {
-      setStatus(1);
-    } else {
-      setStatus(-1);
-    }
-  });
+  // const request = API.reset_url("" + token).then((res) => {
+  //   if (res) {
+  //     setStatus(1);
+  //   } else {
+  //     setStatus(-1);
+  //   }
+  // });
   switch (status) {
     case 0:
       return <> </>;
-      break;
     case 1:
       return (
         <>
@@ -25,14 +24,12 @@ export default function Display(props: {}) {
           <ResetPassword token={token} />
         </>
       );
-      break;
     case -1:
       return (
         <>
           <h1> Your reset pasword token does not show up </h1>{" "}
         </>
       );
-      break;
     default:
       return <> </>;
   }
@@ -61,7 +58,7 @@ function ResetPassword(props: { token: any }) {
             API.reset_token(props.token, password)
               .then((res) => {
                 console.log(res);
-                if (res == true) {
+                if (res === true) {
                   alert("Successfully changed password");
                   history.push("/");
                 } else {

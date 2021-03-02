@@ -22,10 +22,6 @@ function Leaderboard() {
     fakeMembers.sort((a, b) => (a.points < b.points ? 1 : -1))
   );
 
-  const getRowColor = (i: number) => {
-    return i % 2 == 0 ? "gray" : "white";
-  };
-
   return (
     <div className="Leaderboard">
       <div className="Leaderboard-Topbar">
@@ -38,7 +34,7 @@ function Leaderboard() {
           return (
             <div
               className={
-                index % 2 == 0
+                index % 2 === 0
                   ? "Leaderboard-MemberInfo-lightgrey"
                   : "Leaderboard-MemberInfo-white"
               }

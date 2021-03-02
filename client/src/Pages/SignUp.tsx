@@ -8,11 +8,6 @@ import "../CSS/LogIn.css";
 function LogIn(props: { setName: any; setId: any }) {
   const [user, setUser] = React.useState("");
   const [status, setStatus] = React.useState(-1);
-  let Users = new Map([
-    ["user", "pass"],
-    ["admin", "pass"],
-    ["Monier", "Motorsport 7"],
-  ]);
 
   async function checkuser(
     _username: string,
@@ -22,7 +17,6 @@ function LogIn(props: { setName: any; setId: any }) {
     // Checkinging fields
     const re = /\S+@\S+\.\S+/;
     console.log(_email, re.test(_email));
-
     console.log("REGEX", re.test(_email));
 
     if (!re.test(_email)) {
@@ -46,7 +40,6 @@ function LogIn(props: { setName: any; setId: any }) {
         props.setName(_username);
         props.setId(res[1]);
         return true;
-        break;
       case 1:
         setStatus(1);
         break;
@@ -58,10 +51,6 @@ function LogIn(props: { setName: any; setId: any }) {
         break;
     }
     return false;
-  }
-
-  function addUser(username: string, password: string) {
-    Users.set(username, password);
   }
 
   function displaystatus() {

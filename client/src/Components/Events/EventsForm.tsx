@@ -70,10 +70,12 @@ function EventsForm({
         </div>
         <div className="EventsForm-SocialMediaButtons">
           <img
+            alt="Twitter Icon"
             className="EventsForm-SocialMediaButtons-Twitter"
             src={TwitterLogo}
           />
           <img
+            alt="Facebook Icon"
             className="EventsForm-SocialMediaButtons-Facebook"
             src={FacebookLogo}
           />

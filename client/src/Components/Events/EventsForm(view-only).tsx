@@ -37,10 +37,12 @@ function EventsForm({ name, address, time, date, description }: EventInfo) {
         </div>
         <div className="EventsForm-view-only-SocialMediaButtons">
           <img
+            alt="Twitter Icon"
             className="EventsForm-view-only-SocialMediaButtons-Twitter"
             src={TwitterLogo}
           />
           <img
+            alt="Facebook Icon"
             className="EventsForm-view-only-SocialMediaButtons-Facebook"
             src={FacebookLogo}
           />
