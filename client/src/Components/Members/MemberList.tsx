@@ -2,24 +2,28 @@ import React from "react";
 import "../../CSS/Members/MemberList.css";
 
 import Member from "./Member";
+import MemberModal from "./MemberModal";
 
-interface MemberMeme {
-    username: string;
+interface MemberInfo {
+  username: string;
+  id: number;
 }
 
 interface IProps {
-  memberList: Array<MemberMeme>;
+  memberList: Array<MemberInfo>;
+  toggleMemberModal: () => void;
 }
 
-function MemberList({ memberList }: IProps) {
+function MemberList({ memberList, toggleMemberModal }: IProps) {
   const members = memberList;
 
   return (
     <div>
       <div className="MemberList-Top">
         <label className="MemberList-MemberListLabel">Members</label>
-        <button className="MemberList-DeleteButton">x</button>
-        <button className="MemberList-AddButton">+</button>
+        <button className="MemberList-AddButton" onClick={toggleMemberModal}>
+          +
+        </button>
       </div>
       <div>
         {members.map((curMember) => {

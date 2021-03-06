@@ -2,6 +2,9 @@ import React from "react";
 import GroupsList from "../Components/Groups/GroupsList";
 import GroupForm from "../Components/Groups/GroupsForm";
 import MemberList from "../Components/Members/MemberList";
+import EmailModal from "../Components/EmailModal";
+import MemberModal from "../Components/Members/MemberModal";
+import GroupsEdit from "../Components/Groups/GroupsEdit";
 import "../CSS/Groups/MyGroups.css";
 import * as API from "../api/Groups";
 
@@ -38,10 +41,36 @@ async function reload(id: number): Promise<Array<GroupInfo>> {
 }
 
 function MyGroups() {
-  const emptyMembersList = new Array<MemberInfo>();
+  const emptyMembersList = new Array<MemberInfo>(
+    { id: 1, username: "john" },
+    { id: 2, username: "Ham" },
+    { id: 3, username: "Clam" },
+    { id: 4, username: "Sam" }
+  );
+  const fakeMembersList = new Array<MemberInfo>(
+    { id: 1, username: "john" },
+    { id: 2, username: "Ham" },
+    { id: 3, username: "Clam" },
+    { id: 4, username: "Sam" }
+  );
 
   const [groups, setGroups] = React.useState(Array<GroupInfo>());
   const [groupIndex, setGroupIndex] = React.useState(0);
+  const [showMembersEditModal, setShowMembersEditModal] = React.useState(false);
+  const [showEmailModal, setShowEmailModal] = React.useState(false);
+  const [showGroupEditModal, setShowGroupEditModal] = React.useState(false);
+
+  const toggleMemberModal = () => {
+    setShowMembersEditModal(!showMembersEditModal);
+  };
+
+  const toggleEmailModal = () => {
+    setShowEmailModal(!showEmailModal);
+  };
+
+  const toggleGroupEditModal = () => {
+    setShowGroupEditModal(!showGroupEditModal);
+  };
 
   React.useEffect(() => {
     reload(props.id).then((res) => {
@@ -90,6 +119,27 @@ function MyGroups() {
 
   return (
     <div className="MyGroups">
+      <EmailModal showModal={showEmailModal} setShowModal={setShowEmailModal} />
+      <GroupsEdit
+        showModal={showGroupEditModal}
+        setShowModal={setShowGroupEditModal}
+        editGroup={editGroup}
+      />
+      {groupIndex > groups.length - 1 ? (
+        <MemberModal
+          allMembers={emptyMembersList}
+          memberList={fakeMembersList}
+          showModal={showMembersEditModal}
+          setShowModal={setShowMembersEditModal}
+        />
+      ) : (
+        <MemberModal
+          allMembers={emptyMembersList}
+          memberList={groups[groupIndex].members}
+          showModal={showMembersEditModal}
+          setShowModal={setShowMembersEditModal}
+        />
+      )}
       <div className="MyGroups-GroupList">
         <GroupsList
           groupList={groups}
@@ -102,27 +152,35 @@ function MyGroups() {
           <GroupForm
             name={""}
             contactInfo={""}
-            editGroup={editGroup}
             removeGroup={() => {
               removeGroup(groupIndex);
             }}
+            toggleEmailModal={toggleEmailModal}
+            toggleGroupEditModal={toggleGroupEditModal}
           />
         ) : (
           <GroupForm
             name={groups[groupIndex].name}
             contactInfo={groups[groupIndex].contactInfo}
-            editGroup={editGroup}
             removeGroup={() => {
               removeGroup(groupIndex);
             }}
+            toggleEmailModal={toggleEmailModal}
+            toggleGroupEditModal={toggleGroupEditModal}
           />
         )}
       </div>
       <div className="MyGroups-MemberList">
         {groupIndex > groups.length - 1 ? (
-          <MemberList memberList={emptyMembersList} />
+          <MemberList
+            memberList={emptyMembersList}
+            toggleMemberModal={toggleMemberModal}
+          />
         ) : (
-          <MemberList memberList={groups[groupIndex].members} />
+          <MemberList
+            memberList={groups[groupIndex].members}
+            toggleMemberModal={toggleMemberModal}
+          />
         )}
       </div>
     </div>

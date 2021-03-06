@@ -2,7 +2,7 @@ import React from "react";
 import "../../CSS/Members/Member.css";
 
 interface IProps {
-    username: string;
+  username: string;
 }
 
 function Member({ username }: IProps) {

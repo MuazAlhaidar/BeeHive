@@ -1,35 +1,28 @@
 import React from "react";
-import GroupsEdit from "./GroupsEdit";
-import EmailModal from "../EmailModal";
 import "../../CSS/Groups/GroupsForm.css";
 
-interface GroupInfo {
+interface MemberInfo {
+  username: string;
+  id: number;
+}
+
+interface IProps {
   name: string;
   contactInfo: string;
   removeGroup: () => void;
-  editGroup: (name: string, contactInfo: string) => void;
+  toggleGroupEditModal: () => void;
+  toggleEmailModal: () => void;
 }
 
-function GroupsForm({ name, contactInfo, removeGroup, editGroup }: GroupInfo) {
-  const [showEmailModal, setShowEmailModal] = React.useState(false);
-  const [showGroupEditModal, setShowGroupEditModal] = React.useState(false);
-
-  const toggleEmailModal = () => {
-    setShowEmailModal(!showEmailModal);
-  };
-
-  const toggleGroupEditModal = () => {
-    setShowGroupEditModal(!showGroupEditModal);
-  };
-
+function GroupsForm({
+  name,
+  contactInfo,
+  removeGroup,
+  toggleGroupEditModal,
+  toggleEmailModal,
+}: IProps) {
   return (
     <div className="GroupsForm">
-      <EmailModal showModal={showEmailModal} setShowModal={setShowEmailModal} />
-      <GroupsEdit
-        showModal={showGroupEditModal}
-        setShowModal={setShowGroupEditModal}
-        editGroup={editGroup}
-      />
       <div className="GroupsForm-NameDiv">
         <label className="GroupsForm-NameLabel">Name</label>
         <div className="GroupsForm-Name">{name}</div>
