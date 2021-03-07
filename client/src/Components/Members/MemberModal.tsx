@@ -22,16 +22,25 @@ function MemberModal({
   setShowModal,
 }: IProps) {
   function isInGroup(value: MemberInfo, index: number, array: MemberInfo[]) {
-    console.log(value);
-    return !memberList.includes(value);
+          var retme= true
+          memberList.forEach(i => {
+                  if(i.id == value.id){
+                          retme=false
+                  }
+          });
+          return retme
+        
   }
 
-  let filteredList = allMembers.filter(isInGroup);
-  // const [filteredList, setFilteredList] = React.useState(
-  //   allMembers.filter(isInGroup)
-  // );
+  let _tmp = allMembers.filter(isInGroup);
+  console.log(_tmp);
+
+  const [filteredList, setFilteredList] = React.useState(_tmp);
+  // const [filteredList, setFilteredList] = React.useState([{id:1, username:"DIO"}]);
+  // console.log(allMembers.filter(isInGroup));
 
   console.log(memberList);
+  console.log(allMembers);
   console.log(filteredList);
 
   const handleSave = () => {
