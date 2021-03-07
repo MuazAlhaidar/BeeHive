@@ -9,7 +9,7 @@ interface MemberInfo {
 }
 
 interface IProps {
-  allMembers: Array<MemberInfo> | any;
+  allMembers: Array<MemberInfo>;
   memberList: Array<MemberInfo>;
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
@@ -21,15 +21,18 @@ function MemberModal({
   showModal,
   setShowModal,
 }: IProps) {
-  const isInGroup = (
-    member: MemberInfo,
-    index: number,
-    array: Array<MemberInfo>
-  ) => {
-    return memberList.includes(member);
-  };
+  function isInGroup(value: MemberInfo, index: number, array: MemberInfo[]) {
+    console.log(value);
+    return !memberList.includes(value);
+  }
 
   let filteredList = allMembers.filter(isInGroup);
+  // const [filteredList, setFilteredList] = React.useState(
+  //   allMembers.filter(isInGroup)
+  // );
+
+  console.log(memberList);
+  console.log(filteredList);
 
   const handleSave = () => {
     setShowModal(!showModal);

@@ -45,7 +45,8 @@ function MyGroups() {
     { id: 1, username: "john" },
     { id: 2, username: "Ham" },
     { id: 3, username: "Clam" },
-    { id: 4, username: "Sam" }
+    { id: 4, username: "Sam" },
+    { id: 5, username: "Dave" }
   );
   const fakeMembersList = new Array<MemberInfo>(
     { id: 1, username: "john" },
