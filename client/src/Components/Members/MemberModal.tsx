@@ -61,31 +61,10 @@ function MemberModal({
           <div className="MemberModal">
             <div className="MemberModal-Topbar">Member Manager</div>
             <div className="MemberModal-CatagoryLabels">
-              <div>In Group</div>
               <div>Not In Group</div>
+              <div>In Group</div>
             </div>
             <div className="MemberModal-Body">
-              <div className="MemberModal-InGroup">
-                {!Array.isArray(memberList) || !memberList.length
-                  ? null
-                  : memList.map((curMem: MemberInfo, index: number) => {
-                      return (
-                        <div className="MemberModal-InGroupMembers">
-                          <div className="MemberModal-MemberDiv">
-                            <Member username={curMem.username} />
-                          </div>
-                          <button
-                            className="MemberModal-RemoveButton"
-                            onClick={() => {
-                              removeFromGroup(index);
-                            }}
-                          >
-                            x
-                          </button>
-                        </div>
-                      );
-                    })}
-              </div>
               <div className="MemberModal-NotInGroup">
                 {!Array.isArray(filteredList) || !filteredList.length
                   ? null
@@ -103,6 +82,27 @@ function MemberModal({
                             }}
                           >
                             +
+                          </button>
+                        </div>
+                      );
+                    })}
+              </div>
+              <div className="MemberModal-InGroup">
+                {!Array.isArray(memberList) || !memberList.length
+                  ? null
+                  : memList.map((curMem: MemberInfo, index: number) => {
+                      return (
+                        <div className="MemberModal-InGroupMembers">
+                          <div className="MemberModal-MemberDiv">
+                            <Member username={curMem.username} />
+                          </div>
+                          <button
+                            className="MemberModal-RemoveButton"
+                            onClick={() => {
+                              removeFromGroup(index);
+                            }}
+                          >
+                            x
                           </button>
                         </div>
                       );
