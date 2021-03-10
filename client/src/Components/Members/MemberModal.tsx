@@ -22,26 +22,17 @@ function MemberModal({
   setShowModal,
 }: IProps) {
   function isInGroup(value: MemberInfo, index: number, array: MemberInfo[]) {
-          var retme= true
-          memberList.forEach(i => {
-                  if(i.id == value.id){
-                          retme=false
-                  }
-          });
-          return retme
-        
+    let retme = true;
+    memList.forEach((m) => {
+      if (m.id === value.id) {
+        retme = false;
+      }
+    });
+    return retme;
   }
 
-  let _tmp = allMembers.filter(isInGroup);
-  console.log(_tmp);
-
-  const [filteredList, setFilteredList] = React.useState(_tmp);
-  // const [filteredList, setFilteredList] = React.useState([{id:1, username:"DIO"}]);
-  // console.log(allMembers.filter(isInGroup));
-
-  console.log(memberList);
-  console.log(allMembers);
-  console.log(filteredList);
+  const [memList, setMemList] = React.useState(memberList);
+  let filteredList = allMembers.filter(isInGroup);
 
   const handleSave = () => {
     setShowModal(!showModal);
@@ -49,6 +40,18 @@ function MemberModal({
 
   const handleCancel = () => {
     setShowModal(!showModal);
+  };
+
+  const addToGroup = (member: MemberInfo) => {
+    const m = memList.slice();
+    m.push(member);
+    setMemList(m);
+  };
+
+  const removeFromGroup = (index: number) => {
+    const m = memList.slice();
+    m.splice(index, 1);
+    setMemList(m);
   };
 
   return (
@@ -65,15 +68,44 @@ function MemberModal({
               <div className="MemberModal-InGroup">
                 {!Array.isArray(memberList) || !memberList.length
                   ? null
-                  : memberList.map((curMem: MemberInfo, index: number) => {
-                      return <Member username={curMem.username} />;
+                  : memList.map((curMem: MemberInfo, index: number) => {
+                      return (
+                        <div className="MemberModal-InGroupMembers">
+                          <div className="MemberModal-MemberDiv">
+                            <Member username={curMem.username} />
+                          </div>
+                          <button
+                            className="MemberModal-RemoveButton"
+                            onClick={() => {
+                              removeFromGroup(index);
+                            }}
+                          >
+                            x
+                          </button>
+                        </div>
+                      );
                     })}
               </div>
               <div className="MemberModal-NotInGroup">
                 {!Array.isArray(filteredList) || !filteredList.length
                   ? null
                   : filteredList.map((curMem: MemberInfo, index: number) => {
-                      return <Member username={curMem.username} />;
+                      return (
+                        <div className="MemberModal-NotInGroupMembers">
+                          <div className="MemberModal-MemberDiv">
+                            <Member username={curMem.username} />
+                          </div>
+                          <button
+                            className="MemberModal-AddButton"
+                            onClick={() => {
+                              console.log(curMem);
+                              addToGroup(curMem);
+                            }}
+                          >
+                            +
+                          </button>
+                        </div>
+                      );
                     })}
               </div>
             </div>

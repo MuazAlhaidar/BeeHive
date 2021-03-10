@@ -5,7 +5,11 @@
 .MemberModal-NotInGroup,
 .MemberModal-CatagoryLabels,
 .MemberModal-Buttons,
-.MemberModal-Background {
+.MemberModal-Background,
+.MemberModal-InGroupMembers,
+.MemberModal-NotInGroupMembers,
+.MemberModal-RemoveButton,
+.MemberModal-AddButton {
   display: flex;
 }
 
@@ -49,6 +53,9 @@
   flex-direction: column;
   border: 1px solid #ff9442;
   border-radius: 5px;
+  overflow: scroll;
+  height: 66vh;
+  min-width: 48.2vh;
 }
 
 .MemberModal-InGroup {
@@ -86,4 +93,40 @@
   font-weight: 500;
   background-color: #ff9442;
   color: #ffffff;
+}
+
+.MemberModal-InGroupMembers,
+.MemberModal-NotInGroupMembers {
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 5px;
+}
+
+.MemberModal-MemberDiv {
+  flex-grow: 1;
+}
+
+.MemberModal-RemoveButton,
+.MemberModal-AddButton {
+  border-radius: 8px;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 30px;
+  font-family: monospace;
+  font-weight: bold;
+  border-color: #d3d3d3;
+}
+
+.MemberModal-RemoveButton {
+  background-color: #ff9442;
+  color: white;
+  font-size: 20px;
+}
+
+.MemberModal-AddButton {
+  background-color: white;
+  color: #ff9442;
+  font-size: 25px;
 }

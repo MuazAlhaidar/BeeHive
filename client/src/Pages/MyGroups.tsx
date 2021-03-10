@@ -42,14 +42,14 @@ async function reload(id: number): Promise<Array<GroupInfo>> {
 
 function MyGroups() {
   const emptyMembersList = new Array<MemberInfo>(
-    { id: 1, username: "john" },
+    { id: 1, username: "John" },
     { id: 2, username: "Ham" },
     { id: 3, username: "Clam" },
     { id: 4, username: "Sam" },
     { id: 5, username: "Dave" }
   );
   const fakeMembersList = new Array<MemberInfo>(
-    { id: 1, username: "john" },
+    { id: 1, username: "John" },
     { id: 2, username: "Ham" },
     { id: 3, username: "Clam" },
     { id: 4, username: "Sam" }
@@ -174,7 +174,7 @@ function MyGroups() {
       <div className="MyGroups-MemberList">
         {groupIndex > groups.length - 1 ? (
           <MemberList
-            memberList={emptyMembersList}
+            memberList={fakeMembersList}
             toggleMemberModal={toggleMemberModal}
           />
         ) : (
