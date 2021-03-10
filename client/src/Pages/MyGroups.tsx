@@ -109,13 +109,14 @@ function MyGroups() {
   };
 
   const removeGroup = (i: number) => {
-    API.removeGroup(props.id, groups[groupIndex].id).then((res) => {
-      const g = groups.slice();
-      g.splice(i, 1);
-      setGroups(g);
-      setGroupIndex(groups.length);
-      console.log(res);
-    });
+    if (groups[groupIndex] !== undefined)
+      API.removeGroup(props.id, groups[groupIndex].id).then((res) => {
+        const g = groups.slice();
+        g.splice(i, 1);
+        setGroups(g);
+        setGroupIndex(groups.length);
+        console.log(res);
+      });
   };
 
   return (

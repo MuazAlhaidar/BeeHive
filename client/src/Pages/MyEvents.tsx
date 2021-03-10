@@ -120,11 +120,13 @@ function MyEvents(props: { id: any }) {
   };
 
   const removeEvent = async (i: number) => {
-    await API.Delete(events[i].id);
-    const e = events.slice();
-    e.splice(i, 1);
-    setEvents(e);
-    setEventIndex(0);
+    if (events[i] !== undefined) {
+      await API.Delete(events[i].id);
+      const e = events.slice();
+      e.splice(i, 1);
+      setEvents(e);
+      setEventIndex(0);
+    }
   };
 
   return (
