@@ -12,6 +12,13 @@ interface EventInfo {
 }
 
 function EventsForm({ name, address, time, date, description }: EventInfo) {
+  const [isRSVP, setIsRSVP] = React.useState(false);
+
+  const setRSVP = () => {
+    console.log("Reserved");
+    setIsRSVP(!isRSVP);
+  };
+
   return (
     <div className="EventsForm-view-only">
       <div className="EventsForm-view-only-Top">
@@ -53,6 +60,20 @@ function EventsForm({ name, address, time, date, description }: EventInfo) {
           Description
         </label>
         <div className="EventsForm-view-only-Description">{description}</div>
+      </div>
+      <div
+        className={
+          isRSVP
+            ? "EventsForm-view-only-RSVPChecked"
+            : "EventsForm-view-only-RSVPUnChecked"
+        }
+      >
+        <form>
+          <label className="EventsForm-view-only-RSVPForm">
+            RSVP
+            <input type="checkbox" defaultChecked={false} onChange={setRSVP} />
+          </label>
+        </form>
       </div>
     </div>
   );

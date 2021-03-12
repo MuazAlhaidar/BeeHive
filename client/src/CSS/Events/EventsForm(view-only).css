@@ -15,7 +15,10 @@
 .EventsForm-view-only-AddressTimeDateLabel,
 .EventsForm-view-only-SocialMediaButtons,
 .EventsForm-view-only-DescriptionLabel,
-.EventsForm-view-only-Description {
+.EventsForm-view-only-Description,
+.EventsForm-view-only-RSVPChecked,
+.EventsForm-view-only-RSVPUnChecked,
+.EventsForm-view-only-RSVPForm {
   display: flex;
 }
 
@@ -112,11 +115,39 @@
 .EventsForm-view-only-Description {
   justify-content: left;
   padding: 5px 5px;
-  height: 73vh;
+  height: 68vh;
   white-space: pre-wrap;
   word-break: break-all;
   overflow: auto;
   border: 2px solid lightgray;
   text-align: left;
   background-color: #ffffff;
+}
+
+.EventsForm-view-only-RSVPChecked,
+.EventsForm-view-only-RSVPUnChecked {
+  border: 2px solid #ff9442;
+  box-shadow: 2px 2px 2px gray;
+  width: fit-content;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 15px;
+  font-weight: 500;
+  align-self: flex-end;
+  margin-right: 15px;
+  margin-top: 15px;
+}
+
+.EventsForm-view-only-RSVPChecked {
+  background-color: #ff9442;
+  color: #ffffff;
+}
+
+.EventsForm-view-only-RSVPUnChecked {
+  background-color: #ffffff;
+  color: #ff9442;
+}
+
+.EventsForm-view-only-RSVPForm {
+  align-items: center;
 }

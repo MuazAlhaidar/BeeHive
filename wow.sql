@@ -52,7 +52,7 @@ insert into events  (Name, Description, Address, Time, createdAt, updatedAt) val
 "Curb Watchers",
 "Need members to help with side project.
 
-This program will keep track of 4chan threads of a certain regex, watch them till archive, and store them in an SQL database."
+This program will keep track of Reddit threads of a certain regex, watch them till archive, and store them in an SQL database."
 , "4821 Salmon St., MI", "2021-02-22 06:30:20",
 "2021-8-4", "2020-1-2");
 
