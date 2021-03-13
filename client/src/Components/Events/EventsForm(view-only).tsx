@@ -1,6 +1,8 @@
 import React from "react";
 import TwitterLogo from "../../Images/Twitter_Social_Icon_Rounded_Square_Color.png";
 import FacebookLogo from "../../Images/f_logo_RGB-Blue_58.png";
+import { FacebookShareButton, TwitterShareButton } from "react-share";
+import { FacebookIcon, TwitterIcon } from "react-share";
 import "../../CSS/Events/EventsForm(view-only).css";
 
 interface EventInfo {
@@ -18,6 +20,9 @@ function EventsForm({ name, address, time, date, description }: EventInfo) {
     console.log("Reserved");
     setIsRSVP(!isRSVP);
   };
+
+  const quote = `Come join me at the ${name} event!`;
+  const hashtags = ["BeeHive"];
 
   return (
     <div className="EventsForm-view-only">
@@ -43,16 +48,28 @@ function EventsForm({ name, address, time, date, description }: EventInfo) {
           </div>
         </div>
         <div className="EventsForm-view-only-SocialMediaButtons">
-          <img
-            alt="Twitter Icon"
-            className="EventsForm-view-only-SocialMediaButtons-Twitter"
-            src={TwitterLogo}
-          />
-          <img
-            alt="Facebook Icon"
-            className="EventsForm-view-only-SocialMediaButtons-Facebook"
-            src={FacebookLogo}
-          />
+          <TwitterShareButton
+            url="http://localhost:3000/"
+            title={quote}
+            hashtags={hashtags}
+          >
+            <img
+              alt="Twitter Icon"
+              className="EventsForm-SocialMediaButtons-Twitter"
+              src={TwitterLogo}
+            />
+          </TwitterShareButton>
+          <FacebookShareButton
+            url="http://localhost:3000/"
+            quote={quote}
+            hashtag="#BeeHive"
+          >
+            <img
+              alt="Facebook Icon"
+              className="EventsForm-SocialMediaButtons-Facebook"
+              src={FacebookLogo}
+            />
+          </FacebookShareButton>
         </div>
       </div>
       <div className="EventsForm-view-only-DescriptionDiv">

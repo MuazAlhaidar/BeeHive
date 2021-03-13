@@ -3,6 +3,7 @@ import TwitterLogo from "../../Images/Twitter_Social_Icon_Rounded_Square_Color.p
 import FacebookLogo from "../../Images/f_logo_RGB-Blue_58.png";
 import EmailModal from "../EmailModal";
 import EventEdit from "./EventsEdit";
+import { FacebookShareButton, TwitterShareButton } from "react-share";
 import "../../CSS/Events/EventsForm.css";
 
 interface EventInfo {
@@ -41,6 +42,9 @@ function EventsForm({
     setShowEventEditModal(!showEventEditModal);
   };
 
+  const quote = `Come join me at the ${name} event!`;
+  const hashtags = ["BeeHive"];
+
   return (
     <div className="EventsForm">
       <EmailModal showModal={showEmailModal} setShowModal={setShowEmailModal} />
@@ -69,16 +73,28 @@ function EventsForm({
           </div>
         </div>
         <div className="EventsForm-SocialMediaButtons">
-          <img
-            alt="Twitter Icon"
-            className="EventsForm-SocialMediaButtons-Twitter"
-            src={TwitterLogo}
-          />
-          <img
-            alt="Facebook Icon"
-            className="EventsForm-SocialMediaButtons-Facebook"
-            src={FacebookLogo}
-          />
+          <TwitterShareButton
+            url="http://localhost:3000/"
+            title={quote}
+            hashtags={hashtags}
+          >
+            <img
+              alt="Twitter Icon"
+              className="EventsForm-SocialMediaButtons-Twitter"
+              src={TwitterLogo}
+            />
+          </TwitterShareButton>
+          <FacebookShareButton
+            url="http://localhost:3000/"
+            quote={quote}
+            hashtag="#BeeHive"
+          >
+            <img
+              alt="Facebook Icon"
+              className="EventsForm-SocialMediaButtons-Facebook"
+              src={FacebookLogo}
+            />
+          </FacebookShareButton>
         </div>
       </div>
       <div className="EventsForm-DescriptionDiv">
