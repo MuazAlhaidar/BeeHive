@@ -60,7 +60,7 @@ function EventsForm({ name, address, time, date, description }: EventInfo) {
             />
           </TwitterShareButton>
           <FacebookShareButton
-            url="http://localhost:3000/"
+            url="https://www.google.com/"
             quote={quote}
             hashtag="#BeeHive"
           >
