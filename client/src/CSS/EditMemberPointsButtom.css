@@ -1,0 +1,12 @@
+.EditMemberPointsButton {
+  width: 50px;
+  justify-content: center;
+  border: 2px solid #ff9442;
+  border-radius: 8px;
+  padding: 2px 5px;
+  margin: 2px 2px;
+}
+
+.EditMemberPointsButton:hover {
+  background-color: #dfdfdf;
+}

@@ -2,6 +2,9 @@ import React from "react";
 import "../CSS/Events/MyEvents.css";
 import EventList from "../Components/Events/EventsList";
 import EventsForm from "../Components/Events/EventsForm";
+import EmailModal from "../Components/EmailModal";
+import EventEdit from "../Components/Events/EventsEdit";
+import EventMemberModal from "../Components/Events/EventMemberModal";
 import * as API from "../api/Event";
 
 interface MemberInfo {
@@ -50,10 +53,26 @@ async function reload(id: number) {
 
 function MyEvents(props: { id: any }) {
   const [events, setEvents] = React.useState(Array<EventInfo>());
+  const [eventIndex, setEventIndex] = React.useState(0);
+  const [showEventEditModal, setShowEventEditModal] = React.useState(false);
+  const [showEventMemberModal, setShowEventMemberModal] = React.useState(false);
+  const [showEmailModal, setShowEmailModal] = React.useState(false);
+
   React.useEffect(() => {
     reload(props.id).then((res) => setEvents(res));
   });
-  const [eventIndex, setEventIndex] = React.useState(0);
+
+  const toggleEmailModal = () => {
+    setShowEmailModal(!showEmailModal);
+  };
+
+  const toggleEventEditModal = () => {
+    setShowEventEditModal(!showEventEditModal);
+  };
+
+  const toggleEventMemberModal = () => {
+    setShowEventMemberModal(!showEventMemberModal);
+  };
 
   const selectEvent = (i: number) => {
     let index = i === undefined ? 0 : i;
@@ -131,6 +150,16 @@ function MyEvents(props: { id: any }) {
 
   return (
     <div className="MyEvents">
+      <EmailModal showModal={showEmailModal} setShowModal={setShowEmailModal} />
+      <EventEdit
+        showModal={showEventEditModal}
+        setShowModal={setShowEventEditModal}
+        editEvent={editEvent}
+      />
+      <EventMemberModal
+        showModal={showEventMemberModal}
+        setShowModal={setShowEventMemberModal}
+      />
       <div className="MyEvents-EventList">
         <EventList
           eventList={events}
@@ -146,10 +175,12 @@ function MyEvents(props: { id: any }) {
             time={""}
             date={""}
             description={""}
-            editEvent={editEvent}
             removeEvent={() => {
               removeEvent(eventIndex);
             }}
+            toggleEmailModal={toggleEmailModal}
+            toggleEventEditModal={toggleEventEditModal}
+            toggleEventMemberModal={toggleEventMemberModal}
           />
         ) : (
           <EventsForm
@@ -158,10 +189,12 @@ function MyEvents(props: { id: any }) {
             time={events[eventIndex].time}
             date={events[eventIndex].date}
             description={events[eventIndex].description}
-            editEvent={editEvent}
             removeEvent={() => {
               removeEvent(eventIndex);
             }}
+            toggleEmailModal={toggleEmailModal}
+            toggleEventEditModal={toggleEventEditModal}
+            toggleEventMemberModal={toggleEventMemberModal}
           />
         )}
       </div>
