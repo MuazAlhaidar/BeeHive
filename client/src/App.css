@@ -39,6 +39,7 @@
   display: flex;
   flex-grow: 8;
   justify-content: space-around;
+  align-items: center;
 }
 
 .App-logo {

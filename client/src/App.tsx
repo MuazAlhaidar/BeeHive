@@ -16,6 +16,13 @@ function App() {
   const [name, setName] = React.useState("");
   const [id, setId] = React.useState("");
   const [owner, setOwner] = React.useState(0);
+
+  const logOut = () => {
+    setName("");
+    setId("");
+    setOwner(0);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -28,22 +35,36 @@ function App() {
               <Link className="App-link" to="/">
                 All Events
               </Link>
-              <Link className="App-link" to="/MyEvents">
-                MyEvents
-              </Link>
+              {name !== "" ? (
+                <Link className="App-link" to="/MyEvents">
+                  MyEvents
+                </Link>
+              ) : null}
               {owner === 1 ? (
                 <Link className="App-link" to="/MyGroups">
                   MyGroups
                 </Link>
-              ) : (
-                ""
-              )}
+              ) : null}
               <Link className="App-link" to="/Leaderboard">
                 Leaderboard
               </Link>
               <Link className="App-link" to="/ContactUs">
                 Contact Us
               </Link>
+              {name === "" ? (
+                <Link className="App-link" to="/LogIn">
+                  Log In
+                </Link>
+              ) : (
+                <>
+                  <Link className="App-link" to="/LogIn" onClick={logOut}>
+                    Log Out
+                  </Link>
+                  <Link className="App-link" to="/EmailSettings">
+                    Email Settings
+                  </Link>
+                </>
+              )}
             </div>
           </div>
           <Switch>
