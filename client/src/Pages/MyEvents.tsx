@@ -60,7 +60,7 @@ function MyEvents(props: { id: any }) {
 
   React.useEffect(() => {
     reload(props.id).then((res) => setEvents(res));
-  });
+  }, []);
 
   const toggleEmailModal = () => {
     setShowEmailModal(!showEmailModal);
@@ -127,7 +127,6 @@ function MyEvents(props: { id: any }) {
         address,
         thedate
       );
-      console.log("WOW");
       const e = events.slice();
       e[eventIndex].name = name;
       e[eventIndex].address = address;

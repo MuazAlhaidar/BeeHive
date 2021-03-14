@@ -18,7 +18,7 @@ async function axiosPost(url:string, _data:any){
 async function login(_username:string, _password:string){
         // return axiosPost("login", { username:_username, password:_password} )
         return axiosPost("login", { username:_username, password:_password} )
-        .then(res =>   res.data.id)
+						.then(res =>   (res.data.id, res.data.owner))
         .catch(err => -1)
 }
 
@@ -31,7 +31,7 @@ async function new_user( user:any ){
 	role_id:user.role_id,
 	points:user.points 
     })
-	.then(ret => {return [0, ret.data.id]})
+				.then(ret => {return [0, ret.data.id]})
 	.catch((err:any)=>{
 	    switch(err.response.status){
 		case 401:

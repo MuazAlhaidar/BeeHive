@@ -7,28 +7,19 @@ import { Redirect } from "react-router-dom";
 import "../CSS/LogIn.css";
 // type UserType = { username: string; password: string };
 
-function LogIn(props: { setName: any; setId: any }) {
+function LogIn(props: { setName: any; setId: any, setOwner:any }) {
   const [user, setUser] = React.useState("");
   const [status, setStatus] = React.useState(0);
-  // var listUsers = [
-  //   { username: "user", password: "pass" },
-  //   { username: "admin", password: "pass" },
-  // ];
-  // let Users = new Map([
-  //   ["user", "pass"],
-  //   ["admin", "pass"],
-  //   ["Monier", "Motorsport 7"],
-  // ]);
-
+  const [owner, setOwner] = React.useState(0);
   function checkuser(username: string, password: string): Promise<boolean> {
     return API.login(username, password)
       .then((res) => {
-        console.log("WHAT THE HECK", res);
-        if (res !== -1) {
+        if (res[0] !== -1) {
           setUser(username);
           setStatus(1);
           props.setName(username);
-          props.setId(res);
+          props.setId(res[0]);
+          props.setOwner(res[1]);
           return true;
         } else {
           setStatus(-1);

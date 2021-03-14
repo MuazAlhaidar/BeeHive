@@ -13,76 +13,77 @@ import ResetPass from "./Pages/ResetPass";
 import ResetReq from "./Pages/ResetReq";
 
 function App() {
-  const [name, setName] = React.useState("");
-  const [id, setId] = React.useState("");
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Router>
-          <div className="App-navbar">
+		const [name, setName] = React.useState("");
+		const [id, setId] = React.useState("");
+		const [owner, setOwner] = React.useState(0);
+		return (
+				<div className="App">
+						<header className="App-header">
+						<Router>
+						<div className="App-navbar">
             <div className="App-Logo">
-              <LogoAndTitle />
+            <LogoAndTitle />
             </div>
             <div className="App-Links">
-              <Link className="App-link" to="/">
-                All Events
-              </Link>
-              <Link className="App-link" to="/MyEvents">
-                MyEvents
-              </Link>
+            <Link className="App-link" to="/">
+            All Events
+        </Link>
+            <Link className="App-link" to="/MyEvents">
+            MyEvents
+        </Link>
 						{owner==1?
 						<Link className="App-link" to="/MyGroups">
 								MyGroups
              </Link>: ""}
-              <Link className="App-link" to="/Leaderboard">
-                Leaderboard
-              </Link>
-              <Link className="App-link" to="/ContactUs">
-                Contact Us
-              </Link>
+            <Link className="App-link" to="/Leaderboard">
+            Leaderboard
+        </Link>
+            <Link className="App-link" to="/ContactUs">
+            Contact Us
+        </Link>
             </div>
-          </div>
-          <Switch>
+						</div>
+						<Switch>
             <Route exact path="/">
-              <AllEvents />
+            <AllEvents />
             </Route>
             <Route path="/LogIn">
-              <LogIn setName={setName} setId={setId} />
+            <LogIn setName={setName} setOwner={setOwner} setId={setId} />
             </Route>
             <Route path="/Signup">
-              <SignUp setName={setName} setId={setId} />
+            <SignUp setName={setName} setOwner={setOwner} setId={setId} />
             </Route>
             <Route path="/ContactUs">
-              <ContactUs />
+            <ContactUs />
             </Route>
             <Route path="/MyEvents">
-              {name === "" ? (
-                <LogIn setName={setName} setId={setId} />
-              ) : (
+            {name === "" ? (
+                <LogIn setName={setName} setOwner={setOwner} setId={setId} />
+            ) : (
                 <MyEventsPage id={id} />
-              )}
-            </Route>
+            )}
+        </Route>
             <Route path="/MyGroups">
-              {name === "" ? (
-                <LogIn setName={setName} setId={setId} />
-              ) : (
-                  <MyGroupsPage id={id} />
-              )}
-            </Route>
+            {name === "" ? (
+                <LogIn setName={setName} setOwner={setOwner} setId={setId} />
+            ) : (
+                <MyGroupsPage id={id} />
+            )}
+        </Route>
             <Route path="/Leaderboard">
-              <Leaderboard />
+            <Leaderboard />
             </Route>
             <Route path="/resetPassword">
-              <ResetPass />
+            <ResetPass />
             </Route>
             <Route path="/forgotpassword">
-              <ResetReq />
+            <ResetReq />
             </Route>
-          </Switch>
-        </Router>
-      </header>
-    </div>
-  );
+						</Switch>
+						</Router>
+						</header>
+						</div>
+		);
 }
 
 export default App;
