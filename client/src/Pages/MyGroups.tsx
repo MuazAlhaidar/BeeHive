@@ -20,7 +20,6 @@ interface GroupInfo {
   members: Array<MemberInfo>;
 }
 
-const props = { id: 1 };
 
 async function reload(id: number): Promise<Array<GroupInfo>> {
   const data = await API.getGroup(id);
@@ -40,7 +39,7 @@ async function reload(id: number): Promise<Array<GroupInfo>> {
   return Object.values(groups);
 }
 
-function MyGroups() {
+function MyGroups(props:{id:any} ) {
   const emptyMembersList = new Array<MemberInfo>(
     { id: 1, username: "John" },
     { id: 2, username: "Ham" },

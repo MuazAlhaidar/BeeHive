@@ -5,6 +5,12 @@ const Event = require("./EventModel.ts");
 const EventMember = require("./EventMember.ts");
 const Sequelize = require("sequelize")
 const {or, and, gt, lt} = Sequelize.Op;
+const _config = require("../config/keys.ts")
+const lib = require("../lib.ts");
+const sequelize = new Sequelize(_config.database, _config.user, _config.pass, {
+    dialect: 'mariadb',
+    logging: false
+})
 
 /* @route GET api/events
  * @desc Get all the events
@@ -188,8 +194,20 @@ router.get("/man", async (req, res)=>{
 router.get("/leaderboard", async(req, res)=>{
         let users = await User.findAll({attributes:["username", "points"]});
         res.send(users).status(200)
+})
 
+/* @route POST api/events/email
+ * @desc Send an email to all those who are RSVP to an event
+ * @body {id:event's id, subject, body}
+ */
+router.post("/email", async(req,res)=>{
+        const query = await sequelize.query(`select users.email from users JOIN eventmembers ON eventmembers.User=users.id AND eventmembers.Event=${req.body.id} AND eventmembers.RSVP=true;`)
+        const emails = query[0].map(i=> i.email)
+        lib.email(emails)
+        res.sendStatus(200)
 
 })
+
+
 export {}
 module.exports = router;

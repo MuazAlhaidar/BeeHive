@@ -1,12 +1,12 @@
 -- to generate user
 insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
 "owner", "pass",
-"muaz@gmail.com",
+"graphinetime@gmail.com",
 8, 0,
 "2020-08-4", "2020-08-3");
 insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
 "member", "pass",
-"zaki@gmail.com",
+"ahmedzakariya355@gmail.com",
 16, 1,
 "2020-08-4", "2020-08-3");
 

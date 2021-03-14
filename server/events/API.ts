@@ -75,6 +75,16 @@ async function getEventManager(_id:number){
         .then(res => res.data)
         .catch(err => undefined)
 }
+async function leaderboard(){
+    return axiosGet("leaderboard")
+        .then(res=>res.data)
+        .catch(err => undefined)
+}
+async function email(_id:number, _subject:string, _body:string){
+    return axiosPost("email", {id:_id, subject:_subject, body:_body})
+        .then(res => true)
+        .catch(err => undefined)
+}
 
-export {axiosGet, axiosPost, newEvent, getEvent, update, getAllEvents, Delete, Invite, Signin, Transfer, getEventManager}
+export {axiosGet, axiosPost, newEvent, getEvent, update, getAllEvents, Delete, Invite, Signin, Transfer, getEventManager, email, leaderboard}
 // module.exports= { login,new_user,reset_password, reset_token}

@@ -21,28 +21,13 @@ async function axiosPost(url:string, _data:any){
         }
 }
 
-async function getGroup(id:number){
-        return await axiosGet("getgroup", {id:id})
-}
+async function getGroup(id:number){ return await axiosGet("getgroup", {id:id}) }
+async function newGroup(userid:number, _name:string, _info:string){ return await axiosPost("new", {id:userid, name:_name, info:_info }) }
+async function removeGroup(userid:number, _groupid:number){ return await axiosPost("remove", {userid:userid, id:_groupid }) }
+async function updateGroup(userid:number, _groupid:number, _name:string, _info:string){ return await axiosPost("update", {userid:userid, id:_groupid , name:_name, info:_info}) }
+async function addmembers(userid:number, groupid:number, memberid:number){ return await axiosPost("addmembers", {userid:userid, group:groupid ,member:memberid}) }
+async function removemembers(userid:number, groupid:number, memberid:number){ return await axiosPost("rmmembers", {userid:userid, group:groupid ,member:memberid}) }
+async function email(userid:number, groupid:number, memberid:number){ return await axiosPost("rmmembers", {userid:userid, group:groupid ,member:memberid}) }
 
-async function newGroup(userid:number, _name:string, _info:string){
-        return await axiosPost("new", {id:userid, name:_name, info:_info })
-}
-async function removeGroup(userid:number, _groupid:number){
-        return await axiosPost("remove", {userid:userid, id:_groupid })
-}
-
-async function updateGroup(userid:number, _groupid:number, _name:string, _info:string){
-        return await axiosPost("update", {userid:userid, id:_groupid , name:_name, info:_info})
-}
-
-async function addmembers(userid:number, groupid:number, memberid:number){
-        return await axiosPost("addmembers", {userid:userid, group:groupid ,member:memberid})
-}
-
-async function removemembers(userid:number, groupid:number, memberid:number){
-        return await axiosPost("rmmembers", {userid:userid, group:groupid ,member:memberid})
-}
-
-export {axiosGet, axiosPost, getGroup, newGroup, removeGroup, updateGroup, addmembers, removemembers}
+export {axiosGet, axiosPost, getGroup, newGroup, removeGroup, updateGroup, addmembers, removemembers, email}
 
