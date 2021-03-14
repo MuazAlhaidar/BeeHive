@@ -2,7 +2,6 @@ import React from "react";
 import "../../CSS/Members/MemberList.css";
 
 import Member from "./Member";
-import MemberModal from "./MemberModal";
 
 interface MemberInfo {
   username: string;

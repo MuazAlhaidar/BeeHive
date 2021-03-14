@@ -2,7 +2,6 @@ import React from "react";
 import TwitterLogo from "../../Images/Twitter_Social_Icon_Rounded_Square_Color.png";
 import FacebookLogo from "../../Images/f_logo_RGB-Blue_58.png";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
-import { FacebookIcon, TwitterIcon } from "react-share";
 import "../../CSS/Events/EventsForm(view-only).css";
 
 interface EventInfo {
