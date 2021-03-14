@@ -74,7 +74,7 @@ function App() {
               )}
             </Route>
             <Route path="/Leaderboard">
-              <Leaderboard />
+              <Leaderboard isOwner={owner} />
             </Route>
             <Route path="/resetPassword">
               <ResetPass />
