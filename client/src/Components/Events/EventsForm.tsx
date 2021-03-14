@@ -1,8 +1,6 @@
 import React from "react";
 import TwitterLogo from "../../Images/Twitter_Social_Icon_Rounded_Square_Color.png";
 import FacebookLogo from "../../Images/f_logo_RGB-Blue_58.png";
-import EmailModal from "../EmailModal";
-import EventEdit from "./EventsEdit";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import "../../CSS/Events/EventsForm.css";
 
@@ -13,13 +11,9 @@ interface EventInfo {
   date: string;
   description: string;
   removeEvent: () => void;
-  editEvent: (
-    name: string,
-    address: string,
-    time: string,
-    date: string,
-    description: string
-  ) => void;
+  toggleEventEditModal: () => void;
+  toggleEmailModal: () => void;
+  toggleEventMemberModal: () => void;
 }
 
 function EventsForm({
@@ -29,30 +23,15 @@ function EventsForm({
   date,
   description,
   removeEvent,
-  editEvent,
+  toggleEmailModal,
+  toggleEventEditModal,
+  toggleEventMemberModal,
 }: EventInfo) {
-  const [showEmailModal, setShowEmailModal] = React.useState(false);
-  const [showEventEditModal, setShowEventEditModal] = React.useState(false);
-
-  const toggleEmailModal = () => {
-    setShowEmailModal(!showEmailModal);
-  };
-
-  const toggleEventEditModal = () => {
-    setShowEventEditModal(!showEventEditModal);
-  };
-
   const quote = `Come join me at the ${name} event!`;
   const hashtags = ["BeeHive"];
 
   return (
     <div className="EventsForm">
-      <EmailModal showModal={showEmailModal} setShowModal={setShowEmailModal} />
-      <EventEdit
-        showModal={showEventEditModal}
-        setShowModal={setShowEventEditModal}
-        editEvent={editEvent}
-      />
       <div className="EventsForm-Top">
         <div className="EventsForm-NameAddressTimeDateGroup">
           <div className="EventsForm-NameDiv">
@@ -109,7 +88,12 @@ function EventsForm({
           >
             Edit Event
           </button>
-          <button className="EventsForm-BrightButton">Members</button>
+          <button
+            className="EventsForm-BrightButton"
+            onClick={toggleEventMemberModal}
+          >
+            Members
+          </button>
           <button
             className="EventsForm-BrightButton"
             onClick={toggleEmailModal}
