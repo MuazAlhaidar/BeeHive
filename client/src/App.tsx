@@ -69,7 +69,7 @@ function App() {
           </div>
           <Switch>
             <Route exact path="/">
-              <AllEvents />
+              <AllEvents name={name} />
             </Route>
             <Route path="/LogIn">
               <LogIn setName={setName} setOwner={setOwner} setId={setId} />
