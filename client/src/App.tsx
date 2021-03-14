@@ -31,7 +31,7 @@ function App() {
               <Link className="App-link" to="/MyEvents">
                 MyEvents
               </Link>
-              {owner == 1 ? (
+              {owner === 1 ? (
                 <Link className="App-link" to="/MyGroups">
                   MyGroups
                 </Link>

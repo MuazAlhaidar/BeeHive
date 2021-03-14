@@ -5,12 +5,10 @@ import SignUpButton from "../Components/SignUpButton";
 import * as API from "../api/User";
 import { Redirect } from "react-router-dom";
 import "../CSS/LogIn.css";
-// type UserType = { username: string; password: string };
 
-function LogIn(props: { setName: any; setId: any, setOwner:any }) {
+function LogIn(props: { setName: any; setId: any; setOwner: any }) {
   const [user, setUser] = React.useState("");
   const [status, setStatus] = React.useState(0);
-  const [owner, setOwner] = React.useState(0);
   function checkuser(username: string, password: string): Promise<boolean> {
     return API.login(username, password)
       .then((res) => {

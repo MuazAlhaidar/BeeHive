@@ -9,7 +9,7 @@ interface IProps {
 function Leaderboard({ isOwner }: IProps) {
   return (
     <div className="Leaderboard-Module">
-      {isOwner == 1 ? <LeaderboardOwner /> : <LeaderboardViewOnly />}
+      {isOwner === 1 ? <LeaderboardOwner /> : <LeaderboardViewOnly />}
     </div>
   );
 }

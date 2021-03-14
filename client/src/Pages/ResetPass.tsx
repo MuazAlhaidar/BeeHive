@@ -7,13 +7,7 @@ export default function Display(props: {}) {
   const [status, setStatus] = React.useState(0);
   const search = useLocation().search;
   const token = new URLSearchParams(search).get("token");
-  // const request = API.reset_url("" + token).then((res) => {
-  //   if (res) {
-  //     setStatus(1);
-  //   } else {
-  //     setStatus(-1);
-  //   }
-  // });
+
   switch (status) {
     case 0:
       return <> </>;

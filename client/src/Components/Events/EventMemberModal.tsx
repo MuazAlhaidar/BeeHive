@@ -1,5 +1,4 @@
 import React from "react";
-import { Overlay } from "react-bootstrap";
 import EditMemberPointsButton from "../EditMemberPointsButton";
 import "../../CSS/Events/EventMemberModal.css";
 
@@ -30,9 +29,6 @@ function EventMemberModal({ showModal, setShowModal }: IProps) {
   );
 
   const [hasAttended, setHasAttended] = React.useState(false);
-
-  const [showOverlay, setShowOverlay] = React.useState(false);
-  const target = React.useRef(null);
 
   const setAttended = () => {
     setHasAttended(!hasAttended);

@@ -20,7 +20,6 @@ interface GroupInfo {
   members: Array<MemberInfo>;
 }
 
-
 async function reload(id: number): Promise<Array<GroupInfo>> {
   const data = await API.getGroup(id);
   const groups = data.data.groups.reduce(function (acc: any, cur: any) {
@@ -39,7 +38,7 @@ async function reload(id: number): Promise<Array<GroupInfo>> {
   return Object.values(groups);
 }
 
-function MyGroups(props:{id:any} ) {
+function MyGroups(props: { id: any }) {
   const emptyMembersList = new Array<MemberInfo>(
     { id: 1, username: "John" },
     { id: 2, username: "Ham" },
@@ -76,7 +75,7 @@ function MyGroups(props:{id:any} ) {
     reload(props.id).then((res) => {
       setGroups(res);
     });
-  }, []);
+  });
 
   const selectGroup = (i: number) => {
     let index = i === undefined ? 0 : i;

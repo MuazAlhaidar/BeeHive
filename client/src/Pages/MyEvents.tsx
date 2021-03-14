@@ -5,6 +5,7 @@ import EventsForm from "../Components/Events/EventsForm";
 import EmailModal from "../Components/EmailModal";
 import EventEdit from "../Components/Events/EventsEdit";
 import EventMemberModal from "../Components/Events/EventMemberModal";
+import TransferManagerModal from "../Components/TransferManagerModal";
 import * as API from "../api/Event";
 
 interface MemberInfo {
@@ -57,10 +58,14 @@ function MyEvents(props: { id: any }) {
   const [showEventEditModal, setShowEventEditModal] = React.useState(false);
   const [showEventMemberModal, setShowEventMemberModal] = React.useState(false);
   const [showEmailModal, setShowEmailModal] = React.useState(false);
+  const [
+    showTransferManagerModal,
+    setShowTransferManagerModal,
+  ] = React.useState(false);
 
   React.useEffect(() => {
     reload(props.id).then((res) => setEvents(res));
-  }, []);
+  });
 
   const toggleEmailModal = () => {
     setShowEmailModal(!showEmailModal);
@@ -72,6 +77,10 @@ function MyEvents(props: { id: any }) {
 
   const toggleEventMemberModal = () => {
     setShowEventMemberModal(!showEventMemberModal);
+  };
+
+  const toggleTransferManagerModal = () => {
+    setShowTransferManagerModal(!showTransferManagerModal);
   };
 
   const selectEvent = (i: number) => {
@@ -159,6 +168,10 @@ function MyEvents(props: { id: any }) {
         showModal={showEventMemberModal}
         setShowModal={setShowEventMemberModal}
       />
+      <TransferManagerModal
+        showModal={showTransferManagerModal}
+        setShowModal={setShowTransferManagerModal}
+      />
       <div className="MyEvents-EventList">
         <EventList
           eventList={events}
@@ -180,6 +193,7 @@ function MyEvents(props: { id: any }) {
             toggleEmailModal={toggleEmailModal}
             toggleEventEditModal={toggleEventEditModal}
             toggleEventMemberModal={toggleEventMemberModal}
+            toggleTransferManagerModal={toggleTransferManagerModal}
           />
         ) : (
           <EventsForm
@@ -194,6 +208,7 @@ function MyEvents(props: { id: any }) {
             toggleEmailModal={toggleEmailModal}
             toggleEventEditModal={toggleEventEditModal}
             toggleEventMemberModal={toggleEventMemberModal}
+            toggleTransferManagerModal={toggleTransferManagerModal}
           />
         )}
       </div>

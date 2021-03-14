@@ -1,11 +1,6 @@
 import React from "react";
 import "../../CSS/Groups/GroupsForm.css";
 
-interface MemberInfo {
-  username: string;
-  id: number;
-}
-
 interface IProps {
   name: string;
   contactInfo: string;
