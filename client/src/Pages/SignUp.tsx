@@ -5,7 +5,7 @@ import * as API from "../api/User";
 import { Redirect } from "react-router-dom";
 import "../CSS/LogIn.css";
 
-function LogIn(props: { setName: any; setId: any }) {
+function LogIn(props: { setName: any; setId: any, setOwner:any }) {
   const [user, setUser] = React.useState("");
   const [status, setStatus] = React.useState(-1);
 

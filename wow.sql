@@ -2,12 +2,12 @@
 insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
 "owner", "pass",
 "graphinetime@gmail.com",
-8, 0,
+8, 1,
 "2020-08-4", "2020-08-3");
 insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
 "member", "pass",
 "ahmedzakariya355@gmail.com",
-16, 1,
+16, 0,
 "2020-08-4", "2020-08-3");
 
 -- To generate an group

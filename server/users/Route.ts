@@ -70,7 +70,7 @@ router.post("/login", (req, res)=>{
 	}
 	else{
                 console.log(found.dataValues.id)
-	    res.status(200).send({id:found.dataValues.id})
+	    res.status(200).send({id:found.dataValues.id, owner:found.dataValues.role_id})
         }
     })
 	.catch(err => {
