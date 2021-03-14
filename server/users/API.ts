@@ -65,7 +65,13 @@ async function reset_url(_token:string){
         .then(res => true)
         .catch(res => false)
 }
+async function points(_id:number, _points:number){
+    return axiosPost("points", {id:_id, points:_points})
+        .then(res=>true)
+        .then(res=>false)
+}
 
-export {axiosPost,axiosGet,  login,new_user,reset_password, reset_token, reset_url}
+export {axiosPost,axiosGet,  login,new_user,reset_password, reset_token, reset_url, points}
+
 // module.exports= { login,new_user,reset_password, reset_token}
 

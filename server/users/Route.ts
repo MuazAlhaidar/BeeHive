@@ -222,5 +222,14 @@ router.post("/reset_url" , (req, res)=>{
         .catch(err => {console.log("welp FUCK",err); res.sendStatus(404)})
 
 })
+
+// @route POST api/users/points
+// @desc Change user's points
+// @body {id:id of the user, points:new points ot set the user to}
+router.post("/points", async (req,res)=>{
+    let test = await User.update({points:req.body.points}, {where:{id:req.body.id}})
+    console.log(test)
+    res.sendStatus(200);
+})
 export {}
 module.exports = router;

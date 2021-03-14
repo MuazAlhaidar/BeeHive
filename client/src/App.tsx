@@ -30,8 +30,7 @@ function App() {
               <Link className="App-link" to="/MyEvents">
                 MyEvents
               </Link>
-              <Link className="App-link" to="/MyGroups">
-                MyGroups
+          {<Link className="App-link" to="/MyGroups">
               </Link>
               <Link className="App-link" to="/Leaderboard">
                 Leaderboard
@@ -65,7 +64,7 @@ function App() {
               {name === "" ? (
                 <LogIn setName={setName} setId={setId} />
               ) : (
-                <MyGroupsPage />
+                  <MyGroupsPage id={id} />
               )}
             </Route>
             <Route path="/Leaderboard">

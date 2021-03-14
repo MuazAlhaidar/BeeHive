@@ -4,6 +4,7 @@ const Userr = require("../users/Model.ts");
 const Groupp = require("./GroupModel.ts");
 const GroupMember = require("./GroupMember.ts");
 const Sequelize = require("sequelize")
+const lib = require("../lib.ts");
 const {or, and, gt, lt} = Sequelize.Op;
 /* @route GET api/groups/getgroup
  * @desc Get all groups a member is from
@@ -16,6 +17,17 @@ const sequelize = new Sequelize(_config.database, _config.user, _config.pass, {
     logging: false
 })
 
+async function verify_owner(_id:number){
+        var _tmp = await Userr.findOne({where:{id:_id}})
+        if(_tmp==undefined){
+            return false;
+        }
+        if(_tmp.role_id==0)
+                return false
+        return true;
+
+
+}
 router.get("/getgroup", async(req,res)=>{
     GroupMember.findAll({ where: {User:req.query.id}})
         .then(async ret=> { 
@@ -234,6 +246,24 @@ router.post("/rmmembers", async(req,res)=>{
     res.status(404).send("Some other error happen")
     return
 
+})
+/* @route POST api/groups/email
+ * @desc Email everyone in a gorup
+ * @body {id:id of group, userid: id of the user,body:body of email, subject:subject of email}
+*/
+router.post("/email", async(req, res)=>{
+        if(verify_owner(req.body.userid)){
+                const query=`SELECT email FROM users JOIN groupmembers ON  groupmembers.Group =1` 
+                var _groupmembers = await sequelize.query(`SELECT email FROM users JOIN groupmembers ON  groupmembers.Group =${req.body.id} ; `)
+                var _groupmembers = _groupmembers[0].map(i=> i.email)
+                let ret = await lib.email(_groupmembers, req.body.subject, req.body.body)
+                console.log(ret)
+                res.sendStatus(200)
+
+        }
+        else{
+                res.sendStatus(404);
+        }
 
 })
 module.exports = router;

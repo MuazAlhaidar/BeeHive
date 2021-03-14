@@ -9,8 +9,8 @@
 		"server": "DEV=true nodemon ",
 		"prod_server": "nodemon ",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
-                "testTHIS": "ts-node /home/zaki/Shool/sem/prototype/server/groups/.startup.ts"
-		,"test": "jest --verbose"
+		"testTHIS": "ts-node /home/zaki/Shool/sem/prototype/server/groups/.startup.ts",
+		"test": "jest --verbose"
 	},
 	"author": "Muaz Alhaider",
 	"license": "ISC",
