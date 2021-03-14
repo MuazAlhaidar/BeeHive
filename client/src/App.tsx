@@ -30,8 +30,10 @@ function App() {
               <Link className="App-link" to="/MyEvents">
                 MyEvents
               </Link>
-          {<Link className="App-link" to="/MyGroups">
-              </Link>
+						{owner==1?
+						<Link className="App-link" to="/MyGroups">
+								MyGroups
+             </Link>: ""}
               <Link className="App-link" to="/Leaderboard">
                 Leaderboard
               </Link>
