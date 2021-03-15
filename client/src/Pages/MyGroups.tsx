@@ -10,34 +10,35 @@ import "../CSS/Groups/MyGroups.css";
 import * as API from "../api/Groups";
 
 interface MemberInfo {
-  username: string;
-  id: number;
+		username: string;
+		id: number;
 }
 
 interface GroupInfo {
-  id: number;
-  name: string;
-  contactInfo: string;
-  members: Array<MemberInfo>;
+		id: number;
+		name: string;
+		contactInfo: string;
+		members: Array<MemberInfo>;
 }
 
 async function reload(id: number): Promise<Array<GroupInfo>> {
-  const data = await API.getGroup(id);
-  const groups = data.data.groups.reduce(function (acc: any, cur: any) {
-    let tmp = {
-      id: cur.id,
-      name: cur.Name,
-      contactInfo: cur.ContactInfo,
-      members: [],
-    };
-    if (acc[cur.id] === undefined) acc[cur.id] = tmp;
-    return acc;
-  }, {});
-  data.data.groupmembers.forEach((i: any) => {
-    groups[i.groupid].members.push(i);
-  });
-  return Object.values(groups);
+		const data = await API.getGroup(id);
+		const groups = data.data.groups.reduce(function (acc: any, cur: any) {
+				let tmp = {
+						id: cur.id,
+						name: cur.Name,
+						contactInfo: cur.ContactInfo,
+						members: [],
+				};
+				if (acc[cur.id] === undefined) acc[cur.id] = tmp;
+				return acc;
+		}, {});
+		data.data.groupmembers.forEach((i: any) => {
+				groups[i.groupid].members.push(i);
+		});
+		return Object.values(groups);
 }
+
 
 function MyGroups(props: { id: any }) {
   const emptyMembersList = new Array<MemberInfo>(

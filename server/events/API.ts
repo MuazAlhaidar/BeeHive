@@ -86,5 +86,6 @@ async function email(_id:number, _subject:string, _body:string){
         .catch(err => undefined)
 }
 
-export {axiosGet, axiosPost, newEvent, getEvent, update, getAllEvents, Delete, Invite, Signin, Transfer, getEventManager, email, leaderboard}
+async function get_members(){return axiosPost("get_members", {});
+export {axiosGet, axiosPost, newEvent, getEvent, update, getAllEvents, Delete, Invite, Signin, Transfer, getEventManager, email, leaderboard, get_members}
 // module.exports= { login,new_user,reset_password, reset_token}

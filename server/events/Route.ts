@@ -162,25 +162,26 @@ router.post("/transfer", (req, res)=>{
 })
 
 /*
- * @route GET api/events/getmembersevents?=id
+ * @route POST api/events/getmembersevents?=id
  * @desc Get all events that an eventmember is invited to
  * body {id:User's id}
  */
-router.get("/man", async (req, res)=>{
-        let id = req.query.id
-        console.log("WOW")
-        if(id===undefined)
+router.post("/man", async (req, res)=>{
+        let id = req.body.id
+        if(id===undefined){
+                console.log("FUCK", req.query, req.body);
                 res.sendStatus(404)
+        }
         else{
+                console.log("First date------------")
                 let invited = await EventMember.findAll({where:{User:id, Manager:true}})
                 let eventsid=(invited.map((i)=> i.dataValues.Event))
                 console.log(invited)
                 console.log(eventsid)
 
                 let events = []
-                await Promise.all(eventsid.map(async (id)=> Event.findOne({where:{id:id}})))
+                Promise.all(eventsid.map(async (id)=> Event.findOne({where:{id:id}})))
                 .then(ret=>{
-                        console.log(ret)
                         res.status(200).send(ret)
                 })
 
@@ -208,6 +209,18 @@ router.post("/email", async(req,res)=>{
 
 })
 
+// @route POST api/users/get_members
+// @desc Get those who are RSVP to an event, and those that aren't
+// @return {RSVP:[user], not:[user]}
+router.post("/get_members", async (req, res)=>{
+        let users = await sequelize.query("select users.username, eventmembers.id from eventmembers  join users on users.id=eventmembers.User ;")
+        users=users[0];
+        // TODO get user's name
+        users=users.map(i => { i["name"]=i.username+" ahmed"; return i})
+        res.status(200).send(users)
+        
+
+})
 
 export {}
 module.exports = router;

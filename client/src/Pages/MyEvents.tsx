@@ -10,50 +10,59 @@ import ConfirmationModal from "../Components/ConfirmationModal";
 import * as API from "../api/Event";
 
 interface MemberInfo {
-  name: string;
-  points: number;
+        name: string;
+        points: number;
 }
 
 interface EventInfo {
-  name: string;
-  address: string;
-  time: string;
-  date: string;
-  description: string;
-  id: number;
-  members: Array<MemberInfo> | null;
+        name: string;
+        address: string;
+        time: string;
+        date: string;
+        description: string;
+        id: number;
+        members: Array<MemberInfo> | null;
 }
 
 async function reload(id: number) {
-  const allevents = await API.getEventManager(id);
-  const events = allevents.map((i: any) => {
-    var date_obj = new Date(i.Time);
-    let _date =
-      +(+date_obj.getMonth()) +
-      "/" +
-      date_obj.getDay() +
-      "/" +
-      date_obj.getFullYear();
-    let minute = date_obj.getMinutes();
-    let hour = date_obj.getHours();
-    let _hour = ("0" + hour).slice(-2);
-    let _minute = ("0" + minute).slice(-2);
-    let _time = _hour + ":" + _minute;
-    let _id = i.id;
-    return {
-      name: i.Name,
-      description: i.Description,
-      address: i.Address,
-      time: _time,
-      date: _date,
-      members: null,
-      id: _id,
-    };
-  });
-  return events;
+        const allevents = await API.getEventManager(id);
+        // const members = await API.get_members()
+
+        console.log(allevents)
+        if(allevents === undefined){
+                return [];
+        }
+        else{
+                const events = allevents.map((i: any) => {
+                        var date_obj = new Date(i.Time);
+                        let _date =
+                                +(+date_obj.getMonth()) +
+                                "/" +
+                                date_obj.getDay() +
+                                "/" +
+                                date_obj.getFullYear();
+                        let minute = date_obj.getMinutes();
+                        let hour = date_obj.getHours();
+                        let _hour = ("0" + hour).slice(-2);
+                        let _minute = ("0" + minute).slice(-2);
+                        let _time = _hour + ":" + _minute;
+                        let _id = i.id;
+                        return {
+                                name: i.Name,
+                                description: i.Description,
+                                address: i.Address,
+                                time: _time,
+                                date: _date,
+                                members: null,
+                                id: _id,
+                        };
+                });
+                return events;
+        }
 }
 
 function MyEvents(props: { id: any }) {
+
   const [events, setEvents] = React.useState(Array<EventInfo>());
   const [eventIndex, setEventIndex] = React.useState(0);
   const [showEventEditModal, setShowEventEditModal] = React.useState(false);
@@ -74,21 +83,22 @@ function MyEvents(props: { id: any }) {
     description: "",
   });
 
-  React.useEffect(() => {
-    reload(props.id).then((res) => setEvents(res));
-  }, []);
+        React.useEffect(() => {
+                reload(props.id).then((res) => setEvents(res));
+        }, []);
 
-  const toggleEmailModal = () => {
-    setShowEmailModal(!showEmailModal);
-  };
+        const toggleEmailModal = () => {
+                setShowEmailModal(!showEmailModal);
+        };
 
-  const toggleEventEditModal = () => {
-    setShowEventEditModal(!showEventEditModal);
-  };
+        const toggleEventEditModal = () => {
+                setShowEventEditModal(!showEventEditModal);
+        };
 
-  const toggleEventMemberModal = () => {
-    setShowEventMemberModal(!showEventMemberModal);
-  };
+        const toggleEventMemberModal = () => {
+                setShowEventMemberModal(!showEventMemberModal);
+        };
+
 
   const toggleTransferManagerModal = () => {
     setShowTransferManagerModal(!showTransferManagerModal);
