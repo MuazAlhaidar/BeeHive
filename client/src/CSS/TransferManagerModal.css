@@ -52,7 +52,7 @@
 
 .TransferManagerModal-MemberInfo-lightgrey,
 .TransferManagerModal-MemberInfo-white {
-  min-height: 25px;
+  min-height: 40px;
   align-items: center;
   padding-left: 10px;
 }
