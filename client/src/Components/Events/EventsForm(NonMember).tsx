@@ -14,12 +14,12 @@ interface EventInfo {
 }
 
 function EventsForm({ name, address, time, date, description }: EventInfo) {
-  const [isRSVP, setIsRSVP] = React.useState(false);
+  // const [isRSVP, setIsRSVP] = React.useState(false);
 
-  const setRSVP = () => {
-    console.log("Reserved");
-    setIsRSVP(!isRSVP);
-  };
+  // const setRSVP = () => {
+  //   console.log("Reserved");
+  //   setIsRSVP(!isRSVP);
+  // };
 
   const quote = `Come join me at the ${name} event!`;
   const hashtags = ["BeeHive"];

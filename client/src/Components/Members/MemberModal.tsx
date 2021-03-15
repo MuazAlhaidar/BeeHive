@@ -32,7 +32,10 @@ function MemberModal({
   }
 
   const [memList, setMemList] = React.useState(memberList);
+  const [pastIn, setpastIn] = React.useState(memList);
+  // Used to removign changes made
   let filteredList = allMembers.filter(isInGroup);
+  const [pastOut, setpastOut] = React.useState(filteredList);
 
   const handleSave = () => {
     setShowModal(!showModal);
@@ -43,15 +46,13 @@ function MemberModal({
   };
 
   const addToGroup = (member: MemberInfo) => {
-    const m = memList.slice();
-    m.push(member);
-    setMemList(m);
+    const m = memList.slice(); m.push(member); setMemList(m);
+
+
   };
 
   const removeFromGroup = (index: number) => {
-    const m = memList.slice();
-    m.splice(index, 1);
-    setMemList(m);
+    const m = memList.slice(); m.splice(index, 1); setMemList(m);
   };
 
   return (
@@ -88,7 +89,7 @@ function MemberModal({
                     })}
               </div>
               <div className="MemberModal-InGroup">
-                {!Array.isArray(memberList) || !memberList.length
+                {!Array.isArray(memList) || !memList.length
                   ? null
                   : memList.map((curMem: MemberInfo, index: number) => {
                       return (
