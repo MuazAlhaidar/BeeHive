@@ -61,7 +61,9 @@ function SignInPanel(props: { addUser: any }) {
       <div className="SignUpPanel-Buttons">
         <button
           className="SignUpPanel-SignUpButton"
-          onClick={() => props.addUser(username, password, email)}
+          onClick={() =>
+            props.addUser(firstname, lastname, username, password, email)
+          }
         >
           Sign Up
         </button>
