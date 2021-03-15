@@ -10,35 +10,34 @@ import "../CSS/Groups/MyGroups.css";
 import * as API from "../api/Groups";
 
 interface MemberInfo {
-		username: string;
-		id: number;
+  username: string;
+  id: number;
 }
 
 interface GroupInfo {
-		id: number;
-		name: string;
-		contactInfo: string;
-		members: Array<MemberInfo>;
+  id: number;
+  name: string;
+  contactInfo: string;
+  members: Array<MemberInfo>;
 }
 
 async function reload(id: number): Promise<Array<GroupInfo>> {
-		const data = await API.getGroup(id);
-		const groups = data.data.groups.reduce(function (acc: any, cur: any) {
-				let tmp = {
-						id: cur.id,
-						name: cur.Name,
-						contactInfo: cur.ContactInfo,
-						members: [],
-				};
-				if (acc[cur.id] === undefined) acc[cur.id] = tmp;
-				return acc;
-		}, {});
-		data.data.groupmembers.forEach((i: any) => {
-				groups[i.groupid].members.push(i);
-		});
-		return Object.values(groups);
+  const data = await API.getGroup(id);
+  const groups = data.data.groups.reduce(function (acc: any, cur: any) {
+    let tmp = {
+      id: cur.id,
+      name: cur.Name,
+      contactInfo: cur.ContactInfo,
+      members: [],
+    };
+    if (acc[cur.id] === undefined) acc[cur.id] = tmp;
+    return acc;
+  }, {});
+  data.data.groupmembers.forEach((i: any) => {
+    groups[i.groupid].members.push(i);
+  });
+  return Object.values(groups);
 }
-
 
 function MyGroups(props: { id: any }) {
   const emptyMembersList = new Array<MemberInfo>(
@@ -67,6 +66,7 @@ function MyGroups(props: { id: any }) {
     name: "",
     contactInfo: "",
   });
+  const [memList, setMemList] = React.useState(Array<MemberInfo>());
 
   const toggleMemberModal = () => {
     setShowMembersEditModal(!showMembersEditModal);
@@ -84,6 +84,22 @@ function MyGroups(props: { id: any }) {
     setShowConfirmationModal(!showConfirmationModal);
   };
 
+  const resetGroupAndMemList = () => {
+    setCurGroup({
+      name: "",
+      contactInfo: "",
+    });
+    setMemList(Array<MemberInfo>());
+  };
+
+  const setGroupAndMemList = (i: number) => {
+    setCurGroup({
+      name: groups[i].name,
+      contactInfo: groups[i].contactInfo,
+    });
+    setMemList(groups[i].members);
+  };
+
   React.useEffect(() => {
     reload(props.id).then((res) => {
       setGroups(res);
@@ -93,15 +109,7 @@ function MyGroups(props: { id: any }) {
   const selectGroup = (i: number) => {
     let index = i === undefined ? 0 : i;
     setGroupIndex(index);
-    i === undefined
-      ? setCurGroup({
-          name: "",
-          contactInfo: "",
-        })
-      : setCurGroup({
-          name: groups[index].name,
-          contactInfo: groups[index].contactInfo,
-        });
+    i === undefined ? resetGroupAndMemList() : setGroupAndMemList(index);
   };
 
   const addGroup = (name: string, contactInfo: string, members: any) => {
@@ -115,6 +123,7 @@ function MyGroups(props: { id: any }) {
         name: name,
         contactInfo: contactInfo,
       });
+      setMemList(members);
       console.log(res);
     });
   };
@@ -144,10 +153,7 @@ function MyGroups(props: { id: any }) {
         g.splice(i, 1);
         setGroups(g);
         setGroupIndex(-1);
-        setCurGroup({
-          name: "",
-          contactInfo: "",
-        });
+        resetGroupAndMemList();
         console.log(res);
       });
   };
@@ -173,13 +179,15 @@ function MyGroups(props: { id: any }) {
         <MemberModal
           allMembers={emptyMembersList}
           memberList={fakeMembersList}
+          setMemberList={setMemList}
           showModal={showMembersEditModal}
           setShowModal={setShowMembersEditModal}
         />
       ) : (
         <MemberModal
           allMembers={emptyMembersList}
-          memberList={groups[groupIndex].members}
+          memberList={memList}
+          setMemberList={setMemList}
           showModal={showMembersEditModal}
           setShowModal={setShowMembersEditModal}
         />
