@@ -76,7 +76,7 @@ function EventsForm({ name, address, time, date, description }: EventInfo) {
         <label className="EventsForm-view-only-DescriptionLabel">
           Description
         </label>
-        <div className="EventsForm-view-only-Description">{description}</div>
+        <div className="EventsForm-NonMember-Description">{description}</div>
       </div>
     </div>
   );

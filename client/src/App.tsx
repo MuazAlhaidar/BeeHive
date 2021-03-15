@@ -57,11 +57,11 @@ function App() {
                 </Link>
               ) : (
                 <>
+                  <Link className="App-link" to="/Settings">
+                    Settings
+                  </Link>
                   <Link className="App-link" to="/LogIn" onClick={logOut}>
                     Log Out
-                  </Link>
-                  <Link className="App-link" to="/EmailSettings">
-                    Email Settings
                   </Link>
                 </>
               )}

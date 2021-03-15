@@ -1,3 +1,11 @@
-.EventsForm-view-only-Description {
-  height: 73vh;
+.EventsForm-NonMember-Description {
+  justify-content: left;
+  padding: 5px 5px;
+  height: 72vh;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: auto;
+  border: 2px solid lightgray;
+  text-align: left;
+  background-color: #ffffff;
 }
