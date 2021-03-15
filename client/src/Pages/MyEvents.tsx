@@ -65,7 +65,7 @@ function MyEvents(props: { id: any }) {
 
   React.useEffect(() => {
     reload(props.id).then((res) => setEvents(res));
-  });
+  }, []);
 
   const toggleEmailModal = () => {
     setShowEmailModal(!showEmailModal);
