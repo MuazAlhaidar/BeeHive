@@ -24,7 +24,6 @@ function EventsForm({
   time,
   date,
   description,
-  removeEvent,
   toggleEmailModal,
   toggleEventEditModal,
   toggleEventMemberModal,

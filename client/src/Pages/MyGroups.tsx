@@ -62,6 +62,10 @@ function MyGroups(props: { id: any }) {
   const [showConfirmationModal, setShowConfirmationModal] = React.useState(
     false
   );
+  const [curGroup, setCurGroup] = React.useState({
+    name: "",
+    contactInfo: "",
+  });
 
   const toggleMemberModal = () => {
     setShowMembersEditModal(!showMembersEditModal);
@@ -83,11 +87,20 @@ function MyGroups(props: { id: any }) {
     reload(props.id).then((res) => {
       setGroups(res);
     });
-  });
+  }, []);
 
   const selectGroup = (i: number) => {
     let index = i === undefined ? 0 : i;
     setGroupIndex(index);
+    i === undefined
+      ? setCurGroup({
+          name: "",
+          contactInfo: "",
+        })
+      : setCurGroup({
+          name: groups[index].name,
+          contactInfo: groups[index].contactInfo,
+        });
   };
 
   const addGroup = (name: string, contactInfo: string, members: any) => {
@@ -96,6 +109,11 @@ function MyGroups(props: { id: any }) {
       let id = props.id;
       g.push({ id, name, contactInfo, members });
       setGroups(g);
+      setGroupIndex(groups.length);
+      setCurGroup({
+        name: name,
+        contactInfo: contactInfo,
+      });
       console.log(res);
     });
   };
@@ -108,6 +126,10 @@ function MyGroups(props: { id: any }) {
           g[groupIndex].name = name;
           g[groupIndex].contactInfo = contactInfo;
           setGroups(g);
+          setCurGroup({
+            name: groups[groupIndex].name,
+            contactInfo: groups[groupIndex].contactInfo,
+          });
           console.log(res);
         }
       );
@@ -120,7 +142,11 @@ function MyGroups(props: { id: any }) {
         const g = groups.slice();
         g.splice(i, 1);
         setGroups(g);
-        setGroupIndex(groups.length);
+        setGroupIndex(-1);
+        setCurGroup({
+          name: "",
+          contactInfo: "",
+        });
         console.log(res);
       });
   };
@@ -132,6 +158,8 @@ function MyGroups(props: { id: any }) {
         showModal={showGroupEditModal}
         setShowModal={setShowGroupEditModal}
         editGroup={editGroup}
+        curGroup={curGroup}
+        setCurGroup={setCurGroup}
       />
       <ConfirmationModal
         showModal={showConfirmationModal}
@@ -140,7 +168,7 @@ function MyGroups(props: { id: any }) {
           removeGroup(groupIndex);
         }}
       />
-      {groupIndex > groups.length - 1 ? (
+      {groupIndex > groups.length - 1 || groupIndex < 0 ? (
         <MemberModal
           allMembers={emptyMembersList}
           memberList={fakeMembersList}
@@ -163,7 +191,7 @@ function MyGroups(props: { id: any }) {
         />
       </div>
       <div className="MyGroups-GroupForm">
-        {groupIndex > groups.length - 1 ? (
+        {groupIndex > groups.length - 1 || groupIndex < 0 ? (
           <GroupForm
             name={""}
             contactInfo={""}
@@ -188,7 +216,7 @@ function MyGroups(props: { id: any }) {
         )}
       </div>
       <div className="MyGroups-MemberList">
-        {groupIndex > groups.length - 1 ? (
+        {groupIndex > groups.length - 1 || groupIndex < 0 ? (
           <MemberList
             memberList={fakeMembersList}
             toggleMemberModal={toggleMemberModal}

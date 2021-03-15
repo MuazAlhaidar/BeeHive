@@ -13,7 +13,6 @@ interface IProps {
 function GroupsForm({
   name,
   contactInfo,
-  removeGroup,
   toggleGroupEditModal,
   toggleEmailModal,
   toggleConfirmationModal,

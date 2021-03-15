@@ -3,16 +3,22 @@ import "../../CSS/Groups/GroupsEdit.css";
 
 interface IProps {
   showModal: boolean;
+  curGroup: {
+    name: string;
+    contactInfo: string;
+  };
+  setCurGroup: (curGroup: { name: string; contactInfo: string }) => void;
   setShowModal: (showModal: boolean) => void;
   editGroup: (name: string, contactInfo: string) => void;
 }
 
-function GroupsEdit({ showModal, setShowModal, editGroup }: IProps) {
-  const [curGroup, setCurGroup] = React.useState({
-    name: "",
-    contactInfo: "",
-  });
-
+function GroupsEdit({
+  showModal,
+  setShowModal,
+  editGroup,
+  curGroup,
+  setCurGroup,
+}: IProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     editGroup(curGroup.name, curGroup.contactInfo);
