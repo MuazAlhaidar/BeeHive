@@ -6,6 +6,7 @@ import EmailModal from "../Components/EmailModal";
 import EventEdit from "../Components/Events/EventsEdit";
 import EventMemberModal from "../Components/Events/EventMemberModal";
 import TransferManagerModal from "../Components/TransferManagerModal";
+import ConfirmationModal from "../Components/ConfirmationModal";
 import * as API from "../api/Event";
 
 interface MemberInfo {
@@ -62,6 +63,9 @@ function MyEvents(props: { id: any }) {
     showTransferManagerModal,
     setShowTransferManagerModal,
   ] = React.useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = React.useState(
+    false
+  );
 
   React.useEffect(() => {
     reload(props.id).then((res) => setEvents(res));
@@ -81,6 +85,10 @@ function MyEvents(props: { id: any }) {
 
   const toggleTransferManagerModal = () => {
     setShowTransferManagerModal(!showTransferManagerModal);
+  };
+
+  const toggleConfirmationModal = () => {
+    setShowConfirmationModal(!showConfirmationModal);
   };
 
   const selectEvent = (i: number) => {
@@ -172,6 +180,13 @@ function MyEvents(props: { id: any }) {
         showModal={showTransferManagerModal}
         setShowModal={setShowTransferManagerModal}
       />
+      <ConfirmationModal
+        showModal={showConfirmationModal}
+        setShowModal={setShowConfirmationModal}
+        removeFunction={() => {
+          removeEvent(eventIndex);
+        }}
+      />
       <div className="MyEvents-EventList">
         <EventList
           eventList={events}
@@ -194,6 +209,7 @@ function MyEvents(props: { id: any }) {
             toggleEventEditModal={toggleEventEditModal}
             toggleEventMemberModal={toggleEventMemberModal}
             toggleTransferManagerModal={toggleTransferManagerModal}
+            toggleConfirmationModal={toggleConfirmationModal}
           />
         ) : (
           <EventsForm
@@ -209,6 +225,7 @@ function MyEvents(props: { id: any }) {
             toggleEventEditModal={toggleEventEditModal}
             toggleEventMemberModal={toggleEventMemberModal}
             toggleTransferManagerModal={toggleTransferManagerModal}
+            toggleConfirmationModal={toggleConfirmationModal}
           />
         )}
       </div>

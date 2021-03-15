@@ -7,6 +7,7 @@ interface IProps {
   removeGroup: () => void;
   toggleGroupEditModal: () => void;
   toggleEmailModal: () => void;
+  toggleConfirmationModal: () => void;
 }
 
 function GroupsForm({
@@ -15,6 +16,7 @@ function GroupsForm({
   removeGroup,
   toggleGroupEditModal,
   toggleEmailModal,
+  toggleConfirmationModal,
 }: IProps) {
   return (
     <div className="GroupsForm">
@@ -42,7 +44,10 @@ function GroupsForm({
           </button>
         </div>
         <div className="GroupsForm-DarkButtonGroup">
-          <button className="GroupsForm-DarkButton" onClick={removeGroup}>
+          <button
+            className="GroupsForm-DarkButton"
+            onClick={toggleConfirmationModal}
+          >
             Delete Group
           </button>
         </div>

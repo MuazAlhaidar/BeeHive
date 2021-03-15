@@ -15,6 +15,7 @@ interface EventInfo {
   toggleEmailModal: () => void;
   toggleEventMemberModal: () => void;
   toggleTransferManagerModal: () => void;
+  toggleConfirmationModal: () => void;
 }
 
 function EventsForm({
@@ -28,6 +29,7 @@ function EventsForm({
   toggleEventEditModal,
   toggleEventMemberModal,
   toggleTransferManagerModal,
+  toggleConfirmationModal,
 }: EventInfo) {
   const quote = `Come join me at the ${name} event!`;
   const hashtags = ["BeeHive"];
@@ -110,7 +112,10 @@ function EventsForm({
           </button>
         </div>
         <div className="EventsForm-DarkButtonGroup">
-          <button className="EventsForm-DarkButton" onClick={removeEvent}>
+          <button
+            className="EventsForm-DarkButton"
+            onClick={toggleConfirmationModal}
+          >
             Delete Event
           </button>
         </div>

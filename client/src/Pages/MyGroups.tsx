@@ -5,6 +5,7 @@ import MemberList from "../Components/Members/MemberList";
 import EmailModal from "../Components/EmailModal";
 import MemberModal from "../Components/Members/MemberModal";
 import GroupsEdit from "../Components/Groups/GroupsEdit";
+import ConfirmationModal from "../Components/ConfirmationModal";
 import "../CSS/Groups/MyGroups.css";
 import * as API from "../api/Groups";
 
@@ -58,6 +59,9 @@ function MyGroups(props: { id: any }) {
   const [showMembersEditModal, setShowMembersEditModal] = React.useState(false);
   const [showEmailModal, setShowEmailModal] = React.useState(false);
   const [showGroupEditModal, setShowGroupEditModal] = React.useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = React.useState(
+    false
+  );
 
   const toggleMemberModal = () => {
     setShowMembersEditModal(!showMembersEditModal);
@@ -69,6 +73,10 @@ function MyGroups(props: { id: any }) {
 
   const toggleGroupEditModal = () => {
     setShowGroupEditModal(!showGroupEditModal);
+  };
+
+  const toggleConfirmationModal = () => {
+    setShowConfirmationModal(!showConfirmationModal);
   };
 
   React.useEffect(() => {
@@ -125,6 +133,13 @@ function MyGroups(props: { id: any }) {
         setShowModal={setShowGroupEditModal}
         editGroup={editGroup}
       />
+      <ConfirmationModal
+        showModal={showConfirmationModal}
+        setShowModal={setShowConfirmationModal}
+        removeFunction={() => {
+          removeGroup(groupIndex);
+        }}
+      />
       {groupIndex > groups.length - 1 ? (
         <MemberModal
           allMembers={emptyMembersList}
@@ -157,6 +172,7 @@ function MyGroups(props: { id: any }) {
             }}
             toggleEmailModal={toggleEmailModal}
             toggleGroupEditModal={toggleGroupEditModal}
+            toggleConfirmationModal={toggleConfirmationModal}
           />
         ) : (
           <GroupForm
@@ -167,6 +183,7 @@ function MyGroups(props: { id: any }) {
             }}
             toggleEmailModal={toggleEmailModal}
             toggleGroupEditModal={toggleGroupEditModal}
+            toggleConfirmationModal={toggleConfirmationModal}
           />
         )}
       </div>

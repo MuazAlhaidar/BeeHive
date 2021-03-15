@@ -54,7 +54,7 @@ function App() {
               </Link>
               {name === "" ? (
                 <Link className="App-link" to="/LogIn">
-                  Log In
+                  Log In/Sign Up
                 </Link>
               ) : (
                 <>
