@@ -8,6 +8,7 @@ import SignUp from "./Pages/SignUp";
 import ContactUs from "./Pages/ContactUs";
 import AllEvents from "./Pages/AllEvents";
 import Leaderboard from "./Pages/LeaderboardPage";
+import Settings from "./Pages/SettingsPage";
 import LogoAndTitle from "./Components/LogoAndTitle";
 import ResetPass from "./Pages/ResetPass";
 import ResetReq from "./Pages/ResetReq";
@@ -96,6 +97,9 @@ function App() {
             </Route>
             <Route path="/Leaderboard">
               <Leaderboard isOwner={owner} />
+            </Route>
+            <Route path="/Settings">
+              <Settings />
             </Route>
             <Route path="/resetPassword">
               <ResetPass />

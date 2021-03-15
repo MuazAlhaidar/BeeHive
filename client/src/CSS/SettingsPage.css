@@ -1,0 +1,61 @@
+.SettingsPage,
+.SettingsPage-Form,
+.SettingsPage-FormDiv,
+.SettingsPage-InputTitle,
+.SettingsPage-Input,
+.SettingsPage-Buttons,
+.SettingsPage-LigtButton {
+}
+
+.SettingsPage {
+  display: flex;
+  border: 1px solid black;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.SettingsPage-FormDiv {
+  border: solid 2px lightgray;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 5px 5px 5px gray;
+  height: 300px;
+  width: 400px;
+  color: #ff9442;
+  flex-direction: column;
+  padding-top: 15px;
+}
+
+.SettingsPage-Input {
+  border: solid 2px lightgray;
+  box-shadow: 2px 2px 5px gray;
+  border-radius: 5px;
+  height: 35px;
+  width: 295px;
+}
+
+.SettingsPage-Buttons {
+  display: flex;
+  justify-content: space-around;
+  font-size: 20px;
+  font-weight: bold;
+  height: 50px;
+  padding: 30px 15px 10px 15px;
+}
+
+.SettingsPage-LigtButton {
+  background-color: #ffffff;
+  border: 2px solid lightgray;
+  color: #ff9442;
+  box-shadow: 3px 3px 5px gray;
+  width: 130px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.SettingsPage-InputTitle {
+  text-align: left;
+  padding-left: 50px;
+  font-weight: bold;
+}

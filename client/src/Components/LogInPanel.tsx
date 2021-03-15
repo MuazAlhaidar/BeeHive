@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../CSS/LogInPanel.css";
 
-function LogInPanel(props:{changeUser:any}) {
+function LogInPanel(props: { changeUser: any }) {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -28,7 +28,12 @@ function LogInPanel(props:{changeUser:any}) {
       </form>
       <div className="LoginPanel-Buttons">
         <button className="LoginPanel-LoginAsGuest">Login as Guest</button>
-              <button className="LoginPanel-Login" onClick={() => props.changeUser(username,password)}>Login</button>
+        <button
+          className="LoginPanel-Login"
+          onClick={() => props.changeUser(username, password)}
+        >
+          Login
+        </button>
       </div>
       <Link className="LoginPanel-ForgotPassword" to="/ForgotPassword">
         Forgot Password?
