@@ -2,6 +2,7 @@ import React from "react";
 import "../CSS/Events/MyEvents.css";
 import EventList from "../Components/Events/EventsList(view-only)";
 import EventsForm from "../Components/Events/EventsForm(view-only)";
+import EventsFormNonMember from "../Components/Events/EventsForm(NonMember)";
 import * as API from "../api/Event";
 
 interface MemberInfo {
@@ -16,6 +17,10 @@ interface EventInfo {
   date: string;
   description: string;
   members: Array<MemberInfo> | null;
+}
+
+interface IProp {
+  name: string;
 }
 
 async function reload() {
@@ -45,7 +50,7 @@ async function reload() {
   return events;
 }
 
-function MyEvents() {
+function MyEvents({ name }: IProp) {
   const [events, setEvents] = React.useState(Array<EventInfo>());
   React.useEffect(() => {
     reload().then((res) => setEvents(res));
@@ -63,7 +68,25 @@ function MyEvents() {
         <EventList eventList={events} selectEvent={selectEvent} />
       </div>
       <div className="MyEvents-EventForm">
-        {eventIndex > events.length - 1 ? (
+        {name === "" ? (
+          eventIndex > events.length - 1 ? (
+            <EventsFormNonMember
+              name={""}
+              address={""}
+              time={""}
+              date={""}
+              description={""}
+            />
+          ) : (
+            <EventsFormNonMember
+              name={events[eventIndex].name}
+              address={events[eventIndex].address}
+              time={events[eventIndex].time}
+              date={events[eventIndex].date}
+              description={events[eventIndex].description}
+            />
+          )
+        ) : eventIndex > events.length - 1 ? (
           <EventsForm
             name={""}
             address={""}
@@ -80,6 +103,23 @@ function MyEvents() {
             description={events[eventIndex].description}
           />
         )}
+        {/* {eventIndex > events.length - 1 ? (
+          <EventsForm
+            name={""}
+            address={""}
+            time={""}
+            date={""}
+            description={""}
+          />
+        ) : (
+          <EventsForm
+            name={events[eventIndex].name}
+            address={events[eventIndex].address}
+            time={events[eventIndex].time}
+            date={events[eventIndex].date}
+            description={events[eventIndex].description}
+          />
+        )} */}
       </div>
     </div>
   );

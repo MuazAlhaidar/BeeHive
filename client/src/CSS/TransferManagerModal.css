@@ -1,0 +1,108 @@
+.TransferManagerModal-Background,
+.TransferManagerModal-Div,
+.TransferManagerModal-TopBar,
+.TransferManagerModal-MemberList,
+.TransferManagerModal-MemberInfo-lightgrey,
+.TransferManagerModal-MemberInfo-white,
+.TransferManagerModal-FirstName,
+.TransferManagerModal-LastName,
+.TransferManagerModal-SetManagerButton,
+.TransferManagerModal-BottomBar,
+.TransferManagerModal-LightButton,
+.TransferManagerModal-Buttons {
+  display: flex;
+}
+
+.TransferManagerModal-Background {
+  width: 100%;
+  height: 95%;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.TransferManagerModal-Div {
+  border: 2px solid #ff9442;
+  border-radius: 8px;
+  background-color: white;
+  flex-direction: column;
+  width: 70vh;
+  height: 80vh;
+}
+
+.TransferManagerModal-TopBar {
+  padding-left: 10px;
+  min-height: 50px;
+  align-items: center;
+  border-bottom: 2px solid #ff9442;
+}
+
+.TransferManagerModal-BottomBar {
+  min-height: 50px;
+  border-top: 2px solid #ff9442;
+  padding: 5px 10px 5px 0px;
+}
+
+.TransferManagerModal-MemberList {
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.TransferManagerModal-MemberInfo-lightgrey,
+.TransferManagerModal-MemberInfo-white {
+  min-height: 40px;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.TransferManagerModal-MemberInfo-lightgrey {
+  background-color: #dfdfdf;
+}
+
+.TransferManagerModal-FirstName {
+  padding-left: 40px;
+}
+
+.TransferManagerModal-FirstName,
+.TransferManagerModal-LastName {
+  width: 22vh;
+  text-align: left;
+}
+
+.TransferManagerModal-SetManagerButton {
+  border: 2px solid #ff9442;
+  box-shadow: 2px 2px 2px gray;
+  width: fit-content;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: #ff9442;
+  color: #ffffff;
+  margin: 5px 5px;
+}
+
+.TransferManagerModal-SetManagerButton:hover {
+  background-color: #d17f41;
+}
+
+.TransferManagerModal-Buttons {
+  flex-grow: 1;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.TransferManagerModal-LightButton {
+  border: 2px solid #ff9442;
+  box-shadow: 2px 2px 2px gray;
+  width: fit-content;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: #ffffff;
+  color: #ff9442;
+  margin-right: 15px;
+}

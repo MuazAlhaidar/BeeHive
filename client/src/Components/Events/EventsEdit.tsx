@@ -3,6 +3,20 @@ import "../../CSS/Events/EventsEdit.css";
 
 interface IProps {
   showModal: boolean;
+  curEvent: {
+    name: string;
+    address: string;
+    time: string;
+    date: string;
+    description: string;
+  };
+  setCurEvent: (curEvent: {
+    name: string;
+    address: string;
+    time: string;
+    date: string;
+    description: string;
+  }) => void;
   setShowModal: (showModal: boolean) => void;
   editEvent: (
     name: string,
@@ -13,15 +27,13 @@ interface IProps {
   ) => void;
 }
 
-function EventEdit({ showModal, setShowModal, editEvent }: IProps) {
-  const [curEvent, setCurEvent] = React.useState({
-    name: "",
-    address: "",
-    time: "",
-    date: "",
-    description: "",
-  });
-
+function EventEdit({
+  showModal,
+  setShowModal,
+  editEvent,
+  curEvent,
+  setCurEvent,
+}: IProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     editEvent(
@@ -32,12 +44,10 @@ function EventEdit({ showModal, setShowModal, editEvent }: IProps) {
       curEvent.description
     );
     setShowModal(!showModal);
-    setCurEvent({ name: "", address: "", time: "", date: "", description: "" });
   };
 
   const handleCancel = () => {
     setShowModal(!showModal);
-    setCurEvent({ name: "", address: "", time: "", date: "", description: "" });
   };
 
   return (

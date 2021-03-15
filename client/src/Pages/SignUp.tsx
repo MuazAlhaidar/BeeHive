@@ -5,11 +5,13 @@ import * as API from "../api/User";
 import { Redirect } from "react-router-dom";
 import "../CSS/LogIn.css";
 
-function LogIn(props: { setName: any; setId: any, setOwner:any }) {
+function SignUp(props: { setName: any; setId: any; setOwner: any }) {
   const [user, setUser] = React.useState("");
   const [status, setStatus] = React.useState(-1);
 
   async function checkuser(
+    _firstname: string,
+    _lastname: string,
     _username: string,
     _password: string,
     _email: string
@@ -25,6 +27,8 @@ function LogIn(props: { setName: any; setId: any, setOwner:any }) {
     }
 
     let res = await API.new_user({
+      firstname: _firstname,
+      lastname: _lastname,
       username: _username,
       password: _password,
       email: _email,
@@ -87,4 +91,4 @@ function LogIn(props: { setName: any; setId: any, setOwner:any }) {
   );
 }
 
-export default LogIn;
+export default SignUp;

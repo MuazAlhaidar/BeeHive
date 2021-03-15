@@ -1,25 +1,21 @@
 import React from "react";
 import "../../CSS/Groups/GroupsForm.css";
 
-interface MemberInfo {
-  username: string;
-  id: number;
-}
-
 interface IProps {
   name: string;
   contactInfo: string;
   removeGroup: () => void;
   toggleGroupEditModal: () => void;
   toggleEmailModal: () => void;
+  toggleConfirmationModal: () => void;
 }
 
 function GroupsForm({
   name,
   contactInfo,
-  removeGroup,
   toggleGroupEditModal,
   toggleEmailModal,
+  toggleConfirmationModal,
 }: IProps) {
   return (
     <div className="GroupsForm">
@@ -47,7 +43,10 @@ function GroupsForm({
           </button>
         </div>
         <div className="GroupsForm-DarkButtonGroup">
-          <button className="GroupsForm-DarkButton" onClick={removeGroup}>
+          <button
+            className="GroupsForm-DarkButton"
+            onClick={toggleConfirmationModal}
+          >
             Delete Group
           </button>
         </div>
