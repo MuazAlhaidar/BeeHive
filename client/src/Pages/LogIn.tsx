@@ -18,6 +18,7 @@ function LogIn(props: { setName: any; setId: any, setOwner:any }) {
           setUser(username);
           setStatus(1);
           props.setName(username);
+          console.log("LOGIN", res)
           props.setId(res[0]);
           props.setOwner(res[1]);
           return true;

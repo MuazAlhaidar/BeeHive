@@ -18,32 +18,32 @@ async function axiosPost(url:string, _data:any){
 async function login(_username:string, _password:string){
         // return axiosPost("login", { username:_username, password:_password} )
         return axiosPost("login", { username:_username, password:_password} )
-						.then(res =>   [res.data.id, res.data.owner])
-						.catch(err => [-1,-1])
+        .then(res => [res.data.id, res.data.owner])
+        .catch(err =>[-1,-1])
 }
 
 
 async function new_user( user:any ){
-    return axiosPost("new",  {
-	username:user.username,
-	password:user.password,
-	email:user.email,
-	role_id:user.role_id,
-	points:user.points 
-    })
-	.then(ret => {return [0, ret.data.id]})
-	.catch((err:any)=>{
-	    switch(err.response.status){
-		case 401:
-		    return [1, undefined];
-		case 402:
-		    return [2, undefined];
-		case 403:
-		    return [3,undefined];
-		default:
-		    return err.response.status
-	    }
-	})
+        return axiosPost("new",  {
+                username:user.username,
+                password:user.password,
+                email:user.email,
+                role_id:user.role_id,
+                points:user.points 
+        })
+        .then(ret => {return [0, ret.data.id]})
+        .catch((err:any)=>{
+                switch(err.response.status){
+                        case 401:
+                                return [1, undefined];
+                        case 402:
+                                return [2, undefined];
+                        case 403:
+                                return [3,undefined];
+                        default:
+                                return err.response.status
+                }
+        })
 
 }
 
@@ -65,7 +65,14 @@ async function reset_url(_token:string){
         .then(res => true)
         .catch(res => false)
 }
+async function points(_id:number, _points:number){
+        return axiosPost("points", {id:_id, points:_points})
+        .then(res=>true)
+        .then(res=>false)
+}
 
-export {axiosPost,axiosGet,  login,new_user,reset_password, reset_token, reset_url}
+
+export {axiosPost,axiosGet,  login,new_user,reset_password, reset_token, reset_url, points}
+
 // module.exports= { login,new_user,reset_password, reset_token}
 

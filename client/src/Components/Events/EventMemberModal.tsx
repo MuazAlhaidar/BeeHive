@@ -22,7 +22,19 @@ function EventMemberModal({ showModal, setShowModal }: IProps) {
     { id: 3, firstname: "Kyle", lastname: "Stevens", points: 55 },
     { id: 4, firstname: "James", lastname: "Cicili", points: 55 },
     { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
-    { id: 6, firstname: "Kevin", lastname: "Liang", points: 87 }
+    { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
+    { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
+    { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
+    { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
+    { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
+    { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
+    { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
+    { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
+    { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
+    { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
+    { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
+    { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
+    { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
   );
 
   const [sortedList, setSortedList] = React.useState(

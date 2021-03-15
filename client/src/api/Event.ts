@@ -103,10 +103,13 @@ async function Transfer(_Event: number, _User: number) {
 }
 
 async function getEventManager(_id: number) {
-  return axiosGet("man", { id: _id })
+        console.log(_id)
+  return axiosPost("man", { id: _id })
     .then((res) => res.data)
-    .catch((err) => undefined);
+    .catch((err) => {console.log(err); return []});
 }
+async function get_members(){return axiosPost("get_members", {})};
+
 
 export {
   axiosGet,
@@ -120,5 +123,6 @@ export {
   Signin,
   Transfer,
   getEventManager,
-};
+  get_members,
+}
 // module.exports= { login,new_user,reset_password, reset_token}

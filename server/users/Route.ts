@@ -5,6 +5,11 @@ const Sequelize = require("sequelize")
 const {or, and, gt, lt} = Sequelize.Op;
 const Other = require("./Other.ts")
 const nodemailer = require("nodemailer")
+const _config = require("../config/keys.ts")
+const sequelize = new Sequelize(_config.database, _config.user, _config.pass, {
+    dialect: 'mariadb',
+    logging: false
+})
 
 // @route POST api/users/new
 // @desc Crete a new user
@@ -231,5 +236,7 @@ router.post("/points", async (req,res)=>{
     console.log(test)
     res.sendStatus(200);
 })
+
+
 export {}
 module.exports = router;

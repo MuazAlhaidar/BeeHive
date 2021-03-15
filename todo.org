@@ -2,19 +2,27 @@
 #+AUTHOR: Anon
 [[https://github.com/HawaiinPizza/beehive/issues?q=assignee%3AHawaiinPizza+is%3Aopen][My issues]] 
 [[https://youneedawiki.com/app/page/1AfpKY4ZLh0dtjsUQ6efOzJrXFSs19ALv][Documenation]]
-* Misc
-  - [ ] User first/last name :: Used for see members in my groups, leaderboard, and myevents page seeing all those who are RSVP
-  - [ ] Group props id :: Send hte users id to the groups, and don't show my grousp if not owner
-* Frontend Middleware
-  - [ ] Add/Remove members from groups
-  - [ ] Event Signin
-  - [ ] RSVP to event
-  - [ ] Email to groups
-  - [ ] lEaderboard
-  - [ ] Give/Take member points
-  - [ ] Transfer Event Manager role
-	- [ ] Single sign in
 
-     
-     
-     
+* Misc
+	- [ ] User first/last name :: Used for see members in
+		+ + mygroups,
+		+ + leaderboard
+		+ + myevents page seeing all those who are RSVP
+	- [ ] Group props id :: Send hte users id to the groups, and don't show my grousp if not owner
+* Frontend Middleware
+	- [ ] Add/Remove members from groups
+	- [ ] Event Signin
+	- [ ] RSVP to event :: a user can see an event in all events, and invite themselves to it
+	- [ ] Email to groups
+	- [ ] lEaderboard
+	- [ ] Give/Take member points :: myevents can do it through myevents, while owners can chagne points thorugh leaderboard
+	- [ ] Transfer Event Manager role :: 
+	- [ ] Save signin thorugh cookie
+	- [ ] changeemail
+	- [ ] merge master with finish-project
+	- [ ] firebase sequelize :: if possiple, try to get it working with firebase
+* Future Things to do
+	- [ ] Refactor :: Try to slim down the code/make it easier to run better
+	- [ ] test cases :: Mkae test cases/run them, wtih  the test plan
+	- [ ]  :: 
+		
