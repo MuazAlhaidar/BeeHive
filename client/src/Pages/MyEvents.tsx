@@ -66,6 +66,13 @@ function MyEvents(props: { id: any }) {
   const [showConfirmationModal, setShowConfirmationModal] = React.useState(
     false
   );
+  const [curEvent, setCurEvent] = React.useState({
+    name: "",
+    address: "",
+    time: "",
+    date: "",
+    description: "",
+  });
 
   React.useEffect(() => {
     reload(props.id).then((res) => setEvents(res));
@@ -94,6 +101,21 @@ function MyEvents(props: { id: any }) {
   const selectEvent = (i: number) => {
     let index = i === undefined ? 0 : i;
     setEventIndex(index);
+    i === undefined
+      ? setCurEvent({
+          name: "",
+          address: "",
+          time: "",
+          date: "",
+          description: "",
+        })
+      : setCurEvent({
+          name: events[index].name,
+          address: events[index].address,
+          time: events[index].time,
+          date: events[index].date,
+          description: events[index].description,
+        });
   };
 
   const addEvent = async (
@@ -124,6 +146,14 @@ function MyEvents(props: { id: any }) {
       members: null,
     });
     setEvents(e);
+    setEventIndex(events.length);
+    setCurEvent({
+      name: name,
+      address: address,
+      time: time,
+      date: date,
+      description: description,
+    });
   };
 
   const editEvent = async (
@@ -151,6 +181,13 @@ function MyEvents(props: { id: any }) {
       e[eventIndex].date = date;
       e[eventIndex].description = description;
       setEvents(e);
+      setCurEvent({
+        name: events[eventIndex].name,
+        address: events[eventIndex].address,
+        time: events[eventIndex].time,
+        date: events[eventIndex].date,
+        description: events[eventIndex].description,
+      });
     }
   };
 
@@ -160,8 +197,16 @@ function MyEvents(props: { id: any }) {
       const e = events.slice();
       e.splice(i, 1);
       setEvents(e);
-      setEventIndex(0);
+      setEventIndex(-1);
     }
+
+    setCurEvent({
+      name: "",
+      address: "",
+      time: "",
+      date: "",
+      description: "",
+    });
   };
 
   return (
@@ -171,6 +216,8 @@ function MyEvents(props: { id: any }) {
         showModal={showEventEditModal}
         setShowModal={setShowEventEditModal}
         editEvent={editEvent}
+        curEvent={curEvent}
+        setCurEvent={setCurEvent}
       />
       <EventMemberModal
         showModal={showEventMemberModal}
@@ -195,7 +242,7 @@ function MyEvents(props: { id: any }) {
         />
       </div>
       <div className="MyEvents-EventForm">
-        {eventIndex > events.length - 1 ? (
+        {eventIndex > events.length - 1 || eventIndex < 0 ? (
           <EventsForm
             name={""}
             address={""}
