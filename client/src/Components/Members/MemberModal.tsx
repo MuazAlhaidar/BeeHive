@@ -11,6 +11,7 @@ interface MemberInfo {
 interface IProps {
   allMembers: Array<MemberInfo>;
   memberList: Array<MemberInfo>;
+  setMemberList: (memberList: Array<MemberInfo>) => void;
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
 }
@@ -18,12 +19,13 @@ interface IProps {
 function MemberModal({
   allMembers,
   memberList,
+  setMemberList,
   showModal,
   setShowModal,
 }: IProps) {
   function isInGroup(value: MemberInfo, index: number, array: MemberInfo[]) {
     let retme = true;
-    memList.forEach((m) => {
+    memberList.forEach((m) => {
       if (m.id === value.id) {
         retme = false;
       }
@@ -31,8 +33,11 @@ function MemberModal({
     return retme;
   }
 
-  const [memList, setMemList] = React.useState(memberList);
+  // const [memList, setMemList] = React.useState(memberList);
+  const [pastIn, setpastIn] = React.useState(memberList);
+  // Used to removign changes made
   let filteredList = allMembers.filter(isInGroup);
+  const [pastOut, setpastOut] = React.useState(filteredList);
 
   const handleSave = () => {
     setShowModal(!showModal);
@@ -43,15 +48,15 @@ function MemberModal({
   };
 
   const addToGroup = (member: MemberInfo) => {
-    const m = memList.slice();
+    const m = memberList.slice();
     m.push(member);
-    setMemList(m);
+    setMemberList(m);
   };
 
   const removeFromGroup = (index: number) => {
-    const m = memList.slice();
+    const m = memberList.slice();
     m.splice(index, 1);
-    setMemList(m);
+    setMemberList(m);
   };
 
   return (
@@ -90,7 +95,7 @@ function MemberModal({
               <div className="MemberModal-InGroup">
                 {!Array.isArray(memberList) || !memberList.length
                   ? null
-                  : memList.map((curMem: MemberInfo, index: number) => {
+                  : memberList.map((curMem: MemberInfo, index: number) => {
                       return (
                         <div className="MemberModal-InGroupMembers">
                           <div className="MemberModal-MemberDiv">

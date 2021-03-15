@@ -99,25 +99,25 @@ router.post("/delete", (req, res)=>{
         .catch( err => { res.status(404).send(err); return})
 })
 
-/* @route POST api/events/invite
- * @desc Invite a set of users to an event
+/* @route POST api/events/signin
+ * @desc Sign in a number of people
  * @body {Event:EventId, Invited:[User1Id, User2Id]}
  */
-router.post("/invite", (req, res)=>{
+router.post("/signin", (req, res)=>{
         let users = req.body.Invited
         let Event = req.body.Event
         users.forEach((value)=> {
-                EventMember.create({ User: value,Event: Event,Attended: false ,RSVP: true ,Manager:false })
+                EventMember.create({ User: value,Event: Event,Attended: true ,RSVP: false ,Manager:false })
                 .catch(err => res.status(404).send("Error in RSVPing people"))
         })
         res.sendStatus(200)
 
 })
 
-/* @route POST api/envite/signin
+/* @route POST api/envite/rsvp
  * @desc User signs in to an event
  *@body {Event:EventId, User:UserId} */
-router.post("/signin", (req, res)=>{
+router.post("/rsvp", (req, res)=>{
         let user = req.body.User
         let event = req.body.Event
         EventMember.update({Attended:true}, {where:{Event:event, user:user}})
