@@ -3,6 +3,7 @@ import TwitterLogo from "../../Images/Twitter_Social_Icon_Rounded_Square_Color.p
 import FacebookLogo from "../../Images/f_logo_RGB-Blue_58.png";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import "../../CSS/Events/EventsForm(view-only).css";
+import * as API from "../../api/Event";
 
 interface EventInfo {
   name: string;
@@ -16,7 +17,6 @@ function EventsForm({ name, address, time, date, description }: EventInfo) {
   const [isRSVP, setIsRSVP] = React.useState(false);
 
   const setRSVP = () => {
-    console.log("Reserved");
     setIsRSVP(!isRSVP);
   };
 
