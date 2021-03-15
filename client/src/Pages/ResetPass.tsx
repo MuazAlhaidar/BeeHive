@@ -8,6 +8,14 @@ export default function Display(props: {}) {
   const search = useLocation().search;
   const token = new URLSearchParams(search).get("token");
 
+  API.reset_url("" + token).then((res) => {
+    if (res) {
+      setStatus(1);
+    } else {
+      setStatus(-1);
+    }
+  });
+
   switch (status) {
     case 0:
       return <> </>;
