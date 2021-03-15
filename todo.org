@@ -13,6 +13,7 @@
   - [ ] lEaderboard
   - [ ] Give/Take member points
   - [ ] Transfer Event Manager role
+	- [ ] Single sign in
 
      
      
