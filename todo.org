@@ -21,6 +21,8 @@
 	- [ ] changeemail
 	- [ ] merge master with finish-project
 	- [ ] firebase sequelize :: if possiple, try to get it working with firebase
+** RSVP
+   - [ ] Make allevents have an attriubte that has is isRSVP
 * Future Things to do
 	- [ ] Refactor :: Try to slim down the code/make it easier to run better
 	- [ ] test cases :: Mkae test cases/run them, wtih  the test plan
