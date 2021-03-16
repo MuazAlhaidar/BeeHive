@@ -91,6 +91,7 @@ function MyEvents({ name, id }: IProp) {
     setEventIndex(index);
   };
 
+  console.log(events)
   return (
     <div className="MyEvents">
       <div className="MyEvents-EventList">

@@ -17,21 +17,21 @@ const sequelize = new Sequelize(_config.database, _config.user, _config.pass, {
  */
 router.get("/getall", (req,res)=>{
         const id = parseInt(req.query.id)
-        if(! isNaN(id)){
-                console.log("MOON")
-                const query = sequelize.query(`select events.*, eventmembers.Manager, eventmembers.RSVP from events join eventmembers on events.id= eventmembers.Event AND eventmembers.User=${req.query.id};`)
+        if(! isNaN(id) && id!=-1){
+                const query = sequelize.query(`select events.*,  eventmembers.RSVP from events join eventmembers on events.id= eventmembers.Event ;`)
                 .then(ret => {
-                        console.log("RET", ret[0])
+                        console.log(ret[0])
                         res.status(200).send(ret[0]);
                         return;
                 })
                 .catch(err => {res.sendStatus(404)})
         }
         else{
-
+                console.log("SUN")
                 Event.findAll()
                 .then(ret => {
                         const values = ret.map(x => x.dataValues);
+                        console.log(values)
                         res.status(200).send(values);
                 })
                 .catch(err => {res.sendStatus(404)})

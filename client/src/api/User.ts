@@ -1,6 +1,6 @@
 const axios = require("axios")
 // Change port to be dynamic,
-let baseurl = "http://localhost:4200/api/users/";
+let baseurl = "http://10.1.10.63:4200/api/users/";
 
 async function axiosGet(url:string, _data:any){
         // return axios.get(baseurl+url, { data: {_data}  })

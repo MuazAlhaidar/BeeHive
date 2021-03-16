@@ -20,15 +20,47 @@ interface EventInfo {
 }
 
 function EventsForm({ name, address, time, date, description, relation }: EventInfo) {
-  const [isRSVP, setIsRSVP] = React.useState(false);
+        // const [relation, setIsRSVP] = React.useState(relation);
+        alert(relation)
+        const setRSVP = () => {
+                if(relation === Relation.RSVP){
+                        relation = Relation.NotRSVP
+                }
+                else{
+                        relation = Relation.RSVP
+                }
+        };
+        const returnRSVP = () =>{
+                switch(relation){
+                        case Relation.Manager:
+                                return <>MEME</>
+                                break;
+                        case Relation.RSVP:
+                                return (<div className="EventsForm-view-only-RSVPChecked">
+                                        <form>
+                                                <label className="EventsForm-view-only-RSVPForm">
+                                                        RSVP
+                                                        <input type="checkbox" defaultChecked={true} onChange={setRSVP} />
+                                                </label>
+                                        </form>
+                                </div>)
+                                break;
+                        case Relation.NotRSVP:
+                                return (<div className="EventsForm-view-only-RSVPUnChecked" >
+                                        <form>
+                                                <label className="EventsForm-view-only-RSVPForm">
+                                                        RSVP
+                                                        <input type="checkbox" defaultChecked={false} onChange={setRSVP} />
+                                                </label>
+                                        </form>
+                                </div>)
+                                break;
+                }
+        }
 
 
-  const setRSVP = () => {
-    setIsRSVP(!isRSVP);
-  };
-
-  const quote = `Come join me at the ${name} event!`;
-  const hashtags = ["BeeHive"];
+                const quote = `Come join me at the ${name} event!`;
+                const hashtags = ["BeeHive"];
 
   return (
     <div className="EventsForm-view-only">
@@ -84,20 +116,9 @@ function EventsForm({ name, address, time, date, description, relation }: EventI
         </label>
         <div className="EventsForm-view-only-Description">{description}</div>
       </div>
-      <div
-        className={
-          isRSVP
-            ? "EventsForm-view-only-RSVPChecked"
-            : "EventsForm-view-only-RSVPUnChecked"
-        }
-      >
-        <form>
-          <label className="EventsForm-view-only-RSVPForm">
-            RSVP
-            <input type="checkbox" defaultChecked={false} onChange={setRSVP} />
-          </label>
-        </form>
-      </div>
+            
+            {returnRSVP()}
+            
     </div>
   );
 }
