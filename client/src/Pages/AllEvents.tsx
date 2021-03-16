@@ -9,6 +9,7 @@ interface MemberInfo {
   name: string;
   points: number;
 }
+
 enum Relation{
         Manager,
         RSVP,
@@ -121,6 +122,7 @@ function MyEvents({ name, id }: IProp) {
             time={""}
             date={""}
             description={""}
+            relation={Relation.NotRSVP}
           />
         ) : (
           <EventsForm
@@ -129,6 +131,7 @@ function MyEvents({ name, id }: IProp) {
             time={events[eventIndex].time}
             date={events[eventIndex].date}
             description={events[eventIndex].description}
+            relation={events[eventIndex].relation}
           />
         )}
         {/* {eventIndex > events.length - 1 ? (

@@ -5,16 +5,23 @@ import { FacebookShareButton, TwitterShareButton } from "react-share";
 import "../../CSS/Events/EventsForm(view-only).css";
 import * as API from "../../api/Event";
 
+enum Relation{
+        Manager,
+        RSVP,
+        NotRSVP
+}
 interface EventInfo {
   name: string;
   address: string;
   time: string;
   date: string;
   description: string;
+  relation: Relation;
 }
 
-function EventsForm({ name, address, time, date, description }: EventInfo) {
+function EventsForm({ name, address, time, date, description, relation }: EventInfo) {
   const [isRSVP, setIsRSVP] = React.useState(false);
+
 
   const setRSVP = () => {
     setIsRSVP(!isRSVP);
