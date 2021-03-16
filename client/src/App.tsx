@@ -14,7 +14,6 @@ import ResetPass from "./Pages/ResetPass";
 import ResetReq from "./Pages/ResetReq";
 
 function App() {
-
   const [name, setName] = React.useState("");
   const [id, setId] = React.useState("");
   const [owner, setOwner] = React.useState(0);
@@ -34,7 +33,7 @@ function App() {
               <LogoAndTitle />
             </div>
             <div className="App-Links">
-              <Link className="App-link" to="/">
+              <Link className="App-link" to="/AllEvents">
                 All Events
               </Link>
               {name !== "" ? (
@@ -70,8 +69,8 @@ function App() {
             </div>
           </div>
           <Switch>
-            <Route exact path="/">
-              <AllEvents name={name} id={id}/>
+            <Route exact path="/AllEvents">
+              <AllEvents name={name} id={id} />
             </Route>
             <Route path="/LogIn">
               <LogIn setName={setName} setOwner={setOwner} setId={setId} />
@@ -108,12 +107,12 @@ function App() {
             <Route path="/forgotpassword">
               <ResetReq />
             </Route>
+            <Route path="/"></Route>
           </Switch>
         </Router>
       </header>
     </div>
   );
-
 }
 
 export default App;
