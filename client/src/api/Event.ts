@@ -64,8 +64,8 @@ async function update(
     .catch((err) => undefined);
 }
 
-async function getAllEvents() {
-  return axiosGet("getall", undefined)
+async function getAllEvents(_id:number|undefined) {
+  return axiosGet("getall", {id:_id})
     .then((res) => res.data)
     .catch((err) => undefined);
 }
@@ -109,6 +109,9 @@ async function getEventManager(_id: number) {
     .catch((err) => {console.log(err); return []});
 }
 async function get_members(){return axiosPost("get_members", {})};
+
+async function isRSVP(_id:number, _user:number){
+}
 
 
 export {

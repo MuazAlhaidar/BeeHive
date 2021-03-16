@@ -7,7 +7,9 @@ interface IProps {
     address: string,
     time: string,
     date: string,
-    description: string
+    description: string,
+    id: number
+
   ) => void;
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
@@ -20,6 +22,7 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
     time: "",
     date: "",
     description: "",
+    id:-1
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -29,15 +32,16 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
       newEvent.address,
       newEvent.time,
       newEvent.date,
-      newEvent.description
+      newEvent.description,
+      newEvent.id
     );
     setShowModal(!showModal);
-    setNewEvent({ name: "", address: "", time: "", date: "", description: "" });
+    setNewEvent({ name: "", address: "", time: "", date: "", description: "", id:-1 });
   };
 
   const handleCancel = () => {
     setShowModal(!showModal);
-    setNewEvent({ name: "", address: "", time: "", date: "", description: "" });
+    setNewEvent({ name: "", address: "", time: "", date: "", description: "",id:-1 });
   };
 
   return (
@@ -60,6 +64,7 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                       time: newEvent.time,
                       date: newEvent.date,
                       description: newEvent.description,
+                      id: newEvent.id
                     })
                   }
                 />
@@ -83,6 +88,7 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                         time: newEvent.time,
                         date: newEvent.date,
                         description: newEvent.description,
+                        id: newEvent.id
                       })
                     }
                   />
@@ -98,6 +104,7 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                         time: e.target.value,
                         date: newEvent.date,
                         description: newEvent.description,
+                        id: newEvent.id
                       })
                     }
                   />
@@ -113,6 +120,7 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                         time: newEvent.time,
                         date: e.target.value,
                         description: newEvent.description,
+                        id: newEvent.id
                       })
                     }
                   />
@@ -134,6 +142,7 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                       time: newEvent.time,
                       date: newEvent.date,
                       description: e.target.value,
+                      id: newEvent.id
                     })
                   }
                 />

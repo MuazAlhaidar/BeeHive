@@ -9,6 +9,7 @@ interface EventInfo {
   time: string;
   date: string;
   description: string;
+  id: number
 }
 
 interface IProps {
@@ -19,7 +20,8 @@ interface IProps {
     address: string,
     time: string,
     date: string,
-    description: string
+    description: string,
+    id: number
   ) => void;
 }
 
@@ -29,6 +31,7 @@ function EventList({ eventList, selectEvent, addEvent }: IProps) {
   const [showModal, setShowModal] = React.useState(false);
 
   const toggle = () => {
+          console.log("CHECK")
     setShowModal(!showModal);
   };
 

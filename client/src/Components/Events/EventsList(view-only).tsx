@@ -2,12 +2,19 @@ import React from "react";
 import "../../CSS/Events/EventsList.css";
 import Event from "./Event";
 
+enum Relation{
+        Manager,
+        RSVP,
+        NotRSVP
+}
+
 interface EventInfo {
   name: string;
   address: string;
   time: string;
   date: string;
   description: string;
+  relation: Relation
 }
 
 interface IProps {
@@ -21,6 +28,7 @@ function EventList({ eventList, selectEvent }: IProps) {
   return (
     <div>
       {events.map((curEvent, index) => {
+              console.log(curEvent)
         return (
           <Event
             key={`event-${index}`}

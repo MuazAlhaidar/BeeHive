@@ -9,6 +9,11 @@ interface MemberInfo {
   name: string;
   points: number;
 }
+enum Relation{
+        Manager,
+        RSVP,
+        NotRSVP
+}
 
 interface EventInfo {
   name: string;
@@ -17,14 +22,17 @@ interface EventInfo {
   date: string;
   description: string;
   members: Array<MemberInfo> | null;
+  id: number;
+  relation: Relation
 }
 
 interface IProp {
   name: string;
+  id: number|any;
 }
 
-async function reload() {
-  const allevents = await API.getAllEvents();
+async function reload(id:any) {
+  const allevents = await API.getAllEvents(id);
   const events = allevents.map((i: any) => {
     var date_obj = new Date(i.Time);
     let _date =
@@ -38,6 +46,23 @@ async function reload() {
     let _hour = ("0" + hour).slice(-2);
     let _minute = ("0" + minute).slice(-2);
     let _time = _hour + ":" + _minute;
+    let _relation = null
+    {
+
+            console.log(id, i.Manager, i.RSVP, " STATE OF THIS BULLSHTI")
+            if( i.Manager === 1){
+                    console.log(id, " IS MANAGER")
+                    _relation = Relation.Manager
+            }
+            else if (i.RSVP === 1){
+                    console.log(id, " IS RSVP")
+                    _relation = Relation.RSVP
+            }
+            else{
+                    console.log(id, " IS NOT RSVP/MANAGER")
+                    _relation = Relation.NotRSVP
+            }
+    }
     return {
       name: i.Name,
       description: i.Description,
@@ -45,15 +70,18 @@ async function reload() {
       time: _time,
       date: _date,
       members: null,
+      id: i.id,
+      relation: _relation
     };
   });
   return events;
 }
 
-function MyEvents({ name }: IProp) {
+function MyEvents({ name, id }: IProp) {
   const [events, setEvents] = React.useState(Array<EventInfo>());
   React.useEffect(() => {
-    reload().then((res) => setEvents(res));
+        alert(id)
+    reload(id).then((res) => setEvents(res));
   }, []);
   const [eventIndex, setEventIndex] = React.useState(0);
 

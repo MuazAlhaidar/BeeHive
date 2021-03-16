@@ -16,18 +16,32 @@ const sequelize = new Sequelize(_config.database, _config.user, _config.pass, {
  * @desc Get all the events
  */
 router.get("/getall", (req,res)=>{
-        Event.findAll()
-        .then(ret => {
-                const values = ret.map(x => x.dataValues);
-                res.status(200).send(values);
-        })
-        .catch(err => {res.sendStatus(404)})
+        const id = parseInt(req.query.id)
+        if(! isNaN(id)){
+                console.log("MOON")
+                const query = sequelize.query(`select events.*, eventmembers.Manager, eventmembers.RSVP from events join eventmembers on events.id= eventmembers.Event AND eventmembers.User=${req.query.id};`)
+                .then(ret => {
+                        console.log("RET", ret[0])
+                        res.status(200).send(ret[0]);
+                        return;
+                })
+                .catch(err => {res.sendStatus(404)})
+        }
+        else{
+
+                Event.findAll()
+                .then(ret => {
+                        const values = ret.map(x => x.dataValues);
+                        res.status(200).send(values);
+                })
+                .catch(err => {res.sendStatus(404)})
+        }
         // .catch(err => {res.sendStatus(404)})
 
 })
 /* @route POST api/events/new
  * @desc Create a new event
- */
+false*/
 router.post("/new", (req,res)=>{
         let fields=["Name", "Description", "Address", "Time", "Manager"]
         for(let field in fields){
@@ -107,10 +121,31 @@ router.post("/signin", (req, res)=>{
         let users = req.body.Invited
         let Event = req.body.Event
         users.forEach((value)=> {
-                EventMember.create({ User: value,Event: Event,Attended: true ,RSVP: false ,Manager:false })
-                .catch(err => res.status(404).send("Error in RSVPing people"))
         })
         res.sendStatus(200)
+
+})
+
+
+/* @route GET api/events/ami_rsvp
+ * @desc Check if user is rsvp or not or manager
+ * @query: {id: id of event, user: user id}*/
+router.get("/ami_rsvp", async (req,res)=>{
+        try{
+                const event = await EventMember.findOne(
+                        {where:{User:req.query.user, Event:req.query.id}}
+                )
+                if(event === null){                      res.send({status:2}).status(200) }
+                else if(event.dataValues["Manager"]){    res.send({status:0}).status(200) }
+                else{                                    res.send({status:1}).status(200) }
+
+
+        }
+        catch(err){
+                console.log(err)
+                res.sendStatus(404)
+        }
+
 
 })
 
@@ -218,7 +253,7 @@ router.post("/get_members", async (req, res)=>{
         // TODO get user's name
         users=users.map(i => { i["name"]=i.username+" ahmed"; return i})
         res.status(200).send(users)
-        
+
 
 })
 

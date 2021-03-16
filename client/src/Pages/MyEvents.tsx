@@ -64,6 +64,7 @@ async function reload(id: number) {
 function MyEvents(props: { id: any }) {
 
   const [events, setEvents] = React.useState(Array<EventInfo>());
+  console.log(events)
   const [eventIndex, setEventIndex] = React.useState(0);
   const [showEventEditModal, setShowEventEditModal] = React.useState(false);
   const [showEventMemberModal, setShowEventMemberModal] = React.useState(false);
