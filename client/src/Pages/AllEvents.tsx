@@ -34,6 +34,7 @@ interface IProp {
 
 async function reload(id:any) {
   const allevents = await API.getAllEvents(id);
+  console.log(allevents)
   const events = allevents.map((i: any) => {
     var date_obj = new Date(i.Time);
     let _date =
@@ -81,7 +82,6 @@ async function reload(id:any) {
 function MyEvents({ name, id }: IProp) {
   const [events, setEvents] = React.useState(Array<EventInfo>());
   React.useEffect(() => {
-        alert(id)
     reload(id).then((res) => setEvents(res));
   }, []);
   const [eventIndex, setEventIndex] = React.useState(0);

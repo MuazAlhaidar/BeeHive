@@ -1,6 +1,6 @@
 import axios from "axios";
 // Change port to be dynamic,
-let baseurl = "http://10.1.10.63:4200/api/events/";
+let baseurl = "http://localhost:4200/api/events/";
 
 async function axiosGet(url: string, _data: any) {
   return axios.get(baseurl + url, { params: _data });

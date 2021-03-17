@@ -21,7 +21,6 @@ interface EventInfo {
 
 function EventsForm({ name, address, time, date, description, relation }: EventInfo) {
         // const [relation, setIsRSVP] = React.useState(relation);
-        alert(relation)
         const setRSVP = () => {
                 if(relation === Relation.RSVP){
                         relation = Relation.NotRSVP

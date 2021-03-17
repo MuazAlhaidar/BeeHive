@@ -18,7 +18,8 @@ const sequelize = new Sequelize(_config.database, _config.user, _config.pass, {
 router.get("/getall", (req,res)=>{
         const id = parseInt(req.query.id)
         if(! isNaN(id) && id!=-1){
-                const query = sequelize.query(`select events.*,  eventmembers.RSVP from events join eventmembers on events.id= eventmembers.Event ;`)
+                const query = sequelize.query(`select events.*, eventmembers.RSVP from eventmembers inner join events where (eventmembers.Manager =true and eventmembers.User!=3 AND events.id = eventmembers.Event) ;`)
+
                 .then(ret => {
                         console.log(ret[0])
                         res.status(200).send(ret[0]);
@@ -237,7 +238,7 @@ router.get("/leaderboard", async(req, res)=>{
  * @body {id:event's id, subject, body}
  */
 router.post("/email", async(req,res)=>{
-        const query = await sequelize.query(`select users.email from users JOIN eventmembers ON eventmembers.User=users.id AND eventmembers.Event=${req.body.id} AND eventmembers.RSVP=true;`)
+        const query = await sequelize.query(`select users.email from users JOIN eventmembers ON eventmembers.User=users.id AND eventmembers.Event=${req.body.id};`)
         const emails = query[0].map(i=> i.email)
         lib.email(emails)
         res.sendStatus(200)
