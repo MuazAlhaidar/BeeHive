@@ -124,7 +124,6 @@ function MyGroups(props: { id: any }) {
         contactInfo: contactInfo,
       });
       setMemList(members);
-      console.log(res);
     });
   };
 
@@ -140,7 +139,6 @@ function MyGroups(props: { id: any }) {
             name: groups[groupIndex].name,
             contactInfo: groups[groupIndex].contactInfo,
           });
-          console.log(res);
         }
       );
     }
@@ -154,7 +152,6 @@ function MyGroups(props: { id: any }) {
         setGroups(g);
         setGroupIndex(-1);
         resetGroupAndMemList();
-        console.log(res);
       });
   };
 

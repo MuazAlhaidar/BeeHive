@@ -28,7 +28,6 @@ function EventList({ eventList, selectEvent }: IProps) {
   return (
     <div>
       {events.map((curEvent, index) => {
-              console.log(curEvent)
         return (
           <Event
             key={`event-${index}`}

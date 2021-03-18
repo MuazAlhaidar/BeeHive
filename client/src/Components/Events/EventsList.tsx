@@ -31,7 +31,6 @@ function EventList({ eventList, selectEvent, addEvent }: IProps) {
   const [showModal, setShowModal] = React.useState(false);
 
   const toggle = () => {
-          console.log("CHECK")
     setShowModal(!showModal);
   };
 

@@ -26,7 +26,6 @@ export default function Request(props: {}) {
                 );
                 history.push("/");
               } else {
-                console.log("Invalid email");
               }
             });
           }}

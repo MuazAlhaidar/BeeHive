@@ -77,6 +77,12 @@ async function reload(id:any) {
 
 function MyEvents({ name, id }: IProp) {
   const [events, setEvents] = React.useState(Array<EventInfo>());
+  const set_relation = (i:number) =>{
+          if(events[i].relation == Relation.RSVP)
+                  events[i].relation = Relation.NotRSVP
+          else if(events[i].relation == Relation.NotRSVP)
+                  events[i].relation = Relation.RSVP
+  }
   React.useEffect(() => {
     reload(id).then((res) => setEvents(res));
   }, []);
@@ -84,10 +90,8 @@ function MyEvents({ name, id }: IProp) {
 
   const selectEvent = (i: number) => {
     let index = i === undefined ? 0 : i;
-    // console.log("ABCDEFHIJK ", store.getState());
     store.dispatch(redux_index(i))
-    // console.log(events[i]);
-    store.dispatch(redux_rsvp(i))
+    store.dispatch(redux_rsvp(events[i].relation))
     setEventIndex(index)
   };
 
@@ -122,7 +126,7 @@ function MyEvents({ name, id }: IProp) {
             time={""}
             date={""}
             description={""}
-            relation={Relation.NotRSVP}
+            set_relation={set_relation}
           />
         ) : (
           <EventsForm
@@ -131,7 +135,7 @@ function MyEvents({ name, id }: IProp) {
             time={events[eventIndex].time}
             date={events[eventIndex].date}
             description={events[eventIndex].description}
-            relation={events[eventIndex].relation}
+            set_relation={set_relation}
           />
         )}
         {/* {eventIndex > events.length - 1 ? (

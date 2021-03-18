@@ -103,10 +103,8 @@ async function Transfer(_Event: number, _User: number) {
 }
 
 async function getEventManager(_id: number) {
-        console.log(_id)
   return axiosPost("man", { id: _id })
     .then((res) => res.data)
-    .catch((err) => {console.log(err); return []});
 }
 async function get_members(){return axiosPost("get_members", {})};
 

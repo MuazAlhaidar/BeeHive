@@ -82,7 +82,6 @@ function MemberModal({
                           <button
                             className="MemberModal-AddButton"
                             onClick={() => {
-                              console.log(curMem);
                               addToGroup(curMem);
                             }}
                           >

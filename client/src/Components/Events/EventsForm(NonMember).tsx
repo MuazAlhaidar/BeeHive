@@ -17,7 +17,6 @@ function EventsForm({ name, address, time, date, description }: EventInfo) {
   // const [isRSVP, setIsRSVP] = React.useState(false);
 
   // const setRSVP = () => {
-  //   console.log("Reserved");
   //   setIsRSVP(!isRSVP);
   // };
 

@@ -18,8 +18,6 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
   ): Promise<boolean> {
     // Checkinging fields
     const re = /\S+@\S+\.\S+/;
-    console.log(_email, re.test(_email));
-    console.log("REGEX", re.test(_email));
 
     if (!re.test(_email)) {
       setStatus(4);
@@ -36,7 +34,6 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
       points: 0,
     });
     // Backend shit
-    console.log("--------------------------");
     switch (res[0]) {
       case 0:
         setUser(_username);
