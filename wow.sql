@@ -58,11 +58,13 @@ This program will keep track of Reddit threads of a certain regex, watch them ti
 
 -- to generate eventmember
 -- insert into eventmembers(user, event, attended, rsvp, manager, createdAt, updatedAt) values (1,1, true, true, false, "2020-08-4", "2019-4-3");
-insert into eventmembers(user, event, attended, rsvp, manager, createdAt, updatedAt) values (
+insert into eventmembers(user, event, 
+        attended, rsvp, manager,
+        createdAt, updatedAt) values (
 1,1,
 true, true, false,
 "2020-08-4", "2019-4-3");
 insert into eventmembers(user, event, attended, rsvp, manager, createdAt, updatedAt) values (
 2,1,
-true, true, true,
+true, false, true,
 "2020-08-4", "2019-4-3");

@@ -18,7 +18,8 @@ const sequelize = new Sequelize(_config.database, _config.user, _config.pass, {
 router.get("/getall", (req,res)=>{
         const id = parseInt(req.query.id)
         if(! isNaN(id) && id!=-1){
-                const query = sequelize.query(`select events.*, eventmembers.RSVP from eventmembers inner join events where (eventmembers.Manager =true and eventmembers.User!=3 AND events.id = eventmembers.Event) ;`)
+                const query = sequelize.query(`select events.*, eventmembers.RSVP from eventmembers inner join events where (eventmembers.Manager =true and eventmembers.User!=${id} AND events.id = eventmembers.Event) ;`)
+                // select events.*, eventmembers.RSVP from eventmembers inner join events where (eventmembers.Manager =true and eventmembers.User!=${id} AND events.id = eventmembers.Event) ;
 
                 .then(ret => {
                         res.status(200).send(ret[0]);
