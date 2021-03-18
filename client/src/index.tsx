@@ -5,25 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { Provider } from 'react-redux'
-import { configureStore } from '@reduxjs/toolkit'
+import {store} from "./store"
 
 // REDUX
 
-// ACTIOn
-const index = (new_index:number) =>{ return { type: 'INDEX', payload:new_index } }
 
-// REDUCEr
-const change_index = (state={index:0}, action:any) =>{
-        console.log("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS", action)
-        return {...state, index:action.payload}
-
-}
-// REDUX END
-const store = configureStore({ reducer: change_index}); 
-
-console.log("DESTNIY               ", store.getState())
-store.dispatch(index(4))
-console.log("DESTNIY               ", store.getState())
+// store.dispatch(index(4))
 // <React.StrictMode>
 ReactDOM.render(
         <Provider store={store}>

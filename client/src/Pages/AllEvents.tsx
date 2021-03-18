@@ -4,6 +4,7 @@ import EventList from "../Components/Events/EventsList(view-only)";
 import EventsForm from "../Components/Events/EventsForm(view-only)";
 import EventsFormNonMember from "../Components/Events/EventsForm(NonMember)";
 import * as API from "../api/Event";
+import {store, redux_index, redux_rsvp} from "../store"
 
 interface MemberInfo {
   name: string;
@@ -34,7 +35,6 @@ interface IProp {
 
 async function reload(id:any) {
   const allevents = await API.getAllEvents(id);
-  console.log(allevents)
   const events = allevents.map((i: any) => {
     var date_obj = new Date(i.Time);
     let _date =
@@ -51,17 +51,13 @@ async function reload(id:any) {
     let _relation = null
     {
 
-            console.log(id, i.Manager, i.RSVP, " STATE OF THIS BULLSHTI")
             if( i.Manager === 1){
-                    console.log(id, " IS MANAGER")
                     _relation = Relation.Manager
             }
             else if (i.RSVP === 1){
-                    console.log(id, " IS RSVP")
                     _relation = Relation.RSVP
             }
             else{
-                    console.log(id, " IS NOT RSVP/MANAGER")
                     _relation = Relation.NotRSVP
             }
     }
@@ -88,10 +84,13 @@ function MyEvents({ name, id }: IProp) {
 
   const selectEvent = (i: number) => {
     let index = i === undefined ? 0 : i;
-    setEventIndex(index);
+    // console.log("ABCDEFHIJK ", store.getState());
+    store.dispatch(redux_index(i))
+    // console.log(events[i]);
+    store.dispatch(redux_rsvp(i))
+    setEventIndex(index)
   };
 
-  console.log(events)
   return (
     <div className="MyEvents">
       <div className="MyEvents-EventList">
