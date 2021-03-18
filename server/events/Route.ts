@@ -21,18 +21,15 @@ router.get("/getall", (req,res)=>{
                 const query = sequelize.query(`select events.*, eventmembers.RSVP from eventmembers inner join events where (eventmembers.Manager =true and eventmembers.User!=3 AND events.id = eventmembers.Event) ;`)
 
                 .then(ret => {
-                        console.log(ret[0])
                         res.status(200).send(ret[0]);
                         return;
                 })
                 .catch(err => {res.sendStatus(404)})
         }
         else{
-                console.log("SUN")
                 Event.findAll()
                 .then(ret => {
                         const values = ret.map(x => x.dataValues);
-                        console.log(values)
                         res.status(200).send(values);
                 })
                 .catch(err => {res.sendStatus(404)})
@@ -205,15 +202,11 @@ router.post("/transfer", (req, res)=>{
 router.post("/man", async (req, res)=>{
         let id = req.body.id
         if(id===undefined){
-                console.log("FUCK", req.query, req.body);
                 res.sendStatus(404)
         }
         else{
-                console.log("First date------------")
                 let invited = await EventMember.findAll({where:{User:id, Manager:true}})
                 let eventsid=(invited.map((i)=> i.dataValues.Event))
-                console.log(invited)
-                console.log(eventsid)
 
                 let events = []
                 Promise.all(eventsid.map(async (id)=> Event.findOne({where:{id:id}})))
