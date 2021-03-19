@@ -9,12 +9,10 @@ import ContactUs from "./Pages/ContactUs";
 import AllEvents from "./Pages/AllEvents";
 import Leaderboard from "./Pages/LeaderboardPage";
 import Settings from "./Pages/SettingsPage";
+import Welcome from "./Pages/Welcome";
 import LogoAndTitle from "./Components/LogoAndTitle";
 import ResetPass from "./Pages/ResetPass";
 import ResetReq from "./Pages/ResetReq";
-
-
-
 
 function App() {
   const [name, setName] = React.useState("");
@@ -110,7 +108,9 @@ function App() {
             <Route path="/forgotpassword">
               <ResetReq />
             </Route>
-            <Route path="/"></Route>
+            <Route path="/">
+              <Welcome />
+            </Route>
           </Switch>
         </Router>
       </header>
