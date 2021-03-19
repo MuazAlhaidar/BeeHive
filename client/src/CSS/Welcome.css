@@ -1,0 +1,43 @@
+.Welcome {
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+}
+
+.Welcome-PageDiv {
+  display: flex;
+  padding-top: 50px;
+  flex-direction: column;
+  border: 2px solid #ff9442;
+  border-radius: 8px;
+  background-color: white;
+  width: 80vh;
+  height: 82vh;
+  align-items: center;
+  text-align: left;
+}
+
+.Welcome-Title {
+  color: #ff9442;
+}
+
+.Welcome-BeehiveLogo {
+  width: 200px;
+}
+
+.Welcome-BeehiveWhiteLogo {
+  width: 100px;
+  height: 90px;
+}
+
+.Welcome-Body {
+  width: 500px;
+  text-align: justify;
+  line-height: 25px;
+}
+
+.Welcome-Logos {
+  display: flex;
+  justify-content: right;
+  width: 43vh;
+}
