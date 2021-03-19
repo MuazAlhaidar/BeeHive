@@ -1,5 +1,6 @@
 import React from "react";
 import "../CSS/EmailModal.css";
+import {email} from "../api/Groups"
 
 interface IProps {
   showModal: boolean;

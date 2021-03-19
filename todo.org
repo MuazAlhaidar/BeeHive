@@ -5,14 +5,14 @@
 
 * Misc
 	- [ ] User first/last name :: Used for see members in
-		+ + mygroups,
-		+ + leaderboard
-		+ + myevents page seeing all those who are RSVP
-	- [ ] Group props id :: Send hte users id to the groups, and don't show my grousp if not owner
+      + + mygroups,
+      + + leaderboard
+      + + myevents page seeing all those who are RSVP
+	- [X] Group props id :: Send hte users id to the groups, and don't show my grousp if not owner
 * Frontend Middleware
 	- [ ] Add/Remove members from groups
 	- [ ] Event Signin
-	- [ ] RSVP to event :: a user can see an event in all events, and invite themselves to it
+	- [X] RSVP to event :: a user can see an event in all events, and invite themselves to it
 	- [ ] Email to groups
 	- [ ] lEaderboard
 	- [ ] Give/Take member points :: myevents can do it through myevents, while owners can chagne points thorugh leaderboard
@@ -22,7 +22,7 @@
 	- [ ] merge master with finish-project
 	- [ ] firebase sequelize :: if possiple, try to get it working with firebase
 ** RSVP
-   - [ ] Make allevents have an attriubte that has is isRSVP
+   - [X] Make allevents have an attriubte that has is isRSVP
 * Future Things to do
 	- [ ] Refactor :: Try to slim down the code/make it easier to run better
 	- [ ] test cases :: Mkae test cases/run them, wtih  the test plan
