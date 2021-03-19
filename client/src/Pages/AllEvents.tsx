@@ -78,9 +78,7 @@ async function reload(id:any) {
 function MyEvents({ name, id }: IProp) {
   const [events, setEvents] = React.useState(Array<EventInfo>());
   const set_relation = (i:number) =>{
-          console.log("MEME");
           API.checkRSVP(events[i].id, id)
-          console.log("MEME");
           if(events[i].relation == Relation.RSVP){
                   events[i].relation = Relation.NotRSVP
           }

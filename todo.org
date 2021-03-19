@@ -13,7 +13,7 @@
 	- [ ] Add/Remove members from groups
 	- [ ] Event Signin
 	- [X] RSVP to event :: a user can see an event in all events, and invite themselves to it
-	- [ ] Email to groups
+	- [X] Email to groups
 	- [ ] lEaderboard
 	- [ ] Give/Take member points :: myevents can do it through myevents, while owners can chagne points thorugh leaderboard
 	- [ ] Transfer Event Manager role :: 

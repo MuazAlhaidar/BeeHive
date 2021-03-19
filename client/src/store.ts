@@ -9,7 +9,7 @@ enum Relation{
 // ACTIOn
 const redux_index = (new_index:number) =>{ return { type: 'INDEX', payload:new_index } }
 const redux_rsvp = (rsvp_state:number) =>{ return { type: 'RSVP', payload:rsvp_state } }
-const redux_id = (id_state:number) =>{ return { type: 'id', payload:id_state } }
+const redux_id = (id_state:number) =>{ return { type: 'ID', payload:id_state } }
 
 // REDUCER
 const change_index = (state={index:0, relation:Relation.Manager, id:-1}, action:any) =>{

@@ -5,6 +5,7 @@ import SignUpButton from "../Components/SignUpButton";
 import * as API from "../api/User";
 import { Redirect } from "react-router-dom";
 import "../CSS/LogIn.css";
+import {store, redux_id} from "../store"
 
 function LogIn(props: { setName: any; setId: any; setOwner: any }) {
   const [user, setUser] = React.useState("");
@@ -17,6 +18,8 @@ function LogIn(props: { setName: any; setId: any; setOwner: any }) {
           setStatus(1);
           props.setName(username);
           props.setId(res[0]);
+          store.dispatch(redux_id(res[0]))
+
           props.setOwner(res[1]);
           return true;
         } else {

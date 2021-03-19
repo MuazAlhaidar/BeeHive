@@ -44,7 +44,7 @@ async function removemembers(userid:number, groupid:number, memberid:number){
         return await axiosPost("rmmembers", {userid:userid, group:groupid ,member:memberid})
 }
 async function email(userid:number, groupid:number, subject:string, body:string){
-        return await axiosPost("email", {userid:userid, group:groupid ,subject:subject, body:body})
+        return await axiosPost("email", {userid:userid, id:groupid ,subject:subject, body:body})
 }
 
 export {axiosGet, axiosPost, getGroup, newGroup, removeGroup, updateGroup, addmembers, removemembers, email}

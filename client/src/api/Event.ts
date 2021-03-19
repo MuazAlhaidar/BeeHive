@@ -110,7 +110,7 @@ async function get_members(){return axiosPost("get_members", {})};
 
 async function checkRSVP(_event:number, _user:number){
         return axiosPost("rsvp", {Event:_event, User:_user})
-        .then(res=>{console.log("FUCK ME"); return res.data})
+        .then(res=>{ return res.data})
         .catch(err=>{console.log(err);return undefined})
 }
 
