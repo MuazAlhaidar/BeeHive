@@ -18,7 +18,8 @@ const sequelize = new Sequelize(_config.database, _config.user, _config.pass, {
 router.get("/getall", (req,res)=>{
         const id = parseInt(req.query.id)
         if(! isNaN(id) && id!=-1){
-            const query = sequelize.query(`select * from (select count(Event) as RSVP, Event from eventmembers where ((User=${id} and Manager =false) or (User!=${id} and Manager is true)) group by Event) as c order by "count(Event)" desc;`)
+            const query = sequelize.query(`select events.*,RSVP from events join (select  Event,sum(RSVP) as RSVP from eventmembers where ((User=${id} and Manager =false) or (User!=${id} and Manager is true)) group by Event) as c on c.Event = events.id;`)
+
 
                 .then(ret => {
                         res.status(200).send(ret[0]);
