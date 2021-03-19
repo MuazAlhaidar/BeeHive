@@ -18,8 +18,7 @@ const sequelize = new Sequelize(_config.database, _config.user, _config.pass, {
 router.get("/getall", (req,res)=>{
         const id = parseInt(req.query.id)
         if(! isNaN(id) && id!=-1){
-                const query = sequelize.query(`select events.*, eventmembers.RSVP from eventmembers inner join events where (eventmembers.Manager =true and eventmembers.User!=${id} AND events.id = eventmembers.Event) ;`)
-                // select events.*, eventmembers.RSVP from eventmembers inner join events where (eventmembers.Manager =true and eventmembers.User!=${id} AND events.id = eventmembers.Event) ;
+            const query = sequelize.query(`select * from (select count(Event) as RSVP, Event from eventmembers where ((User=${id} and Manager =false) or (User!=${id} and Manager is true)) group by Event) as c order by "count(Event)" desc;`)
 
                 .then(ret => {
                         res.status(200).send(ret[0]);
@@ -42,17 +41,15 @@ router.get("/getall", (req,res)=>{
  * @desc Create a new event
 false*/
 router.post("/new", (req,res)=>{
-        let fields=["Name", "Description", "Address", "Time", "Manager"]
-        for(let field in fields){
-                if(req.body[fields[field]] === undefined){
-                        res.status(402).send("The field "+fields[field]+" does not appeear")
-                        return;
-                }
-        }
+        console.log('EVENT', req.body);
         Event.create({ Name: req.body.Name ,Description: req.body.Description ,Address: req.body.Address ,Time: req.body.Time })
         .then(ret =>   {
+                console.log(ret.dataValues);
                 EventMember.create({ User: req.body.Manager ,Event: ret.dataValues.id ,Attended: false ,RSVP: false ,Manager:true })
-                .then(ret2 => { res.status(200).send({Event:ret.dataValues, Member:ret2.dataValues})})
+                .then(ret2 => {
+                        res.status(200).send({Event:ret.dataValues, Member:ret2.dataValues})
+                        
+                })
                 .catch(err => {res.status(403).send(err)})
 
         })

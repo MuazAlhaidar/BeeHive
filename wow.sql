@@ -25,8 +25,8 @@ I am the IT regional Manager"
 insert into groups(Name, ContactInfo, createdAt, updatedAt) values (
 "Project 5 Team",
 "Team Lead: Johnathan Kline
-    Email: teller@gmail.com
-    Phone: 313-222-5656
+Email: teller@gmail.com
+Phone: 313-222-5656
 
 Please give me some time to respond to emails and requests.
 Forward questions to my secretary."
@@ -59,12 +59,13 @@ This program will keep track of Reddit threads of a certain regex, watch them ti
 -- to generate eventmember
 -- insert into eventmembers(user, event, attended, rsvp, manager, createdAt, updatedAt) values (1,1, true, true, false, "2020-08-4", "2019-4-3");
 insert into eventmembers(user, event, 
-        attended, rsvp, manager,
-        createdAt, updatedAt) values (
-1,1,
-true, true, false,
-"2020-08-4", "2019-4-3");
-insert into eventmembers(user, event, attended, rsvp, manager, createdAt, updatedAt) values (
-2,1,
-true, false, true,
-"2020-08-4", "2019-4-3");
+    attended, rsvp, manager,
+    createdAt, updatedAt) values
+            (2,1, true, false, true,
+            "2020-08-4", "2019-4-3");
+
+insert into eventmembers(user, event, 
+    attended, rsvp, manager,
+    createdAt, updatedAt) values
+            (1,1, true, true, false,
+            "2020-08-4", "2019-4-3");

@@ -16,16 +16,6 @@ const sequelize = new Sequelize(_config.database, _config.user, _config.pass, {
 // @access publc
 router.post("/new", (req,res)=>{
 
-    // Checking if the fields are valid
-    // let fields=["username", "password", "email", "points", "role_id"]
-    let fields=["username", "password", "email"]
-
-    for(let field in fields){
-	if(req.body[fields[field]] === undefined){
-	    res.status(402).send("Fields have been changed")
-	    return;
-	}
-    }
 
     // Check if user/email is already in database
 
