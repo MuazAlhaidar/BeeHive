@@ -24,20 +24,7 @@ interface GroupInfo {
 
 async function reload(id: number): Promise<Array<GroupInfo>> {
   const data = await API.getGroup(id);
-  const groups = data.data.groups.reduce(function (acc: any, cur: any) {
-    let tmp = {
-      id: cur.id,
-      name: cur.Name,
-      contactInfo: cur.ContactInfo,
-      members: [],
-    };
-    if (acc[cur.id] === undefined) acc[cur.id] = tmp;
-    return acc;
-  }, {});
-  data.data.groupmembers.forEach((i: any) => {
-    groups[i.groupid].members.push(i);
-  });
-  return Object.values(groups);
+  return data.data["groups"]
 }
 
 function MyGroups(props: { id: any }) {
@@ -68,6 +55,7 @@ function MyGroups(props: { id: any }) {
     contactInfo: "",
   });
   const [memList, setMemList] = React.useState(Array<MemberInfo>());
+  console.log(groups);
 
   const toggleMemberModal = () => {
     setShowMembersEditModal(!showMembersEditModal);

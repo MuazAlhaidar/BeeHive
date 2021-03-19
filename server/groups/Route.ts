@@ -29,22 +29,26 @@ async function verify_owner(_id:number){
 
 }
 router.get("/getgroup", async(req,res)=>{
-    GroupMember.findAll({ where: {User:req.query.id}})
-        .then(async ret=> { 
-            let _groups = await Promise.all(ret.map(async i => {
-                let _id=i.dataValues.Group
-                let meme= await Groupp.findOne({where:{id:_id}}) 
-                return (meme.dataValues)
-            }))
+        console.clear()
+        const _groups = await sequelize.query("select groups.id, groups.Name as name, groups.ContactInfo as contactInfo,  groupmembers.User, users.username from groups left join groupmembers on groupmembers.Group = groups.id left join users on groupmembers.User = users.id order by groups.id;")
+        var groupBy = function(xs, key) {
+                return xs.reduce(function(rv, x) {
+                        (rv[x[key]] = rv[x[key]] || []).push(x);
+                        return rv;
+                }, {});
+        };
+        let  groups:any[]=Object.values((groupBy(_groups[0], 'id')))
+        let ret_group =groups.map((x,index)=>{
+                let members= x.reduce((acc,value)=>{
+                        if(value.User===null)
+                                return []
+                        acc.push( ({username:value.username, id:value.id, name:value.username+" ZAKI"}))
+                        return acc
+                },[])
+                return {id:x[0].id, name:x[0].name, contactInfo:x[0].contactInfo, members:members}
 
-            let id = req.query.id
-            let _groupmembers = await sequelize.query(`select users.username, users.id as userid, groups.id as groupid from groupmembers inner join users on users.id=groupmembers.User and not users.id=${id}  inner join groups on groupmembers.Group=groups.id;`)
-
-
-            res.status(200).send({groups:_groups, groupmembers:_groupmembers[0]}) 
-            // res.status(200).send({groups:_groups}) 
         })
-        .catch(err => {console.log(err); res.status(404).send(err)} )
+        res.status(200).send({groups:ret_group}) 
 })
 
 /* @route POST api/groups/new

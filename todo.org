@@ -28,6 +28,3 @@
 	- [ ] test cases :: Mkae test cases/run them, wtih  the test plan
 	- [ ]  :: 
 		
-** Secret bugs
-   - [ ] RSVP yourself ot an event :: Yo ucan rsvp yoruself to an event
-   - [ ] RSVP timer :: 
