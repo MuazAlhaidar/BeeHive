@@ -78,10 +78,13 @@ async function reload(id:any) {
 function MyEvents({ name, id }: IProp) {
   const [events, setEvents] = React.useState(Array<EventInfo>());
   const set_relation = (i:number) =>{
-          if(events[i].relation == Relation.RSVP)
+          API.checkRSVP(events[i].id, id)
+          if(events[i].relation == Relation.RSVP){
                   events[i].relation = Relation.NotRSVP
-          else if(events[i].relation == Relation.NotRSVP)
+          }
+          else if(events[i].relation == Relation.NotRSVP){
                   events[i].relation = Relation.RSVP
+          }
   }
   React.useEffect(() => {
     reload(id).then((res) => setEvents(res));

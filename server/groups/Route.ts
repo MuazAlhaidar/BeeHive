@@ -252,18 +252,18 @@ router.post("/rmmembers", async(req,res)=>{
  * @body {id:id of group, userid: id of the user,body:body of email, subject:subject of email}
 */
 router.post("/email", async(req, res)=>{
-        if(verify_owner(req.body.userid)){
-                const query=`SELECT email FROM users JOIN groupmembers ON  groupmembers.Group =1` 
+        // if(verify_owner(req.body.userid)){
+                const query=`SELECT email FROM users JOIN groupmembers ON  groupmembers.Group =${req.body.id}` 
                 var _groupmembers = await sequelize.query(`SELECT email FROM users JOIN groupmembers ON  groupmembers.Group =${req.body.id} ; `)
                 var _groupmembers = _groupmembers[0].map(i=> i.email)
                 let ret = await lib.email(_groupmembers, req.body.subject, req.body.body)
                 console.log(ret)
                 res.sendStatus(200)
 
-        }
-        else{
-                res.sendStatus(404);
-        }
+        // }
+        // else{
+        //         res.sendStatus(404);
+        // }
 
 })
 module.exports = router;

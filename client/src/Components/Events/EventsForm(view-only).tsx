@@ -30,12 +30,10 @@ function EventsForm({ name, address, time, date, description, set_relation }: Ev
                 const  id = state.index
                 set_relation(id)
                 if(relation == Relation.RSVP){
-                        alert("FUNNY");
                         setIsRSVP(false)
                         store.dispatch(redux_rsvp(Relation.NotRSVP))
                 }
                 else if (relation == Relation.NotRSVP){
-                        alert("fuuck you");
                         changeIndex()
                         setIsRSVP(true)
                         store.dispatch(redux_rsvp(Relation.RSVP))

@@ -108,7 +108,10 @@ async function getEventManager(_id: number) {
 }
 async function get_members(){return axiosPost("get_members", {})};
 
-async function isRSVP(_id:number, _user:number){
+async function checkRSVP(_event:number, _user:number){
+        return axiosPost("rsvp", {Event:_event, User:_user})
+        .then(res=>{ return res.data})
+        .catch(err=>{console.log(err);return undefined})
 }
 
 
@@ -125,5 +128,6 @@ export {
   Transfer,
   getEventManager,
   get_members,
+  checkRSVP
 }
 // module.exports= { login,new_user,reset_password, reset_token}

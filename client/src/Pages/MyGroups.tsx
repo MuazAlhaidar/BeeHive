@@ -8,6 +8,7 @@ import GroupsEdit from "../Components/Groups/GroupsEdit";
 import ConfirmationModal from "../Components/ConfirmationModal";
 import "../CSS/Groups/MyGroups.css";
 import * as API from "../api/Groups";
+import {store, redux_index} from "../store"
 
 interface MemberInfo {
   username: string;
@@ -109,6 +110,8 @@ function MyGroups(props: { id: any }) {
   const selectGroup = (i: number) => {
     let index = i === undefined ? 0 : i;
     setGroupIndex(index);
+    store.dispatch(redux_index(groups[i].id))
+    console.log(store.getState())
     i === undefined ? resetGroupAndMemList() : setGroupAndMemList(index);
   };
 
