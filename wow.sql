@@ -9,7 +9,7 @@ insert into users(username, password, email, points, role_id, createdAt, updated
 "John", "pass", "omunam10@gmail.com",
 22, 0, "2020-08-4", "2020-08-3");
 insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
-"Alice", "pass", "omunam10@gmail.com",
+"Alice", "pass", "muazalhaidar@gmail.com",
 45, 0, "2020-08-4", "2020-08-3");
 insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
 "Steve", "pass", "omunam10@gmail.com",
