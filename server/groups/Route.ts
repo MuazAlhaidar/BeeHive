@@ -29,27 +29,35 @@ async function verify_owner(_id:number){
 
 }
 router.get("/getgroup", async(req,res)=>{
-        console.clear()
-        const _groups = await sequelize.query("select groups.id, groups.Name as name, groups.ContactInfo as contactInfo,  groupmembers.User, users.username from groups left join groupmembers on groupmembers.Group = groups.id left join users on groupmembers.User = users.id order by groups.id;")
-        var groupBy = function(xs, key) {
-                return xs.reduce(function(rv, x) {
-                        (rv[x[key]] = rv[x[key]] || []).push(x);
-                        return rv;
-                }, {});
-        };
-        let  groups:any[]=Object.values((groupBy(_groups[0], 'id')))
-        let ret_group =groups.map((x,index)=>{
-                let members= x.reduce((acc,value)=>{
-                        if(value.User===null)
-                                return []
-                        acc.push( ({username:value.username, id:value.id, name:value.username+" ZAKI"}))
-                        return acc
-                },[])
-                return {id:x[0].id, name:x[0].name, contactInfo:x[0].contactInfo, members:members}
+    console.clear()
+    // TODO This doesn't get all people NOT in any group
+    const _groups = await sequelize.query("select groups.id, groups.Name as name, groups.ContactInfo as contactInfo,  groupmembers.User, users.username from groups left join groupmembers on groupmembers.Group = groups.id left join users on groupmembers.User = users.id order by groups.id;")
+    var groupBy = function(xs, key) {
+        return xs.reduce(function(rv, x) {
+            (rv[x[key]] = rv[x[key]] || []).push(x);
+            return rv;
+        }, {});
+    };
+    var allmembers= []
+    let  groups:any[]=Object.values((groupBy(_groups[0], 'id')))
+    let ret_group =groups.map((x,index)=>{
+        let members= x.reduce((acc,value)=>{
+            if(value.User===null)
+                return []
+            var tmp= ({username:value.username, id:value.User, name:value.username+" ZAKI"})
+            allmembers.push(tmp)
+            acc.push(tmp)
+            return acc
+        },[])
+        return {id:x[0].id, name:x[0].name, contactInfo:x[0].contactInfo, members:members}
 
-        })
-        res.status(200).send({groups:ret_group}) 
+    })
+    allmembers = (Object.values(groupBy(allmembers, 'id')).map(x=>{
+        return x[0]
+    }))
+    res.status(200).send({groups:ret_group, users:allmembers}) 
 })
+
 
 /* @route POST api/groups/new
  * @desc Make a new group
@@ -156,51 +164,27 @@ router.post("/update", async(req,res)=>{
     }
 
 })
-/* @route POST api/groups/addmembers
- * @desc Add people to a group
- * @body {id:id of the group, userid: id of the user, member:id of the user to add, group:id of the group to add to}
+
+/* @route POST api/groups/set_members
+ * @desc Set the members in a list
+ * @body id:id of the group, memberlist: [users.id]
  */
-router.post("/addmembers", async(req,res)=>{
-    var _tmp = await Userr.findOne({where:{id:req.body.userid}})
-    if(_tmp==undefined){
-        res.status(404).send("Owner is not even exist")
-        return;
-    }
-    let user = _tmp.dataValues
-    //if(user.role_id==1){ 
- if(true){
-        var _tmp = await Userr.findOne({where:{id:req.body.member}})
-        if(_tmp==undefined){
-            res.status(404).send("Member is not even exist")
-            return;
-        }
-        let addmember = _tmp.dataValues
-        var _tmp = await Groupp.findOne({where:{id:req.body.group}})
-        if(_tmp==undefined){
-            res.status(404).send("Group does not exist")
-            return;
-        }
-        let group = _tmp.dataValues
-        // var _tmp= await GroupMember.findOrCreate({{where:{User:req.body.member, Group:req.body.group}}, defaults:{
-        //         User:req.body.member, Group:req.body.group
-        // }})
-        var _tmp = await GroupMember.findOrCreate({where:{
-            User: req.body.member
-            ,Group: req.body.group
-        }, defaults:{
-            User: req.body.member
-            ,Group:req.body.group}})
 
-        res.send(_tmp).status(200)
-        return
 
-    }
-    else{
-        res.status(404).send("Owner is not owner")
-        return
-    }
-    res.status(404).send("Some other error happen")
-    return
+
+router.post("/set_members", async(req,res)=>{
+    const id = req.body.id
+    console.log(id, req.body.memberList)
+    const memList = req.body.memberList.map(x=>{
+        return {User:x.id, Group:id, Manager:false}
+    })
+    await GroupMember.destroy({where:{ Group: id}})
+
+    await GroupMember.bulkCreate(memList);
+    console.log("NICE")
+    res.sendStatus(200)
+
+
 
 
 })

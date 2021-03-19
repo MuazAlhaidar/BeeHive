@@ -1,8 +1,11 @@
 import React from "react";
 import Member from "./Member";
+import {store, redux_index} from "../../store"
+import {setMembers as APIsetMembers} from "../../api/Groups"
 
 import "../../CSS/Members/MemberModal.css";
 
+// TODO Add name
 interface MemberInfo {
   username: string;
   id: number;
@@ -14,6 +17,7 @@ interface IProps {
   setMemberList: (memberList: Array<MemberInfo>) => void;
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
+  setMembers: (memberList:Array<MemberInfo>, index:number) =>void
 }
 
 function MemberModal({
@@ -22,6 +26,7 @@ function MemberModal({
   setMemberList,
   showModal,
   setShowModal,
+  setMembers
 }: IProps) {
   function isInGroup(value: MemberInfo, index: number, array: MemberInfo[]) {
     let retme = true;
@@ -40,6 +45,18 @@ function MemberModal({
   const [pastOut, setpastOut] = React.useState(filteredList);
 
   const handleSave = () => {
+          // API Call for this group this is the member list
+          const state = store.getState().state
+          const index = state.index
+          const id = state.relation
+
+          // Save it on teh frontend
+          console.log(id, index)
+          setMembers(memberList, index);
+          console.log(id, memberList, index)
+          APIsetMembers(id, memberList)
+          alert("Dab on haters")
+
     setShowModal(!showModal);
   };
 
