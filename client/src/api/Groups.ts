@@ -47,4 +47,10 @@ async function email(userid:number, groupid:number, subject:string, body:string)
         return await axiosPost("email", {userid:userid, id:groupid ,subject:subject, body:body})
 }
 
-export {axiosGet, axiosPost, getGroup, newGroup, removeGroup, updateGroup, addmembers, removemembers, email}
+// TODO Change any to emmberinfo
+async function setMembers(group:number, memberList:any[]){
+    return axiosPost("set_members", {id:group, memberList:memberList})
+        .then(res=>{ return true})
+        .catch(err=>{console.log(err);return undefined})
+}
+export {axiosGet, axiosPost, getGroup, newGroup, removeGroup, updateGroup, addmembers, removemembers, email, setMembers}

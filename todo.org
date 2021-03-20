@@ -10,24 +10,31 @@
       + + myevents page seeing all those who are RSVP
 	- [X] Group props id :: Send hte users id to the groups, and don't show my grousp if not owner
 * Frontend Middleware
-	- [ ] Add/Remove members from groups
-	- [ ] Event Signin
-	- [X] RSVP to event :: a user can see an event in all events, and invite themselves to it
-	- [X] Email to groups
-	- [ ] lEaderboard
-	- [ ] Give/Take member points :: myevents can do it through myevents, while owners can chagne points thorugh leaderboard
-	- [ ] Transfer Event Manager role :: 
-	- [ ] Save signin thorugh cookie
-	- [ ] changeemail
-	- [ ] merge master with finish-project
-	- [ ] firebase sequelize :: if possiple, try to get it working with firebase
+** DONE Event Signin
+   CLOSED: [2021-03-20 Sat 12:49]
+   :PROPERTIES:
+   :Effort:   2:00
+   :END:
+   - State "DONE"       from "TODO"       [2021-03-20 Sat 12:49]
+   :LOGBOOK:
+   CLOCK: [2021-03-20 Sat 10:49]--[2021-03-20 Sat 12:49] =>  2:00
+   :END:
+   - [ ] Change useeffect, to reload ony when reload page
+** TODO Give/Take member points
+   myevents can do it through myevents, while owners can chagne points thorugh leaderboard
+** TODO Transfer Event Manager role  
+** TODO lEaderboard
+** TODO changeemail
+** TODO merge master with finish-project
+** TODO FIrst/last name   
+** DONE Add/Remove members from groups
+** DONE RSVP to event :: a user can see an event in all events, and invite themselves to it
+** DONE Email to groups
+** DONE Save signin thorugh cookie
 ** RSVP
-   - [X] Make allevents have an attriubte that has is isRSVP
+** DONE Make allevents have an attriubte that has is isRSVP
 * Future Things to do
 	- [ ] Refactor :: Try to slim down the code/make it easier to run better
 	- [ ] test cases :: Mkae test cases/run them, wtih  the test plan
 	- [ ]  :: 
 		
-** Secret bugs
-   - [ ] RSVP yourself ot an event :: Yo ucan rsvp yoruself to an event
-   - [ ] RSVP timer :: 

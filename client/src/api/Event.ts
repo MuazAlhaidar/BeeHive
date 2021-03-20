@@ -128,6 +128,6 @@ export {
   Transfer,
   getEventManager,
   get_members,
-  checkRSVP
+    checkRSVP,
 }
 // module.exports= { login,new_user,reset_password, reset_token}

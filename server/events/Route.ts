@@ -15,10 +15,10 @@ const sequelize = new Sequelize(_config.database, _config.user, _config.pass, {
 /* @route GET api/events
  * @desc Get all the events
  */
-router.get("/getall", (req,res)=>{
+router.get("/getall", async (req,res)=>{
     const id = parseInt(req.query.id)
     if(! isNaN(id) && id!=-1){
-        const query = sequelize.query(`select events.*,RSVP from events join (select  Event,sum(RSVP) as RSVP from eventmembers where ((User=${id} and Manager =false) or (User!=${id} and Manager is true)) group by Event) as c on c.Event = events.id;`)
+        const query = await sequelize.query(`select events.*,RSVP from events join (select  Event,sum(RSVP) as RSVP from eventmembers where ((User=${id} and Manager =false) or (User!=${id} and Manager is true)) group by Event) as c on c.Event = events.id;`)
 
 
             .then(ret => {
@@ -191,14 +191,9 @@ router.post("/man", async (req, res)=>{
         res.sendStatus(404)
     }
     else{
-        let invited = await EventMember.findAll({where:{User:id, Manager:true}})
-        let eventsid=(invited.map((i)=> i.dataValues.Event))
-
-        let events = []
-        Promise.all(eventsid.map(async (id)=> Event.findOne({where:{id:id}})))
-            .then(ret=>{
-                res.status(200).send(ret)
-            })
+        const query = await sequelize.query(`select mang.id, mang.Name, mang.Description, mang.Address, mang.Time, users.username, users.id as userid, users.points  from (select events.*  from eventmembers join events on
+events.id = eventmembers.Event where eventmembers.Manager=true and eventmembers.User=${id} ) as mang join eventmembers on eventmembers.Event = mang.id join users on eventmembers.User = users.id where eventmembers.Manager=false ;`)
+        res.send(query[0]).status(200)
 
     }
 })

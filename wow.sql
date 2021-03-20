@@ -87,18 +87,30 @@ Phone: 313-222-5656
 Please give me some time to respond to emails and requests.
 Forward questions to my secretary."
 , "2020-08-4", "2020-8-1");
+insert into groups(Name, ContactInfo, createdAt, updatedAt) values (
+"The Tossers fanclub",
+"Folk Rock yea"
+, "2020-08-4", "2020-8-1");
 
 -- to generate groupmember
 insert into groupmembers(User, groupmembers.Group, Manager, createdAt, updatedAt) values (
-1, 1,
+2, 1,
 false,
 "2020-08-4", "2021-2-2");
 insert into groupmembers(User, groupmembers.Group, Manager, createdAt, updatedAt) values (
-1, 2,
+3, 1,
 false,
 "2020-08-4", "2021-2-2");
 insert into groupmembers(User, groupmembers.Group, Manager, createdAt, updatedAt) values (
-1, 3,
+4, 1,
+false,
+"2020-08-4", "2021-2-2");
+insert into groupmembers(User, groupmembers.Group, Manager, createdAt, updatedAt) values (
+3, 2,
+false,
+"2020-08-4", "2021-2-2");
+insert into groupmembers(User, groupmembers.Group, Manager, createdAt, updatedAt) values (
+4, 3,
 false,
 "2020-08-4", "2021-2-2");
 
