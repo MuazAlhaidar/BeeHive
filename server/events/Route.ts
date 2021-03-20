@@ -228,10 +228,9 @@ router.post("/email", async(req,res)=>{
 // @desc Get those who are RSVP to an event, and those that aren't
 // @return {RSVP:[user], not:[user]}
 router.post("/get_members", async (req, res)=>{
-    let users = await sequelize.query("select users.username, eventmembers.id from eventmembers  join users on users.id=eventmembers.User ;")
+    let users = await sequelize.query("select users.username, eventmembers.id, users.points from eventmembers  join users on users.id=eventmembers.User group by users.username;")
     users=users[0];
     // TODO get user's name
-    users=users.map(i => { i["name"]=i.username+" ahmed"; return i})
     res.status(200).send(users)
 
 
