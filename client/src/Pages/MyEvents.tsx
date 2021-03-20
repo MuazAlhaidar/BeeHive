@@ -29,47 +29,52 @@ interface EventInfo {
 
 async function reload(id: number) {
         const allevents = await API.getEventManager(id);
-        let members = await API.get_members()
-        let tmp_members:Array<MemberInfo> = members.data.map((x:any)=>{
-                x.firstname=x.username+" ZAKI"
-                x.lastname=x.username+" AHMED"
-                return x
-        });
 
         if(allevents === undefined){
                 return [];
         }
         else{
-                const events = allevents.map((i: any) => {
-                        var date_obj = new Date(i.Time);
-                        let _date =
-                                +(+date_obj.getMonth()) +
-                                "/" +
-                                date_obj.getDay() +
-                                "/" +
-                                date_obj.getFullYear();
-                        let minute = date_obj.getMinutes();
-                        let hour = date_obj.getHours();
-                        let _hour = ("0" + hour).slice(-2);
-                        let _minute = ("0" + minute).slice(-2);
-                        let _time = _hour + ":" + _minute;
-                        let _id = i.id;
-                        return {
-                                name: i.Name,
-                                description: i.Description,
-                                address: i.Address,
-                                time: _time,
-                                date: _date,
-                                members:tmp_members,
-                                id: _id,
-                        };
+                let events:any ={}
+                allevents.forEach((i: any) => {
+                        if(events[i.id]===undefined){
+                                var date_obj = new Date(i.Time);
+                                let _date =
+                                        +(+date_obj.getMonth()) +
+                                        "/" +
+                                        date_obj.getDay() +
+                                        "/" +
+                                        date_obj.getFullYear();
+                                let minute = date_obj.getMinutes();
+                                let hour = date_obj.getHours();
+                                let _hour = ("0" + hour).slice(-2);
+                                let _minute = ("0" + minute).slice(-2);
+                                let _time = _hour + ":" + _minute;
+                                let _id = i.id;
+
+                                let tmp_event= {
+                                        name: i.Name,
+                                        description: i.Description,
+                                        address: i.Address,
+                                        time: _time,
+                                        date: _date,
+                                        members:Array<MemberInfo>({id: i.userid, firstname:"First: "+i.username, lastname:"Last: "+i.username, points:i.points}),
+                                        id: _id,
+                                };
+                                events[i.id] = tmp_event
+                        }
+                        else{
+                                events[i.id].members.push({id: i.userid, firstname:i.username, lastname:i.username, points:i.points })
+                                console.log({id: i.userid, firstname:i.username, lastname:i.username, points:i.points })
+                        }
                 });
-                return events;
+                console.log(allevents)
+                return Object.values(events) as Array<EventInfo>
         }
 }
 
 function MyEvents(props: { id: any }) {
 
+  // const [events, setEvents] = React.useState(Array<EventInfo>());
   const [events, setEvents] = React.useState(Array<EventInfo>());
   const [eventIndex, setEventIndex] = React.useState(0);
   const [showEventEditModal, setShowEventEditModal] = React.useState(false);
@@ -92,7 +97,7 @@ function MyEvents(props: { id: any }) {
 
         React.useEffect(() => {
                 reload(props.id).then((res) => setEvents(res));
-        }, [events]);
+        }, [eventIndex]);
 
         const toggleEmailModal = () => {
                 setShowEmailModal(!showEmailModal);
@@ -238,7 +243,6 @@ function MyEvents(props: { id: any }) {
         curEvent={curEvent}
         setCurEvent={setCurEvent}
       />
-            {console.log(events[eventIndex])}
       <EventMemberModal
         showModal={showEventMemberModal}
         setShowModal={setShowEventMemberModal}
