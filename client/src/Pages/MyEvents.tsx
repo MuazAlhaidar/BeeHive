@@ -8,9 +8,12 @@ import EventMemberModal from "../Components/Events/EventMemberModal";
 import TransferManagerModal from "../Components/TransferManagerModal";
 import ConfirmationModal from "../Components/ConfirmationModal";
 import * as API from "../api/Event";
+import {store, redux_index, redux_members} from "../store"
 
 interface MemberInfo {
-        name: string;
+        id: number;
+        firstname: string;
+        lastname: string;
         points: number;
 }
 
@@ -21,12 +24,17 @@ interface EventInfo {
         date: string;
         description: string;
         id: number;
-        members: Array<MemberInfo> | null;
+        members: Array<MemberInfo> | null ;
 }
 
 async function reload(id: number) {
         const allevents = await API.getEventManager(id);
-        // const members = await API.get_members()
+        let members = await API.get_members()
+        let tmp_members:Array<MemberInfo> = members.data.map((x:any)=>{
+                x.firstname=x.username+" ZAKI"
+                x.lastname=x.username+" AHMED"
+                return x
+        });
 
         if(allevents === undefined){
                 return [];
@@ -52,7 +60,7 @@ async function reload(id: number) {
                                 address: i.Address,
                                 time: _time,
                                 date: _date,
-                                members: null,
+                                members:tmp_members,
                                 id: _id,
                         };
                 });
@@ -84,7 +92,7 @@ function MyEvents(props: { id: any }) {
 
         React.useEffect(() => {
                 reload(props.id).then((res) => setEvents(res));
-        }, []);
+        }, [events]);
 
         const toggleEmailModal = () => {
                 setShowEmailModal(!showEmailModal);
@@ -125,6 +133,8 @@ function MyEvents(props: { id: any }) {
           date: events[index].date,
           description: events[index].description,
         });
+    store.dispatch(redux_index(i))
+    // store.dispatch(redux_rsvp(events[index].members))
   };
 
   const addEvent = async (
@@ -152,7 +162,7 @@ function MyEvents(props: { id: any }) {
       date,
       description,
       id: _tmp.id,
-      members: null,
+      members: [{lastname:"", firstname:"", id:-1, points:0}],
     });
     setEvents(e);
     setEventIndex(events.length);
@@ -228,9 +238,12 @@ function MyEvents(props: { id: any }) {
         curEvent={curEvent}
         setCurEvent={setCurEvent}
       />
+            {console.log(events[eventIndex])}
       <EventMemberModal
         showModal={showEventMemberModal}
         setShowModal={setShowEventMemberModal}
+              members={ events[eventIndex]!==undefined ?  events[eventIndex].members : null}
+        // members={"WOW"}
       />
       <TransferManagerModal
         showModal={showTransferManagerModal}

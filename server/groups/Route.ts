@@ -44,7 +44,7 @@ router.get("/getgroup", async(req,res)=>{
         let members= x.reduce((acc,value)=>{
             if(value.User===null)
                 return []
-            var tmp= ({username:value.username, id:value.User, name:value.username+" ZAKI"})
+            var tmp= ({username:value.username, id:value.User, firstname:value.username+" ZAKI", lastname:value.username+ " JACKIE"})
             allmembers.push(tmp)
             acc.push(tmp)
             return acc

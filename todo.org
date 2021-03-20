@@ -10,7 +10,7 @@
       + + myevents page seeing all those who are RSVP
 	- [X] Group props id :: Send hte users id to the groups, and don't show my grousp if not owner
 * Frontend Middleware
-	- [ ] Add/Remove members from groups
+	- [X] Add/Remove members from groups
 	- [ ] Event Signin
 	- [ ] lEaderboard
 	- [ ] Give/Take member points :: myevents can do it through myevents, while owners can chagne points thorugh leaderboard
