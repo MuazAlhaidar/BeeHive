@@ -3,15 +3,22 @@ import { OverlayTrigger } from "react-bootstrap";
 import EditMemberPointsPanel from "./EditMemberPointsPanel";
 import "../CSS/EditMemberPointsButtom.css";
 
-interface IProps {
+interface MemberInfo {
   id: number;
+  firstname: string;
+  lastname: string;
   points: number;
 }
 
-function EditMemberPointsButton({ id, points }: IProps) {
+interface IProps {
+  member: MemberInfo;
+  reloadParent: () => void;
+}
+
+function EditMemberPointsButton({ member, reloadParent }: IProps) {
   const pointPanel = (
     <div>
-      <EditMemberPointsPanel id={id} points={points} />
+      <EditMemberPointsPanel member={member} reloadParent={reloadParent} />
     </div>
   );
 

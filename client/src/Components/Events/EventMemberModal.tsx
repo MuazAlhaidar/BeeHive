@@ -31,6 +31,7 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
   }
 
   const [hasAttended, setHasAttended] = React.useState(false);
+  const [reload, setReload] = React.useState(false);
 
   const setAttended = () => {
     setHasAttended(!hasAttended);
@@ -82,8 +83,10 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
                       {member.points}
                     </div>
                     <EditMemberPointsButton
-                      id={member.id}
-                      points={member.points}
+                      member={member}
+                      reloadParent={() => {
+                        setReload(!reload);
+                      }}
                     />
                   </div>
                 );

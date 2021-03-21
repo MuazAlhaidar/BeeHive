@@ -45,7 +45,12 @@ function Leaderboard() {
               <div className="Leaderboard-Firstname">{member.firstname}</div>
               <div className="Leaderboard-Lastname">{member.lastname}</div>
               <div className="Leaderboard-Points">{member.points}</div>
-              <EditMemberPointsButton id={member.id} points={member.points} />
+              <EditMemberPointsButton
+                member={member}
+                reloadParent={() => {
+                  setReload(!reload);
+                }}
+              />
             </div>
           );
         })}
