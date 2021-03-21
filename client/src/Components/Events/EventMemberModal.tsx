@@ -1,110 +1,115 @@
 import React from "react";
 import EditMemberPointsButton from "../EditMemberPointsButton";
 import "../../CSS/Events/EventMemberModal.css";
-import {store, redux_index, redux_rsvp} from "../../store"
+import { store, redux_index, redux_rsvp } from "../../store";
 
 interface MemberInfo {
-        id: number;
-        firstname: string;
-        lastname: string;
-        points: number;
+  id: number;
+  firstname: string;
+  lastname: string;
+  points: number;
 }
 
 interface IProps {
-        showModal: boolean;
-        setShowModal: (showModal: boolean) => void;
-        members: MemberInfo[] | null
+  showModal: boolean;
+  setShowModal: (showModal: boolean) => void;
+  members: MemberInfo[] | null;
 }
 
-function EventMemberModal({ showModal, setShowModal, members}: IProps) {
+function EventMemberModal({ showModal, setShowModal, members }: IProps) {
+  // const [members, setMembers] = React.useState(store.getState().state.members);
 
+  let sortedList = Array<MemberInfo>({
+    firstname: "",
+    lastname: "",
+    id: -1,
+    points: 0,
+  });
+  if (members! !== null) {
+    var _members = (members as unknown) as MemberInfo[];
+    sortedList = _members.sort((a, b) => (a.points < b.points ? 1 : -1));
+  }
 
-        // const [members, setMembers] = React.useState(store.getState().state.members);
+  const [hasAttended, setHasAttended] = React.useState(false);
 
+  const setAttended = () => {
+    setHasAttended(!hasAttended);
+  };
 
-        let sortedList=Array<MemberInfo>({firstname:"", lastname:"", id:-1, points:0})
-        if(members! !==null){
-                var _members = members as unknown as MemberInfo[]
-                sortedList= _members.sort((a, b) => (a.points < b.points ? 1 : -1))
-        }
+  const handleSave = () => {
+    setShowModal(!showModal);
+  };
 
-        const [hasAttended, setHasAttended] = React.useState(false);
+  const handleCancel = () => {
+    setShowModal(!showModal);
+  };
 
-        const setAttended = () => {
-                setHasAttended(!hasAttended);
-        };
-
-        const handleSave = () => {
-                setShowModal(!showModal);
-        };
-
-        const handleCancel = () => {
-                setShowModal(!showModal);
-        };
-
-        return (
-                <div>
-                        {showModal ? (
-                                <div className="EventMemberModal-Background">
-                                        <div className="EventMemberModal-Div">
-                                                <div className="EventMemberModal-TopBar">
-                                                        <div className="EventMemberModal-FirstName">First</div>
-                                                        <div className="EventMemberModal-LastName">Last</div>
-                                                        <div className="EventMemberModal-Attended">Attended</div>
-                                                        <div className="EventMemberModal-Points">Points</div>
-                                                </div>
-                                                <div className="EventMemberModal-MemberList">
-                                                        {sortedList.map((member, index) => {
-                                                                return (
-                                                                        <div
-                                                                                className={
-                                                                                        index % 2 === 0
-                                                                                                ? "EventMemberModal-MemberInfo-lightgrey"
-                                                                                                : "EventMemberModal-MemberInfo-white"
-                                                                                }
-                                                                        >
-                                                                                <div className="EventMemberModal-FirstName">
-                                                                                        {member.firstname}
-                                                                                </div>
-                                                                                <div className="EventMemberModal-LastName">
-                                                                                        {member.lastname}
-                                                                                </div>
-                                                                                <form className="EventMemberModal-Attended">
-                                                                                        <input
-                                                                                                type="checkbox"
-                                                                                                defaultChecked={false}
-                                                                                                onChange={setAttended}
-                                                                                        />
-                                                                                </form>
-                                                                                <div className="EventMemberModal-Points">
-                                                                                        {member.points}
-                                                                                </div>
-                                                                                <EditMemberPointsButton />
-                                                                        </div>
-                                                                );
-                                                        })}
-                                                </div>
-                                                <div className="EventMemberModal-BottomBar">
-                                                        <div className="EventMemberModal-Buttons">
-                                                                <button
-                                                                        className="EventMemberModal-LightButton"
-                                                                        onClick={handleCancel}
-                                                                >
-                                                                        Cancel
-                                                                </button>
-                                                                <button
-                                                                        className="EventMemberModal-DarkButton"
-                                                                        onClick={handleSave}
-                                                                >
-                                                                        Save
-                                                                </button>
-                                                        </div>
-                                                </div>
-                                        </div>
-                                </div>
-                        ) : null}
-                </div>
-        );
+  return (
+    <div>
+      {showModal ? (
+        <div className="EventMemberModal-Background">
+          <div className="EventMemberModal-Div">
+            <div className="EventMemberModal-TopBar">
+              <div className="EventMemberModal-FirstName">First</div>
+              <div className="EventMemberModal-LastName">Last</div>
+              <div className="EventMemberModal-Attended">Attended</div>
+              <div className="EventMemberModal-Points">Points</div>
+            </div>
+            <div className="EventMemberModal-MemberList">
+              {sortedList.map((member, index) => {
+                return (
+                  <div
+                    className={
+                      index % 2 === 0
+                        ? "EventMemberModal-MemberInfo-lightgrey"
+                        : "EventMemberModal-MemberInfo-white"
+                    }
+                  >
+                    <div className="EventMemberModal-FirstName">
+                      {member.firstname}
+                    </div>
+                    <div className="EventMemberModal-LastName">
+                      {member.lastname}
+                    </div>
+                    <form className="EventMemberModal-Attended">
+                      <input
+                        type="checkbox"
+                        defaultChecked={false}
+                        onChange={setAttended}
+                      />
+                    </form>
+                    <div className="EventMemberModal-Points">
+                      {member.points}
+                    </div>
+                    <EditMemberPointsButton
+                      id={member.id}
+                      points={member.points}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+            <div className="EventMemberModal-BottomBar">
+              <div className="EventMemberModal-Buttons">
+                <button
+                  className="EventMemberModal-LightButton"
+                  onClick={handleCancel}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="EventMemberModal-DarkButton"
+                  onClick={handleSave}
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
 }
 
 export default EventMemberModal;

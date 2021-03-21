@@ -10,7 +10,7 @@ interface MemberInfo {
 }
 
 function Leaderboard() {
-  const fakeMembers = Array<MemberInfo>(
+  const allMembers = Array<MemberInfo>(
     { id: 1, firstname: "John", lastname: "Keng", points: 20 },
     { id: 2, firstname: "Andrew", lastname: "Slade", points: 22 },
     { id: 3, firstname: "Kyle", lastname: "Stevens", points: 55 },
@@ -20,8 +20,10 @@ function Leaderboard() {
   );
 
   const [sortedList, setSortedList] = React.useState(
-    fakeMembers.sort((a, b) => (a.points < b.points ? 1 : -1))
+    allMembers.sort((a, b) => (a.points < b.points ? 1 : -1))
   );
+
+  const [reload, setReload] = React.useState(false);
 
   return (
     <div className="Leaderboard">
@@ -43,7 +45,7 @@ function Leaderboard() {
               <div className="Leaderboard-Firstname">{member.firstname}</div>
               <div className="Leaderboard-Lastname">{member.lastname}</div>
               <div className="Leaderboard-Points">{member.points}</div>
-              <EditMemberPointsButton />
+              <EditMemberPointsButton id={member.id} points={member.points} />
             </div>
           );
         })}

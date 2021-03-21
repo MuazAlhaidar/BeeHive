@@ -1,8 +1,13 @@
 import React from "react";
 import "../CSS/EditMemberPointsPanel.css";
 
-function EditMemberPointsPanel() {
-  let oldNumber = 2;
+interface IProps {
+  id: number;
+  points: number;
+}
+
+function EditMemberPointsPanel({ id, points }: IProps) {
+  let oldNumber = points;
 
   const [newNumber, setNewNumber] = React.useState(oldNumber);
 
@@ -17,6 +22,8 @@ function EditMemberPointsPanel() {
     n -= 1;
     setNewNumber(n);
   };
+
+  const handleSave = () => {};
 
   return (
     <div className="EditMemberPointsPanel">
@@ -38,7 +45,9 @@ function EditMemberPointsPanel() {
           </button>
         </div>
       </div>
-      <button className="EditMemberPointsPanel-SaveButton">Save</button>
+      <button className="EditMemberPointsPanel-SaveButton" onClick={handleSave}>
+        Save
+      </button>
     </div>
   );
 }
