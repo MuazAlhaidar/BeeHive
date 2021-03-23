@@ -257,9 +257,6 @@ function MyEvents(props: { id: any }) {
         showModal={showEventMemberModal}
         setShowModal={setShowEventMemberModal}
         members={ events[eventIndex]!==undefined ?  events[eventIndex].members : null}
-        members={
-          events[eventIndex] !== undefined ? events[eventIndex].members : null
-        }
       />
       <TransferManagerModal
         showModal={showTransferManagerModal}
