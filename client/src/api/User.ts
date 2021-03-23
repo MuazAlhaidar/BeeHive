@@ -24,13 +24,16 @@ async function login(_username:string, _password:string){
 
 
 async function new_user( user:any ){
-        return axiosPost("new",  {
-                username:user.username,
-                password:user.password,
-                email:user.email,
-                role_id:user.role_id,
-                points:user.points 
-        })
+    return axiosPost("new",  {
+        username:user.username,
+        password:user.password,
+        email:user.email,
+        role_id:user.role_id,
+        firstname:user.firstname,
+        lastname:user.lastname,
+        points:user.points 
+
+    })
         .then(ret => {return [0, ret.data.id]})
         .catch((err:any)=>{
                 switch(err.response.status){

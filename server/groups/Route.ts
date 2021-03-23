@@ -31,7 +31,7 @@ async function verify_owner(_id:number){
 router.get("/getgroup", async(req,res)=>{
     console.clear()
     // TODO This doesn't get all people NOT in any group
-    const _groups = await sequelize.query("select groups.id, groups.Name as name, groups.ContactInfo as contactInfo,  groupmembers.User, users.username from groups left join groupmembers on groupmembers.Group = groups.id left join users on groupmembers.User = users.id order by groups.id;")
+    const _groups = await sequelize.query("select groups.id, groups.Name as name, groups.ContactInfo as contactInfo,  groupmembers.User, users.username, users.firstname, users.lastname from groups left join groupmembers on groupmembers.Group = groups.id left join users on groupmembers.User = users.id order by groups.id;")
     
     var groupBy = function(xs, key) {
         return xs.reduce(function(rv, x) {
@@ -45,7 +45,7 @@ router.get("/getgroup", async(req,res)=>{
         let members= x.reduce((acc,value)=>{
             if(value.User===null)
                 return []
-            var tmp= ({username:value.username, id:value.User, firstname:value.username+" ZAKI", lastname:value.username+ " JACKIE"})
+            var tmp= ({username:value.username, id:value.User, firstname:value.firstname, lastname:value.lastname})
             allmembers.push(tmp)
             acc.push(tmp)
             return acc
