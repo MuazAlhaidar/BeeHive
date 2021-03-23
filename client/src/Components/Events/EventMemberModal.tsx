@@ -2,6 +2,7 @@ import React from "react";
 import EditMemberPointsButton from "../EditMemberPointsButton";
 import "../../CSS/Events/EventMemberModal.css";
 import { store, redux_index, redux_rsvp } from "../../store";
+import {update_points} from "../../api/Event"
 
 interface MemberInfo {
   id: number;
@@ -38,6 +39,7 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
   };
 
   const handleSave = () => {
+          update_points(members as any)
     setShowModal(!showModal);
   };
 

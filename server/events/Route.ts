@@ -232,5 +232,12 @@ router.post("/get_members", async (req, res)=>{
 
 })
 
+router.post("/update-points", async(req,res)=>{
+    let users=  req.body.users;
+    users.forEach(user=>{
+        User.update({points: user.points}, {where:{id:user.id}});
+    })
+    res.sendStatus(200)
+})
 export {}
 module.exports = router;

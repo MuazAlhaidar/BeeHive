@@ -8,7 +8,7 @@ import EventMemberModal from "../Components/Events/EventMemberModal";
 import TransferManagerModal from "../Components/TransferManagerModal";
 import ConfirmationModal from "../Components/ConfirmationModal";
 import * as API from "../api/Event";
-import {store, redux_index, redux_members} from "../store"
+import {store, redux_index} from "../store"
 
 interface MemberInfo {
         id: number;
@@ -80,6 +80,7 @@ function MyEvents(props: { id: any }) {
   const [showEventEditModal, setShowEventEditModal] = React.useState(false);
   const [showEventMemberModal, setShowEventMemberModal] = React.useState(false);
   const [showEmailModal, setShowEmailModal] = React.useState(false);
+  const [checkReload, setReload] = React.useState(false);
   const [
     showTransferManagerModal,
     setShowTransferManagerModal,
@@ -97,7 +98,7 @@ function MyEvents(props: { id: any }) {
 
         React.useEffect(() => {
                 reload(props.id).then((res) => setEvents(res));
-        }, [eventIndex]);
+        }, [eventIndex, checkReload]);
 
         const toggleEmailModal = () => {
                 setShowEmailModal(!showEmailModal);
@@ -139,6 +140,7 @@ function MyEvents(props: { id: any }) {
           description: events[index].description,
         });
     store.dispatch(redux_index(i))
+    console.log(i)
     // store.dispatch(redux_rsvp(events[index].members))
   };
 
@@ -246,12 +248,15 @@ function MyEvents(props: { id: any }) {
       <EventMemberModal
         showModal={showEventMemberModal}
         setShowModal={setShowEventMemberModal}
-              members={ events[eventIndex]!==undefined ?  events[eventIndex].members : null}
+        members={ events[eventIndex]!==undefined ?  events[eventIndex].members : null}
         // members={"WOW"}
       />
       <TransferManagerModal
         showModal={showTransferManagerModal}
         setShowModal={setShowTransferManagerModal}
+         setReload={setReload}
+        event={ events[eventIndex]!==undefined ?  events[eventIndex].id : null}
+         reload={checkReload}
       />
       <ConfirmationModal
         showModal={showConfirmationModal}

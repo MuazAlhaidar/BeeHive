@@ -114,6 +114,12 @@ async function checkRSVP(_event:number, _user:number){
         .catch(err=>{console.log(err);return undefined})
 }
 
+async function update_points(_users:[any]){
+    return axiosPost("update-points", {users:_users})
+        .then(res=>true)
+        .catch(res=>false)
+}
+
 
 export {
   axiosGet,
@@ -129,5 +135,6 @@ export {
   getEventManager,
   get_members,
     checkRSVP,
+    update_points
 }
 // module.exports= { login,new_user,reset_password, reset_token}

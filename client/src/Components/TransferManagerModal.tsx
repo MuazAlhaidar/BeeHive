@@ -1,5 +1,7 @@
 import React from "react";
 import "../CSS/TransferManagerModal.css";
+import * as UserAPI  from  "../api/User" 
+import *  as EventAPI  from   "../api/Event"
 
 interface MemberInfo {
   id: number;
@@ -11,21 +13,26 @@ interface MemberInfo {
 interface IProps {
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
+  setReload: any;
+  reload: any;
+  event: any;
 }
 
-function TransferManagerModal({ showModal, setShowModal }: IProps) {
+function TransferManagerModal({ showModal, setShowModal, reload, setReload, event }: IProps) {
   const fakeMembers = Array<MemberInfo>(
-    { id: 1, firstname: "John", lastname: "Keng", points: 20 },
-    { id: 2, firstname: "Andrew", lastname: "Slade", points: 22 },
-    { id: 3, firstname: "Kyle", lastname: "Stevens", points: 55 },
-    { id: 4, firstname: "James", lastname: "Cicili", points: 55 },
-    { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
-    { id: 6, firstname: "Kevin", lastname: "Liang", points: 87 }
+    { id: -1, firstname: "", lastname: "", points: 0 },
   );
 
   const [sortedList, setSortedList] = React.useState(
     fakeMembers.sort((a, b) => (a.points < b.points ? 1 : -1))
   );
+  React.useEffect(()=>{
+          UserAPI.getall()
+          .then(res=>{
+                  setSortedList(res)
+          })
+          
+  },[])
 
   const handleCancel = () => {
     setShowModal(!showModal);
@@ -56,7 +63,13 @@ function TransferManagerModal({ showModal, setShowModal }: IProps) {
                     <div className="TransferManagerModal-LastName">
                       {member.lastname}
                     </div>
-                    <button className="TransferManagerModal-SetManagerButton">
+                          <button className="TransferManagerModal-SetManagerButton" onClick={() => {
+                                  handleCancel()
+                                  EventAPI.Transfer(event, member.id)
+                                  .then(res=>{
+                                          setReload(!reload);  
+                                  })
+                                  }}>
                       Set As Manager
                     </button>
                   </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import "../../CSS/Leaderboard.css";
+import {getall} from "../../api/User"
 
 interface MemberInfo {
   id: number;
@@ -9,18 +10,33 @@ interface MemberInfo {
 }
 
 function Leaderboard() {
-  const fakeMembers = Array<MemberInfo>(
-    { id: 1, firstname: "John", lastname: "Keng", points: 20 },
-    { id: 2, firstname: "Andrew", lastname: "Slade", points: 22 },
-    { id: 3, firstname: "Kyle", lastname: "Stevens", points: 55 },
-    { id: 4, firstname: "James", lastname: "Cicili", points: 55 },
-    { id: 5, firstname: "Lisa", lastname: "Jenki", points: 12 },
-    { id: 6, firstname: "Kevin", lastname: "Liang", points: 87 }
-  );
+  const [allMembers, setMembers] = React.useState(Array<MemberInfo>(
+    { id: 0, firstname: "default", lastname: "default", points: 0 },
+  ));
 
   const [sortedList, setSortedList] = React.useState(
-    fakeMembers.sort((a, b) => (a.points < b.points ? 1 : -1))
+    allMembers.sort((a, b) => (a.points < b.points ? 1 : -1))
   );
+  const [reload, setReload] = React.useState(false);
+
+  React.useEffect(() => {
+    getall().then((res) => {
+            if(res===undefined || res === null){
+            }
+            else{
+                    console.log(res)
+                    let test = res.map((x:any) => {
+                            let ret={id:x.id, firstname:x.username+"\tAHMED", lastname:x.username+"\tZAKI", points:x.points}
+                            return ret;
+                    })
+                    test = test as MemberInfo[]
+                    // setReload(false)
+                    setMembers(test)
+                    setSortedList(test)
+                    setReload(true)
+            }
+    })
+  }, [reload]);
 
   return (
     <div className="Leaderboard">
@@ -30,7 +46,7 @@ function Leaderboard() {
         <div className="Leaderboar-PointsLabel">Points</div>
       </div>
       <div className="Leaderboard-List">
-        {sortedList.map((member, index) => {
+              {reload ? sortedList.map((member, index) => {
           return (
             <div
               className={
@@ -44,7 +60,7 @@ function Leaderboard() {
               <div className="Leaderboard-Points">{member.points}</div>
             </div>
           );
-        })}
+        }) : null}
       </div>
     </div>
   );

@@ -20,13 +20,28 @@
    CLOCK: [2021-03-20 Sat 10:49]--[2021-03-20 Sat 12:49] =>  2:00
    :END:
    - [ ] Change useeffect, to reload ony when reload page
-** TODO Give/Take member points
+** DONE Give/Take member points
+   CLOSED: [2021-03-22 Mon 14:25]
+   - State "DONE"       from "TODO"       [2021-03-22 Mon 14:25]
    myevents can do it through myevents, while owners can chagne points thorugh leaderboard
-** TODO Transfer Event Manager role  
-** TODO lEaderboard
-** TODO changeemail
-** TODO merge master with finish-project
+** DONE lEaderboard
+   CLOSED: [2021-03-23 Tue 01:38]
+   :PROPERTIES:
+   :Effort:   1:30
+   :END:
+   - State "DONE"       from "TODO"       [2021-03-23 Tue 01:38]
+   :LOGBOOK:
+   CLOCK: [2021-03-22 Mon 14:25]--[2021-03-22 Mon 23:51] =>  9:26
+   :END:
+** DONE Transfer Event Manager role  
+   CLOSED: [2021-03-23 Tue 11:08]
+   - State "DONE"       from "TODO"       [2021-03-23 Tue 11:08]
+** DONE changeemail
+   CLOSED: [2021-03-23 Tue 11:25]
+   - State "DONE"       from "TODO"       [2021-03-23 Tue 11:25]
 ** TODO FIrst/last name   
+** TODO merge master with finish-project
+** TODO Figure out a way to query all groupmembers not in a gorup   
 ** DONE Add/Remove members from groups
 ** DONE RSVP to event :: a user can see an event in all events, and invite themselves to it
 ** DONE Email to groups

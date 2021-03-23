@@ -71,8 +71,20 @@ async function points(_id:number, _points:number){
         .then(res=>false)
 }
 
+async function getall(){
+        return axiosGet("getall", {})
+        .then(res=>res.data)
+        .catch(res=>res)
 
-export {axiosPost,axiosGet,  login,new_user,reset_password, reset_token, reset_url, points}
+}
+async function changeemail(_id:any, _newemail:any){
+    return axiosPost("changeemail", {id:_id, newemail:_newemail})
+        .then(res=>true)
+        .catch(res=>false)
+}
+
+
+export {axiosPost,axiosGet,  login,new_user,reset_password, reset_token, reset_url, points, getall, changeemail}
 
 // module.exports= { login,new_user,reset_password, reset_token}
 

@@ -227,6 +227,27 @@ router.post("/points", async (req,res)=>{
     res.sendStatus(200);
 })
 
+router.get("/getall", async(req,res)=>{
+    let users = await User.findAll()
+    users = users.map(i => {
+        let x= i.dataValues
+        return {id:x.id, firstname:x.username+" ZAKI", lastname:x.username+" AHMED", points:x.points}
+                           })
+    console.log(users)
+    res.send(users).status(200)
+})
+
+router.post("/changeemail", async(req,res)=>{
+    let id = req.body.id
+    let newemail = req.body.newemail
+    let ret2 = await User.findOne({where:{email:newemail}})
+    if(ret2 ===null){
+        await User.update({ email:newemail}, {where:{id:id}})
+        res.sendStatus(200)
+        return
+    }
+    res.sendStatus(404)
+})
 
 export {}
 module.exports = router;

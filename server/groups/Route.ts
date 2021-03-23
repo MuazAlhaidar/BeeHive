@@ -32,6 +32,7 @@ router.get("/getgroup", async(req,res)=>{
     console.clear()
     // TODO This doesn't get all people NOT in any group
     const _groups = await sequelize.query("select groups.id, groups.Name as name, groups.ContactInfo as contactInfo,  groupmembers.User, users.username from groups left join groupmembers on groupmembers.Group = groups.id left join users on groupmembers.User = users.id order by groups.id;")
+    
     var groupBy = function(xs, key) {
         return xs.reduce(function(rv, x) {
             (rv[x[key]] = rv[x[key]] || []).push(x);
@@ -55,6 +56,7 @@ router.get("/getgroup", async(req,res)=>{
     allmembers = (Object.values(groupBy(allmembers, 'id')).map(x=>{
         return x[0]
     }))
+    console.log(groups, allmembers);
     res.status(200).send({groups:ret_group, users:allmembers}) 
 })
 
