@@ -28,7 +28,9 @@ router.post("/new", (req,res)=>{
 	username: req.body.username
 	,password:req.body.password
 	,email:req.body.email
-	,points:req.body.points
+        ,points:req.body.points
+        ,firstname:req.body.firstname
+        ,lastname:req.body.lastname
 	,role_id:req.body.role_id
     }}).then(ret => {
 	var indatabase=(ret[0]["_options"]["isNewRecord"])
@@ -231,7 +233,7 @@ router.get("/getall", async(req,res)=>{
     let users = await User.findAll()
     users = users.map(i => {
         let x= i.dataValues
-        return {id:x.id, firstname:x.username+" ZAKI", lastname:x.username+" AHMED", points:x.points}
+        return {id:x.id, firstname:x.firstname, lastname:x.lastname, points:x.points}
                            })
     console.log(users)
     res.send(users).status(200)

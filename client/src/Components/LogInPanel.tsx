@@ -20,7 +20,7 @@ function LogInPanel(props: { changeUser: any }) {
         <p className="LoginPanel-InputTitle">Password</p>
         <input
           className="LoginPanel-Input"
-          type="text"
+          type="password"
           id="Password"
           onChange={(e) => setPassword(e.target.value)}
           value={password}

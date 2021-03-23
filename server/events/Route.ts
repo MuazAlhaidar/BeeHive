@@ -191,9 +191,12 @@ router.post("/man", async (req, res)=>{
         res.sendStatus(404)
     }
     else{
-        const query = await sequelize.query(`select mang.id, mang.Name, mang.Description, mang.Address, mang.Time, users.username, users.id as userid, users.points  from (select events.*  from eventmembers join events on
+        const eventmembers = await sequelize.query(`select mang.id, mang.Name, mang.Description, mang.Address, mang.Time, users.username,  users.id as userid, users.points  from (select events.*  from eventmembers join events on
 events.id = eventmembers.Event where eventmembers.Manager=true and eventmembers.User=${id} ) as mang join eventmembers on eventmembers.Event = mang.id join users on eventmembers.User = users.id where eventmembers.Manager=false ;`)
-        res.send(query[0]).status(200)
+        const myevents = await sequelize.query(`select events.* from eventmembers join events on eventmembers.id=${id} and eventmembers.Manager =true;`);
+
+        console.log(eventmembers[0], myevents[0])
+        res.send({eventmembers:eventmembers[0], events:myevents[0]}).status(200)
 
     }
 })
@@ -203,7 +206,7 @@ events.id = eventmembers.Event where eventmembers.Manager=true and eventmembers.
  * @desc Get all users and hteri poitns
  */
 router.get("/leaderboard", async(req, res)=>{
-    let users = await User.findAll({attributes:["username", "points"]});
+    let users = await User.findAll({attributes:["username", "points", "firstname", "lastname"]});
     res.send(users).status(200)
 })
 
@@ -223,10 +226,9 @@ router.post("/email", async(req,res)=>{
 // @desc Get those who are RSVP to an event, and those that aren't
 // @return {RSVP:[user], not:[user]}
 router.post("/get_members", async (req, res)=>{
-    let users = await sequelize.query("select users.username, eventmembers.id from eventmembers  join users on users.id=eventmembers.User ;")
+    let users = await sequelize.query("select users.username, users.firstname, users.lastname, eventmembers.id from eventmembers  join users on users.id=eventmembers.User ;")
     users=users[0];
     // TODO get user's name
-    users=users.map(i => { i["name"]=i.username+" ahmed"; return i})
     res.status(200).send(users)
 
 

@@ -28,62 +28,60 @@ interface EventInfo {
 }
 
 async function reload(id: number) {
-  const allevents = await API.getEventManager(id);
+  const tmp = await API.getEventManager(id);
+  const myevents = tmp["events"]
+  const members = tmp["eventmembers"]
 
-  if (allevents === undefined) {
-    return [];
+  if (myevents === undefined) {
+          return [];
   } else {
-    let events: any = {};
-    allevents.forEach((i: any) => {
-      if (events[i.id] === undefined) {
-        var date_obj = new Date(i.Time);
-        let _date =
-          +(+date_obj.getMonth()) +
-          "/" +
-          date_obj.getDay() +
-          "/" +
-          date_obj.getFullYear();
-        let minute = date_obj.getMinutes();
-        let hour = date_obj.getHours();
-        let _hour = ("0" + hour).slice(-2);
-        let _minute = ("0" + minute).slice(-2);
-        let _time = _hour + ":" + _minute;
-        let _id = i.id;
+          let events: any = {};
+          myevents.forEach((i: any) => {
+                  var date_obj = new Date(i.Time);
+                  let _date =
+                          +(+date_obj.getMonth()) +
+                          "/" +
+                          date_obj.getDay() +
+                          "/" +
+                          date_obj.getFullYear();
+                  let minute = date_obj.getMinutes();
+                  let hour = date_obj.getHours();
+                  let _hour = ("0" + hour).slice(-2);
+                  let _minute = ("0" + minute).slice(-2);
+                  let _time = _hour + ":" + _minute;
+                  let _id = i.id;
 
-        let tmp_event = {
-          name: i.Name,
-          description: i.Description,
-          address: i.Address,
-          time: _time,
-          date: _date,
-          members: Array<MemberInfo>({
-            id: i.userid,
-            firstname: "First: " + i.username,
-            lastname: "Last: " + i.username,
-            points: i.points,
-          }),
-          id: _id,
-        };
-        events[i.id] = tmp_event;
-      } else {
-        events[i.id].members.push({
-          id: i.userid,
-          firstname: i.username,
-          lastname: i.username,
-          points: i.points,
-        });
-        console.log({
-          id: i.userid,
-          firstname: i.username,
-          lastname: i.username,
-          points: i.points,
-        });
-      }
-    });
-    console.log(allevents);
-    return Object.values(events) as Array<EventInfo>;
+                  let tmp_event = {
+                          name: i.Name,
+                          description: i.Description,
+                          address: i.Address,
+                          time: _time,
+                          date: _date,
+                          members:null,
+                          // members: Array<MemberInfo>({
+                          //   id: i.userid,
+                          //   firstname: i.firstname,
+                          //   lastname: i.firstname,
+                          //   points: i.points,
+                          // }),
+                          id: _id,
+                  };
+                  events[i.id] = tmp_event;
+          })
+          console.log(events)
+          members.forEach((i:any)=>{
+                  if(events[i.id].member != null){
+                          events[i.id].member= Array<MemberInfo>({ id: i.userid, firstname: i.firstname, lastname: i.firstname, points: i.points, })
+                  }
+                  else{
+                          events[i.id].push({ id: i.userid, firstname: i.firstname, lastname: i.firstname, points: i.points, })
+                  }
+
+          })
+  return Object.values(events) as Array<EventInfo>;
   }
 }
+
 
 function MyEvents(props: { id: any }) {
   const [events, setEvents] = React.useState(Array<EventInfo>());

@@ -26,7 +26,7 @@ function Leaderboard() {
             else{
                     console.log(res)
                     let test = res.map((x:any) => {
-                            let ret={id:x.id, firstname:x.username+"\tAHMED", lastname:x.username+"\tZAKI", points:x.points}
+                            let ret={id:x.id, firstname:x.firstname, lastname:x.lastname, points:x.points}
                             return ret;
                     })
                     test = test as MemberInfo[]
