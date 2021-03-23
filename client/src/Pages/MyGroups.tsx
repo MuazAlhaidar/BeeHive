@@ -8,7 +8,7 @@ import GroupsEdit from "../Components/Groups/GroupsEdit";
 import ConfirmationModal from "../Components/ConfirmationModal";
 import "../CSS/Groups/MyGroups.css";
 import * as API from "../api/Groups";
-import {store, redux_index, redux_rsvp} from "../store"
+import { store, redux_index, redux_rsvp } from "../store";
 
 interface MemberInfo {
   username: string;
@@ -23,19 +23,18 @@ interface GroupInfo {
 }
 
 // async function reload(id: number): Promise<Array<GroupInfo>> {
-async function reload(id: number): Promise<any>{
+async function reload(id: number): Promise<any> {
   const data = await API.getGroup(id);
-  return data.data
+  return data.data;
 }
 
 function MyGroups(props: { id: number }) {
-
   const fakeMembersList = new Array<MemberInfo>();
 
-  const [allMembers, setAllMembers] = React.useState(new Array<MemberInfo>(),);
+  const [allMembers, setAllMembers] = React.useState(new Array<MemberInfo>());
 
   const [groups, setGroups] = React.useState(Array<GroupInfo>());
-  const [groupIndex, setGroupIndex] = React.useState(0);
+  const [groupIndex, setGroupIndex] = React.useState(-1);
   const [showMembersEditModal, setShowMembersEditModal] = React.useState(false);
   const [showEmailModal, setShowEmailModal] = React.useState(false);
   const [showGroupEditModal, setShowGroupEditModal] = React.useState(false);
@@ -64,11 +63,11 @@ function MyGroups(props: { id: number }) {
   const toggleConfirmationModal = () => {
     setShowConfirmationModal(!showConfirmationModal);
   };
-  const set_groupmembers = (memberList:Array<MemberInfo>, index:number) =>{
-          const m = groups.slice();
-          m[index].members=memberList
-          setGroups(m);
-  }
+  const set_groupmembers = (memberList: Array<MemberInfo>, index: number) => {
+    const m = groups.slice();
+    m[index].members = memberList;
+    setGroups(m);
+  };
 
   const resetGroupAndMemList = () => {
     setCurGroup({
@@ -89,16 +88,16 @@ function MyGroups(props: { id: number }) {
   React.useEffect(() => {
     reload(props.id).then((res) => {
       setGroups(res.groups);
-      console.log(res.users)
-      setAllMembers(res.users)
+      console.log(res.users);
+      setAllMembers(res.users);
     });
   }, []);
 
   const selectGroup = (i: number) => {
     let index = i === undefined ? 0 : i;
     setGroupIndex(index);
-    store.dispatch(redux_index(i))
-    store.dispatch(redux_rsvp(groups[i].id))
+    store.dispatch(redux_index(i));
+    store.dispatch(redux_rsvp(groups[i].id));
     // store.dispatch(redux_index(index))
     i === undefined ? resetGroupAndMemList() : setGroupAndMemList(index);
   };

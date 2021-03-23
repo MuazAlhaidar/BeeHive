@@ -1,6 +1,6 @@
 .EventList-Top {
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
 }
 
 .EventList-AddButton {

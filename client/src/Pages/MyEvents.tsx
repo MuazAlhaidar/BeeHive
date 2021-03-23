@@ -8,75 +8,86 @@ import EventMemberModal from "../Components/Events/EventMemberModal";
 import TransferManagerModal from "../Components/TransferManagerModal";
 import ConfirmationModal from "../Components/ConfirmationModal";
 import * as API from "../api/Event";
-import {store, redux_index} from "../store"
+import { store, redux_index, redux_members } from "../store";
 
 interface MemberInfo {
-        id: number;
-        firstname: string;
-        lastname: string;
-        points: number;
+  id: number;
+  firstname: string;
+  lastname: string;
+  points: number;
 }
 
 interface EventInfo {
-        name: string;
-        address: string;
-        time: string;
-        date: string;
-        description: string;
-        id: number;
-        members: Array<MemberInfo> | null ;
+  name: string;
+  address: string;
+  time: string;
+  date: string;
+  description: string;
+  id: number;
+  members: Array<MemberInfo> | null;
 }
 
 async function reload(id: number) {
-        const allevents = await API.getEventManager(id);
+  const allevents = await API.getEventManager(id);
 
-        if(allevents === undefined){
-                return [];
-        }
-        else{
-                let events:any ={}
-                allevents.forEach((i: any) => {
-                        if(events[i.id]===undefined){
-                                var date_obj = new Date(i.Time);
-                                let _date =
-                                        +(+date_obj.getMonth()) +
-                                        "/" +
-                                        date_obj.getDay() +
-                                        "/" +
-                                        date_obj.getFullYear();
-                                let minute = date_obj.getMinutes();
-                                let hour = date_obj.getHours();
-                                let _hour = ("0" + hour).slice(-2);
-                                let _minute = ("0" + minute).slice(-2);
-                                let _time = _hour + ":" + _minute;
-                                let _id = i.id;
+  if (allevents === undefined) {
+    return [];
+  } else {
+    let events: any = {};
+    allevents.forEach((i: any) => {
+      if (events[i.id] === undefined) {
+        var date_obj = new Date(i.Time);
+        let _date =
+          +(+date_obj.getMonth()) +
+          "/" +
+          date_obj.getDay() +
+          "/" +
+          date_obj.getFullYear();
+        let minute = date_obj.getMinutes();
+        let hour = date_obj.getHours();
+        let _hour = ("0" + hour).slice(-2);
+        let _minute = ("0" + minute).slice(-2);
+        let _time = _hour + ":" + _minute;
+        let _id = i.id;
 
-                                let tmp_event= {
-                                        name: i.Name,
-                                        description: i.Description,
-                                        address: i.Address,
-                                        time: _time,
-                                        date: _date,
-                                        members:Array<MemberInfo>({id: i.userid, firstname:"First: "+i.username, lastname:"Last: "+i.username, points:i.points}),
-                                        id: _id,
-                                };
-                                events[i.id] = tmp_event
-                        }
-                        else{
-                                events[i.id].members.push({id: i.userid, firstname:i.username, lastname:i.username, points:i.points })
-                                console.log({id: i.userid, firstname:i.username, lastname:i.username, points:i.points })
-                        }
-                });
-                console.log(allevents)
-                return Object.values(events) as Array<EventInfo>
-        }
+        let tmp_event = {
+          name: i.Name,
+          description: i.Description,
+          address: i.Address,
+          time: _time,
+          date: _date,
+          members: Array<MemberInfo>({
+            id: i.userid,
+            firstname: "First: " + i.username,
+            lastname: "Last: " + i.username,
+            points: i.points,
+          }),
+          id: _id,
+        };
+        events[i.id] = tmp_event;
+      } else {
+        events[i.id].members.push({
+          id: i.userid,
+          firstname: i.username,
+          lastname: i.username,
+          points: i.points,
+        });
+        console.log({
+          id: i.userid,
+          firstname: i.username,
+          lastname: i.username,
+          points: i.points,
+        });
+      }
+    });
+    console.log(allevents);
+    return Object.values(events) as Array<EventInfo>;
+  }
 }
 
 function MyEvents(props: { id: any }) {
-
-  // const [events, setEvents] = React.useState(Array<EventInfo>());
   const [events, setEvents] = React.useState(Array<EventInfo>());
-  const [eventIndex, setEventIndex] = React.useState(0);
+  const [eventIndex, setEventIndex] = React.useState(-1);
   const [showEventEditModal, setShowEventEditModal] = React.useState(false);
   const [showEventMemberModal, setShowEventMemberModal] = React.useState(false);
   const [showEmailModal, setShowEmailModal] = React.useState(false);
@@ -100,18 +111,17 @@ function MyEvents(props: { id: any }) {
                 reload(props.id).then((res) => setEvents(res));
         }, [eventIndex, checkReload]);
 
-        const toggleEmailModal = () => {
-                setShowEmailModal(!showEmailModal);
-        };
+  const toggleEmailModal = () => {
+    setShowEmailModal(!showEmailModal);
+  };
 
-        const toggleEventEditModal = () => {
-                setShowEventEditModal(!showEventEditModal);
-        };
+  const toggleEventEditModal = () => {
+    setShowEventEditModal(!showEventEditModal);
+  };
 
-        const toggleEventMemberModal = () => {
-                setShowEventMemberModal(!showEventMemberModal);
-        };
-
+  const toggleEventMemberModal = () => {
+    setShowEventMemberModal(!showEventMemberModal);
+  };
 
   const toggleTransferManagerModal = () => {
     setShowTransferManagerModal(!showTransferManagerModal);
@@ -139,9 +149,7 @@ function MyEvents(props: { id: any }) {
           date: events[index].date,
           description: events[index].description,
         });
-    store.dispatch(redux_index(i))
-    console.log(i)
-    // store.dispatch(redux_rsvp(events[index].members))
+    store.dispatch(redux_index(i));
   };
 
   const addEvent = async (
@@ -169,7 +177,7 @@ function MyEvents(props: { id: any }) {
       date,
       description,
       id: _tmp.id,
-      members: [{lastname:"", firstname:"", id:-1, points:0}],
+      members: [{ lastname: "", firstname: "", id: -1, points: 0 }],
     });
     setEvents(e);
     setEventIndex(events.length);
@@ -249,7 +257,9 @@ function MyEvents(props: { id: any }) {
         showModal={showEventMemberModal}
         setShowModal={setShowEventMemberModal}
         members={ events[eventIndex]!==undefined ?  events[eventIndex].members : null}
-        // members={"WOW"}
+        members={
+          events[eventIndex] !== undefined ? events[eventIndex].members : null
+        }
       />
       <TransferManagerModal
         showModal={showTransferManagerModal}
