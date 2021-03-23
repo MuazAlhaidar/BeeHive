@@ -60,7 +60,7 @@
 
 .GroupsForm-DarkButtonGroup {
   flex-grow: 80;
-  justify-content: right;
+  justify-content: flex-end;
 }
 
 .GroupsForm-BrightButton,

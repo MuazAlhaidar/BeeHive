@@ -136,7 +136,7 @@
 
 .EventsForm-DarkButtonGroup {
   flex-grow: 25;
-  justify-content: right;
+  justify-content: flex-end;
 }
 
 .EventsForm-BrightButton,

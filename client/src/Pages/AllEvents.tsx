@@ -4,17 +4,17 @@ import EventList from "../Components/Events/EventsList(view-only)";
 import EventsForm from "../Components/Events/EventsForm(view-only)";
 import EventsFormNonMember from "../Components/Events/EventsForm(NonMember)";
 import * as API from "../api/Event";
-import {store, redux_index, redux_rsvp} from "../store"
+import { store, redux_index, redux_rsvp } from "../store";
 
 interface MemberInfo {
   name: string;
   points: number;
 }
 
-enum Relation{
-        Manager,
-        RSVP,
-        NotRSVP
+enum Relation {
+  Manager,
+  RSVP,
+  NotRSVP,
 }
 
 interface EventInfo {
@@ -25,15 +25,15 @@ interface EventInfo {
   description: string;
   members: Array<MemberInfo> | null;
   id: number;
-  relation: Relation
+  relation: Relation;
 }
 
 interface IProp {
   name: string;
-  id: number|any;
+  id: number | any;
 }
 
-async function reload(id:any) {
+async function reload(id: any) {
   const allevents = await API.getAllEvents(id);
   const events = allevents.map((i: any) => {
     var date_obj = new Date(i.Time);
@@ -48,18 +48,15 @@ async function reload(id:any) {
     let _hour = ("0" + hour).slice(-2);
     let _minute = ("0" + minute).slice(-2);
     let _time = _hour + ":" + _minute;
-    let _relation = null
+    let _relation = null;
     {
-
-            if( i.Manager === 1){
-                    _relation = Relation.Manager
-            }
-            else if (i.RSVP === 1){
-                    _relation = Relation.RSVP
-            }
-            else{
-                    _relation = Relation.NotRSVP
-            }
+      if (i.Manager === 1) {
+        _relation = Relation.Manager;
+      } else if (i.RSVP === 1) {
+        _relation = Relation.RSVP;
+      } else {
+        _relation = Relation.NotRSVP;
+      }
     }
     return {
       name: i.Name,
@@ -69,7 +66,7 @@ async function reload(id:any) {
       date: _date,
       members: null,
       id: i.id,
-      relation: _relation
+      relation: _relation,
     };
   });
   return events;
@@ -77,25 +74,24 @@ async function reload(id:any) {
 
 function MyEvents({ name, id }: IProp) {
   const [events, setEvents] = React.useState(Array<EventInfo>());
-  const set_relation = (i:number) =>{
-          API.checkRSVP(events[i].id, id)
-          if(events[i].relation == Relation.RSVP){
-                  events[i].relation = Relation.NotRSVP
-          }
-          else if(events[i].relation == Relation.NotRSVP){
-                  events[i].relation = Relation.RSVP
-          }
-  }
+  const set_relation = (i: number) => {
+    API.checkRSVP(events[i].id, id);
+    if (events[i].relation === Relation.RSVP) {
+      events[i].relation = Relation.NotRSVP;
+    } else if (events[i].relation === Relation.NotRSVP) {
+      events[i].relation = Relation.RSVP;
+    }
+  };
   React.useEffect(() => {
     reload(id).then((res) => setEvents(res));
   }, []);
-  const [eventIndex, setEventIndex] = React.useState(0);
+  const [eventIndex, setEventIndex] = React.useState(-1);
 
   const selectEvent = (i: number) => {
     let index = i === undefined ? 0 : i;
-    store.dispatch(redux_index(i))
-    store.dispatch(redux_rsvp(events[i].relation))
-    setEventIndex(index)
+    store.dispatch(redux_index(i));
+    store.dispatch(redux_rsvp(events[i].relation));
+    setEventIndex(index);
   };
 
   return (
@@ -105,7 +101,7 @@ function MyEvents({ name, id }: IProp) {
       </div>
       <div className="MyEvents-EventForm">
         {name === "" ? (
-          eventIndex > events.length - 1 ? (
+          eventIndex > events.length - 1 || eventIndex < 0 ? (
             <EventsFormNonMember
               name={""}
               address={""}
@@ -122,7 +118,7 @@ function MyEvents({ name, id }: IProp) {
               description={events[eventIndex].description}
             />
           )
-        ) : eventIndex > events.length - 1 ? (
+        ) : eventIndex > events.length - 1 || eventIndex < 0 ? (
           <EventsForm
             name={""}
             address={""}
@@ -141,23 +137,6 @@ function MyEvents({ name, id }: IProp) {
             set_relation={set_relation}
           />
         )}
-        {/* {eventIndex > events.length - 1 ? (
-          <EventsForm
-            name={""}
-            address={""}
-            time={""}
-            date={""}
-            description={""}
-          />
-        ) : (
-          <EventsForm
-            name={events[eventIndex].name}
-            address={events[eventIndex].address}
-            time={events[eventIndex].time}
-            date={events[eventIndex].date}
-            description={events[eventIndex].description}
-          />
-        )} */}
       </div>
     </div>
   );

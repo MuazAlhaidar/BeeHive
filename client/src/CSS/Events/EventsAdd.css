@@ -119,7 +119,7 @@
 }
 
 .EventsAdd-BtnDiv {
-  justify-content: right;
+  justify-content: flex-end;
   margin-top: 15px;
 }
 
