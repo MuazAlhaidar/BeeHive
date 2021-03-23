@@ -1,68 +1,90 @@
 -- to generate user
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Hampton", "Jackle",
 "owner", "pass", "graphinetime@gmail.com",
 8, 1, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Grogron", "Starswift",
 "member", "pass", "ahmedzakariya355@gmail.com",
 16, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Gradir", "Nen", 
 "John", "pass", "omunam10@gmail.com",
 22, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Khurer", "Pahled", 
 "Alice", "pass", "muazalhaidar@gmail.com",
 45, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Gunkodd", "Cragflow",
 "Steve", "pass", "omunam10@gmail.com",
 23, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Trar", "Strongshadow",
 "Adrian", "pass", "omunam10@gmail.com",
 95, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Reldoth", "Ravenstone",
 "Clyde", "pass", "omunam10@gmail.com",
 75, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Lavaru", "Nupruzdihk",
 "Sylvia", "pass", "omunam10@gmail.com",
 64, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Thikan", "Lupvahk",
 "Pheobe", "pass", "omunam10@gmail.com",
 92, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Low", "Wi",
 "Asmon", "pass", "omunam10@gmail.com",
 33, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Femusmeh", "Jukei",
 "Kevin", "pass", "omunam10@gmail.com",
 51, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Setil", "Zemmin",
 "Shawn", "pass", "omunam10@gmail.com",
 66, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Jurrisro", "Stoneblaze",
 "Steven", "pass", "omunam10@gmail.com",
 102, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Shorve", "Oatkeep",
 "Eric", "pass", "omunam10@gmail.com",
 47, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Kitha", "Glon",
 "Cohh", "pass", "omunam10@gmail.com",
 82, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Vithrafro", "Fallenspire",
 "Terry", "pass", "omunam10@gmail.com",
 61, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Algo", "Deadcut",
 "Johnathan", "pass", "omunam10@gmail.com",
 55, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Cuchothi", "Zithahkihr",
 "Greg", "pass", "omunam10@gmail.com",
 40, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Vamu", "Sankrald",
 "Skrall", "pass", "omunam10@gmail.com",
 77, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Farlurril", "Vradanuldye",
 "Yeqw", "pass", "omunam10@gmail.com",
 94, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Tefru", "Rakonga",
 "Brakkat", "pass", "omunam10@gmail.com",
 94, 0, "2020-08-4", "2020-08-3");
-insert into users(username, password, email, points, role_id, createdAt, updatedAt) values (
+insert into users(firstname, lastname, username, password, email, points, role_id, createdAt, updatedAt) values (
+"Jui", "Hiaoy",
 "Kit", "pass", "omunam10@gmail.com",
 23, 0, "2020-08-4", "2020-08-3");
 
