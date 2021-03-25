@@ -97,9 +97,7 @@ async function Signin(_Event: number, _User: number) {
 async function Transfer(_Event: number, MainUser:number, _User: number) {
   return axiosPost("transfer", { Event: _Event, Main:MainUser, Manager: _User })
     .then((res) => true)
-    .catch((err) => {
-      return false;
-    });
+    .catch((err) => false );
 }
 
 async function getEventManager(_id: number) {

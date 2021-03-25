@@ -2,54 +2,7 @@
 #+AUTHOR: Anon
 [[https://github.com/HawaiinPizza/beehive/issues?q=assignee%3AHawaiinPizza+is%3Aopen][My issues]] 
 [[https://youneedawiki.com/app/page/1AfpKY4ZLh0dtjsUQ6efOzJrXFSs19ALv][Documenation]]
-
-* Misc
-	- [ ] User first/last name :: Used for see members in
-      + + mygroups,
-      + + leaderboard
-      + + myevents page seeing all those who are RSVP
-	- [X] Group props id :: Send hte users id to the groups, and don't show my grousp if not owner
-* Frontend Middleware
-** DONE Event Signin
-   CLOSED: [2021-03-20 Sat 12:49]
-   :PROPERTIES:
-   :Effort:   2:00
-   :END:
-   - State "DONE"       from "TODO"       [2021-03-20 Sat 12:49]
-   :LOGBOOK:
-   CLOCK: [2021-03-20 Sat 10:49]--[2021-03-20 Sat 12:49] =>  2:00
-   :END:
-   - [ ] Change useeffect, to reload ony when reload page
-** DONE Give/Take member points
-   CLOSED: [2021-03-22 Mon 14:25]
-   - State "DONE"       from "TODO"       [2021-03-22 Mon 14:25]
-   myevents can do it through myevents, while owners can chagne points thorugh leaderboard
-** DONE lEaderboard
-   CLOSED: [2021-03-23 Tue 01:38]
-   :PROPERTIES:
-   :Effort:   1:30
-   :END:
-   - State "DONE"       from "TODO"       [2021-03-23 Tue 01:38]
-   :LOGBOOK:
-   CLOCK: [2021-03-22 Mon 14:25]--[2021-03-22 Mon 23:51] =>  9:26
-   :END:
-** DONE Transfer Event Manager role  
-   CLOSED: [2021-03-23 Tue 11:08]
-   - State "DONE"       from "TODO"       [2021-03-23 Tue 11:08]
-** DONE changeemail
-   CLOSED: [2021-03-23 Tue 11:25]
-   - State "DONE"       from "TODO"       [2021-03-23 Tue 11:25]
-** TODO FIrst/last name   
-** TODO merge master with finish-project
-** TODO Figure out a way to query all groupmembers not in a gorup   
-** DONE Add/Remove members from groups
-** DONE RSVP to event :: a user can see an event in all events, and invite themselves to it
-** DONE Email to groups
-** DONE Save signin thorugh cookie
-** RSVP
-** DONE Make allevents have an attriubte that has is isRSVP
-* Future Things to do
-	- [ ] Refactor :: Try to slim down the code/make it easier to run better
-	- [ ] test cases :: Mkae test cases/run them, wtih  the test plan
-	- [ ]  :: 
-		
+* Friday finsih this stuff
+** TODO Email events/groups in firebase
+** TODO Transfer manager event workign   
+** TODO Convert rest to firebase   

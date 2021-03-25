@@ -34,7 +34,7 @@ interface IProp {
 }
 
 async function reload(id: any) {
-  const allevents = await API.getAllEvents(id);
+  const allevents = await API.getAllEvents(-1);
   const events = allevents.map((i: any) => {
     var date_obj = new Date(i.Time);
     let _date =
