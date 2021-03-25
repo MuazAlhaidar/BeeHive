@@ -156,10 +156,11 @@ router.post("/rsvp", async (req, res)=>{
  * @desc Transfer event to another user
  * @body {Event:EventId, Manager:UserId}
  */
-router.post("/transfer", (req, res)=>{
+router.post("/transfer", async (req, res)=>{
     let user = req.body.Manager
     let event = req.body.Event;
-    EventMember.update({Manager:false}, {where:{Manager:true, Event:event}})
+    let main = req.body.Main
+    await EventMember.update({Manager:false}, {where:{User:main, Event:event}})
         .then(ret =>{
             if(ret[0]===0){
                 console.log("Error: no events found");
@@ -169,12 +170,11 @@ router.post("/transfer", (req, res)=>{
                 EventMember.update({Manager:true}, {where:{User:user, Event:event}})
                     .then(ret2=>{
                         if(ret2[0]===0){
+                                console.log("WOW")
                             EventMember.create({Manager:true, User:user, Event:event, RSVP:false, Attended:false} )
-                            res.sendStatus(200);
                         }
-                        else
-                            res.sendStatus(200);
                     })
+
             }
         })
         .catch(err => {console.log(err); res.sendStatus(404)})
@@ -191,11 +191,16 @@ router.post("/man", async (req, res)=>{
         res.sendStatus(404)
     }
     else{
-        const eventmembers = await sequelize.query(`select mang.id, mang.Name, mang.Description, mang.Address, mang.Time, users.username,  users.id as userid, users.points  from (select events.*  from eventmembers join events on
+        console.log(id)
+        const eventmembers = await sequelize.query(`select mang.id, mang.Name, mang.Description, mang.Address, mang.Time, users.firstname, users.lastname,  users.id as userid, users.points  from (select events.*  from eventmembers join events on
 events.id = eventmembers.Event where eventmembers.Manager=true and eventmembers.User=${id} ) as mang join eventmembers on eventmembers.Event = mang.id join users on eventmembers.User = users.id where eventmembers.Manager=false ;`)
-        const myevents = await sequelize.query(`select events.* from eventmembers join events on eventmembers.id=${id} and eventmembers.Manager =true;`);
+        const myevents = await sequelize.query(`select events.* from events join eventmembers on eventmembers.User=${id} where eventmembers.Manager =true;`);
 
-        console.log(eventmembers[0], myevents[0])
+        // console.log("+++++++++++++++++++++++++++++++++++")
+        console.log(myevents[0])
+        // console.log("----------------------------------")
+        // console.log(myevents[0])
+        // console.log("+++++++++++++++++++++++++++++++++++")
         res.send({eventmembers:eventmembers[0], events:myevents[0]}).status(200)
 
     }

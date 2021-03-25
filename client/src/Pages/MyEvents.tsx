@@ -67,17 +67,19 @@ async function reload(id: number) {
                           id: _id,
                   };
                   events[i.id] = tmp_event;
-          })
-          console.log(events)
-          members.forEach((i:any)=>{
-                  if(events[i.id].member != null){
-                          events[i.id].member= Array<MemberInfo>({ id: i.userid, firstname: i.firstname, lastname: i.firstname, points: i.points, })
-                  }
-                  else{
-                          events[i.id].push({ id: i.userid, firstname: i.firstname, lastname: i.firstname, points: i.points, })
-                  }
 
           })
+          if(members!==undefined){
+                  members.forEach((i:any)=>{
+                          if(events[i.id].members == null){
+                                  events[i.id].members= Array<MemberInfo>({ id: i.userid, firstname: i.firstname, lastname: i.lastname, points: i.points, })
+                          }
+                          else{
+                                  events[i.id].members.push({ id: i.userid, firstname: i.firstname, lastname: i.lastname, points: i.points, })
+                          }
+                  })
+          }
+          console.log(events)
   return Object.values(events) as Array<EventInfo>;
   }
 }
@@ -175,7 +177,7 @@ function MyEvents(props: { id: any }) {
       date,
       description,
       id: _tmp.id,
-      members: [{ lastname: "", firstname: "", id: -1, points: 0 }],
+      members: null,
     });
     setEvents(e);
     setEventIndex(events.length);

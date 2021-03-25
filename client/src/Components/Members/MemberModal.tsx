@@ -55,7 +55,6 @@ function MemberModal({
           setMembers(memberList, index);
           console.log(id, memberList, index)
           APIsetMembers(id, memberList)
-          alert("Dab on haters")
 
     setShowModal(!showModal);
   };

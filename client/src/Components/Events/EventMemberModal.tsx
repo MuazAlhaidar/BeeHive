@@ -59,7 +59,7 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
               <div className="EventMemberModal-Points">Points</div>
             </div>
             <div className="EventMemberModal-MemberList">
-              {sortedList.map((member, index) => {
+                    {sortedList[0].id!=-1 ? sortedList.map((member, index) => {
                 return (
                   <div
                     className={
@@ -92,7 +92,7 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
                     />
                   </div>
                 );
-              })}
+                    }): null}
             </div>
             <div className="EventMemberModal-BottomBar">
               <div className="EventMemberModal-Buttons">

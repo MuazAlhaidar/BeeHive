@@ -18,13 +18,13 @@ const sequelize = new Sequelize(_config.database, _config.user, _config.pass, {
 })
 
 async function verify_owner(_id:number){
-        var _tmp = await Userr.findOne({where:{id:_id}})
-        if(_tmp==undefined){
-            return false;
-        }
-        if(_tmp.role_id==0)
-                return false
-        return true;
+    var _tmp = await Userr.findOne({where:{id:_id}})
+    if(_tmp==undefined){
+        return false;
+    }
+    if(_tmp.role_id==0)
+        return false
+    return true;
 
 
 }
@@ -32,7 +32,10 @@ router.get("/getgroup", async(req,res)=>{
     console.clear()
     // TODO This doesn't get all people NOT in any group
     const _groups = await sequelize.query("select groups.id, groups.Name as name, groups.ContactInfo as contactInfo,  groupmembers.User, users.username, users.firstname, users.lastname from groups left join groupmembers on groupmembers.Group = groups.id left join users on groupmembers.User = users.id order by groups.id;")
+    let users  = await Userr.findAll()
+    users = users.map(x=>x.dataValues)
     
+
     var groupBy = function(xs, key) {
         return xs.reduce(function(rv, x) {
             (rv[x[key]] = rv[x[key]] || []).push(x);
@@ -56,8 +59,9 @@ router.get("/getgroup", async(req,res)=>{
     allmembers = (Object.values(groupBy(allmembers, 'id')).map(x=>{
         return x[0]
     }))
-    console.log(groups, allmembers);
-    res.status(200).send({groups:ret_group, users:allmembers}) 
+    
+    console.log(users)
+    res.status(200).send({groups:ret_group, users:users}) 
 })
 
 
@@ -78,7 +82,7 @@ router.post("/new", async(req,res)=>{
             return
         }
         //if(user.role_id==1){ 
- if(true){
+        if(true){
             let retme = await Groupp.create({Name:req.body.name, ContactInfo:req.body.info})
             await GroupMember.create({User:req.body.id, Group:retme.id, Manager:true})
             res.status(200).send(retme)
@@ -105,7 +109,7 @@ router.post("/remove", async(req,res)=>{
     var _tmp = await Userr.findOne({where:{id:req.body.userid}})
     let user = _tmp.dataValues
     //if(user.role_id==1){ 
- if(true){
+    if(true){
 
         let _tmp = await GroupMember.destroy({where:{Group:req.body.id}})
         console.log(_tmp)
@@ -133,7 +137,7 @@ router.post("/update", async(req,res)=>{
     var _tmp = await Userr.findOne({where:{id:req.body.userid}})
     let user = _tmp.dataValues
     //if(user.role_id==1){ 
- if(true){
+    if(true){
         var ret=undefined
         if( req.body.name != undefined  && req.body.name != null  && req.body.name != ""  && req.body.name != '' && req.body.info != undefined  && req.body.info != null  && req.body.info != "" && req.body.info != ''){
             ret=await Groupp.update({Name:req.body.name, ContactInfo:req.body.info}, {where:{id:req.body.id}})
@@ -204,7 +208,7 @@ router.post("/rmmembers", async(req,res)=>{
     }
     let user = _tmp.dataValues
     //if(user.role_id==1){ 
- if(true){
+    if(true){
         var _tmp = await Userr.findOne({where:{id:req.body.member}})
         if(_tmp==undefined){
             res.status(404).send("Member is not even exist")
@@ -240,20 +244,20 @@ router.post("/rmmembers", async(req,res)=>{
 /* @route POST api/groups/email
  * @desc Email everyone in a gorup
  * @body {id:id of group, userid: id of the user,body:body of email, subject:subject of email}
-*/
+ */
 router.post("/email", async(req, res)=>{
-        // if(verify_owner(req.body.userid)){
-                const query=`SELECT email FROM users JOIN groupmembers ON  groupmembers.Group =${req.body.id}` 
-                var _groupmembers = await sequelize.query(`SELECT email FROM users JOIN groupmembers ON  groupmembers.Group =${req.body.id} ; `)
-                var _groupmembers = _groupmembers[0].map(i=> i.email)
-                let ret = await lib.email(_groupmembers, req.body.subject, req.body.body)
-                console.log(ret)
-                res.sendStatus(200)
+    // if(verify_owner(req.body.userid)){
+    const query=`SELECT email FROM users JOIN groupmembers ON  groupmembers.Group =${req.body.id}` 
+    var _groupmembers = await sequelize.query(`SELECT email FROM users JOIN groupmembers ON  groupmembers.Group =${req.body.id} ; `)
+    var _groupmembers = _groupmembers[0].map(i=> i.email)
+    let ret = await lib.email(_groupmembers, req.body.subject, req.body.body)
+    console.log(ret)
+    res.sendStatus(200)
 
-        // }
-        // else{
-        //         res.sendStatus(404);
-        // }
+    // }
+    // else{
+    //         res.sendStatus(404);
+    // }
 
 })
 module.exports = router;

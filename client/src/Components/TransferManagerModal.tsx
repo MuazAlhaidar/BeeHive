@@ -2,6 +2,7 @@ import React from "react";
 import "../CSS/TransferManagerModal.css";
 import * as UserAPI  from  "../api/User" 
 import *  as EventAPI  from   "../api/Event"
+import {store} from "../store"
 
 interface MemberInfo {
   id: number;
@@ -65,7 +66,8 @@ function TransferManagerModal({ showModal, setShowModal, reload, setReload, even
                     </div>
                           <button className="TransferManagerModal-SetManagerButton" onClick={() => {
                                   handleCancel()
-                                  EventAPI.Transfer(event, member.id)
+                                  let id = store.getState().state.id
+                                  EventAPI.Transfer(event, member.id,   id )
                                   .then(res=>{
                                           setReload(!reload);  
                                   })
