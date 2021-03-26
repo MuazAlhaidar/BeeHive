@@ -11,7 +11,7 @@ import * as API from "../api/Event";
 import { store, redux_index, redux_members } from "../store";
 
 interface MemberInfo {
-  id: number;
+  id: string;
   firstname: string;
   lastname: string;
   points: number;
@@ -23,14 +23,15 @@ interface EventInfo {
   time: string;
   date: string;
   description: string;
-  id: number;
+  id: string;
   members: Array<MemberInfo> | null;
 }
 
-async function reload(id: number) {
-  const tmp = await API.getEventManager(id);
-  const myevents = tmp["events"]
-  const members = tmp["eventmembers"]
+async function reload(user: string) {
+  const _myevents = await API.getEventManager(user);
+  const _mymembers = await API.getMembers(user);
+  const myevents = _myevents.data
+  const members = _mymembers.data
 
   if (myevents === undefined) {
           return [];
@@ -166,8 +167,8 @@ function MyEvents(props: { id: any }) {
       name,
       description,
       address,
-      thedate,
-      props.id
+      time,
+      date
     );
     const e = events.slice();
     e.push({
@@ -176,7 +177,7 @@ function MyEvents(props: { id: any }) {
       time,
       date,
       description,
-      id: _tmp.id,
+      id: _tmp.data,
       members: null,
     });
     setEvents(e);
@@ -206,7 +207,8 @@ function MyEvents(props: { id: any }) {
         name,
         description,
         address,
-        thedate
+        date,
+        time
       );
       const e = events.slice();
       e[eventIndex].name = name;

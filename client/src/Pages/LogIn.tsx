@@ -12,53 +12,54 @@ function LogIn(props: { setName: any; setId: any; setOwner: any }) {
   const [status, setStatus] = React.useState(0);
   function checkuser(username: string, password: string): Promise<boolean> {
     return API.login(username, password)
-      .then((res) => {
-        if (res[0] !== -1) {
-          setUser(username);
-          setStatus(1);
-          props.setName(username);
-          props.setId(res[0]);
-          store.dispatch(redux_id(res[0]))
+    .then((res) => {
+            let data = res.data
+            if (data[0] !== -1) {
+                    setUser(username);
+                    setStatus(1);
+                    props.setName(username);
+                    props.setId(data[0]);
+                    store.dispatch(redux_id(data[0]))
 
-          props.setOwner(res[1]);
-          return true;
-        } else {
-          setStatus(-1);
-          return false;
-        }
-      })
-      .catch(() => {
-        setStatus(-1);
-        return false;
-      });
+                    props.setOwner(data[1]);
+                    return true;
+            } else {
+                    setStatus(-1);
+                    return false;
+            }
+    })
+    .catch(() => {
+            setStatus(-1);
+            return false;
+    });
   }
 
   function displaystatus() {
-    switch (status) {
-      case 0:
-        return <h1> Log In </h1>;
-      case -1:
-        return <h1> Log in failed </h1>;
-      case 1:
-        return (
-          <div>
-            {" "}
-            <h1> Welcome {user} </h1> <Redirect push to="/" />{" "}
-          </div>
-        );
-    }
+          switch (status) {
+                  case 0:
+                          return <h1> Log In </h1>;
+                  case -1:
+                          return <h1> Log in failed </h1>;
+                  case 1:
+                          return (
+                                  <div>
+                                          {" "}
+                                          <h1> Welcome {user} </h1> <Redirect push to="/" />{" "}
+                                  </div>
+                  );
+          }
   }
 
   return (
-    <div className="Login">
-      <div className="Login-Top">
-        <SignUpButton />
-      </div>
-      <div className="Login-LoginPanel">
-        <LogInPanel changeUser={checkuser} />
-      </div>
-      {displaystatus()}
-    </div>
+          <div className="Login">
+                  <div className="Login-Top">
+                          <SignUpButton />
+                  </div>
+                  <div className="Login-LoginPanel">
+                          <LogInPanel changeUser={checkuser} />
+                  </div>
+                  {displaystatus()}
+          </div>
   );
 }
 

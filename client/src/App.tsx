@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import {firebase} from "./api/config.js"
+// import {firebase} from "./api/config.js"
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 // import MyEventsPage from "./Pages/MyEvents";
 // import MyGroupsPage from "./Pages/MyGroups";
