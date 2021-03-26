@@ -66,9 +66,10 @@ async function reload(user: string) {
         } else {
           events[i.id].members.push({
             id: i.userid,
-            firstname: i.firstname,
-            lastname: i.lastname,
-            points: i.points,
+            Firstname: i.firstname,
+            Lastname: i.lastname,
+            email: i.email,
+            userPoints: i.points,
           });
         }
       });
@@ -79,6 +80,8 @@ async function reload(user: string) {
 }
 
 function MyEvents(props: { id: any }) {
+  const emptyEvent = {} as EventInfo;
+
   const [events, setEvents] = React.useState(Array<EventInfo>());
   const [eventIndex, setEventIndex] = React.useState(-1);
   const [showEventEditModal, setShowEventEditModal] = React.useState(false);
@@ -275,14 +278,7 @@ function MyEvents(props: { id: any }) {
       <div className="MyEvents-EventForm">
         {eventIndex > events.length - 1 || eventIndex < 0 ? (
           <EventsForm
-            name={""}
-            address={""}
-            time={""}
-            date={""}
-            description={""}
-            removeEvent={() => {
-              removeEvent(eventIndex);
-            }}
+            event={emptyEvent}
             toggleEmailModal={toggleEmailModal}
             toggleEventEditModal={toggleEventEditModal}
             toggleEventMemberModal={toggleEventMemberModal}
@@ -291,14 +287,7 @@ function MyEvents(props: { id: any }) {
           />
         ) : (
           <EventsForm
-            name={events[eventIndex].title}
-            address={events[eventIndex].address}
-            time={events[eventIndex].time}
-            date={events[eventIndex].date}
-            description={events[eventIndex].description}
-            removeEvent={() => {
-              removeEvent(eventIndex);
-            }}
+            event={events[eventIndex]}
             toggleEmailModal={toggleEmailModal}
             toggleEventEditModal={toggleEventEditModal}
             toggleEventMemberModal={toggleEventMemberModal}

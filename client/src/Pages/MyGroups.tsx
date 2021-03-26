@@ -18,10 +18,10 @@ async function reload(id: number): Promise<any> {
 }
 
 function MyGroups(props: { id: number }) {
-  const fakeMembersList = new Array<string>();
+  const emptyMembersList = new Array<string>();
+  const emptyGroup = {} as GroupInfo;
 
   const [allMembers, setAllMembers] = React.useState(new Array<string>());
-
   const [groups, setGroups] = React.useState(Array<GroupInfo>());
   const [groupIndex, setGroupIndex] = React.useState(-1);
   const [showMembersEditModal, setShowMembersEditModal] = React.useState(false);
@@ -154,7 +154,7 @@ function MyGroups(props: { id: number }) {
       {groupIndex > groups.length - 1 || groupIndex < 0 ? (
         <MemberModal
           allMembers={allMembers}
-          memberList={fakeMembersList}
+          memberList={emptyMembersList}
           setMemberList={setMemList}
           showModal={showMembersEditModal}
           setShowModal={setShowMembersEditModal}
@@ -180,22 +180,14 @@ function MyGroups(props: { id: number }) {
       <div className="MyGroups-GroupForm">
         {groupIndex > groups.length - 1 || groupIndex < 0 ? (
           <GroupForm
-            name={""}
-            contactInfo={""}
-            removeGroup={() => {
-              removeGroup(groupIndex);
-            }}
+            group={emptyGroup}
             toggleEmailModal={toggleEmailModal}
             toggleGroupEditModal={toggleGroupEditModal}
             toggleConfirmationModal={toggleConfirmationModal}
           />
         ) : (
           <GroupForm
-            name={groups[groupIndex].name}
-            contactInfo={groups[groupIndex].description}
-            removeGroup={() => {
-              removeGroup(groupIndex);
-            }}
+            group={groups[groupIndex]}
             toggleEmailModal={toggleEmailModal}
             toggleGroupEditModal={toggleGroupEditModal}
             toggleConfirmationModal={toggleConfirmationModal}
@@ -205,7 +197,7 @@ function MyGroups(props: { id: number }) {
       <div className="MyGroups-MemberList">
         {groupIndex > groups.length - 1 || groupIndex < 0 ? (
           <MemberList
-            memberList={fakeMembersList}
+            memberList={emptyMembersList}
             toggleMemberModal={toggleMemberModal}
           />
         ) : (

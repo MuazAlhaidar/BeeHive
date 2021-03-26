@@ -27,6 +27,7 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
     // Backend shit
     switch (res[0]) {
       case 0:
+        // TODO Change values here
         setUser(_username);
         setStatus(0);
         props.setName(_username);

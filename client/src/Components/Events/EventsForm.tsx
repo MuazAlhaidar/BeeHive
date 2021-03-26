@@ -6,12 +6,7 @@ import "../../CSS/Events/EventsForm.css";
 import { EventInfo } from "../../Interfaces";
 
 interface IProps {
-  name: string;
-  address: string;
-  time: string;
-  date: string;
-  description: string;
-  removeEvent: () => void;
+  event: EventInfo;
   toggleEventEditModal: () => void;
   toggleEmailModal: () => void;
   toggleEventMemberModal: () => void;
@@ -20,11 +15,7 @@ interface IProps {
 }
 
 function EventsForm({
-  name,
-  address,
-  time,
-  date,
-  description,
+  event,
   toggleEmailModal,
   toggleEventEditModal,
   toggleEventMemberModal,
@@ -40,7 +31,7 @@ function EventsForm({
         <div className="EventsForm-NameAddressTimeDateGroup">
           <div className="EventsForm-NameDiv">
             <label className="EventsForm-NameLabel">Name</label>
-            <div className="EventsForm-Name">{name}</div>
+            <div className="EventsForm-Name">{event.title}</div>
           </div>
           <div className="EventsForm-AddressTimeDateGroup">
             <div className="EventsForm-AddressTimeDateLabel">
@@ -49,9 +40,9 @@ function EventsForm({
               <label className="EventsForm-DateLabel">Date</label>
             </div>
             <div className="EventsForm-AddressTimeDateInfo">
-              <div className="EventsForm-Address">{address}</div>
-              <div className="EventsForm-Time">{time}</div>
-              <div className="EventsForm-Date">{date}</div>
+              <div className="EventsForm-Address">{event.address}</div>
+              <div className="EventsForm-Time">{event.time}</div>
+              <div className="EventsForm-Date">{event.date}</div>
             </div>
           </div>
         </div>
@@ -82,7 +73,7 @@ function EventsForm({
       </div>
       <div className="EventsForm-DescriptionDiv">
         <label className="EventsForm-DescriptionLabel">Description</label>
-        <div className="EventsForm-Description">{description}</div>
+        <div className="EventsForm-Description">{event.description}</div>
       </div>
       <div className="EventsForm-Bottom">
         <div className="EventsForm-BrightButtonGroup">

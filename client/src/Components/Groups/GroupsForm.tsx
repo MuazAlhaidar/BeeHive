@@ -1,18 +1,16 @@
 import React from "react";
 import "../../CSS/Groups/GroupsForm.css";
+import { GroupInfo } from "../../Interfaces";
 
 interface IProps {
-  name: string;
-  contactInfo: string;
-  removeGroup: () => void;
+  group: GroupInfo;
   toggleGroupEditModal: () => void;
   toggleEmailModal: () => void;
   toggleConfirmationModal: () => void;
 }
 
 function GroupsForm({
-  name,
-  contactInfo,
+  group,
   toggleGroupEditModal,
   toggleEmailModal,
   toggleConfirmationModal,
@@ -21,11 +19,11 @@ function GroupsForm({
     <div className="GroupsForm">
       <div className="GroupsForm-NameDiv">
         <label className="GroupsForm-NameLabel">Name</label>
-        <div className="GroupsForm-Name">{name}</div>
+        <div className="GroupsForm-Name">{group.name}</div>
       </div>
       <div className="GroupsForm-ContactInfoDiv">
         <label className="GroupsForm-ContactInfoLabel">Contact Info</label>
-        <div className="GroupsForm-ContactInfo">{contactInfo}</div>
+        <div className="GroupsForm-ContactInfo">{group.description}</div>
       </div>
       <div className="GroupsForm-Bottom">
         <div className="GroupsForm-BrightButtonGroup">

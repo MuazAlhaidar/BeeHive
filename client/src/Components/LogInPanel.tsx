@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../CSS/LogInPanel.css";
 
 function LogInPanel(props: { changeUser: any }) {
-  const [username, setUsername] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   return (
@@ -13,9 +13,9 @@ function LogInPanel(props: { changeUser: any }) {
         <input
           className="LoginPanel-Input"
           type="text"
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           id="Username"
-          value={username}
+          value={email}
         />
         <p className="LoginPanel-InputTitle">Password</p>
         <input
@@ -30,7 +30,7 @@ function LogInPanel(props: { changeUser: any }) {
         <button className="LoginPanel-LoginAsGuest">Login as Guest</button>
         <button
           className="LoginPanel-Login"
-          onClick={() => props.changeUser(username, password)}
+          onClick={() => props.changeUser(email, password)}
         >
           Login
         </button>
