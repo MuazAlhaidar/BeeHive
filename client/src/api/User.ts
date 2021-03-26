@@ -1,22 +1,21 @@
 import {firebase} from "./config.js"
-import "firebase/auth";
-import "firebase/firestore";
 
 // TODO FIX INTERHIPJIO
-const db = firebase.firestore()
-const auth = firebase.auth()
-
+// firebase.initializeApp(config);
 interface Message{
         data:any,
         msg:string|number
 }
-function genMessage(_data:any,_msg:any){ return {msg:_msg, data:_data}}
+
+function genMessage(_data:any,_msg:any){
+        return {msg:_msg, data:_data}
+}
 async function login(email:string, password:string):Promise<Message>{
-        const cityRef = db.collection('Users').doc('moniera@umich.edu');
+        const cityRef = firebase.firestore().collection('Users').doc('moniera@umich.edu');
         const doc = await cityRef.get();
         return firebase.auth().signInWithEmailAndPassword(email, password)
         .then(async res=>{ 
-                return db
+                return firebase.firestore()
                 .collection('Users')
                 .doc(email)
                 .get()
@@ -28,13 +27,13 @@ async function login(email:string, password:string):Promise<Message>{
 }
 async function new_user(email:string,  password:string, fName:string, lName:string):Promise<Message>{
         // async function new_user(email,  password, fName, lName){
-        return auth.createUserWithEmailAndPassword(email, password)
+        return firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(res=>{ 
-                return db.collection("Users").doc(email).get()
+                return firebase.firestore().collection("Users").doc(email).get()
                 .then((snapshot)=>{
                         if(!snapshot.exists){
                                 let user={FirstName: fName, LastName: lName, email: email, userPoints: 0,}
-                                db.collection('Users').doc(email).set(user)
+                                firebase.firestore().collection('Users').doc(email).set(user)
                                 return genMessage(user, "Success")
                         }
                         else{
@@ -46,12 +45,12 @@ async function new_user(email:string,  password:string, fName:string, lName:stri
         .catch(err=>genMessage(2, "User already exists"))
 }
 async function reset_password(_email:string):Promise<Message>{
-        return auth.sendPasswordResetEmail(_email)
+        return firebase.auth().sendPasswordResetEmail(_email)
         .then(res=>genMessage(true, "Reset password email sent"))
         .catch(res=>genMessage(false, "Failed to send password"))
 }
 async function getall():Promise<Message>{
-        return db.collection("Users").get()
+        return firebase.firestore().collection("Users").get()
         .then(res=>res.docs.map(x=> x.data()))
         .catch(res=>res)
 }
@@ -59,7 +58,7 @@ async function changeemail(oldemail:any, newemail:string):Promise<Message|undefi
         var user = firebase.auth().currentUser;
         return user?.updateEmail(newemail)
         .then( () =>{
-                return db.collection("Users").doc(oldemail).update({email:newemail})
+                return firebase.firestore().collection("Users").doc(oldemail).update({email:newemail})
                 .then(()=>  genMessage(true, "Changed email"))
                 .catch( (error) => genMessage(false, "Coudln't change email,"+ error) );
         })

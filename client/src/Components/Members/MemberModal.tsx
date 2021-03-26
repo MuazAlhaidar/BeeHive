@@ -8,7 +8,7 @@ import "../../CSS/Members/MemberModal.css";
 // TODO Add name
 interface MemberInfo {
   username: string;
-  id: number;
+  id: string;
 }
 
 interface IProps {

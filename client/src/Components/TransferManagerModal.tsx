@@ -5,7 +5,7 @@ import *  as EventAPI  from   "../api/Event"
 import {store} from "../store"
 
 interface MemberInfo {
-  id: number;
+  id: string;
   firstname: string;
   lastname: string;
   points: number;
@@ -21,7 +21,7 @@ interface IProps {
 
 function TransferManagerModal({ showModal, setShowModal, reload, setReload, event }: IProps) {
   const fakeMembers = Array<MemberInfo>(
-    { id: -1, firstname: "", lastname: "", points: 0 },
+    { id: '', firstname: "", lastname: "", points: 0 },
   );
 
   const [sortedList, setSortedList] = React.useState(
@@ -30,7 +30,7 @@ function TransferManagerModal({ showModal, setShowModal, reload, setReload, even
   React.useEffect(()=>{
           UserAPI.getall()
           .then(res=>{
-                  setSortedList(res)
+                  setSortedList(res.data)
           })
           
   },[])
@@ -68,7 +68,7 @@ function TransferManagerModal({ showModal, setShowModal, reload, setReload, even
                                   handleCancel()
                                   let id = store.getState().state.id
                                   console.log(event)
-                                  EventAPI.Transfer(event, member.id,   id )
+                                  EventAPI.Transfer(event, member.id )
                                   .then(res=>{
                                           setReload(!reload);  
                                   })

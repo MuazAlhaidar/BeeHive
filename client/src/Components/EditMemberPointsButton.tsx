@@ -4,7 +4,7 @@ import EditMemberPointsPanel from "./EditMemberPointsPanel";
 import "../CSS/EditMemberPointsButtom.css";
 
 interface MemberInfo {
-  id: number;
+  id: string;
   firstname: string;
   lastname: string;
   points: number;

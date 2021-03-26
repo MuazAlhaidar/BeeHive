@@ -3,7 +3,7 @@ import "../../CSS/Leaderboard.css";
 import {getall} from "../../api/User"
 
 interface MemberInfo {
-  id: number;
+  id: string;
   firstname: string;
   lastname: string;
   points: number;
@@ -11,7 +11,7 @@ interface MemberInfo {
 
 function Leaderboard() {
   const [allMembers, setMembers] = React.useState(Array<MemberInfo>(
-    { id: 0, firstname: "default", lastname: "default", points: 0 },
+    { id: "", firstname: "default", lastname: "default", points: 0 },
   ));
 
   const [sortedList, setSortedList] = React.useState(
@@ -25,7 +25,7 @@ function Leaderboard() {
             }
             else{
                     console.log(res)
-                    let test = res.map((x:any) => {
+                    let test = res.data.map((x:any) => {
                             let ret={id:x.id, firstname:x.firstname, lastname:x.lastname, points:x.points}
                             return ret;
                     })

@@ -5,7 +5,7 @@ import Member from "./Member";
 
 interface MemberInfo {
   username: string;
-  id: number;
+  id: string;
 }
 
 interface IProps {

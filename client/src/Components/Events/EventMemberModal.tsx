@@ -2,10 +2,10 @@ import React from "react";
 import EditMemberPointsButton from "../EditMemberPointsButton";
 import "../../CSS/Events/EventMemberModal.css";
 import { store, redux_index, redux_rsvp } from "../../store";
-import {update_points} from "../../api/Event"
+// import {update_points} from "../../api/Event"
 
 interface MemberInfo {
-  id: number;
+  id: string;
   firstname: string;
   lastname: string;
   points: number;
@@ -23,7 +23,7 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
   let sortedList = Array<MemberInfo>({
     firstname: "",
     lastname: "",
-    id: -1,
+    id: "",
     points: 0,
   });
   if (members! !== null) {
@@ -39,7 +39,7 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
   };
 
   const handleSave = () => {
-          update_points(members as any)
+          // update_points(members as any)
     setShowModal(!showModal);
   };
 
@@ -59,7 +59,7 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
               <div className="EventMemberModal-Points">Points</div>
             </div>
             <div className="EventMemberModal-MemberList">
-                    {sortedList[0].id!=-1 ? sortedList.map((member, index) => {
+                    {sortedList[0].id!="" ? sortedList.map((member, index) => {
                 return (
                   <div
                     className={

@@ -24,7 +24,7 @@ interface EventInfo {
   date: string;
   description: string;
   members: Array<MemberInfo> | null;
-  id: number;
+  id: string;
   relation: Relation;
 }
 
@@ -34,7 +34,7 @@ interface IProp {
 }
 
 async function reload(id: any) {
-  const allevents = await API.getAllEvents(-1);
+  const allevents = await API.getAllEvents();
   const events = allevents.map((i: any) => {
     var date_obj = new Date(i.Time);
     let _date =
@@ -75,7 +75,7 @@ async function reload(id: any) {
 function MyEvents({ name, id }: IProp) {
   const [events, setEvents] = React.useState(Array<EventInfo>());
   const set_relation = (i: number) => {
-    API.checkRSVP(events[i].id, id);
+    API.RSVP(events[i].id, id);
     if (events[i].relation === Relation.RSVP) {
       events[i].relation = Relation.NotRSVP;
     } else if (events[i].relation === Relation.NotRSVP) {
