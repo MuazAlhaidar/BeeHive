@@ -1,15 +1,16 @@
-import firebase from "firebase/app";
+import {firebase} from "./config.js"
 import "firebase/auth";
 import "firebase/firestore";
-import {config} from "./config.js"
-firebase.initializeApp(config);
+
+import * as User from "./User";
 const db = firebase.firestore()
 const auth = firebase.auth()
+
+
 interface Message{
         data:any,
         msg:string|number
 }
-import * as User from "./User";
 function genMessage(_data:any,_msg:any){ return {msg:_msg, data:_data}}
 function testFunc(args, func){ 
 
@@ -28,7 +29,7 @@ async function newEvent(
         time: string,
 ) {
         var user = firebase.auth();
-        let email = user.currentUser.email
+        let email = user?.currentUser?.email
         return db.collection('Events').doc().set({
                 title: title,
                 address: address,
@@ -81,69 +82,63 @@ async function Delete(_id: string) {
 
 async function RSVP(id:string, email:string){
         db.collection('Events').doc(id).update(
-                {"RSVP": firebase.firestore.FieldValue.arrayUnion(user)}
-        )
+                {"RSVP": firebase.firestore.FieldValue.arrayUnion(email)})
 
 }
-testFunc(["zDvWlry3UyTmULVOVOGd", "Zaki"], RSVP)
 
+
+   
+
+async function Transfer(Event: string, User: string) {
+         return db.collection("Events").doc(Event).update({manager:User})
+        .then((res) => genMessage(true, "Successfully transfer an event"))
+        .catch((err) => genMessage(false, "Failed to transfer an event") );
+}
+
+async function getEventManager(user:string) {
+        return db.collection("Events").where('manager', '==', user).get()
+        .then(res=> genMessage(res.docs.map(x=>x.data()), "All events that hte current user manages"))
+        .catch(err=> genMessage(err, "Failed to get all events the usert manages"))
+}
+
+async function getMembers(event:string){
+        let users = await db.collection("Events").doc(event).get()
+        let data = users.data()
+        let promises = data["SignIn"].map(async user=>{
+                let tmp = await db.collection("Users").doc(user).get()
+                return tmp.data()
+        })
+        return Promise.all(promises)
+        .then(res=>genMessage(res, "All members for an event"))
+        .catch(err=>genMessage(err, "Failed to get lal members for an event"))
+}
+
+async function memberEventUpdate(users:[{user:string, points:number, signin:boolean}], event:string){
+        let signin=[]
+        async function inner(){
+                users.forEach(user=>{
+                        if(user.signin == true){ signin.push(user.user)}
+                        db.collection("Users").doc(user.user).update({userPoints:user.points})
+                })
+                db.collection("Events").doc(event).update({SignIn:signin})
+        }
+        return inner()
+        .then(res=>genMessage(res, "Updated members for events"))
+        .catch(err=>genMessage(err, "Failed to updated events"))
+}
+
+
+export {
+        newEvent,
+        update,
+        getAllEvents,
+        Delete,
+        Transfer,
+        getEventManager,
+        getMembers,
+        memberEventUpdate
+}
 /*
-
-   async function Invite(_Event: number, _Users: [number]) {
-   return axiosPost("invite", { Event: _Event, Invited: _Users })
-   .then((res) => true)
-   .catch((err) => false);
-   }
-
-   async function Signin(_Event: number, _User: number) {
-   return axiosPost("signin", { Event: _Event, User: _User })
-   .then((res) => true)
-   .catch((err) => {
-   return false;
-   });
-   }
-
-   async function Transfer(_Event: number, MainUser:number, _User: number) {
-   return axiosPost("transfer", { Event: _Event, Main:MainUser, Manager: _User })
-   .then((res) => true)
-   .catch((err) => false );
-   }
-
-   async function getEventManager(_id: number) {
-   return axiosPost("man", { id: _id })
-   .then((res) => res.data)
-   }
-   async function get_members(){return axiosPost("get_members", {})};
-
-   async function checkRSVP(_event:number, _user:number){
-   return axiosPost("rsvp", {Event:_event, User:_user})
-   .then(res=>{ return res.data})
-   .catch(err=>{console.log(err);return undefined})
-   }
-
-   async function update_points(_users:[any]){
-   return axiosPost("update-points", {users:_users})
-   .then(res=>true)
-   .catch(res=>false)
-   }
-
-
-   export {
-   axiosGet,
-   axiosPost,
-   newEvent,
-   getEvent,
-   update,
-   getAllEvents,
-   Delete,
-   Invite,
-   Signin,
-   Transfer,
-   getEventManager,
-   get_members,
-   checkRSVP,
-   update_points
-   }
 // module.exports= { login,new_user,reset_password, reset_token}
 */
 console.log("---------------------")

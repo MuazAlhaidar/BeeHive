@@ -1,12 +1,8 @@
-import firebase from "firebase/app";
+import {firebase} from "./config.js"
 import "firebase/auth";
 import "firebase/firestore";
-import {config} from "./config.js"
 
 // TODO FIX INTERHIPJIO
-/*
-firebase.initializeApp(config);
-*/
 const db = firebase.firestore()
 const auth = firebase.auth()
 
@@ -30,7 +26,7 @@ async function login(email:string, password:string):Promise<Message>{
         })
         .catch(res=>genMessage(false, "failed to login") )
 }
-async function new_user(email,  password, fName, lName):Promise<Message>{
+async function new_user(email:string,  password:string, fName:string, lName:string):Promise<Message>{
         // async function new_user(email,  password, fName, lName){
         return auth.createUserWithEmailAndPassword(email, password)
         .then(res=>{ 
@@ -59,9 +55,9 @@ async function getall():Promise<Message>{
         .then(res=>res.docs.map(x=> x.data()))
         .catch(res=>res)
 }
-async function changeemail(oldemail:any, newemail):Promise<Message>{
+async function changeemail(oldemail:any, newemail:string):Promise<Message|undefined>{
         var user = firebase.auth().currentUser;
-        return user.updateEmail(newemail)
+        return user?.updateEmail(newemail)
         .then( () =>{
                 return db.collection("Users").doc(oldemail).update({email:newemail})
                 .then(()=>  genMessage(true, "Changed email"))
