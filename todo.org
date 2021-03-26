@@ -2,7 +2,12 @@
 #+AUTHOR: Anon
 [[https://github.com/HawaiinPizza/beehive/issues?q=assignee%3AHawaiinPizza+is%3Aopen][My issues]] 
 [[https://youneedawiki.com/app/page/1AfpKY4ZLh0dtjsUQ6efOzJrXFSs19ALv][Documenation]]
-* Friday finsih this stuff
+* COMMENT Friday finsih this stuff
 ** TODO Email events/groups in firebase
 ** TODO Transfer manager event workign   
 ** TODO Convert rest to firebase   
+*  Groups
+** Add Check  Login if owner
+** TODO Email groups
+* Events
+** TODO Email peopel

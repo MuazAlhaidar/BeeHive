@@ -1,56 +1,61 @@
-const axios = require("axios")
-// Change port to be dynamic,
-let baseurl = "http://localhost:4200/api/groups/";
-
-async function axiosGet(url:string, _data:any){
-        try{
-                let res= await axios.get(baseurl+url, {params: _data})
-                return { status:res.status, data:res.data}
-        }
-        catch(err){
-                return {status:err.response.status, data:err.response.data}
-        }
+import {Fire} from "./config.js"
+import "firebase/auth";
+import "firebase/firestore";
+var chance = require("chance").Chance();
+interface Message{
+        data:any,
+        msg:string|number
 }
-async function axiosPost(url:string, _data:any){
-        try{
-                let res= await axios.post(baseurl+url,   _data , {headers:{'Content-Type':'application/json'}})
-                return { status:res.status, data:res.data}
-        }
-        catch(err){
-                return {status:err.response.status, data:err.response.data}
-        }
+function genMessage(_data:any,_msg:any){ return {msg:_msg, data:_data}}
+function testme(args, func){
+        func(...args)
+        .then(res=>{console.log(res)})
+        .catch(res=>{console.log(res)})
 }
 
-async function getGroup(id:number){
-        return await axiosGet("getgroup", {id:id})
+async function getGroups(){
+        return Fire.firestore().collection("Groups-WEB").get()
+        .then((res:any) => genMessage(res.docs.map(x=>x.data()), "Success"))
+        .catch((err:any) => genMessage(err, "Failed to get groups"))
+}
+async function newGroup( name:string, info:string){
+        return Fire.firestore().collection("Groups-WEB").doc().set({"description":info, "name":name, members:[]})
+        .then((res:any) => genMessage(res, "Made a new group"))
+        .catch((err:any) => genMessage(err, "Failed to make group"))
+
 }
 
-async function newGroup(userid:number, _name:string, _info:string){
-        return await axiosPost("new", {id:userid, name:_name, info:_info })
+async function removeGroup(id:string){
+        return Fire.firestore().collection("Groups-WEB").doc(id).delete()
+        .then((res:any) => genMessage(res, "Deleted"))
+        .catch((res:any) => genMessage(res, "Failed to delete gorup"))
 }
-async function removeGroup(userid:number, _groupid:number){
-        return await axiosPost("remove", {userid:userid, id:_groupid })
+async function updateGroup(id:string, name:string, desc:string){
+        return Fire.firestore().collection("Groups-WEB").doc(id).update({
+                description:desc,
+                name:name
+        })
+        .then((res:any) => genMessage(res, "Updated group"))
+        .catch((res:any) => genMessage(res, "Failed to Updated evnet"))
+
+}
+async function setMembers(id:string, users:[string]){
+        return Fire.firestore().collection("Groups-WEB").doc(id).update({
+                members:users
+        })
+        .then((res:any) => genMessage(res, "Added pepole in groups"))
+        .catch((res:any) => genMessage(res, "Failed to add people to gruops"))
+}
+async function email(id:string,  subject:string, body:string){
+        return Fire.firestore().collection("Groups-WEB").doc(id).get()
+        .then((res:any)=>{
+                let data= res.data()
+                // return Fire.firestore().collection("User-WEB").where("user", "in", 
+
+        })
+        .catch((err:any)=> genMessage(false, "Failed to get people from a group"))
 }
 
-async function updateGroup(userid:number, _groupid:number, _name:string, _info:string){
-        return await axiosPost("update", {userid:userid, id:_groupid , name:_name, info:_info})
-}
+testme(["gGy1stZTCEU0EF4zleZc", "WOW", "his sucks"], email)
 
-async function addmembers(userid:number, groupid:number, memberid:number){
-        return await axiosPost("addmembers", {userid:userid, group:groupid ,member:memberid})
-}
-
-async function removemembers(userid:number, groupid:number, memberid:number){
-        return await axiosPost("rmmembers", {userid:userid, group:groupid ,member:memberid})
-}
-async function email(userid:number, groupid:number, subject:string, body:string){
-        return await axiosPost("email", {userid:userid, id:groupid ,subject:subject, body:body})
-}
-
-// TODO Change any to emmberinfo
-async function setMembers(group:number, memberList:any[]){
-    return axiosPost("set_members", {id:group, memberList:memberList})
-        .then(res=>{ return true})
-        .catch(err=>{console.log(err);return undefined})
-}
-export {axiosGet, axiosPost, getGroup, newGroup, removeGroup, updateGroup, addmembers, removemembers, email, setMembers}
+// export {axiosGet, axiosPost, getGroup, newGroup, removeGroup, updateGroup, addmembers, removemembers, email, setMembers}

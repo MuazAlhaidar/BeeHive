@@ -1,7 +1,7 @@
 import {Fire} from "./config.js"
 import "firebase/auth";
 import "firebase/firestore";
-var chance = require('chance').Chance();
+var chance = require("chance").Chance();
 
 
 
@@ -23,7 +23,7 @@ async function newEvent(
         var user = Fire.auth();
         let email = user?.currentUser?.email
         var uuid = chance.string() + chance.string({length: 10})
-        return Fire.firestore().collection('Events').doc(uuid).set({
+        return Fire.firestore().collection("Events-WEB").doc(uuid).set({
                 title: title,
                 address: address,
                 date: date,
@@ -38,13 +38,13 @@ async function newEvent(
 }
 async function update(
         id: string,
-        title: undefined | string,
-        desc: undefined | string,
-        address: undefined | string,
-        date:  undefined | string,
-        time: undefined | string
+        title: string,
+        desc:  string,
+        address:  string,
+        date:   string,
+        time:  string
 ) {
-        return Fire.firestore().collection('Events').doc(id).update({
+        return Fire.firestore().collection("Events-WEB").doc(id).update({
                 title: title,
                 description: desc,
                 address: address,
@@ -57,7 +57,7 @@ async function update(
 
 
 async function getAllEvents() {
-        return Fire.firestore().collection("Events").get()
+        return Fire.firestore().collection("Events-WEB").get()
         .then((res:any)=>res.docs.map((x:any)=> x.data()))
         .catch((res:any)=>res)
 }
@@ -65,13 +65,13 @@ async function getAllEvents() {
 
 // Only returns true
 async function Delete(_id: string) {
-        return Fire.firestore().collection("Events").doc(_id).delete()
+        return Fire.firestore().collection("Events-WEB").doc(_id).delete()
         .then((res:any) => genMessage(res, "Deleted"))
         .catch((res:any) => genMessage(res, "Failed to delete event"))
 }
 
 async function RSVP(id:string, email:string){
-        Fire.firestore().collection('Events').doc(id).update(
+        Fire.firestore().collection("Events-WEB").doc(id).update(
                 {"RSVP": Fire.firestore.FieldValue.arrayUnion(email)})
 
 }
@@ -80,22 +80,22 @@ async function RSVP(id:string, email:string){
 
 
 async function Transfer(Event: string, User: string) {
-        return Fire.firestore().collection("Events").doc(Event).update({creator:User})
+        return Fire.firestore().collection("Events-WEB").doc(Event).update({creator:User})
         .then((res:any) => genMessage(true, "Successfully transfer an event"))
         .catch((err:any) => genMessage(false, "Failed to transfer an event") );
 }
 
 async function getEventManager(user:string) {
-        return Fire.firestore().collection("Events").where('creator', '==', user).get()
+        return Fire.firestore().collection("Events-WEB").where("creator", "==", user).get()
         .then((res:any)=> genMessage(res.docs.map((x:any)=>x.data()), "All events that hte current user manages"))
         .catch((err:any)=> genMessage(err, "Failed to get all events the usert manages"))
 }
 
 async function getMembers(event:string){
-        let users = await Fire.firestore().collection("Events").doc(event).get()
+        let users = await Fire.firestore().collection("Events-WEB").doc(event).get()
         let data = users.data()  as any
         let promises = data["SignIn"].map(async (user:any)=>{
-                let tmp = await Fire.firestore().collection("Users").doc(user).get()
+                let tmp = await Fire.firestore().collection("Users-WEB").doc(user).get()
                 return tmp.data()
         })
         return Promise.all(promises)
@@ -108,15 +108,16 @@ async function memberEventUpdate(users:[{user:string, points:number, signin:bool
         async function inner(){
                 users.forEach(user=>{
                         if(user.signin == true){ signin.push(user.user)}
-                        Fire.firestore().collection("Users").doc(user.user).update({userPoints:user.points})
+                        Fire.firestore().collection("Users-WEB").doc(user.user).update({userPoints:user.points})
                 })
-                Fire.firestore().collection("Events").doc(event).update({SignIn:signin})
+                Fire.firestore().collection("Events-WEB").doc(event).update({SignIn:signin})
         }
         return inner()
         .then((res:any)=>genMessage(res, "Updated members for events"))
         .catch((err:any)=>genMessage(err, "Failed to updated events"))
 }
 
+// TODO EMAIl
 
 export {
         newEvent,
