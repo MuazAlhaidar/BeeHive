@@ -2,17 +2,19 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import {config} from "./config.js"
+
+// TODO FIX INTERHIPJIO
+/*
 firebase.initializeApp(config);
+*/
 const db = firebase.firestore()
 const auth = firebase.auth()
+
 interface Message{
         data:any,
         msg:string|number
 }
 function genMessage(_data:any,_msg:any){ return {msg:_msg, data:_data}}
-function testFunc(args, func){
-        func(args).then(res=>{console.log(res)}).catch(res=>{console.log(res)})
-}
 async function login(email:string, password:string):Promise<Message>{
         const cityRef = db.collection('Users').doc('moniera@umich.edu');
         const doc = await cityRef.get();
@@ -57,14 +59,17 @@ async function getall():Promise<Message>{
         .then(res=>res.docs.map(x=> x.data()))
         .catch(res=>res)
 }
-async function changeemail(email:any):Promise<Message>{
+async function changeemail(oldemail:any, newemail):Promise<Message>{
         var user = firebase.auth().currentUser;
-        return user.updateEmail(email)
+        return user.updateEmail(newemail)
         .then( () =>{
-                return genMessage(true, "Changed email")
+                return db.collection("Users").doc(oldemail).update({email:newemail})
+                .then(()=>  genMessage(true, "Changed email"))
+                .catch( (error) => genMessage(false, "Coudln't change email,"+ error) );
         })
-        .catch( (error) =>{
-                return genMessage(false, "Coudln't change email,"+ error)
-        });
+        .catch( (error) => genMessage(false, "Coudln't change email,"+ error) );
 }
+
+
+
 export {login, new_user, reset_password, getall, changeemail}
