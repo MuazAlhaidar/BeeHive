@@ -12,7 +12,6 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
   async function checkuser(
     _firstname: string,
     _lastname: string,
-    _username: string,
     _password: string,
     _email: string
   ): Promise<boolean> {
@@ -24,15 +23,7 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
       return false;
     }
 
-    let res = await API.new_user({
-      firstname: _firstname,
-      lastname: _lastname,
-      username: _username,
-      password: _password,
-      email: _email,
-      role_id: 0,
-      points: 0,
-    });
+    let res = await API.new_user(_email, _password, _firstname, _lastname);
     // Backend shit
     switch (res[0]) {
       case 0:

@@ -1,21 +1,16 @@
 import React from "react";
 import "../../CSS/Members/MemberList.css";
-
+import { MemberInfo } from "../../Interfaces";
 import Member from "./Member";
 
-interface MemberInfo {
-  username: string;
-  id: string;
-}
-
 interface IProps {
-  memberList: Array<MemberInfo>;
+  memberList: Array<string>;
   toggleMemberModal: () => void;
 }
 
 function MemberList({ memberList, toggleMemberModal }: IProps) {
   const members = memberList;
-
+  // TODO use emails to get names and display them in the map
   return (
     <div>
       <div className="MemberList-Top">
@@ -26,7 +21,12 @@ function MemberList({ memberList, toggleMemberModal }: IProps) {
       </div>
       <div>
         {members.map((curMember) => {
-          return <Member username={curMember.username} />;
+          return (
+            <Member
+              Firstname={curMember.Firstname}
+              Lastname={curMember.Lastname}
+            />
+          );
         })}
       </div>
     </div>

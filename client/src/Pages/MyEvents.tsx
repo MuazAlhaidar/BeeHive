@@ -9,82 +9,74 @@ import TransferManagerModal from "../Components/TransferManagerModal";
 import ConfirmationModal from "../Components/ConfirmationModal";
 import * as API from "../api/Event";
 import { store, redux_index, redux_members } from "../store";
-
-interface MemberInfo {
-  id: string;
-  firstname: string;
-  lastname: string;
-  points: number;
-}
-
-interface EventInfo {
-  name: string;
-  address: string;
-  time: string;
-  date: string;
-  description: string;
-  id: string;
-  members: Array<MemberInfo> | null;
-}
+import { MemberInfo, EventInfo } from "../Interfaces";
 
 async function reload(user: string) {
   const _myevents = await API.getEventManager(user);
   const _mymembers = await API.getMembers(user);
-  const myevents = _myevents.data
-  const members = _mymembers.data
+  const myevents = _myevents.data;
+  const members = _mymembers.data;
 
   if (myevents === undefined) {
-          return [];
+    return [];
   } else {
-          let events: any = {};
-          myevents.forEach((i: any) => {
-                  var date_obj = new Date(i.Time);
-                  let _date =
-                          +(+date_obj.getMonth()) +
-                          "/" +
-                          date_obj.getDay() +
-                          "/" +
-                          date_obj.getFullYear();
-                  let minute = date_obj.getMinutes();
-                  let hour = date_obj.getHours();
-                  let _hour = ("0" + hour).slice(-2);
-                  let _minute = ("0" + minute).slice(-2);
-                  let _time = _hour + ":" + _minute;
-                  let _id = i.id;
+    let events: any = {};
+    myevents.forEach((i: any) => {
+      var date_obj = new Date(i.Time);
+      let _date =
+        +(+date_obj.getMonth()) +
+        "/" +
+        date_obj.getDay() +
+        "/" +
+        date_obj.getFullYear();
+      let minute = date_obj.getMinutes();
+      let hour = date_obj.getHours();
+      let _hour = ("0" + hour).slice(-2);
+      let _minute = ("0" + minute).slice(-2);
+      let _time = _hour + ":" + _minute;
+      let _id = i.id;
 
-                  let tmp_event = {
-                          name: i.Name,
-                          description: i.Description,
-                          address: i.Address,
-                          time: _time,
-                          date: _date,
-                          members:null,
-                          // members: Array<MemberInfo>({
-                          //   id: i.userid,
-                          //   firstname: i.firstname,
-                          //   lastname: i.firstname,
-                          //   points: i.points,
-                          // }),
-                          id: _id,
-                  };
-                  events[i.id] = tmp_event;
-
-          })
-          if(members!==undefined){
-                  members.forEach((i:any)=>{
-                          if(events[i.id].members == null){
-                                  events[i.id].members= Array<MemberInfo>({ id: i.userid, firstname: i.firstname, lastname: i.lastname, points: i.points, })
-                          }
-                          else{
-                                  events[i.id].members.push({ id: i.userid, firstname: i.firstname, lastname: i.lastname, points: i.points, })
-                          }
-                  })
-          }
-          console.log(events)
-  return Object.values(events) as Array<EventInfo>;
+      let tmp_event = {
+        name: i.Name,
+        description: i.Description,
+        address: i.Address,
+        time: _time,
+        date: _date,
+        members: null,
+        // members: Array<MemberInfo>({
+        //   id: i.userid,
+        //   firstname: i.firstname,
+        //   lastname: i.firstname,
+        //   points: i.points,
+        // }),
+        id: _id,
+      };
+      events[i.id] = tmp_event;
+    });
+    if (members !== undefined) {
+      members.forEach((i: any) => {
+        if (events[i.id].members == null) {
+          events[i.id].members = Array<MemberInfo>({
+            id: i.userid,
+            Firstname: i.firstname,
+            Lastname: i.lastname,
+            email: i.email,
+            userPoints: i.points,
+          });
+        } else {
+          events[i.id].members.push({
+            id: i.userid,
+            firstname: i.firstname,
+            lastname: i.lastname,
+            points: i.points,
+          });
+        }
+      });
+    }
+    console.log(events);
+    return Object.values(events) as Array<EventInfo>;
   }
 }
-
 
 function MyEvents(props: { id: any }) {
   const [events, setEvents] = React.useState(Array<EventInfo>());
@@ -108,9 +100,9 @@ function MyEvents(props: { id: any }) {
     description: "",
   });
 
-        React.useEffect(() => {
-                reload(props.id).then((res) => setEvents(res));
-        }, [eventIndex, checkReload]);
+  React.useEffect(() => {
+    reload(props.id).then((res) => setEvents(res));
+  }, [eventIndex, checkReload]);
 
   const toggleEmailModal = () => {
     setShowEmailModal(!showEmailModal);
@@ -144,7 +136,7 @@ function MyEvents(props: { id: any }) {
           description: "",
         })
       : setCurEvent({
-          name: events[index].name,
+          name: events[index].title,
           address: events[index].address,
           time: events[index].time,
           date: events[index].date,
@@ -163,22 +155,19 @@ function MyEvents(props: { id: any }) {
     let [month, day, year] = date.split("-").map((i) => parseInt(i));
     let [hour, minute] = time.split(":").map((i) => parseInt(i));
     let thedate = new Date(year, month - 1, day, hour - 5, minute);
-    let _tmp = await API.newEvent(
-      name,
-      description,
-      address,
-      time,
-      date
-    );
+    let _tmp = await API.newEvent(name, description, address, time, date);
     const e = events.slice();
     e.push({
-      name,
+      // TODO
+      // Add Creator here
+      title: name,
       address,
       time,
       date,
       description,
       id: _tmp.data,
-      members: null,
+      RSVP: Array<string>(),
+      SignIn: Array<string>(),
     });
     setEvents(e);
     setEventIndex(events.length);
@@ -211,14 +200,14 @@ function MyEvents(props: { id: any }) {
         time
       );
       const e = events.slice();
-      e[eventIndex].name = name;
+      e[eventIndex].title = name;
       e[eventIndex].address = address;
       e[eventIndex].time = time;
       e[eventIndex].date = date;
       e[eventIndex].description = description;
       setEvents(e);
       setCurEvent({
-        name: events[eventIndex].name,
+        name: events[eventIndex].title,
         address: events[eventIndex].address,
         time: events[eventIndex].time,
         date: events[eventIndex].date,
@@ -258,14 +247,16 @@ function MyEvents(props: { id: any }) {
       <EventMemberModal
         showModal={showEventMemberModal}
         setShowModal={setShowEventMemberModal}
-        members={ events[eventIndex]!==undefined ?  events[eventIndex].members : null}
+        members={
+          events[eventIndex] !== undefined ? events[eventIndex].RSVP : null
+        }
       />
       <TransferManagerModal
         showModal={showTransferManagerModal}
         setShowModal={setShowTransferManagerModal}
-         setReload={setReload}
-        event={ events[eventIndex]!==undefined ?  events[eventIndex].id : null}
-         reload={checkReload}
+        setReload={setReload}
+        event={events[eventIndex] !== undefined ? events[eventIndex].id : null}
+        reload={checkReload}
       />
       <ConfirmationModal
         showModal={showConfirmationModal}
@@ -300,7 +291,7 @@ function MyEvents(props: { id: any }) {
           />
         ) : (
           <EventsForm
-            name={events[eventIndex].name}
+            name={events[eventIndex].title}
             address={events[eventIndex].address}
             time={events[eventIndex].time}
             date={events[eventIndex].date}

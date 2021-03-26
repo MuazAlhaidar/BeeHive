@@ -2,15 +2,7 @@ import React from "react";
 import "../../CSS/Events/EventsList.css";
 import Event from "./Event";
 import EventAdd from "./EventsAdd";
-
-interface EventInfo {
-  name: string;
-  address: string;
-  time: string;
-  date: string;
-  description: string;
-  id: number
-}
+import { EventInfo } from "../../Interfaces";
 
 interface IProps {
   eventList: Array<EventInfo>;
@@ -50,7 +42,7 @@ function EventList({ eventList, selectEvent, addEvent }: IProps) {
         return (
           <Event
             key={`event-${index}`}
-            name={curEvent.name}
+            name={curEvent.title}
             index={index}
             selectEvent={selectEvent}
           />

@@ -19,7 +19,7 @@ export default function Request(props: {}) {
           onClick={(evt) => {
             evt.preventDefault();
 
-            API.reset_password(email, true).then((res) => {
+            API.reset_password(email).then((res) => {
               if (res) {
                 alert(
                   "Your request has been done successfully. Check email for the code"

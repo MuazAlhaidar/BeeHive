@@ -5,29 +5,18 @@ import { FacebookShareButton, TwitterShareButton } from "react-share";
 import "../../CSS/Events/EventsForm(view-only).css";
 import * as API from "../../api/Event";
 import { store, redux_index, redux_rsvp } from "../../store";
+import { EventInfo } from "../../Interfaces";
 
 enum Relation {
-  Manager,
   RSVP,
   NotRSVP,
 }
-interface EventInfo {
-  name: string;
-  address: string;
-  time: string;
-  date: string;
-  description: string;
-  set_relation: any;
+
+interface IProps {
+  event: EventInfo;
 }
 
-function EventsForm({
-  name,
-  address,
-  time,
-  date,
-  description,
-  set_relation,
-}: EventInfo) {
+function EventsForm({ event }: IProps) {
   const [displayRSVP, setIsRSVP] = React.useState(false);
   const [change, setChange] = React.useState(false);
   const _tmp = () => {
@@ -38,7 +27,7 @@ function EventsForm({
     const state = store.getState().state;
     const relation = state.relation;
     const id = state.index;
-    set_relation(id);
+    // set_relation(id);
     if (relation === Relation.RSVP) {
       setIsRSVP(false);
       store.dispatch(redux_rsvp(Relation.NotRSVP));
@@ -74,7 +63,7 @@ function EventsForm({
         <div className="EventsForm-view-only-NameAddressTimeDateGroup">
           <div className="EventsForm-view-only-NameDiv">
             <label className="EventsForm-view-only-NameLabel">Name</label>
-            <div className="EventsForm-view-only-Name">{name}</div>
+            <div className="EventsForm-view-only-Name">{event.title}</div>
           </div>
           <div className="EventsForm-view-only-AddressTimeDateGroup">
             <div className="EventsForm-view-only-AddressTimeDateLabel">
@@ -85,9 +74,11 @@ function EventsForm({
               <label className="EventsForm-view-only-DateLabel">Date</label>
             </div>
             <div className="EventsForm-view-only-AddressTimeDateInfo">
-              <div className="EventsForm-view-only-Address">{address}</div>
-              <div className="EventsForm-view-only-Time">{time}</div>
-              <div className="EventsForm-view-only-Date">{date}</div>
+              <div className="EventsForm-view-only-Address">
+                {event.address}
+              </div>
+              <div className="EventsForm-view-only-Time">{event.time}</div>
+              <div className="EventsForm-view-only-Date">{event.date}</div>
             </div>
           </div>
         </div>
@@ -120,7 +111,9 @@ function EventsForm({
         <label className="EventsForm-view-only-DescriptionLabel">
           Description
         </label>
-        <div className="EventsForm-view-only-Description">{description}</div>
+        <div className="EventsForm-view-only-Description">
+          {event.description}
+        </div>
       </div>
 
       <div

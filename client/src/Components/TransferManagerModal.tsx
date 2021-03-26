@@ -1,15 +1,9 @@
 import React from "react";
 import "../CSS/TransferManagerModal.css";
-import * as UserAPI  from  "../api/User" 
-import *  as EventAPI  from   "../api/Event"
-import {store} from "../store"
-
-interface MemberInfo {
-  id: string;
-  firstname: string;
-  lastname: string;
-  points: number;
-}
+import * as UserAPI from "../api/User";
+import * as EventAPI from "../api/Event";
+import { store } from "../store";
+import { MemberInfo } from "../Interfaces";
 
 interface IProps {
   showModal: boolean;
@@ -19,21 +13,29 @@ interface IProps {
   event: any;
 }
 
-function TransferManagerModal({ showModal, setShowModal, reload, setReload, event }: IProps) {
-  const fakeMembers = Array<MemberInfo>(
-    { id: '', firstname: "", lastname: "", points: 0 },
-  );
+function TransferManagerModal({
+  showModal,
+  setShowModal,
+  reload,
+  setReload,
+  event,
+}: IProps) {
+  const fakeMembers = Array<MemberInfo>({
+    id: "",
+    Firstname: "",
+    Lastname: "",
+    email: "",
+    userPoints: 0,
+  });
 
   const [sortedList, setSortedList] = React.useState(
-    fakeMembers.sort((a, b) => (a.points < b.points ? 1 : -1))
+    fakeMembers.sort((a, b) => (a.userPoints < b.userPoints ? 1 : -1))
   );
-  React.useEffect(()=>{
-          UserAPI.getall()
-          .then(res=>{
-                  setSortedList(res.data)
-          })
-          
-  },[])
+  React.useEffect(() => {
+    UserAPI.getall().then((res) => {
+      setSortedList(res.data);
+    });
+  }, []);
 
   const handleCancel = () => {
     setShowModal(!showModal);
@@ -59,20 +61,22 @@ function TransferManagerModal({ showModal, setShowModal, reload, setReload, even
                     }
                   >
                     <div className="TransferManagerModal-FirstName">
-                      {member.firstname}
+                      {member.Firstname}
                     </div>
                     <div className="TransferManagerModal-LastName">
-                      {member.lastname}
+                      {member.Lastname}
                     </div>
-                          <button className="TransferManagerModal-SetManagerButton" onClick={() => {
-                                  handleCancel()
-                                  let id = store.getState().state.id
-                                  console.log(event)
-                                  EventAPI.Transfer(event, member.id )
-                                  .then(res=>{
-                                          setReload(!reload);  
-                                  })
-                                  }}>
+                    <button
+                      className="TransferManagerModal-SetManagerButton"
+                      onClick={() => {
+                        handleCancel();
+                        let id = store.getState().state.id;
+                        console.log(event);
+                        EventAPI.Transfer(event, member.id).then((res) => {
+                          setReload(!reload);
+                        });
+                      }}
+                    >
                       Set As Manager
                     </button>
                   </div>

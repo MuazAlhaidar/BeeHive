@@ -1,7 +1,7 @@
 import React from "react";
 import "../CSS/EmailModal.css";
-import {email as sendEmail} from "../api/Groups" 
-import {store} from "../store";
+import { email as sendEmail } from "../api/Groups";
+import { store } from "../store";
 
 interface IProps {
   showModal: boolean;
@@ -17,11 +17,12 @@ function EmailModal({ showModal, setShowModal }: IProps) {
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
     setShowModal(!showModal);
-     
-    const  state = store.getState().state;
-    const  id = state.id;
-    const  group_id = state.index
-    sendEmail(id, group_id, email.subject, email.body)
+
+    const state = store.getState().state;
+    const id = state.id;
+    // TODO  Have it so we actually have the group ID
+    const group_id = state.index;
+    sendEmail(id, group_id, email.subject, email.body);
     setEmail({ subject: "", body: "" });
   };
 

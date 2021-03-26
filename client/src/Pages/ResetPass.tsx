@@ -7,14 +7,14 @@ export default function Display(props: {}) {
   const [status, setStatus] = React.useState(0);
   const search = useLocation().search;
   const token = new URLSearchParams(search).get("token");
-
-  API.reset_url("" + token).then((res) => {
-    if (res) {
-      setStatus(1);
-    } else {
-      setStatus(-1);
-    }
-  });
+  // TODO
+  // API.reset_url("" + token).then((res) => {
+  //   if (res) {
+  //     setStatus(1);
+  //   } else {
+  //     setStatus(-1);
+  //   }
+  // });
 
   switch (status) {
     case 0:
@@ -42,20 +42,20 @@ function ResetPassword(props: { token: any }) {
   const history = useHistory();
   function request(evt: any) {
     evt.preventDefault();
-    API.reset_token(props.token, password)
-      .then((res) => {
-        if (res === true) {
-          alert("Successfully changed password");
-          history.push("/");
-        } else {
-          alert("Unexpected error");
-          history.push("/");
-        }
-      })
-      .catch((err) => {
-        alert("Unexpected error");
-        history.push("/");
-      });
+    // API.reset_token(props.token, password)
+    //   .then((res) => {
+    //     if (res === true) {
+    //       alert("Successfully changed password");
+    //       history.push("/");
+    //     } else {
+    //       alert("Unexpected error");
+    //       history.push("/");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     alert("Unexpected error");
+    //     history.push("/");
+    //   });
   }
 
   return (

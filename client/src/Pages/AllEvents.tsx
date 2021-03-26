@@ -5,27 +5,11 @@ import EventsForm from "../Components/Events/EventsForm(view-only)";
 import EventsFormNonMember from "../Components/Events/EventsForm(NonMember)";
 import * as API from "../api/Event";
 import { store, redux_index, redux_rsvp } from "../store";
-
-interface MemberInfo {
-  name: string;
-  points: number;
-}
+import { EventInfo } from "../Interfaces";
 
 enum Relation {
-  Manager,
   RSVP,
   NotRSVP,
-}
-
-interface EventInfo {
-  name: string;
-  address: string;
-  time: string;
-  date: string;
-  description: string;
-  members: Array<MemberInfo> | null;
-  id: string;
-  relation: Relation;
 }
 
 interface IProp {
@@ -86,6 +70,7 @@ function MyEvents({ name, id }: IProp) {
     reload(id).then((res) => setEvents(res));
   }, []);
   const [eventIndex, setEventIndex] = React.useState(-1);
+  const emptyEvent = {} as EventInfo;
 
   const selectEvent = (i: number) => {
     let index = i === undefined ? 0 : i;
@@ -102,40 +87,14 @@ function MyEvents({ name, id }: IProp) {
       <div className="MyEvents-EventForm">
         {name === "" ? (
           eventIndex > events.length - 1 || eventIndex < 0 ? (
-            <EventsFormNonMember
-              name={""}
-              address={""}
-              time={""}
-              date={""}
-              description={""}
-            />
+            <EventsFormNonMember event={emptyEvent} />
           ) : (
-            <EventsFormNonMember
-              name={events[eventIndex].name}
-              address={events[eventIndex].address}
-              time={events[eventIndex].time}
-              date={events[eventIndex].date}
-              description={events[eventIndex].description}
-            />
+            <EventsFormNonMember event={events[eventIndex]} />
           )
         ) : eventIndex > events.length - 1 || eventIndex < 0 ? (
-          <EventsForm
-            name={""}
-            address={""}
-            time={""}
-            date={""}
-            description={""}
-            set_relation={set_relation}
-          />
+          <EventsForm event={emptyEvent} />
         ) : (
-          <EventsForm
-            name={events[eventIndex].name}
-            address={events[eventIndex].address}
-            time={events[eventIndex].time}
-            date={events[eventIndex].date}
-            description={events[eventIndex].description}
-            set_relation={set_relation}
-          />
+          <EventsForm event={events[eventIndex]} />
         )}
       </div>
     </div>

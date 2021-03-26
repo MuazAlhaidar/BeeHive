@@ -4,23 +4,20 @@ import FacebookLogo from "../../Images/f_logo_RGB-Blue_58.png";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import "../../CSS/Events/EventsForm(view-only).css";
 import "../../CSS/Events/EventsForm(NonMember).css";
+import { EventInfo } from "../../Interfaces";
 
-interface EventInfo {
-  name: string;
-  address: string;
-  time: string;
-  date: string;
-  description: string;
+interface IProps {
+  event: EventInfo;
 }
 
-function EventsForm({ name, address, time, date, description }: EventInfo) {
+function EventsForm({ event }: IProps) {
   // const [isRSVP, setIsRSVP] = React.useState(false);
 
   // const setRSVP = () => {
   //   setIsRSVP(!isRSVP);
   // };
 
-  const quote = `Come join me at the ${name} event!`;
+  const quote = `Come join me at the ${event.title} event!`;
   const hashtags = ["BeeHive"];
 
   return (
@@ -29,7 +26,7 @@ function EventsForm({ name, address, time, date, description }: EventInfo) {
         <div className="EventsForm-view-only-NameAddressTimeDateGroup">
           <div className="EventsForm-view-only-NameDiv">
             <label className="EventsForm-view-only-NameLabel">Name</label>
-            <div className="EventsForm-view-only-Name">{name}</div>
+            <div className="EventsForm-view-only-Name">{event.title}</div>
           </div>
           <div className="EventsForm-view-only-AddressTimeDateGroup">
             <div className="EventsForm-view-only-AddressTimeDateLabel">
@@ -40,9 +37,11 @@ function EventsForm({ name, address, time, date, description }: EventInfo) {
               <label className="EventsForm-view-only-DateLabel">Date</label>
             </div>
             <div className="EventsForm-view-only-AddressTimeDateInfo">
-              <div className="EventsForm-view-only-Address">{address}</div>
-              <div className="EventsForm-view-only-Time">{time}</div>
-              <div className="EventsForm-view-only-Date">{date}</div>
+              <div className="EventsForm-view-only-Address">
+                {event.address}
+              </div>
+              <div className="EventsForm-view-only-Time">{event.time}</div>
+              <div className="EventsForm-view-only-Date">{event.date}</div>
             </div>
           </div>
         </div>
@@ -75,7 +74,9 @@ function EventsForm({ name, address, time, date, description }: EventInfo) {
         <label className="EventsForm-view-only-DescriptionLabel">
           Description
         </label>
-        <div className="EventsForm-NonMember-Description">{description}</div>
+        <div className="EventsForm-NonMember-Description">
+          {event.description}
+        </div>
       </div>
     </div>
   );

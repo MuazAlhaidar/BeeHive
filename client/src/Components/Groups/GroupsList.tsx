@@ -2,15 +2,7 @@ import React from "react";
 import "../../CSS/Groups/GroupsList.css";
 import Group from "./Group";
 import GroupsAdd from "./GroupsAdd";
-
-interface MemberInfo {
-  name: string;
-}
-
-interface GroupInfo {
-  name: string;
-  contactInfo: string;
-}
+import { MemberInfo, GroupInfo } from "../../Interfaces";
 
 interface IProps {
   groupList: Array<GroupInfo>;

@@ -1,23 +1,20 @@
 import React from "react";
 import Member from "./Member";
-import {store, redux_index} from "../../store"
-import {setMembers as APIsetMembers} from "../../api/Groups"
-
+import { store, redux_index } from "../../store";
+import { setMembers as APIsetMembers } from "../../api/Groups";
+import { MemberInfo } from "../../Interfaces";
 import "../../CSS/Members/MemberModal.css";
 
-// TODO Add name
-interface MemberInfo {
-  username: string;
-  id: string;
-}
-
 interface IProps {
-  allMembers: Array<MemberInfo>;
-  memberList: Array<MemberInfo>;
-  setMemberList: (memberList: Array<MemberInfo>) => void;
+  // TODO Get the Group ID
+  // For IsInGroup
+  // Only way we can ge the members
+  allMembers: Array<string>;
+  memberList: Array<string>;
+  setMemberList: (memberList: Array<string>) => void;
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
-  setMembers: (memberList:Array<MemberInfo>, index:number) =>void
+  setMembers: (memberList: Array<string>, index: number) => void;
 }
 
 function MemberModal({
@@ -26,7 +23,7 @@ function MemberModal({
   setMemberList,
   showModal,
   setShowModal,
-  setMembers
+  setMembers,
 }: IProps) {
   function isInGroup(value: MemberInfo, index: number, array: MemberInfo[]) {
     let retme = true;
@@ -45,16 +42,16 @@ function MemberModal({
   const [pastOut, setpastOut] = React.useState(filteredList);
 
   const handleSave = () => {
-          // API Call for this group this is the member list
-          const state = store.getState().state
-          const index = state.index
-          const id = state.relation
+    // API Call for this group this is the member list
+    const state = store.getState().state;
+    const index = state.index;
+    const id = state.relation;
 
-          // Save it on teh frontend
-          console.log(id, index)
-          setMembers(memberList, index);
-          console.log(id, memberList, index)
-          APIsetMembers(id, memberList)
+    // Save it on teh frontend
+    console.log(id, index);
+    setMembers(memberList, index);
+    console.log(id, memberList, index);
+    APIsetMembers(id, memberList);
 
     setShowModal(!showModal);
   };
@@ -93,7 +90,10 @@ function MemberModal({
                       return (
                         <div className="MemberModal-NotInGroupMembers">
                           <div className="MemberModal-MemberDiv">
-                            <Member username={curMem.username} />
+                            <Member
+                              Firstname={curMem.Firstname}
+                              Lastname={curMem.Lastname}
+                            />
                           </div>
                           <button
                             className="MemberModal-AddButton"
@@ -114,7 +114,10 @@ function MemberModal({
                       return (
                         <div className="MemberModal-InGroupMembers">
                           <div className="MemberModal-MemberDiv">
-                            <Member username={curMem.username} />
+                            <Member
+                              Firstname={curMem.Firstname}
+                              Lastname={curMem.Lastname}
+                            />
                           </div>
                           <button
                             className="MemberModal-RemoveButton"

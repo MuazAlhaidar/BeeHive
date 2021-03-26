@@ -9,18 +9,7 @@ import ConfirmationModal from "../Components/ConfirmationModal";
 import "../CSS/Groups/MyGroups.css";
 import * as API from "../api/Groups";
 import { store, redux_index, redux_rsvp } from "../store";
-
-interface MemberInfo {
-  username: string;
-  id: number;
-}
-
-interface GroupInfo {
-  id: number;
-  name: string;
-  contactInfo: string;
-  members: Array<MemberInfo>;
-}
+import { MemberInfo, GroupInfo } from "../Interfaces";
 
 // async function reload(id: number): Promise<Array<GroupInfo>> {
 async function reload(id: number): Promise<any> {
@@ -29,9 +18,9 @@ async function reload(id: number): Promise<any> {
 }
 
 function MyGroups(props: { id: number }) {
-  const fakeMembersList = new Array<MemberInfo>();
+  const fakeMembersList = new Array<string>();
 
-  const [allMembers, setAllMembers] = React.useState(new Array<MemberInfo>());
+  const [allMembers, setAllMembers] = React.useState(new Array<string>());
 
   const [groups, setGroups] = React.useState(Array<GroupInfo>());
   const [groupIndex, setGroupIndex] = React.useState(-1);
@@ -45,7 +34,7 @@ function MyGroups(props: { id: number }) {
     name: "",
     contactInfo: "",
   });
-  const [memList, setMemList] = React.useState(Array<MemberInfo>());
+  const [memList, setMemList] = React.useState(Array<string>());
   console.log(groups);
 
   const toggleMemberModal = () => {
@@ -63,7 +52,7 @@ function MyGroups(props: { id: number }) {
   const toggleConfirmationModal = () => {
     setShowConfirmationModal(!showConfirmationModal);
   };
-  const set_groupmembers = (memberList: Array<MemberInfo>, index: number) => {
+  const set_groupmembers = (memberList: Array<string>, index: number) => {
     const m = groups.slice();
     m[index].members = memberList;
     setGroups(m);
@@ -74,13 +63,13 @@ function MyGroups(props: { id: number }) {
       name: "",
       contactInfo: "",
     });
-    setMemList(Array<MemberInfo>());
+    setMemList(Array<string>());
   };
 
   const setGroupAndMemList = (i: number) => {
     setCurGroup({
       name: groups[i].name,
-      contactInfo: groups[i].contactInfo,
+      contactInfo: groups[i].description,
     });
     setMemList(groups[i].members);
   };
@@ -123,11 +112,11 @@ function MyGroups(props: { id: number }) {
         (res) => {
           const g = groups.slice();
           g[groupIndex].name = name;
-          g[groupIndex].contactInfo = contactInfo;
+          g[groupIndex].description = contactInfo;
           setGroups(g);
           setCurGroup({
             name: groups[groupIndex].name,
-            contactInfo: groups[groupIndex].contactInfo,
+            contactInfo: groups[groupIndex].description,
           });
         }
       );
@@ -203,7 +192,7 @@ function MyGroups(props: { id: number }) {
         ) : (
           <GroupForm
             name={groups[groupIndex].name}
-            contactInfo={groups[groupIndex].contactInfo}
+            contactInfo={groups[groupIndex].description}
             removeGroup={() => {
               removeGroup(groupIndex);
             }}

@@ -3,32 +3,29 @@ import EditMemberPointsButton from "../EditMemberPointsButton";
 import "../../CSS/Events/EventMemberModal.css";
 import { store, redux_index, redux_rsvp } from "../../store";
 // import {update_points} from "../../api/Event"
-
-interface MemberInfo {
-  id: string;
-  firstname: string;
-  lastname: string;
-  points: number;
-}
+import { MemberInfo } from "../../Interfaces";
 
 interface IProps {
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
-  members: MemberInfo[] | null;
+  members: string[] | null;
 }
 
 function EventMemberModal({ showModal, setShowModal, members }: IProps) {
   // const [members, setMembers] = React.useState(store.getState().state.members);
 
   let sortedList = Array<MemberInfo>({
-    firstname: "",
-    lastname: "",
     id: "",
-    points: 0,
+    Firstname: "",
+    Lastname: "",
+    email: "",
+    userPoints: 0,
   });
   if (members! !== null) {
     var _members = (members as unknown) as MemberInfo[];
-    sortedList = _members.sort((a, b) => (a.points < b.points ? 1 : -1));
+    sortedList = _members.sort((a, b) =>
+      a.userPoints < b.userPoints ? 1 : -1
+    );
   }
 
   const [hasAttended, setHasAttended] = React.useState(false);
@@ -39,7 +36,7 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
   };
 
   const handleSave = () => {
-          // update_points(members as any)
+    // update_points(members as any)
     setShowModal(!showModal);
   };
 
@@ -59,40 +56,42 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
               <div className="EventMemberModal-Points">Points</div>
             </div>
             <div className="EventMemberModal-MemberList">
-                    {sortedList[0].id!="" ? sortedList.map((member, index) => {
-                return (
-                  <div
-                    className={
-                      index % 2 === 0
-                        ? "EventMemberModal-MemberInfo-lightgrey"
-                        : "EventMemberModal-MemberInfo-white"
-                    }
-                  >
-                    <div className="EventMemberModal-FirstName">
-                      {member.firstname}
-                    </div>
-                    <div className="EventMemberModal-LastName">
-                      {member.lastname}
-                    </div>
-                    <form className="EventMemberModal-Attended">
-                      <input
-                        type="checkbox"
-                        defaultChecked={false}
-                        onChange={setAttended}
-                      />
-                    </form>
-                    <div className="EventMemberModal-Points">
-                      {member.points}
-                    </div>
-                    <EditMemberPointsButton
-                      member={member}
-                      reloadParent={() => {
-                        setReload(!reload);
-                      }}
-                    />
-                  </div>
-                );
-                    }): null}
+              {sortedList[0].id != ""
+                ? sortedList.map((member, index) => {
+                    return (
+                      <div
+                        className={
+                          index % 2 === 0
+                            ? "EventMemberModal-MemberInfo-lightgrey"
+                            : "EventMemberModal-MemberInfo-white"
+                        }
+                      >
+                        <div className="EventMemberModal-FirstName">
+                          {member.Firstname}
+                        </div>
+                        <div className="EventMemberModal-LastName">
+                          {member.Lastname}
+                        </div>
+                        <form className="EventMemberModal-Attended">
+                          <input
+                            type="checkbox"
+                            defaultChecked={false}
+                            onChange={setAttended}
+                          />
+                        </form>
+                        <div className="EventMemberModal-Points">
+                          {member.userPoints}
+                        </div>
+                        <EditMemberPointsButton
+                          member={member}
+                          reloadParent={() => {
+                            setReload(!reload);
+                          }}
+                        />
+                      </div>
+                    );
+                  })
+                : null}
             </div>
             <div className="EventMemberModal-BottomBar">
               <div className="EventMemberModal-Buttons">

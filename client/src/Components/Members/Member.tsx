@@ -2,13 +2,16 @@ import React from "react";
 import "../../CSS/Members/Member.css";
 
 interface IProps {
-  username: string;
+  Firstname: string;
+  Lastname: string;
 }
 
-function Member({ username }: IProps) {
+function Member({ Firstname, Lastname }: IProps) {
   return (
     <div className="Member">
-      <button className="Member-Name">{username}</button>
+      <button className="Member-Name">
+        {Firstname} {Lastname}
+      </button>
     </div>
   );
 }

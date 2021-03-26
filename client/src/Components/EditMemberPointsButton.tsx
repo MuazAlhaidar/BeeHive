@@ -2,13 +2,7 @@ import React from "react";
 import { OverlayTrigger } from "react-bootstrap";
 import EditMemberPointsPanel from "./EditMemberPointsPanel";
 import "../CSS/EditMemberPointsButtom.css";
-
-interface MemberInfo {
-  id: string;
-  firstname: string;
-  lastname: string;
-  points: number;
-}
+import { MemberInfo } from "../Interfaces";
 
 interface IProps {
   member: MemberInfo;

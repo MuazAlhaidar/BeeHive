@@ -1,9 +1,6 @@
 import React from "react";
 import "../../CSS/Groups/GroupsAdd.css";
-
-interface MemberInfo {
-  name: string;
-}
+import { MemberInfo } from "../../Interfaces";
 
 interface IProps {
   addGroup: (

@@ -3,8 +3,9 @@ import TwitterLogo from "../../Images/Twitter_Social_Icon_Rounded_Square_Color.p
 import FacebookLogo from "../../Images/f_logo_RGB-Blue_58.png";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import "../../CSS/Events/EventsForm.css";
+import { EventInfo } from "../../Interfaces";
 
-interface EventInfo {
+interface IProps {
   name: string;
   address: string;
   time: string;
@@ -29,7 +30,7 @@ function EventsForm({
   toggleEventMemberModal,
   toggleTransferManagerModal,
   toggleConfirmationModal,
-}: EventInfo) {
+}: IProps) {
   const quote = `Come join me at the ${name} event!`;
   const hashtags = ["BeeHive"];
 

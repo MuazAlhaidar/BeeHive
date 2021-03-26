@@ -1,20 +1,11 @@
 import React from "react";
 import "../../CSS/Events/EventsList.css";
 import Event from "./Event";
+import { EventInfo } from "../../Interfaces";
 
-enum Relation{
-        Manager,
-        RSVP,
-        NotRSVP
-}
-
-interface EventInfo {
-  name: string;
-  address: string;
-  time: string;
-  date: string;
-  description: string;
-  relation: Relation
+enum Relation {
+  RSVP,
+  NotRSVP,
 }
 
 interface IProps {
@@ -31,7 +22,7 @@ function EventList({ eventList, selectEvent }: IProps) {
         return (
           <Event
             key={`event-${index}`}
-            name={curEvent.name}
+            name={curEvent.title}
             index={index}
             selectEvent={selectEvent}
           />
