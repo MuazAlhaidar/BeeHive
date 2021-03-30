@@ -94,8 +94,22 @@ async function setMembers(name: string, members: string[]) {
     .update({
       members,
     })
-    .then((res: any) => genMessage(res, "Added pepole in groups"))
-    .catch((res: any) => genMessage(res, "Failed to add people to gruops"));
+    .then((res: any) => genMessage(res, "Added people in groups"))
+    .catch((res: any) => genMessage(res, "Failed to add people to groups"));
+}
+
+async function getMembers(name: string) {
+  let users = await Fire.firestore().collection("Groups-WEB").doc(name).get();
+  let data = (await users.data()) as any;
+  let promises = data["members"].map(async (user: any) => {
+    let tmp = await Fire.firestore().collection("Users-WEB").doc(user).get();
+    return tmp.data();
+  });
+  return Promise.all(promises)
+    .then((res: any) => genMessage(res, "All members for a group"))
+    .catch((err: any) =>
+      genMessage(err, "Failed to get all members for a group")
+    );
 }
 
 async function email(name: string, subject: string, body: string) {
@@ -112,4 +126,12 @@ async function email(name: string, subject: string, body: string) {
     );
 }
 
-export { getGroups, newGroup, removeGroup, updateGroup, setMembers, email };
+export {
+  getGroups,
+  newGroup,
+  removeGroup,
+  updateGroup,
+  setMembers,
+  getMembers,
+  email,
+};

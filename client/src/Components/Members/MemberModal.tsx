@@ -1,23 +1,29 @@
 import React from "react";
 import Member from "./Member";
 import { store, redux_index } from "../../store";
-import { setMembers as APIsetMembers } from "../../api/Groups";
+import {
+  setMembers as APIsetMembers,
+  getMembers as APIgetMembers,
+} from "../../api/Groups";
 import { MemberInfo } from "../../Interfaces";
 import "../../CSS/Members/MemberModal.css";
+import { resolve } from "dns";
 
 interface IProps {
   // TODO Get the Group ID
   // For IsInGroup
   // Only way we can ge the members
+  groupID: string;
   allMembers: Array<MemberInfo>;
-  memberList: Array<MemberInfo>;
-  setMemberList: (memberList: Array<MemberInfo>) => void;
+  memberList: Array<string>;
+  setMemberList: (memberList: Array<string>) => void;
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
-  setMembers: (memberList: Array<MemberInfo>, index: number) => void;
+  setMembers: (memberList: Array<string>, index: number) => void;
 }
 
 function MemberModal({
+  groupID,
   allMembers,
   memberList,
   setMemberList,
@@ -25,17 +31,33 @@ function MemberModal({
   setShowModal,
   setMembers,
 }: IProps) {
-  function isInGroup(value: MemberInfo, index: number, array: MemberInfo[]) {
+  // TODO
+  // Use the groupEmailList to get the groupUsers
+  // allMembers should be a MemberInfo
+  // Use the groupMemberList to filter out allmembers for filteredList
+  // add and remove members just removes and adds to groupUsers
+  // clicking save just gets emails from groupUser and assigns them to the API
+
+  let groupEmailList = null;
+
+  APIgetMembers(groupID).then((response: any) => {
+    groupEmailList = response.data.members;
+  });
+
+  let groupUsers = allMembers.map((member) => {
+    return groupEmailList.includes(member.email);
+  });
+
+  function isInGroup(value: string, index: number, array: string[]) {
     let retme = true;
     memberList.forEach((m) => {
-      if (m.id === value.id) {
+      if (m === value) {
         retme = false;
       }
     });
     return retme;
   }
 
-  // const [memList, setMemList] = React.useState(memberList);
   const [pastIn, setpastIn] = React.useState(memberList);
   // Used to removign changes made
   let filteredList = allMembers.filter(isInGroup);
@@ -51,7 +73,10 @@ function MemberModal({
     console.log(id, index);
     setMembers(memberList, index);
     console.log(id, memberList, index);
-    APIsetMembers(id, memberList.map(x => x.Firstname+" "+x.Lastname));
+    APIsetMembers(
+      id,
+      memberList.map((x) => x.Firstname + " " + x.Lastname)
+    );
 
     setShowModal(!showModal);
   };

@@ -57,11 +57,10 @@ async function reload(user: string) {
       members.forEach((i: any) => {
         if (events[i.id].members == null) {
           events[i.id].members = Array<MemberInfo>({
-            id: i.userid,
-            Firstname: i.firstname,
-            Lastname: i.lastname,
+            firstname: i.firstname,
+            lastname: i.lastname,
             email: i.email,
-            userPoints: i.points,
+            points: i.points,
           });
         } else {
           events[i.id].members.push({
@@ -96,7 +95,7 @@ function MyEvents(props: { id: any }) {
     false
   );
   const [curEvent, setCurEvent] = React.useState({
-    name: "",
+    title: "",
     address: "",
     time: "",
     date: "",
@@ -132,14 +131,14 @@ function MyEvents(props: { id: any }) {
     setEventIndex(index);
     i === undefined
       ? setCurEvent({
-          name: "",
+          title: "",
           address: "",
           time: "",
           date: "",
           description: "",
         })
       : setCurEvent({
-          name: events[index].title,
+          title: events[index].title,
           address: events[index].address,
           time: events[index].time,
           date: events[index].date,
@@ -149,7 +148,7 @@ function MyEvents(props: { id: any }) {
   };
 
   const addEvent = async (
-    name: string,
+    title: string,
     address: string,
     time: string,
     date: string,
@@ -158,34 +157,31 @@ function MyEvents(props: { id: any }) {
     let [month, day, year] = date.split("-").map((i) => parseInt(i));
     let [hour, minute] = time.split(":").map((i) => parseInt(i));
     let thedate = new Date(year, month - 1, day, hour - 5, minute);
-    let _tmp = await API.newEvent(name, description, address, time, date);
+    let _tmp = await API.newEvent(title, description, address, time, date);
     const e = events.slice();
     e.push({
-      // TODO
-      // Add Creator here
-      title: name,
+      title,
       address,
       time,
       date,
       description,
-      id: _tmp.data,
-      RSVP: Array<string>(),
-      SignIn: Array<string>(),
-      creator:""
+      rsvp: Array<string>(),
+      sigin: Array<string>(),
+      creator: "",
     });
     setEvents(e);
     setEventIndex(events.length);
     setCurEvent({
-      name: name,
-      address: address,
-      time: time,
-      date: date,
-      description: description,
+      title,
+      address,
+      time,
+      date,
+      description,
     });
   };
 
   const editEvent = async (
-    name: string,
+    title: string,
     address: string,
     time: string,
     date: string,
@@ -195,23 +191,16 @@ function MyEvents(props: { id: any }) {
       let [month, day, year] = date.split("-").map((i) => parseInt(i));
       let [hour, minute] = time.split(":").map((i) => parseInt(i));
       let thedate = new Date(year, month - 1, day, hour - 5, minute);
-      await API.update(
-        events[eventIndex].id,
-        name,
-        description,
-        address,
-        date,
-        time
-      );
+      await API.update(title, description, address, date, time);
       const e = events.slice();
-      e[eventIndex].title = name;
+      e[eventIndex].title = title;
       e[eventIndex].address = address;
       e[eventIndex].time = time;
       e[eventIndex].date = date;
       e[eventIndex].description = description;
       setEvents(e);
       setCurEvent({
-        name: events[eventIndex].title,
+        title: events[eventIndex].title,
         address: events[eventIndex].address,
         time: events[eventIndex].time,
         date: events[eventIndex].date,
@@ -222,7 +211,7 @@ function MyEvents(props: { id: any }) {
 
   const removeEvent = async (i: number) => {
     if (events[i] !== undefined) {
-      await API.Delete(events[i].id);
+      await API.Delete(events[i].title);
       const e = events.slice();
       e.splice(i, 1);
       setEvents(e);
@@ -230,7 +219,7 @@ function MyEvents(props: { id: any }) {
     }
 
     setCurEvent({
-      name: "",
+      title: "",
       address: "",
       time: "",
       date: "",
@@ -252,14 +241,16 @@ function MyEvents(props: { id: any }) {
         showModal={showEventMemberModal}
         setShowModal={setShowEventMemberModal}
         members={
-          events[eventIndex] !== undefined ? events[eventIndex].RSVP : null
+          events[eventIndex] !== undefined ? events[eventIndex].rsvp : null
         }
       />
       <TransferManagerModal
         showModal={showTransferManagerModal}
         setShowModal={setShowTransferManagerModal}
         setReload={setReload}
-        event={events[eventIndex] !== undefined ? events[eventIndex].id : null}
+        event={
+          events[eventIndex] !== undefined ? events[eventIndex].title : null
+        }
         reload={checkReload}
       />
       <ConfirmationModal

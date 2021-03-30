@@ -13,10 +13,6 @@ function genMessage(_data: any, _msg: any) {
   return { msg: _msg, data: _data };
 }
 async function login(email: string, password: string): Promise<Message> {
-  const cityRef = Fire.firestore()
-    .collection("Users-WEB")
-    .doc("moniera@umich.edu");
-  const doc = await cityRef.get();
   return Fire.auth()
     .signInWithEmailAndPassword(email, password)
     .then(async (res: any) => {

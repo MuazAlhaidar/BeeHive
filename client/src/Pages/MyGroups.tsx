@@ -18,7 +18,7 @@ async function reload(): Promise<any> {
 }
 
 function MyGroups() {
-  const emptyMembersList = new Array<MemberInfo>();
+  const emptyMembersList = new Array<string>();
   const emptyGroup = {} as GroupInfo;
 
   const [allMembers, setAllMembers] = React.useState(new Array<MemberInfo>());
@@ -93,7 +93,7 @@ function MyGroups() {
   const addGroup = (name: string, description: string, members: any) => {
     API.newGroup(name, description).then((res) => {
       const g = groups.slice();
-      g.push({ id: res.data.id, name, description, members });
+      g.push({ name, description, members });
       setGroups(g);
       setGroupIndex(groups.length);
       setCurGroup({
@@ -106,7 +106,7 @@ function MyGroups() {
 
   const editGroup = (name: string, description: string) => {
     if (groups[groupIndex] !== undefined) {
-      API.updateGroup(groups[groupIndex].id, name, description).then((res) => {
+      API.updateGroup(name, description).then((res) => {
         const g = groups.slice();
         g[groupIndex].name = name;
         g[groupIndex].description = description;
@@ -121,7 +121,7 @@ function MyGroups() {
 
   const removeGroup = (i: number) => {
     if (groups[groupIndex] !== undefined)
-      API.removeGroup(groups[groupIndex].id).then((res) => {
+      API.removeGroup(groups[groupIndex].name).then((res) => {
         const g = groups.slice();
         g.splice(i, 1);
         setGroups(g);
@@ -149,6 +149,7 @@ function MyGroups() {
       />
       {groupIndex > groups.length - 1 || groupIndex < 0 ? (
         <MemberModal
+          groupID={""}
           allMembers={allMembers}
           memberList={emptyMembersList}
           setMemberList={setMemList}
@@ -158,6 +159,7 @@ function MyGroups() {
         />
       ) : (
         <MemberModal
+          groupID={groups[groupIndex].name}
           allMembers={allMembers}
           memberList={memList}
           setMemberList={setMemList}

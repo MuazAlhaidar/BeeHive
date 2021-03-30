@@ -145,7 +145,7 @@ async function getEventManager(user: string) {
 
 async function getMembers(event: string) {
   let users = await Fire.firestore().collection("Events-WEB").doc(event).get();
-  let data = users.data() as any;
+  let data = (await users.data()) as any;
   let promises = data["signin"].map(async (user: any) => {
     let tmp = await Fire.firestore().collection("Users-WEB").doc(user).get();
     return tmp.data();
