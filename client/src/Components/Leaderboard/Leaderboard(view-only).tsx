@@ -6,16 +6,15 @@ import { MemberInfo } from "../../Interfaces";
 function Leaderboard() {
   const [allMembers, setMembers] = React.useState(
     Array<MemberInfo>({
-      id: "",
-      Firstname: "default",
-      Lastname: "default",
+      firstname: "default",
+      lastname: "default",
       email: "default",
-      userPoints: 0,
+      points: 0,
     })
   );
 
   const [sortedList, setSortedList] = React.useState(
-    allMembers.sort((a, b) => (a.userPoints < b.userPoints ? 1 : -1))
+    allMembers.sort((a, b) => (a.points < b.points ? 1 : -1))
   );
   const [reload, setReload] = React.useState(false);
 
@@ -61,10 +60,10 @@ function Leaderboard() {
                   }
                 >
                   <div className="Leaderboard-Firstname">
-                    {member.Firstname}
+                    {member.firstname}
                   </div>
-                  <div className="Leaderboard-Lastname">{member.Lastname}</div>
-                  <div className="Leaderboard-Points">{member.userPoints}</div>
+                  <div className="Leaderboard-Lastname">{member.lastname}</div>
+                  <div className="Leaderboard-Points">{member.points}</div>
                 </div>
               );
             })

@@ -25,14 +25,7 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
 
     let res = await API.new_user(_email, _password, _firstname, _lastname);
     // Backend shit
-    switch (res[0]) {
-      case 0:
-        // TODO Change values here
-        setUser(_username);
-        setStatus(0);
-        props.setName(_username);
-        props.setId(res[1]);
-        return true;
+    switch (res.data) {
       case 1:
         setStatus(1);
         break;
@@ -42,6 +35,13 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
       case 3:
         setStatus(3);
         break;
+      default:
+        // TODO Change values here
+        setUser(_email);
+        setStatus(0);
+        props.setName(_firstname);
+        props.setId(_email);
+        return true;
     }
     return false;
   }

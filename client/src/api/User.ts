@@ -43,10 +43,10 @@ async function new_user(
         .then((snapshot: any) => {
           if (!snapshot.exists) {
             let user = {
-              FirstName: fName,
-              LastName: lName,
+              firstName: fName,
+              lastName: lName,
               email: email,
-              userPoints: 0,
+              points: 0,
             };
             Fire.firestore().collection("Users-WEB").doc(email).set(user);
             return genMessage(user, "Success");

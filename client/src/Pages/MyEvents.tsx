@@ -64,11 +64,10 @@ async function reload(user: string) {
           });
         } else {
           events[i.id].members.push({
-            id: i.userid,
-            Firstname: i.firstname,
-            Lastname: i.lastname,
+            firstname: i.firstname,
+            lastname: i.lastname,
             email: i.email,
-            userPoints: i.points,
+            points: i.points,
           });
         }
       });

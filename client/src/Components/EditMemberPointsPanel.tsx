@@ -26,7 +26,7 @@ function EditMemberPointsPanel({ member, reloadParent }: IProps) {
   };
 
   const handleSet = () => {
-    member.userPoints = newNumber;
+    member.points = newNumber;
     // update_points([member])
     console.log(member);
 

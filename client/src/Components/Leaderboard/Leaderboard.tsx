@@ -7,16 +7,15 @@ import { MemberInfo } from "../../Interfaces";
 function Leaderboard() {
   const [allMembers, setMembers] = React.useState(
     Array<MemberInfo>({
-      id: "",
-      Firstname: "default",
-      Lastname: "default",
+      firstname: "default",
+      lastname: "default",
       email: "default",
-      userPoints: 0,
+      points: 0,
     })
   );
 
   const [sortedList, setSortedList] = React.useState(
-    allMembers.sort((a, b) => (a.userPoints < b.userPoints ? 1 : -1))
+    allMembers.sort((a, b) => (a.points < b.points ? 1 : -1))
   );
 
   const [reload, setReload] = React.useState(false);
@@ -46,8 +45,8 @@ function Leaderboard() {
   return (
     <div className="Leaderboard">
       <div className="Leaderboard-Topbar">
-        <div className="Leaderboard-Firstname">First Name</div>
-        <div className="Leaderboard-Lastname">Last Name</div>
+        <div className="Leaderboard-firstname">First Name</div>
+        <div className="Leaderboard-lastname">Last Name</div>
         <div className="Leaderboar-PointsLabel">Points</div>
       </div>
       <div className="Leaderboard-List">
@@ -61,11 +60,11 @@ function Leaderboard() {
                       : "Leaderboard-MemberInfo-white"
                   }
                 >
-                  <div className="Leaderboard-Firstname">
-                    {member.Firstname}
+                  <div className="Leaderboard-firstname">
+                    {member.firstname}
                   </div>
-                  <div className="Leaderboard-Lastname">{member.Lastname}</div>
-                  <div className="Leaderboard-Points">{member.userPoints}</div>
+                  <div className="Leaderboard-lastname">{member.lastname}</div>
+                  <div className="Leaderboard-Points">{member.points}</div>
                   <EditMemberPointsButton
                     member={member}
                     reloadParent={() => {

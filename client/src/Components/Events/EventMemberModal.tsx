@@ -15,17 +15,14 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
   // const [members, setMembers] = React.useState(store.getState().state.members);
 
   let sortedList = Array<MemberInfo>({
-    id: "",
-    Firstname: "",
-    Lastname: "",
+    firstname: "",
+    lastname: "",
     email: "",
-    userPoints: 0,
+    points: 0,
   });
   if (members! !== null) {
     var _members = (members as unknown) as MemberInfo[];
-    sortedList = _members.sort((a, b) =>
-      a.userPoints < b.userPoints ? 1 : -1
-    );
+    sortedList = _members.sort((a, b) => (a.points < b.points ? 1 : -1));
   }
 
   const [hasAttended, setHasAttended] = React.useState(false);
@@ -56,7 +53,7 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
               <div className="EventMemberModal-Points">Points</div>
             </div>
             <div className="EventMemberModal-MemberList">
-              {sortedList[0].id != ""
+              {sortedList[0].email != ""
                 ? sortedList.map((member, index) => {
                     return (
                       <div
@@ -67,10 +64,10 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
                         }
                       >
                         <div className="EventMemberModal-FirstName">
-                          {member.Firstname}
+                          {member.firstname}
                         </div>
                         <div className="EventMemberModal-LastName">
-                          {member.Lastname}
+                          {member.lastname}
                         </div>
                         <form className="EventMemberModal-Attended">
                           <input
@@ -80,7 +77,7 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
                           />
                         </form>
                         <div className="EventMemberModal-Points">
-                          {member.userPoints}
+                          {member.points}
                         </div>
                         <EditMemberPointsButton
                           member={member}

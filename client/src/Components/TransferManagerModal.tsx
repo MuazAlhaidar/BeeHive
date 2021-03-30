@@ -21,15 +21,14 @@ function TransferManagerModal({
   event,
 }: IProps) {
   const fakeMembers = Array<MemberInfo>({
-    id: "",
-    Firstname: "",
-    Lastname: "",
+    firstname: "",
+    lastname: "",
     email: "",
-    userPoints: 0,
+    points: 0,
   });
 
   const [sortedList, setSortedList] = React.useState(
-    fakeMembers.sort((a, b) => (a.userPoints < b.userPoints ? 1 : -1))
+    fakeMembers.sort((a, b) => (a.points < b.points ? 1 : -1))
   );
   React.useEffect(() => {
     UserAPI.getall().then((res) => {
@@ -61,10 +60,10 @@ function TransferManagerModal({
                     }
                   >
                     <div className="TransferManagerModal-FirstName">
-                      {member.Firstname}
+                      {member.firstname}
                     </div>
                     <div className="TransferManagerModal-LastName">
-                      {member.Lastname}
+                      {member.lastname}
                     </div>
                     <button
                       className="TransferManagerModal-SetManagerButton"
@@ -72,7 +71,7 @@ function TransferManagerModal({
                         handleCancel();
                         let id = store.getState().state.id;
                         console.log(event);
-                        EventAPI.Transfer(event, member.id).then((res) => {
+                        EventAPI.Transfer(event, member.email).then((res) => {
                           setReload(!reload);
                         });
                       }}

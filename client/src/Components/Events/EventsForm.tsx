@@ -22,7 +22,7 @@ function EventsForm({
   toggleTransferManagerModal,
   toggleConfirmationModal,
 }: IProps) {
-  const quote = `Come join me at the ${name} event!`;
+  const quote = `Come join me at the ${event.title} event!`;
   const hashtags = ["BeeHive"];
 
   return (
