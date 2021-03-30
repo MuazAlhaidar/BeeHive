@@ -4,12 +4,11 @@ import EventList from "../Components/Events/EventsList(view-only)";
 import EventsForm from "../Components/Events/EventsForm(view-only)";
 import EventsFormNonMember from "../Components/Events/EventsForm(NonMember)";
 import * as API from "../api/Event";
-import { store, redux_index, redux_rsvp } from "../store";
+import { store, redux_index, redux_rsvp, Relation } from "../store";
 import { EventInfo } from "../Interfaces";
 
-enum Relation {
-  RSVP,
-  NotRSVP,
+interface EventInfo2 extends EventInfo{
+        relation: Relation;
 }
 
 interface IProp {
@@ -57,7 +56,7 @@ async function reload(id: any) {
 }
 
 function MyEvents({ name, id }: IProp) {
-  const [events, setEvents] = React.useState(Array<EventInfo>());
+  const [events, setEvents] = React.useState(Array<EventInfo2>());
   const set_relation = (i: number) => {
     API.RSVP(events[i].id, id);
     if (events[i].relation === Relation.RSVP) {
@@ -70,7 +69,7 @@ function MyEvents({ name, id }: IProp) {
     reload(id).then((res) => setEvents(res));
   }, []);
   const [eventIndex, setEventIndex] = React.useState(-1);
-  const emptyEvent = {} as EventInfo;
+  const emptyEvent = {} as EventInfo2;
 
   const selectEvent = (i: number) => {
     let index = i === undefined ? 0 : i;

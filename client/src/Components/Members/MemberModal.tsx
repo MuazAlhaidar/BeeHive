@@ -9,12 +9,12 @@ interface IProps {
   // TODO Get the Group ID
   // For IsInGroup
   // Only way we can ge the members
-  allMembers: Array<string>;
-  memberList: Array<string>;
-  setMemberList: (memberList: Array<string>) => void;
+  allMembers: Array<MemberInfo>;
+  memberList: Array<MemberInfo>;
+  setMemberList: (memberList: Array<MemberInfo>) => void;
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
-  setMembers: (memberList: Array<string>, index: number) => void;
+  setMembers: (memberList: Array<MemberInfo>, index: number) => void;
 }
 
 function MemberModal({
@@ -51,7 +51,7 @@ function MemberModal({
     console.log(id, index);
     setMembers(memberList, index);
     console.log(id, memberList, index);
-    APIsetMembers(id, memberList);
+    APIsetMembers(id, memberList.map(x => x.Firstname+" "+x.Lastname));
 
     setShowModal(!showModal);
   };

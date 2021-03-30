@@ -171,6 +171,7 @@ function MyEvents(props: { id: any }) {
       id: _tmp.data,
       RSVP: Array<string>(),
       SignIn: Array<string>(),
+      creator:""
     });
     setEvents(e);
     setEventIndex(events.length);

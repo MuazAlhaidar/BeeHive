@@ -62,9 +62,9 @@ async function changeemail(oldemail:any, newemail:string):Promise<Message|undefi
         .then( () =>{
                 return Fire.firestore().collection("User-WEB").doc(oldemail).update({email:newemail})
                 .then(()=>  genMessage(true, "Changed email"))
-                .catch( (error:any) => genMessage(false, "Coudln"t change email,"+ error) );
+                .catch( (error:any) => genMessage(false, "Coudl't change email,"+ error) );
         })
-        .catch( (error:any) => genMessage(false, "Coudln"t change email,"+ error) );
+        .catch( (error:any) => genMessage(false, "Coudln't change email,"+ error) );
 }
 
 

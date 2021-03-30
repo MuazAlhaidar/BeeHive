@@ -8,20 +8,20 @@ import GroupsEdit from "../Components/Groups/GroupsEdit";
 import ConfirmationModal from "../Components/ConfirmationModal";
 import "../CSS/Groups/MyGroups.css";
 import * as API from "../api/Groups";
-import { store, redux_index, redux_rsvp } from "../store";
+import { store, redux_index, redux_group } from "../store";
 import { MemberInfo, GroupInfo } from "../Interfaces";
 
 // async function reload(id: number): Promise<Array<GroupInfo>> {
-async function reload(id: number): Promise<any> {
-  const data = await API.getGroup(id);
+async function reload(): Promise<any> {
+  const data = await API.getGroups();
   return data.data;
 }
 
-function MyGroups(props: { id: number }) {
-  const emptyMembersList = new Array<string>();
+function MyGroups() {
+  const emptyMembersList = new Array<MemberInfo>();
   const emptyGroup = {} as GroupInfo;
 
-  const [allMembers, setAllMembers] = React.useState(new Array<string>());
+  const [allMembers, setAllMembers] = React.useState(new Array<MemberInfo>());
   const [groups, setGroups] = React.useState(Array<GroupInfo>());
   const [groupIndex, setGroupIndex] = React.useState(-1);
   const [showMembersEditModal, setShowMembersEditModal] = React.useState(false);
@@ -32,9 +32,9 @@ function MyGroups(props: { id: number }) {
   );
   const [curGroup, setCurGroup] = React.useState({
     name: "",
-    contactInfo: "",
+    description: "",
   });
-  const [memList, setMemList] = React.useState(Array<string>());
+  const [memList, setMemList] = React.useState(Array<MemberInfo>());
   console.log(groups);
 
   const toggleMemberModal = () => {
@@ -52,30 +52,30 @@ function MyGroups(props: { id: number }) {
   const toggleConfirmationModal = () => {
     setShowConfirmationModal(!showConfirmationModal);
   };
-  const set_groupmembers = (memberList: Array<string>, index: number) => {
+  const set_groupmembers = (memberList: Array<MemberInfo>, index: number) => {
     const m = groups.slice();
-    m[index].members = memberList;
+    m[index].members = memberList.map(x=>x.Firstname+" "+x.Lastname);
     setGroups(m);
   };
 
   const resetGroupAndMemList = () => {
     setCurGroup({
       name: "",
-      contactInfo: "",
+      description: "",
     });
-    setMemList(Array<string>());
+    setMemList(Array<MemberInfo>());
   };
 
   const setGroupAndMemList = (i: number) => {
     setCurGroup({
       name: groups[i].name,
-      contactInfo: groups[i].description,
+      description: groups[i].description,
     });
-    setMemList(groups[i].members);
+    setMemList(groups[i].members.map(x=> x.Firstname+" "+x.Lastname));
   };
 
   React.useEffect(() => {
-    reload(props.id).then((res) => {
+    reload().then((res) => {
       setGroups(res.groups);
       console.log(res.users);
       setAllMembers(res.users);
@@ -86,37 +86,36 @@ function MyGroups(props: { id: number }) {
     let index = i === undefined ? 0 : i;
     setGroupIndex(index);
     store.dispatch(redux_index(i));
-    store.dispatch(redux_rsvp(groups[i].id));
+    store.dispatch(redux_group(groups[i].id));
     // store.dispatch(redux_index(index))
     i === undefined ? resetGroupAndMemList() : setGroupAndMemList(index);
   };
 
-  const addGroup = (name: string, contactInfo: string, members: any) => {
-    API.newGroup(props.id, name, contactInfo).then((res) => {
+  const addGroup = (name: string, description: string, members: any) => {
+    API.newGroup( name, description).then((res) => {
       const g = groups.slice();
-      let id = props.id;
-      g.push({ id, name, contactInfo, members });
+      g.push({id:res.data.id,  name, description, members });
       setGroups(g);
       setGroupIndex(groups.length);
       setCurGroup({
         name: name,
-        contactInfo: contactInfo,
+        description: description,
       });
       setMemList(members);
     });
   };
 
-  const editGroup = (name: string, contactInfo: string) => {
+  const editGroup = (name: string, description: string) => {
     if (groups[groupIndex] !== undefined) {
-      API.updateGroup(props.id, groups[groupIndex].id, name, contactInfo).then(
+      API.updateGroup( groups[groupIndex].id, name, description).then(
         (res) => {
           const g = groups.slice();
           g[groupIndex].name = name;
-          g[groupIndex].description = contactInfo;
+          g[groupIndex].description = description;
           setGroups(g);
           setCurGroup({
             name: groups[groupIndex].name,
-            contactInfo: groups[groupIndex].description,
+            description: groups[groupIndex].description,
           });
         }
       );
@@ -125,7 +124,7 @@ function MyGroups(props: { id: number }) {
 
   const removeGroup = (i: number) => {
     if (groups[groupIndex] !== undefined)
-      API.removeGroup(props.id, groups[groupIndex].id).then((res) => {
+      API.removeGroup( groups[groupIndex].id).then((res) => {
         const g = groups.slice();
         g.splice(i, 1);
         setGroups(g);

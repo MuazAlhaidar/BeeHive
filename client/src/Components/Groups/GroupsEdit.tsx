@@ -5,11 +5,11 @@ interface IProps {
   showModal: boolean;
   curGroup: {
     name: string;
-    contactInfo: string;
+    description: string;
   };
-  setCurGroup: (curGroup: { name: string; contactInfo: string }) => void;
+  setCurGroup: (curGroup: { name: string; description: string }) => void;
   setShowModal: (showModal: boolean) => void;
-  editGroup: (name: string, contactInfo: string) => void;
+  editGroup: (name: string, description: string) => void;
 }
 
 function GroupsEdit({
@@ -21,14 +21,14 @@ function GroupsEdit({
 }: IProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    editGroup(curGroup.name, curGroup.contactInfo);
+    editGroup(curGroup.name, curGroup.description);
     setShowModal(!showModal);
-    setCurGroup({ name: "", contactInfo: "" });
+    setCurGroup({ name: "", description: "" });
   };
 
   const handleCancel = () => {
     setShowModal(!showModal);
-    setCurGroup({ name: "", contactInfo: "" });
+    setCurGroup({ name: "", description: "" });
   };
 
   return (
@@ -47,7 +47,7 @@ function GroupsEdit({
                   onChange={(e) =>
                     setCurGroup({
                       name: e.target.value,
-                      contactInfo: curGroup.contactInfo,
+                      description: curGroup.description,
                     })
                   }
                 />
@@ -59,12 +59,12 @@ function GroupsEdit({
                 <textarea
                   className="GroupsEdit-ContactInfo"
                   aria-multiline
-                  id="contactInfo"
-                  value={curGroup.contactInfo}
+                  id="description"
+                  value={curGroup.description}
                   onChange={(e) =>
                     setCurGroup({
                       name: curGroup.name,
-                      contactInfo: e.target.value,
+                      description: e.target.value,
                     })
                   }
                 />

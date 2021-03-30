@@ -7,15 +7,17 @@ interface Message{
         msg:string|number
 }
 function genMessage(_data:any,_msg:any){ return {msg:_msg, data:_data}}
+/*
 function testme(args, func){
         func(...args)
         .then(res=>{console.log(res)})
         .catch(res=>{console.log(res)})
 }
+*/
 
 async function getGroups(){
         return Fire.firestore().collection("Groups-WEB").get()
-        .then((res:any) => genMessage(res.docs.map(x=>x.data()), "Success"))
+        .then((res:any) => genMessage(res.docs.map((x:any)=>x.data()), "Success"))
         .catch((err:any) => genMessage(err, "Failed to get groups"))
 }
 async function newGroup( name:string, info:string){
@@ -39,7 +41,7 @@ async function updateGroup(id:string, name:string, desc:string){
         .catch((res:any) => genMessage(res, "Failed to Updated evnet"))
 
 }
-async function setMembers(id:string, users:[string]){
+async function setMembers(id:string, users:string[]){
         return Fire.firestore().collection("Groups-WEB").doc(id).update({
                 members:users
         })
@@ -56,6 +58,7 @@ async function email(id:string,  subject:string, body:string){
         .catch((err:any)=> genMessage(false, "Failed to get people from a group"))
 }
 
-testme(["gGy1stZTCEU0EF4zleZc", "WOW", "his sucks"], email)
+// testme(["gGy1stZTCEU0EF4zleZc", "WOW", "his sucks"], email)
 
+export{getGroups, newGroup, removeGroup, updateGroup, setMembers, email}
 // export {axiosGet, axiosPost, getGroup, newGroup, removeGroup, updateGroup, addmembers, removemembers, email, setMembers}

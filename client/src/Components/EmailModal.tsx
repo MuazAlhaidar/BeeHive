@@ -21,8 +21,8 @@ function EmailModal({ showModal, setShowModal }: IProps) {
     const state = store.getState().state;
     const id = state.id;
     // TODO  Have it so we actually have the group ID
-    const group_id = state.index;
-    sendEmail(id, group_id, email.subject, email.body);
+    const group_id = state.group;
+    sendEmail(group_id, email.subject, email.body);
     setEmail({ subject: "", body: "" });
   };
 

@@ -4,7 +4,7 @@ import { MemberInfo } from "../../Interfaces";
 import Member from "./Member";
 
 interface IProps {
-  memberList: Array<string>;
+  memberList: Array<MemberInfo>;
   toggleMemberModal: () => void;
 }
 
