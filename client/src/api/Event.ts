@@ -1,12 +1,12 @@
 import { Fire } from "./config.js";
 import "firebase/auth";
 import "firebase/firestore";
-var chance = require("chance").Chance();
 
 interface Message {
   data: any;
   msg: string | number;
 }
+
 function genMessage(_data: any, _msg: any) {
   return { msg: _msg, data: _data };
 }
@@ -18,45 +18,79 @@ async function newEvent(
   date: string,
   time: string
 ) {
+  let find = await Fire.firestore()
+    .collection("Events-WEB")
+    .doc(title)
+    .get()
+    .then((documentSnapshot: any) => {
+      if (documentSnapshot.exists) {
+        return genMessage(
+          -1,
+          "This Event already exists. \n Please enter a new Name."
+        );
+      } else {
+        return true;
+      }
+    });
+
   var user = Fire.auth();
   let email = user?.currentUser?.email;
-  var uuid = chance.string() + chance.string({ length: 10 });
-  return Fire.firestore()
-    .collection("Events-WEB")
-    .doc(uuid)
-    .set({
-      title: title,
-      address: address,
-      date: date,
-      time: time,
-      description: desc,
-      creator: email,
-      RSVP: [],
-      SignIn: [],
-    })
-    .then((res: any) => genMessage(uuid, "Made new event"))
-    .catch((err: any) => genMessage(false, "Failed to make an event"));
+  if (find === true) {
+    return Fire.firestore()
+      .collection("Events-WEB")
+      .doc(title)
+      .set({
+        title: title,
+        address: address,
+        date: date,
+        time: time,
+        description: desc,
+        creator: email,
+        rsvp: [],
+        signin: [],
+      })
+      .then((res: any) => genMessage(title, "Made a new group"))
+      .catch((err: any) => genMessage(err, "Failed to make group"));
+  } else return find;
 }
 async function update(
-  id: string,
   title: string,
   desc: string,
   address: string,
   date: string,
   time: string
 ) {
-  return Fire.firestore()
+  let find = await Fire.firestore()
     .collection("Events-WEB")
-    .doc(id)
-    .update({
-      title: title,
-      description: desc,
-      address: address,
-      date: date,
-      time: time,
-    })
-    .then((res: any) => genMessage(res, "Updated event"))
-    .catch((res: any) => genMessage(res, "Failed to Updated event"));
+    .doc(title)
+    .get()
+    .then((documentSnapshot: any) => {
+      if (documentSnapshot.exists) {
+        return genMessage(
+          -1,
+          "This Event already exists. \n Please enter a new Name."
+        );
+      } else {
+        return true;
+      }
+    });
+
+  if (find === true) {
+    return Fire.firestore()
+      .collection("Events-WEB")
+      .doc(title)
+      .update({
+        title: title,
+        description: desc,
+        address: address,
+        date: date,
+        time: time,
+      })
+      .then((res: any) => genMessage(res, "Updated event"))
+      .catch((res: any) => genMessage(res, "Failed to Updated event"));
+  } else {
+    return find;
+  }
 }
 
 async function getAllEvents() {
@@ -68,20 +102,20 @@ async function getAllEvents() {
 }
 
 // Only returns true
-async function Delete(_id: string) {
+async function Delete(_title: string) {
   return Fire.firestore()
     .collection("Events-WEB")
-    .doc(_id)
+    .doc(_title)
     .delete()
     .then((res: any) => genMessage(res, "Deleted"))
     .catch((res: any) => genMessage(res, "Failed to delete event"));
 }
 
-async function RSVP(id: string, email: string) {
+async function RSVP(title: string, email: string) {
   Fire.firestore()
     .collection("Events-WEB")
-    .doc(id)
-    .update({ RSVP: Fire.firestore.FieldValue.arrayUnion(email) });
+    .doc(title)
+    .update({ rsvp: Fire.firestore.FieldValue.arrayUnion(email) });
 }
 
 async function Transfer(Event: string, User: string) {
@@ -112,14 +146,14 @@ async function getEventManager(user: string) {
 async function getMembers(event: string) {
   let users = await Fire.firestore().collection("Events-WEB").doc(event).get();
   let data = users.data() as any;
-  let promises = data["SignIn"].map(async (user: any) => {
+  let promises = data["signin"].map(async (user: any) => {
     let tmp = await Fire.firestore().collection("Users-WEB").doc(user).get();
     return tmp.data();
   });
   return Promise.all(promises)
     .then((res: any) => genMessage(res, "All members for an event"))
     .catch((err: any) =>
-      genMessage(err, "Failed to get lal members for an event")
+      genMessage(err, "Failed to get all members for an event")
     );
 }
 
@@ -136,12 +170,9 @@ async function memberEventUpdate(
       Fire.firestore()
         .collection("Users-WEB")
         .doc(user.user)
-        .update({ userPoints: user.points });
+        .update({ points: user.points });
     });
-    Fire.firestore()
-      .collection("Events-WEB")
-      .doc(event)
-      .update({ SignIn: signin });
+    Fire.firestore().collection("Events-WEB").doc(event).update({ signin });
   }
   return inner()
     .then((res: any) => genMessage(res, "Updated members for events"))

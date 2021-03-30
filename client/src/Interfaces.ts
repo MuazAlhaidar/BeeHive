@@ -1,28 +1,25 @@
 interface MemberInfo {
-  id: string;
-  Firstname: string;
-  Lastname: string;
+  firstname: string;
+  lastname: string;
   email: string;
-  userPoints: number;
+  points: number;
 }
 
 interface EventInfo {
-  id: string;
-  creator: string;
   title: string;
+  creator: string;
   address: string;
   time: string;
   date: string;
   description: string;
-  RSVP: Array<string>;
-  SignIn: Array<string>;
+  rsvp: Array<string>;
+  sigin: Array<string>;
 }
 
 interface GroupInfo {
-  id: string;
   name: string;
   description: string;
   members: Array<string>;
 }
 
-export type {EventInfo, GroupInfo, MemberInfo};
+export type { EventInfo, GroupInfo, MemberInfo };

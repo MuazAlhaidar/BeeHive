@@ -4,13 +4,13 @@ import { MemberInfo } from "../../Interfaces";
 import Member from "./Member";
 
 interface IProps {
-  memberList: Array<MemberInfo>;
+  groupId: string;
   toggleMemberModal: () => void;
 }
 
-function MemberList({ memberList, toggleMemberModal }: IProps) {
-  const members = memberList;
+function MemberList({ groupId, toggleMemberModal }: IProps) {
   // TODO use emails to get names and display them in the map
+  // Use groupId to get all members
   return (
     <div>
       <div className="MemberList-Top">
@@ -20,14 +20,14 @@ function MemberList({ memberList, toggleMemberModal }: IProps) {
         </button>
       </div>
       <div>
-        {members.map((curMember) => {
+        {/* {members.map((curMember) => {
           return (
             <Member
               Firstname={curMember.Firstname}
               Lastname={curMember.Lastname}
             />
           );
-        })}
+        })} */}
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ function MyGroups() {
     name: "",
     description: "",
   });
-  const [memList, setMemList] = React.useState(Array<MemberInfo>());
+  const [memList, setMemList] = React.useState(Array<string>());
   console.log(groups);
 
   const toggleMemberModal = () => {
@@ -52,9 +52,10 @@ function MyGroups() {
   const toggleConfirmationModal = () => {
     setShowConfirmationModal(!showConfirmationModal);
   };
-  const set_groupmembers = (memberList: Array<MemberInfo>, index: number) => {
+
+  const set_groupmembers = (memberList: Array<string>, index: number) => {
     const m = groups.slice();
-    m[index].members = memberList.map(x=>x.Firstname+" "+x.Lastname);
+    m[index].members = memberList.map((x) => x);
     setGroups(m);
   };
 
@@ -63,7 +64,7 @@ function MyGroups() {
       name: "",
       description: "",
     });
-    setMemList(Array<MemberInfo>());
+    setMemList(Array<string>());
   };
 
   const setGroupAndMemList = (i: number) => {
@@ -71,13 +72,12 @@ function MyGroups() {
       name: groups[i].name,
       description: groups[i].description,
     });
-    setMemList(groups[i].members.map(x=> x.Firstname+" "+x.Lastname));
+    setMemList(groups[i].members);
   };
 
   React.useEffect(() => {
     reload().then((res) => {
       setGroups(res.groups);
-      console.log(res.users);
       setAllMembers(res.users);
     });
   }, []);
@@ -86,15 +86,14 @@ function MyGroups() {
     let index = i === undefined ? 0 : i;
     setGroupIndex(index);
     store.dispatch(redux_index(i));
-    store.dispatch(redux_group(groups[i].id));
-    // store.dispatch(redux_index(index))
+    store.dispatch(redux_group(groups[i].name));
     i === undefined ? resetGroupAndMemList() : setGroupAndMemList(index);
   };
 
   const addGroup = (name: string, description: string, members: any) => {
-    API.newGroup( name, description).then((res) => {
+    API.newGroup(name, description).then((res) => {
       const g = groups.slice();
-      g.push({id:res.data.id,  name, description, members });
+      g.push({ id: res.data.id, name, description, members });
       setGroups(g);
       setGroupIndex(groups.length);
       setCurGroup({
@@ -107,24 +106,22 @@ function MyGroups() {
 
   const editGroup = (name: string, description: string) => {
     if (groups[groupIndex] !== undefined) {
-      API.updateGroup( groups[groupIndex].id, name, description).then(
-        (res) => {
-          const g = groups.slice();
-          g[groupIndex].name = name;
-          g[groupIndex].description = description;
-          setGroups(g);
-          setCurGroup({
-            name: groups[groupIndex].name,
-            description: groups[groupIndex].description,
-          });
-        }
-      );
+      API.updateGroup(groups[groupIndex].id, name, description).then((res) => {
+        const g = groups.slice();
+        g[groupIndex].name = name;
+        g[groupIndex].description = description;
+        setGroups(g);
+        setCurGroup({
+          name: groups[groupIndex].name,
+          description: groups[groupIndex].description,
+        });
+      });
     }
   };
 
   const removeGroup = (i: number) => {
     if (groups[groupIndex] !== undefined)
-      API.removeGroup( groups[groupIndex].id).then((res) => {
+      API.removeGroup(groups[groupIndex].id).then((res) => {
         const g = groups.slice();
         g.splice(i, 1);
         setGroups(g);
@@ -195,13 +192,10 @@ function MyGroups() {
       </div>
       <div className="MyGroups-MemberList">
         {groupIndex > groups.length - 1 || groupIndex < 0 ? (
-          <MemberList
-            memberList={emptyMembersList}
-            toggleMemberModal={toggleMemberModal}
-          />
+          <MemberList groupId={""} toggleMemberModal={toggleMemberModal} />
         ) : (
           <MemberList
-            memberList={groups[groupIndex].members}
+            groupId={groups[groupIndex].name}
             toggleMemberModal={toggleMemberModal}
           />
         )}

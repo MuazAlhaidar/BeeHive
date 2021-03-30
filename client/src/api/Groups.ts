@@ -1,11 +1,12 @@
 import { Fire } from "./config.js";
 import "firebase/auth";
 import "firebase/firestore";
-var chance = require("chance").Chance();
+
 interface Message {
   data: any;
   msg: string | number;
 }
+
 function genMessage(_data: any, _msg: any) {
   return { msg: _msg, data: _data };
 }
@@ -22,48 +23,85 @@ async function getGroups() {
     )
     .catch((err: any) => genMessage(err, "Failed to get groups"));
 }
-async function newGroup(name: string, info: string) {
-  return Fire.firestore()
+async function newGroup(name: string, description: string) {
+  let find = await Fire.firestore()
     .collection("Groups-WEB")
-    .doc()
-    .set({ description: info, name: name, members: [] })
-    .then((res: any) => genMessage(res, "Made a new group"))
-    .catch((err: any) => genMessage(err, "Failed to make group"));
+    .doc(name)
+    .get()
+    .then((documentSnapshot: any) => {
+      if (documentSnapshot.exists) {
+        return genMessage(
+          -1,
+          "This Group already exists. \n Please enter a new Name."
+        );
+      } else {
+        return true;
+      }
+    });
+
+  if (find === true) {
+    return Fire.firestore()
+      .collection("Groups-WEB")
+      .doc()
+      .set({ name, description, members: [] })
+      .then((res: any) => genMessage(res, "Made a new group"))
+      .catch((err: any) => genMessage(err, "Failed to make group"));
+  } else return find;
 }
 
-async function removeGroup(id: string) {
+async function removeGroup(name: string) {
   return Fire.firestore()
     .collection("Groups-WEB")
-    .doc(id)
+    .doc(name)
     .delete()
     .then((res: any) => genMessage(res, "Deleted"))
     .catch((res: any) => genMessage(res, "Failed to delete gorup"));
 }
-async function updateGroup(id: string, name: string, desc: string) {
-  return Fire.firestore()
+async function updateGroup(name: string, description: string) {
+  let find = await Fire.firestore()
     .collection("Groups-WEB")
-    .doc(id)
-    .update({
-      description: desc,
-      name: name,
-    })
-    .then((res: any) => genMessage(res, "Updated group"))
-    .catch((res: any) => genMessage(res, "Failed to Updated evnet"));
+    .doc(name)
+    .get()
+    .then((documentSnapshot: any) => {
+      if (documentSnapshot.exists) {
+        return genMessage(
+          -1,
+          "This Group already exists. \n Please enter a new Name."
+        );
+      } else {
+        return true;
+      }
+    });
+  if (find === true) {
+    return Fire.firestore()
+      .collection("Groups-WEB")
+      .doc(name)
+      .update({
+        name,
+        description,
+      })
+      .then((res: any) => genMessage(res, "Updated group"))
+      .catch((res: any) => genMessage(res, "Failed to Updated evnet"));
+  } else {
+    return find;
+  }
 }
-async function setMembers(id: string, users: string[]) {
+
+async function setMembers(name: string, members: string[]) {
   return Fire.firestore()
     .collection("Groups-WEB")
-    .doc(id)
+    .doc(name)
     .update({
-      members: users,
+      members,
     })
     .then((res: any) => genMessage(res, "Added pepole in groups"))
     .catch((res: any) => genMessage(res, "Failed to add people to gruops"));
 }
-async function email(id: string, subject: string, body: string) {
+
+async function email(name: string, subject: string, body: string) {
   return Fire.firestore()
     .collection("Groups-WEB")
-    .doc(id)
+    .doc(name)
     .get()
     .then((res: any) => {
       let data = res.data();
@@ -74,7 +112,4 @@ async function email(id: string, subject: string, body: string) {
     );
 }
 
-// testme(["gGy1stZTCEU0EF4zleZc", "WOW", "his sucks"], email)
-
 export { getGroups, newGroup, removeGroup, updateGroup, setMembers, email };
-// export {axiosGet, axiosPost, getGroup, newGroup, removeGroup, updateGroup, addmembers, removemembers, email, setMembers}
