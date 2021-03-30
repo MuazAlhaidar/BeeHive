@@ -18,7 +18,8 @@ async function newEvent(
   date: string,
   time: string
 ) {
-  let find = await Fire.firestore()
+  let find = await Fire.default
+    .firestore()
     .collection("Events-WEB")
     .doc(title)
     .get()
@@ -33,10 +34,11 @@ async function newEvent(
       }
     });
 
-  var user = Fire.auth();
+  var user = Fire.default.auth();
   let email = user?.currentUser?.email;
   if (find === true) {
-    return Fire.firestore()
+    return Fire.default
+      .firestore()
       .collection("Events-WEB")
       .doc(title)
       .set({
@@ -60,7 +62,8 @@ async function update(
   date: string,
   time: string
 ) {
-  let find = await Fire.firestore()
+  let find = await Fire.default
+    .firestore()
     .collection("Events-WEB")
     .doc(title)
     .get()
@@ -76,7 +79,8 @@ async function update(
     });
 
   if (find === true) {
-    return Fire.firestore()
+    return Fire.default
+      .firestore()
       .collection("Events-WEB")
       .doc(title)
       .update({
@@ -94,7 +98,8 @@ async function update(
 }
 
 async function getAllEvents() {
-  return Fire.firestore()
+  return Fire.default
+    .firestore()
     .collection("Events-WEB")
     .get()
     .then((res: any) => res.docs.map((x: any) => x.data()))
@@ -103,7 +108,8 @@ async function getAllEvents() {
 
 // Only returns true
 async function Delete(_title: string) {
-  return Fire.firestore()
+  return Fire.default
+    .firestore()
     .collection("Events-WEB")
     .doc(_title)
     .delete()
@@ -112,14 +118,16 @@ async function Delete(_title: string) {
 }
 
 async function RSVP(title: string, email: string) {
-  Fire.firestore()
+  Fire.default
+    .firestore()
     .collection("Events-WEB")
     .doc(title)
-    .update({ rsvp: Fire.firestore.FieldValue.arrayUnion(email) });
+    .update({ rsvp: Fire.default.firestore.FieldValue.arrayUnion(email) });
 }
 
 async function Transfer(Event: string, User: string) {
-  return Fire.firestore()
+  return Fire.default
+    .firestore()
     .collection("Events-WEB")
     .doc(Event)
     .update({ creator: User })
@@ -128,7 +136,8 @@ async function Transfer(Event: string, User: string) {
 }
 
 async function getEventManager(user: string) {
-  return Fire.firestore()
+  return Fire.default
+    .firestore()
     .collection("Events-WEB")
     .where("creator", "==", user)
     .get()
@@ -144,10 +153,18 @@ async function getEventManager(user: string) {
 }
 
 async function getMembers(event: string) {
-  let users = await Fire.firestore().collection("Events-WEB").doc(event).get();
+  let users = await Fire.default
+    .firestore()
+    .collection("Events-WEB")
+    .doc(event)
+    .get();
   let data = (await users.data()) as any;
   let promises = data["signin"].map(async (user: any) => {
-    let tmp = await Fire.firestore().collection("Users-WEB").doc(user).get();
+    let tmp = await Fire.default
+      .firestore()
+      .collection("Users-WEB")
+      .doc(user)
+      .get();
     return tmp.data();
   });
   return Promise.all(promises)
@@ -167,12 +184,17 @@ async function memberEventUpdate(
       if (user.signin == true) {
         signin.push(user.user);
       }
-      Fire.firestore()
+      Fire.default
+        .firestore()
         .collection("Users-WEB")
         .doc(user.user)
         .update({ points: user.points });
     });
-    Fire.firestore().collection("Events-WEB").doc(event).update({ signin });
+    Fire.default
+      .firestore()
+      .collection("Events-WEB")
+      .doc(event)
+      .update({ signin });
   }
   return inner()
     .then((res: any) => genMessage(res, "Updated members for events"))

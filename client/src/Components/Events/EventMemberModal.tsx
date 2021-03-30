@@ -53,7 +53,7 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
               <div className="EventMemberModal-Points">Points</div>
             </div>
             <div className="EventMemberModal-MemberList">
-              {sortedList[0].email != ""
+              {sortedList[0].email !== ""
                 ? sortedList.map((member, index) => {
                     return (
                       <div

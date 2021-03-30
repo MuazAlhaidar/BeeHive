@@ -3,5 +3,5 @@ const config = {
   apiKey: "AIzaSyBzNPS44siWEPbps4VelmGvi-SPkd6MNCk",
   projectId: "beehive-6cba8",
 };
-Fire.initializeApp(config);
+Fire.default.initializeApp(config);
 module.exports = { Fire };

@@ -13,10 +13,12 @@ function genMessage(_data: any, _msg: any) {
   return { msg: _msg, data: _data };
 }
 async function login(email: string, password: string): Promise<Message> {
-  return Fire.auth()
+  return Fire.default
+    .auth()
     .signInWithEmailAndPassword(email, password)
     .then(async (res: any) => {
-      return Fire.firestore()
+      return Fire.default
+        .firestore()
         .collection("Users-WEB")
         .doc(email)
         .get()
@@ -33,10 +35,12 @@ async function new_user(
   lName: string
 ): Promise<Message> {
   // async function new_user(email,  password, fName, lName){
-  return Fire.auth()
+  return Fire.default
+    .auth()
     .createUserWithEmailAndPassword(email, password)
     .then((res: any) => {
-      return Fire.firestore()
+      return Fire.default
+        .firestore()
         .collection("User-WEB")
         .doc(email)
         .get()
@@ -48,7 +52,11 @@ async function new_user(
               email: email,
               points: 0,
             };
-            Fire.firestore().collection("Users-WEB").doc(email).set(user);
+            Fire.default
+              .firestore()
+              .collection("Users-WEB")
+              .doc(email)
+              .set(user);
             return genMessage(user, "Success");
           } else {
             return genMessage(1, "User already exists");
@@ -59,13 +67,15 @@ async function new_user(
     .catch((err: any) => genMessage(2, "User already exists"));
 }
 async function reset_password(_email: string): Promise<Message> {
-  return Fire.auth()
+  return Fire.default
+    .auth()
     .sendPasswordResetEmail(_email)
     .then((res: any) => genMessage(true, "Reset password email sent"))
     .catch((res: any) => genMessage(false, "Failed to send password"));
 }
 async function getall(): Promise<Message> {
-  return Fire.firestore()
+  return Fire.default
+    .firestore()
     .collection("User-WEB")
     .get()
     .then((res: any) => res.docs.map((x: any) => x.data()))
@@ -75,11 +85,12 @@ async function changeemail(
   oldemail: any,
   newemail: string
 ): Promise<Message | undefined> {
-  var user = Fire.auth().currentUser;
+  var user = Fire.default.auth().currentUser;
   return user
     ?.updateEmail(newemail)
     .then(() => {
-      return Fire.firestore()
+      return Fire.default
+        .firestore()
         .collection("User-WEB")
         .doc(oldemail)
         .update({ email: newemail })
