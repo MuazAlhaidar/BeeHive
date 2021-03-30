@@ -1,0 +1,12 @@
+{
+        "watch": ["src"],
+        "ext": "ts,tsx",
+        "execMap":{
+                "tsx": "npx ts-node"
+        },
+        "events": {
+                "start": "cls || clear "
+        }
+        ,"ignore":["tests/*", "API.ts"]
+
+}
