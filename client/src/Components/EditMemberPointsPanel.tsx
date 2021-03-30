@@ -9,7 +9,7 @@ interface IProps {
 }
 
 function EditMemberPointsPanel({ member, reloadParent }: IProps) {
-  let oldNumber = member.userPoints;
+  let oldNumber = member.points;
 
   const [newNumber, setNewNumber] = React.useState(oldNumber);
 

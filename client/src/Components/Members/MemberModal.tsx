@@ -32,26 +32,24 @@ function MemberModal({
   setMembers,
 }: IProps) {
   // TODO
-  // Use the groupEmailList to get the groupUsers
-  // allMembers should be a MemberInfo
-  // Use the groupMemberList to filter out allmembers for filteredList
-  // add and remove members just removes and adds to groupUsers
-  // clicking save just gets emails from groupUser and assigns them to the API
+  const [reload, setReload] = React.useState(false);
 
-  let groupEmailList = null;
-
+  let groupEmailList = Array<string>();
   APIgetMembers(groupID).then((response: any) => {
     groupEmailList = response.data.members;
   });
 
-  let groupUsers = allMembers.map((member) => {
-    return groupEmailList.includes(member.email);
+  let groupMembers = Array<MemberInfo>();
+  allMembers.forEach((member) => {
+    if (groupEmailList.includes(member.email)) {
+      groupMembers.push(member);
+    }
   });
 
-  function isInGroup(value: string, index: number, array: string[]) {
+  function isInGroup(value: MemberInfo, index: number, array: MemberInfo[]) {
     let retme = true;
-    memberList.forEach((m) => {
-      if (m === value) {
+    groupMembers.forEach((m) => {
+      if (m.email === value.email) {
         retme = false;
       }
     });
@@ -59,24 +57,23 @@ function MemberModal({
   }
 
   const [pastIn, setpastIn] = React.useState(memberList);
-  // Used to removign changes made
+  // Used to removing changes made
   let filteredList = allMembers.filter(isInGroup);
   const [pastOut, setpastOut] = React.useState(filteredList);
 
   const handleSave = () => {
+    // clicking save just gets emails from groupUser and assigns them to the API
     // API Call for this group this is the member list
     const state = store.getState().state;
     const index = state.index;
-    const id = state.relation;
+    const groupEmails = groupMembers.map((x) => x.email);
 
-    // Save it on teh frontend
-    console.log(id, index);
-    setMembers(memberList, index);
-    console.log(id, memberList, index);
-    APIsetMembers(
-      id,
-      memberList.map((x) => x.Firstname + " " + x.Lastname)
-    );
+    // Save it on the frontend
+    console.log(groupID, index);
+    setMembers(groupEmails, index);
+    console.log(groupID, memberList, index);
+    setMemberList(groupEmails);
+    APIsetMembers(groupID, groupEmails);
 
     setShowModal(!showModal);
   };
@@ -86,15 +83,17 @@ function MemberModal({
   };
 
   const addToGroup = (member: MemberInfo) => {
-    const m = memberList.slice();
+    const m = groupMembers.slice();
     m.push(member);
-    setMemberList(m);
+    groupMembers = m;
+    setReload(!reload);
   };
 
   const removeFromGroup = (index: number) => {
-    const m = memberList.slice();
+    const m = groupMembers.slice();
     m.splice(index, 1);
-    setMemberList(m);
+    groupMembers = m;
+    setReload(!reload);
   };
 
   return (
@@ -116,8 +115,8 @@ function MemberModal({
                         <div className="MemberModal-NotInGroupMembers">
                           <div className="MemberModal-MemberDiv">
                             <Member
-                              Firstname={curMem.Firstname}
-                              Lastname={curMem.Lastname}
+                              Firstname={curMem.firstname}
+                              Lastname={curMem.lastname}
                             />
                           </div>
                           <button
@@ -135,13 +134,13 @@ function MemberModal({
               <div className="MemberModal-InGroup">
                 {!Array.isArray(memberList) || !memberList.length
                   ? null
-                  : memberList.map((curMem: MemberInfo, index: number) => {
+                  : groupMembers.map((curMem: MemberInfo, index: number) => {
                       return (
                         <div className="MemberModal-InGroupMembers">
                           <div className="MemberModal-MemberDiv">
                             <Member
-                              Firstname={curMem.Firstname}
-                              Lastname={curMem.Lastname}
+                              Firstname={curMem.firstname}
+                              Lastname={curMem.lastname}
                             />
                           </div>
                           <button
