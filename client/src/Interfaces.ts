@@ -9,8 +9,7 @@ interface EventInfo {
   title: string;
   creator: string;
   address: string;
-  time: string;
-  date: string;
+  date: Date;
   description: string;
   rsvp: Array<string>;
   sigin: Array<string>;

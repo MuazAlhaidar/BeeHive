@@ -41,8 +41,10 @@ function EventsForm({
             </div>
             <div className="EventsForm-AddressTimeDateInfo">
               <div className="EventsForm-Address">{event.address}</div>
-              <div className="EventsForm-Time">{event.time}</div>
-              <div className="EventsForm-Date">{event.date}</div>
+              <div className="EventsForm-Time">
+                {event.date.getHours() + ":" + event.date.getMinutes()}
+              </div>
+              <div className="EventsForm-Date">{event.date.getDate()}</div>
             </div>
           </div>
         </div>

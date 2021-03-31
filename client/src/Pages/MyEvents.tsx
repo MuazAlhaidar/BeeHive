@@ -139,8 +139,11 @@ function MyEvents(props: { id: any }) {
       : setCurEvent({
           title: events[index].title,
           address: events[index].address,
-          time: events[index].time,
-          date: events[index].date,
+          time:
+            events[index].date.getHours() +
+            ":" +
+            events[index].date.getMinutes(),
+          date: events[index].date.getDate().toString(),
           description: events[index].description,
         });
     store.dispatch(redux_index(i));
@@ -156,13 +159,12 @@ function MyEvents(props: { id: any }) {
     let [month, day, year] = date.split("-").map((i) => parseInt(i));
     let [hour, minute] = time.split(":").map((i) => parseInt(i));
     let thedate = new Date(year, month - 1, day, hour - 5, minute);
-    let _tmp = await API.newEvent(title, description, address, time, date);
+    let _tmp = await API.newEvent(title, description, address, thedate);
     const e = events.slice();
     e.push({
       title,
       address,
-      time,
-      date,
+      date: thedate,
       description,
       rsvp: Array<string>(),
       sigin: Array<string>(),
@@ -190,19 +192,21 @@ function MyEvents(props: { id: any }) {
       let [month, day, year] = date.split("-").map((i) => parseInt(i));
       let [hour, minute] = time.split(":").map((i) => parseInt(i));
       let thedate = new Date(year, month - 1, day, hour - 5, minute);
-      await API.update(title, description, address, date, time);
+      await API.update(title, description, address, thedate);
       const e = events.slice();
       e[eventIndex].title = title;
       e[eventIndex].address = address;
-      e[eventIndex].time = time;
-      e[eventIndex].date = date;
+      e[eventIndex].date = thedate;
       e[eventIndex].description = description;
       setEvents(e);
       setCurEvent({
         title: events[eventIndex].title,
         address: events[eventIndex].address,
-        time: events[eventIndex].time,
-        date: events[eventIndex].date,
+        time:
+          events[eventIndex].date.getHours() +
+          ":" +
+          events[eventIndex].date.getMinutes(),
+        date: events[eventIndex].date.getDate().toString(),
         description: events[eventIndex].description,
       });
     }

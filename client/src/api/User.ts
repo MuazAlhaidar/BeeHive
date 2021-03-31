@@ -76,9 +76,14 @@ async function reset_password(_email: string): Promise<Message> {
 async function getall(): Promise<Message> {
   return Fire.default
     .firestore()
-    .collection("User-WEB")
+    .collection("Users-WEB")
     .get()
-    .then((res: any) => res.docs.map((x: any) => x.data()))
+    .then((res: any) =>
+      genMessage(
+        res.docs.map((x: any) => x.data()),
+        "All Members"
+      )
+    )
     .catch((res: any) => res);
 }
 async function changeemail(
@@ -96,10 +101,10 @@ async function changeemail(
         .update({ email: newemail })
         .then(() => genMessage(true, "Changed email"))
         .catch((error: any) =>
-          genMessage(false, "Coudl't change email," + error)
+          genMessage(false, "Couldn't change email," + error)
         );
     })
-    .catch((error: any) => genMessage(false, "Coudln't change email," + error));
+    .catch((error: any) => genMessage(false, "Couldn't change email," + error));
 }
 
 export { login, new_user, reset_password, getall, changeemail };

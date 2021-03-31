@@ -77,8 +77,12 @@ function EventsForm({ event }: IProps) {
               <div className="EventsForm-view-only-Address">
                 {event.address}
               </div>
-              <div className="EventsForm-view-only-Time">{event.time}</div>
-              <div className="EventsForm-view-only-Date">{event.date}</div>
+              <div className="EventsForm-view-only-Time">
+                {event.date.getHours() + ":" + event.date.getMinutes()}
+              </div>
+              <div className="EventsForm-view-only-Date">
+                {event.date.getDate()}
+              </div>
             </div>
           </div>
         </div>

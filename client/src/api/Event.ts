@@ -15,7 +15,7 @@ async function newEvent(
   title: string,
   desc: string,
   address: string,
-  date: Date,
+  date: Date
 ) {
   let find = await Fire.default
     .firestore()
@@ -57,8 +57,7 @@ async function update(
   title: string,
   desc: string,
   address: string,
-  date: string,
-  time: string
+  date: Date
 ) {
   let find = await Fire.default
     .firestore()
@@ -86,7 +85,6 @@ async function update(
         description: desc,
         address: address,
         date: date,
-        time: time,
       })
       .then((res: any) => genMessage(res, "Updated event"))
       .catch((res: any) => genMessage(res, "Failed to Updated event"));
@@ -201,10 +199,18 @@ async function memberEventUpdate(
 
 // TODO EMAIl
 
-
-newEvent("DND party", "Me and the boys play dnd", "My house", new Date("2020-03-18"))
-.then(res=>{ console.log(res) })
-.catch(res=>{ console.log(res) })
+newEvent(
+  "DND party",
+  "Me and the boys play dnd",
+  "My house",
+  new Date("2020-03-18")
+)
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((res) => {
+    console.log(res);
+  });
 export {
   newEvent,
   update,

@@ -12,34 +12,39 @@ function Leaderboard() {
       points: 0,
     })
   );
-
-  const [sortedList, setSortedList] = React.useState(
-    allMembers.sort((a, b) => (a.points < b.points ? 1 : -1))
-  );
   const [reload, setReload] = React.useState(false);
+  const [sortedList, setSortedList] = React.useState(Array<MemberInfo>());
 
   React.useEffect(() => {
     getall().then((res) => {
       if (res === undefined || res === null) {
       } else {
         console.log(res);
-        let test = res.data.map((x: any) => {
-          let ret = {
-            id: x.id,
-            firstname: x.firstname,
-            lastname: x.lastname,
-            points: x.points,
-          };
-          return ret;
-        });
-        test = test as MemberInfo[];
+        console.log(res.data);
+        console.log(res.data[0].email);
+        console.log(res.data[0].firstname);
+        let test = {} as MemberInfo[];
+        test.push(
+          res.data.map((x: any) => {
+            let ret = {
+              firstname: x.firstname,
+              lastname: x.lastname,
+              email: x.email,
+              points: x.points,
+            };
+            return ret;
+          }) as MemberInfo
+        );
         // setReload(false)
         setMembers(test);
-        setSortedList(test);
+        let list = allMembers.sort((a, b) => (a.points < b.points ? 1 : -1));
+        setSortedList(list);
         setReload(true);
       }
     });
   }, [reload]);
+
+  console.log(sortedList);
 
   return (
     <div className="Leaderboard">
