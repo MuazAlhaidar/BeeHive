@@ -23,18 +23,16 @@ function Leaderboard() {
         console.log(res.data);
         console.log(res.data[0].email);
         console.log(res.data[0].firstname);
-        let test = {} as MemberInfo[];
-        test.push(
-          res.data.map((x: any) => {
-            let ret = {
-              firstname: x.firstname,
-              lastname: x.lastname,
-              email: x.email,
-              points: x.points,
-            };
-            return ret;
-          }) as MemberInfo
-        );
+        let test = res.data.map((x: any) => {
+          let ret = {
+            firstname: x.firstname,
+            lastname: x.lastname,
+            email: x.email,
+            points: x.points,
+          };
+          return ret;
+        });
+        test = test as MemberInfo[];
         // setReload(false)
         setMembers(test);
         let list = allMembers.sort((a, b) => (a.points < b.points ? 1 : -1));
