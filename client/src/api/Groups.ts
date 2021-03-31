@@ -12,7 +12,8 @@ function genMessage(_data: any, _msg: any) {
 }
 
 async function getGroups() {
-  return Fire.firestore()
+  return Fire.default
+    .firestore()
     .collection("Groups-WEB")
     .get()
     .then((res: any) =>
@@ -24,7 +25,8 @@ async function getGroups() {
     .catch((err: any) => genMessage(err, "Failed to get groups"));
 }
 async function newGroup(name: string, description: string) {
-  let find = await Fire.firestore()
+  let find = await Fire.default
+    .firestore()
     .collection("Groups-WEB")
     .doc(name)
     .get()
@@ -40,7 +42,8 @@ async function newGroup(name: string, description: string) {
     });
 
   if (find === true) {
-    return Fire.firestore()
+    return Fire.default
+      .firestore()
       .collection("Groups-WEB")
       .doc()
       .set({ name, description, members: [] })
@@ -50,7 +53,8 @@ async function newGroup(name: string, description: string) {
 }
 
 async function removeGroup(name: string) {
-  return Fire.firestore()
+  return Fire.default
+    .firestore()
     .collection("Groups-WEB")
     .doc(name)
     .delete()
@@ -58,7 +62,8 @@ async function removeGroup(name: string) {
     .catch((res: any) => genMessage(res, "Failed to delete gorup"));
 }
 async function updateGroup(name: string, description: string) {
-  let find = await Fire.firestore()
+  let find = await Fire.default
+    .firestore()
     .collection("Groups-WEB")
     .doc(name)
     .get()
@@ -73,7 +78,8 @@ async function updateGroup(name: string, description: string) {
       }
     });
   if (find === true) {
-    return Fire.firestore()
+    return Fire.default
+      .firestore()
       .collection("Groups-WEB")
       .doc(name)
       .update({
@@ -88,7 +94,8 @@ async function updateGroup(name: string, description: string) {
 }
 
 async function setMembers(name: string, members: string[]) {
-  return Fire.firestore()
+  return Fire.default
+    .firestore()
     .collection("Groups-WEB")
     .doc(name)
     .update({
@@ -99,10 +106,18 @@ async function setMembers(name: string, members: string[]) {
 }
 
 async function getMembers(name: string) {
-  let users = await Fire.firestore().collection("Groups-WEB").doc(name).get();
+  let users = await Fire.default
+    .firestore()
+    .collection("Groups-WEB")
+    .doc(name)
+    .get();
   let data = (await users.data()) as any;
   let promises = data["members"].map(async (user: any) => {
-    let tmp = await Fire.firestore().collection("Users-WEB").doc(user).get();
+    let tmp = await Fire.default
+      .firestore()
+      .collection("Users-WEB")
+      .doc(user)
+      .get();
     return tmp.data();
   });
   return Promise.all(promises)
@@ -113,13 +128,14 @@ async function getMembers(name: string) {
 }
 
 async function email(name: string, subject: string, body: string) {
-  return Fire.firestore()
+  return Fire.default
+    .firestore()
     .collection("Groups-WEB")
     .doc(name)
     .get()
     .then((res: any) => {
       let data = res.data();
-      // return Fire.firestore().collection("User-WEB").where("user", "in",
+      // return Fire.default.firestore().collection("User-WEB").where("user", "in",
     })
     .catch((err: any) =>
       genMessage(false, "Failed to get people from a group")
