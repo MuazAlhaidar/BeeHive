@@ -19,10 +19,6 @@ function Leaderboard() {
     getall().then((res) => {
       if (res === undefined || res === null) {
       } else {
-        console.log(res);
-        console.log(res.data);
-        console.log(res.data[0].email);
-        console.log(res.data[0].firstname);
         let test = res.data.map((x: any) => {
           let ret = {
             firstname: x.firstname,
@@ -41,8 +37,6 @@ function Leaderboard() {
       }
     });
   }, [reload]);
-
-  console.log(sortedList);
 
   return (
     <div className="Leaderboard">
