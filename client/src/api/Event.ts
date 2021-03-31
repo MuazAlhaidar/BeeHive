@@ -15,8 +15,7 @@ async function newEvent(
   title: string,
   desc: string,
   address: string,
-  date: string,
-  time: string
+  date: Date,
 ) {
   let find = await Fire.firestore()
     .collection("Events-WEB")
@@ -33,6 +32,8 @@ async function newEvent(
       }
     });
 
+    
+    await Fire.auth().signInWithEmailAndPassword("ahmedzakariya355@gmail.com", "passpass")
   var user = Fire.auth();
   let email = user?.currentUser?.email;
   if (find === true) {
@@ -43,7 +44,6 @@ async function newEvent(
         title: title,
         address: address,
         date: date,
-        time: time,
         description: desc,
         creator: email,
         rsvp: [],
@@ -181,6 +181,10 @@ async function memberEventUpdate(
 
 // TODO EMAIl
 
+
+newEvent("DND party", "Me and the boys play dnd", "My house", new Date("2020-03-18"))
+.then(res=>{ console.log(res) })
+.catch(res=>{ console.log(res) })
 export {
   newEvent,
   update,
