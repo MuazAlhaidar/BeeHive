@@ -20,6 +20,38 @@ function EventsForm({ event }: IProps) {
   const quote = `Come join me at the ${event.title} event!`;
   const hashtags = ["BeeHive"];
 
+  function getFormattedDate(event: EventInfo) {
+    let month =
+      event.date.getMonth() < 10
+        ? "0" + event.date.getMonth()
+        : event.date.getMonth();
+
+    let day =
+      event.date.getDate() < 10
+        ? "0" + event.date.getDate()
+        : event.date.getDate();
+
+    let year =
+      event.date.getFullYear() < 10
+        ? "0" + event.date.getFullYear()
+        : event.date.getFullYear();
+
+    return `${month}/${day}/${year}`;
+  }
+
+  function getFormattedTime(event: EventInfo) {
+    let hour =
+      event.date.getHours() < 10
+        ? "0" + event.date.getHours()
+        : event.date.getHours();
+    let minute =
+      event.date.getMinutes() < 10
+        ? "0" + event.date.getMinutes()
+        : event.date.getMinutes();
+
+    return `${hour}:${minute}`;
+  }
+
   return (
     <div className="EventsForm-view-only">
       <div className="EventsForm-view-only-Top">
@@ -41,10 +73,10 @@ function EventsForm({ event }: IProps) {
                 {event.address}
               </div>
               <div className="EventsForm-view-only-Time">
-                {event.date.getHours() + ":" + event.date.getMinutes()}
+                {getFormattedTime(event)}
               </div>
               <div className="EventsForm-view-only-Date">
-                {event.date.getDate()}
+                {getFormattedDate(event)}
               </div>
             </div>
           </div>

@@ -18,10 +18,10 @@ interface IProp {
 
 async function reload(id: any) {
   const allevents = await API.getAllEvents();
-  const events = allevents.map((i: any) => {
-    var date_obj = new Date(i.Time);
+  const events = allevents.map((i: EventInfo2) => {
+    var date_obj = new Date(i.date);
     let _date =
-      +(+date_obj.getMonth()) +
+      date_obj.getMonth() +
       "/" +
       date_obj.getDay() +
       "/" +
@@ -33,22 +33,24 @@ async function reload(id: any) {
     let _time = _hour + ":" + _minute;
     let _relation = null;
     {
-      if (i.Manager === 1) {
-        _relation = Relation.Manager;
-      } else if (i.RSVP === 1) {
-        _relation = Relation.RSVP;
-      } else {
-        _relation = Relation.NotRSVP;
+      switch (i.relation) {
+        case Relation.Manager:
+          _relation = Relation.Manager;
+          break;
+        case Relation.RSVP:
+          _relation = Relation.RSVP;
+          break;
+        default:
+          _relation = Relation.NotRSVP;
       }
     }
     return {
-      name: i.Name,
-      description: i.Description,
-      address: i.Address,
+      title: i.title,
+      description: i.description,
+      address: i.address,
       time: _time,
       date: _date,
       members: null,
-      id: i.id,
       relation: _relation,
     };
   });
@@ -86,6 +88,8 @@ function MyEvents({ name, id }: IProp) {
     store.dispatch(redux_rsvp(events[i].relation));
     setEventIndex(index);
   };
+
+  console.log(`EventIndex: ${eventIndex}`);
 
   return (
     <div className="MyEvents">
