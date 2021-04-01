@@ -18,19 +18,8 @@ interface IProp {
 
 async function reload(id: any) {
   const allevents = await API.getAllEvents();
-  const events = allevents.map((i: EventInfo2) => {
-    var date_obj = new Date(i.date);
-    let _date =
-      date_obj.getMonth() +
-      "/" +
-      date_obj.getDay() +
-      "/" +
-      date_obj.getFullYear();
-    let minute = date_obj.getMinutes();
-    let hour = date_obj.getHours();
-    let _hour = ("0" + hour).slice(-2);
-    let _minute = ("0" + minute).slice(-2);
-    let _time = _hour + ":" + _minute;
+  const events = allevents.map((i: any) => {
+    let date_obj = new Date(i.date.toDate());
     let _relation = null;
     {
       switch (i.relation) {
@@ -48,9 +37,9 @@ async function reload(id: any) {
       title: i.title,
       description: i.description,
       address: i.address,
-      time: _time,
-      date: _date,
-      members: null,
+      date: date_obj,
+      rsvp: i.rsvp,
+      signin: i.signin,
       relation: _relation,
     };
   });
@@ -75,7 +64,7 @@ function MyEvents({ name, id }: IProp) {
     title: "",
     creator: "",
     address: "",
-    date: new Date(),
+    date: new Date(2000, 1, 1, 0, 0),
     description: "",
     rsvp: Array<string>(),
     sigin: Array<string>(),
@@ -86,10 +75,9 @@ function MyEvents({ name, id }: IProp) {
     let index = i === undefined ? 0 : i;
     store.dispatch(redux_index(i));
     store.dispatch(redux_rsvp(events[i].relation));
+    console.log(`EventDate: ${events[index].date.getMonth()}`);
     setEventIndex(index);
   };
-
-  console.log(`EventIndex: ${eventIndex}`);
 
   return (
     <div className="MyEvents">

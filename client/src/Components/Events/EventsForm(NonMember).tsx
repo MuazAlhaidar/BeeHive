@@ -11,20 +11,14 @@ interface IProps {
 }
 
 function EventsForm({ event }: IProps) {
-  // const [isRSVP, setIsRSVP] = React.useState(false);
-
-  // const setRSVP = () => {
-  //   setIsRSVP(!isRSVP);
-  // };
-
   const quote = `Come join me at the ${event.title} event!`;
   const hashtags = ["BeeHive"];
 
   function getFormattedDate(event: EventInfo) {
     let month =
-      event.date.getMonth() < 10
-        ? "0" + event.date.getMonth()
-        : event.date.getMonth();
+      event.date.getMonth() + 1 < 10
+        ? "0" + (event.date.getMonth() + 1)
+        : event.date.getMonth() + 1;
 
     let day =
       event.date.getDate() < 10

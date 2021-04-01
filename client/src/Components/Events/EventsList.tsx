@@ -38,6 +38,7 @@ function EventList({ eventList, selectEvent, addEvent }: IProps) {
           +
         </button>
       </div>
+      {console.log(`Event: ${events[0].date.getDate()}`)}
       {events.map((curEvent, index) => {
         return (
           <Event

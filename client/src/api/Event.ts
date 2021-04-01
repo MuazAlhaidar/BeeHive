@@ -140,11 +140,11 @@ async function getEventManager(user: string) {
     .then((res: any) =>
       genMessage(
         res.docs.map((x: any) => x.data()),
-        "All events that hte current user manages"
+        "All events that the current user manages"
       )
     )
     .catch((err: any) =>
-      genMessage(err, "Failed to get all events the usert manages")
+      genMessage(err, "Failed to get all events the user manages")
     );
 }
 
@@ -199,18 +199,6 @@ async function memberEventUpdate(
 
 // TODO EMAIl
 
-newEvent(
-  "DND party",
-  "Me and the boys play dnd",
-  "My house",
-  new Date("2020-03-18")
-)
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((res) => {
-    console.log(res);
-  });
 export {
   newEvent,
   update,
