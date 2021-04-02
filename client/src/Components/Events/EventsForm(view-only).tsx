@@ -5,6 +5,7 @@ import { FacebookShareButton, TwitterShareButton } from "react-share";
 import "../../CSS/Events/EventsForm(view-only).css";
 import * as API from "../../api/Event";
 import { store, redux_index, redux_rsvp } from "../../store";
+import { getFormattedDate, getFormattedTime } from "../../DateAndTimeFormat";
 import { EventInfo } from "../../Interfaces";
 
 enum Relation {
@@ -78,10 +79,10 @@ function EventsForm({ event }: IProps) {
                 {event.address}
               </div>
               <div className="EventsForm-view-only-Time">
-                {event.date.getHours() + ":" + event.date.getMinutes()}
+                {getFormattedTime(event)}
               </div>
               <div className="EventsForm-view-only-Date">
-                {event.date.getDate()}
+                {getFormattedDate(event)}
               </div>
             </div>
           </div>

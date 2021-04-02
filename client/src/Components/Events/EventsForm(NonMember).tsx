@@ -4,6 +4,7 @@ import FacebookLogo from "../../Images/f_logo_RGB-Blue_58.png";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import "../../CSS/Events/EventsForm(view-only).css";
 import "../../CSS/Events/EventsForm(NonMember).css";
+import { getFormattedDate, getFormattedTime } from "../../DateAndTimeFormat";
 import { EventInfo } from "../../Interfaces";
 
 interface IProps {
@@ -13,38 +14,6 @@ interface IProps {
 function EventsForm({ event }: IProps) {
   const quote = `Come join me at the ${event.title} event!`;
   const hashtags = ["BeeHive"];
-
-  function getFormattedDate(event: EventInfo) {
-    let month =
-      event.date.getMonth() + 1 < 10
-        ? "0" + (event.date.getMonth() + 1)
-        : event.date.getMonth() + 1;
-
-    let day =
-      event.date.getDate() < 10
-        ? "0" + event.date.getDate()
-        : event.date.getDate();
-
-    let year =
-      event.date.getFullYear() < 10
-        ? "0" + event.date.getFullYear()
-        : event.date.getFullYear();
-
-    return `${month}/${day}/${year}`;
-  }
-
-  function getFormattedTime(event: EventInfo) {
-    let hour =
-      event.date.getHours() < 10
-        ? "0" + event.date.getHours()
-        : event.date.getHours();
-    let minute =
-      event.date.getMinutes() < 10
-        ? "0" + event.date.getMinutes()
-        : event.date.getMinutes();
-
-    return `${hour}:${minute}`;
-  }
 
   return (
     <div className="EventsForm-view-only">

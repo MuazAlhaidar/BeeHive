@@ -3,6 +3,7 @@ import TwitterLogo from "../../Images/Twitter_Social_Icon_Rounded_Square_Color.p
 import FacebookLogo from "../../Images/f_logo_RGB-Blue_58.png";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import "../../CSS/Events/EventsForm.css";
+import { getFormattedDate, getFormattedTime } from "../../DateAndTimeFormat";
 import { EventInfo } from "../../Interfaces";
 
 interface IProps {
@@ -41,10 +42,8 @@ function EventsForm({
             </div>
             <div className="EventsForm-AddressTimeDateInfo">
               <div className="EventsForm-Address">{event.address}</div>
-              <div className="EventsForm-Time">
-                {event.date.getHours() + ":" + event.date.getMinutes()}
-              </div>
-              <div className="EventsForm-Date">{event.date.getDate()}</div>
+              <div className="EventsForm-Time">{getFormattedTime(event)}</div>
+              <div className="EventsForm-Date">{getFormattedDate(event)}</div>
             </div>
           </div>
         </div>
