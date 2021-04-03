@@ -15,16 +15,12 @@ function LogIn(props: { setName: any; setId: any; setOwner: any }) {
       .then((res) => {
         let data = res.data;
         if (data !== false) {
-          // alert("YEE BABY IT's a "+ data)
           setUser(username);
           setStatus(1);
           props.setName(username);
           props.setId(data.email);
-          alert("Yo muaz what up"+data[0].email)
-          // console.log(res.msg);
-          // console.log(data[0]);
           store.dispatch(redux_id(data.email));
-          props.setOwner(data["isOwner"]);
+          // props.setOwner(data[1]);
           return true;
         } else {
           setStatus(-1);

@@ -154,16 +154,14 @@ async function getEventMembers(event: string) {
     .collection("Events-WEB")
     .doc(event)
     .get();
-  let data = (await events.data()) as any;
-  alert(event)
-  console.log("MEMES", event)
-  let promises = data["rsvp"].map(async (user: any) => {
-          let tmp = await Fire.default
-          .firestore()
-          .collection("Users-WEB")
-          .doc(user)
-          .get();
-          return tmp.data();
+  let data = (await users.data()) as any;
+  let promises = data.rsvp.map(async (user: any) => {
+    let tmp = await Fire.default
+      .firestore()
+      .collection("Users-WEB")
+      .doc(user)
+      .get();
+    return tmp.data();
   });
 
   return Promise.all(promises)

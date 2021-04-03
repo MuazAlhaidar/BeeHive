@@ -13,7 +13,6 @@ import { MemberInfo, EventInfo } from "../Interfaces";
 import { getFormattedDate, getFormattedTime } from "../DateAndTimeFormat";
 
 async function reload(user: string) {
-  // alert(`NOOOOOOOOOOOOOOOOOOOOO ${user}`)
   const myevents = ((await API.getEventsForManager(user)).data) as Array<EventInfo>;
   let tmp = myevents.map(async (i:EventInfo)=>{
           i.rsvp = (await API.getEventMembers(i.title)).data
@@ -24,7 +23,6 @@ async function reload(user: string) {
   })
   return Promise.all(tmp) .then((res:Array<EventInfo>)=>res)
 
-  
 }
 
 function MyEvents(props: { id: any }) {
