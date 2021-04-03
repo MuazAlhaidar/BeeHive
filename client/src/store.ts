@@ -1,14 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { MemberInfo } from "./Interfaces";
 export enum Relation {
   Manager,
   RSVP,
   NotRSVP,
-}
-interface MemberInfo {
-  id: number;
-  firstname: string;
-  lastname: string;
-  points: number;
 }
 
 // ACTIOn
