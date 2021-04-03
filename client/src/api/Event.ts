@@ -149,20 +149,23 @@ async function getEventsForManager(user: string) {
 }
 
 async function getEventMembers(event: string) {
-  let users = await Fire.default
+  let events = await Fire.default
     .firestore()
     .collection("Events-WEB")
     .doc(event)
     .get();
-  let data = (await users.data()) as any;
+  let data = (await events.data()) as any;
+  alert(event)
+  console.log("MEMES", event)
   let promises = data["rsvp"].map(async (user: any) => {
-    let tmp = await Fire.default
-      .firestore()
-      .collection("Users-WEB")
-      .doc(user)
-      .get();
-    return tmp.data();
+          let tmp = await Fire.default
+          .firestore()
+          .collection("Users-WEB")
+          .doc(user)
+          .get();
+          return tmp.data();
   });
+
   return Promise.all(promises)
     .then((res: any) => genMessage(res, "All members for an event"))
     .catch((err: any) =>

@@ -13,54 +13,18 @@ import { MemberInfo, EventInfo } from "../Interfaces";
 import { getFormattedDate, getFormattedTime } from "../DateAndTimeFormat";
 
 async function reload(user: string) {
-  console.log(`UserID: ${user}`);
-  const _myevents = await API.getEventsForManager(user);
-  console.log(_myevents.msg);
-  console.log(_myevents.data);
-  const _mymembers = await API.getEventMembers(user);
-  const myevents = _myevents.data;
-  const members = _mymembers.data;
+  // alert(`NOOOOOOOOOOOOOOOOOOOOO ${user}`)
+  const myevents = ((await API.getEventsForManager(user)).data) as Array<EventInfo>;
+  let tmp = myevents.map(async (i:EventInfo)=>{
+          i.rsvp = (await API.getEventMembers(i.title)).data
+          let tmp = i.date as any
+          i.date = tmp.toDate()
+          // i.title = "Justice"
+          return i
+  })
+  return Promise.all(tmp) .then((res:Array<EventInfo>)=>res)
 
-  if (myevents === undefined) {
-    return [];
-  } else {
-    let events: any = {};
-    myevents.forEach((i: any) => {
-      let date_obj = new Date(i.date.toDate());
-      let tmp_event = {
-        title: i.title,
-        description: i.description,
-        address: i.address,
-        date: date_obj,
-        members: null,
-        creator: i.creator,
-        signing: i.signin,
-        rsvp: i.rsvp,
-      };
-      events[i.title] = tmp_event;
-    });
-    if (members !== undefined) {
-      members.forEach((i: any) => {
-        if (events[i.title].members == null) {
-          events[i.title].members = Array<MemberInfo>({
-            firstname: i.firstname,
-            lastname: i.lastname,
-            email: i.email,
-            points: i.points,
-          });
-        } else {
-          events[i.title].members.push({
-            firstname: i.firstname,
-            lastname: i.lastname,
-            email: i.email,
-            points: i.points,
-          });
-        }
-      });
-    }
-    console.log(events);
-    return Object.values(events) as Array<EventInfo>;
-  }
+  
 }
 
 function MyEvents(props: { id: any }) {
@@ -96,7 +60,9 @@ function MyEvents(props: { id: any }) {
   });
 
   React.useEffect(() => {
+          // alert(props.id)
     reload(props.id).then((res) => setEvents(res));
+    // reload(props.id)
   }, [eventIndex, checkReload]);
 
   const toggleEmailModal = () => {

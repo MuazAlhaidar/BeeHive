@@ -31,6 +31,7 @@ async function reload(id: any) {
       default:
         _relation = Relation.NotRSVP;
     }
+    console.log(date_obj, typeof date_obj)
     return {
       title: i.title,
       creator: i.creator,
