@@ -35,6 +35,7 @@ async function reload(id: any) {
     }
     return {
       title: i.title,
+      creator: i.creator,
       description: i.description,
       address: i.address,
       date: date_obj,

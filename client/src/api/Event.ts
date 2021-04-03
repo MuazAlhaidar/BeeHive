@@ -155,7 +155,7 @@ async function getMembers(event: string) {
     .doc(event)
     .get();
   let data = (await users.data()) as any;
-  let promises = data["signin"].map(async (user: any) => {
+  let promises = data["rsvp"].map(async (user: any) => {
     let tmp = await Fire.default
       .firestore()
       .collection("Users-WEB")

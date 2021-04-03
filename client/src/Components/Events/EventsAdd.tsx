@@ -3,12 +3,11 @@ import "../../CSS/Events/EventsAdd.css";
 
 interface IProps {
   addEvent: (
-    name: string,
+    title: string,
     address: string,
     time: string,
     date: string,
-    description: string,
-    id: number
+    description: string
   ) => void;
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
@@ -31,8 +30,7 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
       newEvent.address,
       newEvent.time,
       newEvent.date,
-      newEvent.description,
-      newEvent.id
+      newEvent.description
     );
     setShowModal(!showModal);
     setNewEvent({

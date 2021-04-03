@@ -10,6 +10,7 @@ import ConfirmationModal from "../Components/ConfirmationModal";
 import * as API from "../api/Event";
 import { store, redux_index, redux_members } from "../store";
 import { MemberInfo, EventInfo } from "../Interfaces";
+import { getFormattedDate, getFormattedTime } from "../DateAndTimeFormat";
 
 async function reload(user: string) {
   const _myevents = await API.getEventManager(user);
@@ -22,48 +23,30 @@ async function reload(user: string) {
   } else {
     let events: any = {};
     myevents.forEach((i: any) => {
-      var date_obj = new Date(i.Time);
-      let _date =
-        +(+date_obj.getMonth()) +
-        "/" +
-        date_obj.getDay() +
-        "/" +
-        date_obj.getFullYear();
-      let minute = date_obj.getMinutes();
-      let hour = date_obj.getHours();
-      let _hour = ("0" + hour).slice(-2);
-      let _minute = ("0" + minute).slice(-2);
-      let _time = _hour + ":" + _minute;
-      let _id = i.id;
-
+      let date_obj = new Date(i.date.toDate());
       let tmp_event = {
-        name: i.Name,
-        description: i.Description,
-        address: i.Address,
-        time: _time,
-        date: _date,
+        title: i.title,
+        description: i.description,
+        address: i.address,
+        date: date_obj,
         members: null,
-        // members: Array<MemberInfo>({
-        //   id: i.userid,
-        //   firstname: i.firstname,
-        //   lastname: i.firstname,
-        //   points: i.points,
-        // }),
-        id: _id,
+        creator: i.creator,
+        signing: i.signin,
+        rsvp: i.rsvp,
       };
-      events[i.id] = tmp_event;
+      events[i.title] = tmp_event;
     });
     if (members !== undefined) {
       members.forEach((i: any) => {
-        if (events[i.id].members == null) {
-          events[i.id].members = Array<MemberInfo>({
+        if (events[i.title].members == null) {
+          events[i.title].members = Array<MemberInfo>({
             firstname: i.firstname,
             lastname: i.lastname,
             email: i.email,
             points: i.points,
           });
         } else {
-          events[i.id].members.push({
+          events[i.title].members.push({
             firstname: i.firstname,
             lastname: i.lastname,
             email: i.email,
@@ -139,11 +122,8 @@ function MyEvents(props: { id: any }) {
       : setCurEvent({
           title: events[index].title,
           address: events[index].address,
-          time:
-            events[index].date.getHours() +
-            ":" +
-            events[index].date.getMinutes(),
-          date: events[index].date.getDate().toString(),
+          time: getFormattedTime(events[index]),
+          date: getFormattedDate(events[index]),
           description: events[index].description,
         });
     store.dispatch(redux_index(i));
@@ -158,7 +138,7 @@ function MyEvents(props: { id: any }) {
   ) => {
     let [month, day, year] = date.split("-").map((i) => parseInt(i));
     let [hour, minute] = time.split(":").map((i) => parseInt(i));
-    let thedate = new Date(year, month - 1, day, hour - 5, minute);
+    let thedate = new Date(year, month - 1, day, hour, minute);
     let _tmp = await API.newEvent(title, description, address, thedate);
     const e = events.slice();
     e.push({
