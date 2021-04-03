@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import * as API from "../api/User";
+// import * as API from "../api/User";
 import "../CSS/LogInPanel.css";
 
 export default function Display(props: {}) {

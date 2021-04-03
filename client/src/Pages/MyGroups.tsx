@@ -13,7 +13,7 @@ import { MemberInfo, GroupInfo } from "../Interfaces";
 
 // async function reload(id: number): Promise<Array<GroupInfo>> {
 async function reload(): Promise<any> {
-  const data = await API.getGroups();
+  const data = await API.getAllGroups();
   return data.data;
 }
 
@@ -121,7 +121,7 @@ function MyGroups() {
 
   const removeGroup = (i: number) => {
     if (groups[groupIndex] !== undefined)
-      API.removeGroup(groups[groupIndex].name).then((res) => {
+      API.deleteGroup(groups[groupIndex].name).then((res) => {
         const g = groups.slice();
         g.splice(i, 1);
         setGroups(g);

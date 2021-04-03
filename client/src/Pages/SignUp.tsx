@@ -23,7 +23,7 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
       return false;
     }
 
-    let res = await API.new_user(_email, _password, _firstname, _lastname);
+    let res = await API.newUser(_email, _password, _firstname, _lastname);
     // Backend shit
     switch (res.data) {
       case 1:

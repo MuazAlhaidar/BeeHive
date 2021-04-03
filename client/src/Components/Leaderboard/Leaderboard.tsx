@@ -1,7 +1,7 @@
 import React from "react";
 import EditMemberPointsButton from "../EditMemberPointsButton";
 import "../../CSS/Leaderboard.css";
-import { getall } from "../../api/User";
+import { getallUsers } from "../../api/User";
 import { MemberInfo } from "../../Interfaces";
 
 function Leaderboard() {
@@ -20,7 +20,7 @@ function Leaderboard() {
 
   const [reload, setReload] = React.useState(false);
   React.useEffect(() => {
-    getall().then((res) => {
+    getallUsers().then((res) => {
       if (res === undefined || res === null) {
       } else {
         console.log(res);

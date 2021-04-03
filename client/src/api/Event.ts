@@ -53,7 +53,7 @@ async function newEvent(
       .catch((err: any) => genMessage(err, "Failed to make group"));
   } else return find;
 }
-async function update(
+async function updateEvent(
   title: string,
   desc: string,
   address: string,
@@ -103,7 +103,7 @@ async function getAllEvents() {
 }
 
 // Only returns true
-async function Delete(_title: string) {
+async function deleteEvent(_title: string) {
   return Fire.default
     .firestore()
     .collection("Events-WEB")
@@ -121,7 +121,7 @@ async function RSVP(title: string, email: string) {
     .update({ rsvp: Fire.default.firestore.FieldValue.arrayUnion(email) });
 }
 
-async function Transfer(Event: string, User: string) {
+async function transferEvent(Event: string, User: string) {
   return Fire.default
     .firestore()
     .collection("Events-WEB")
@@ -131,7 +131,7 @@ async function Transfer(Event: string, User: string) {
     .catch((err: any) => genMessage(false, "Failed to transfer an event"));
 }
 
-async function getEventManager(user: string) {
+async function getEventsForManager(user: string) {
   return Fire.default
     .firestore()
     .collection("Events-WEB")
@@ -148,7 +148,7 @@ async function getEventManager(user: string) {
     );
 }
 
-async function getMembers(event: string) {
+async function getEventMembers(event: string) {
   let users = await Fire.default
     .firestore()
     .collection("Events-WEB")
@@ -177,7 +177,7 @@ async function memberEventUpdate(
   let signin: any[] = [];
   async function inner() {
     users.forEach((user) => {
-      if (user.signin == true) {
+      if (user.signin === true) {
         signin.push(user.user);
       }
       Fire.default
@@ -201,12 +201,12 @@ async function memberEventUpdate(
 
 export {
   newEvent,
-  update,
+  updateEvent,
   getAllEvents,
-  Delete,
-  Transfer,
-  getEventManager,
-  getMembers,
+  deleteEvent,
+  transferEvent,
+  getEventsForManager,
+  getEventMembers,
   memberEventUpdate,
   RSVP,
 };

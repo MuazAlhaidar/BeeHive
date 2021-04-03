@@ -1,13 +1,13 @@
 import React from "react";
 import Member from "./Member";
-import { store, redux_index } from "../../store";
+import { store } from "../../store";
 import {
-  setMembers as APIsetMembers,
-  getMembers as APIgetMembers,
+  setGroupMembers as APIsetMembers,
+  getGroupMembers as APIgetMembers,
 } from "../../api/Groups";
 import { MemberInfo } from "../../Interfaces";
 import "../../CSS/Members/MemberModal.css";
-import { resolve } from "dns";
+// import { resolve } from "dns";
 
 interface IProps {
   // TODO Get the Group ID
@@ -56,10 +56,10 @@ function MemberModal({
     return retme;
   }
 
-  const [pastIn, setpastIn] = React.useState(memberList);
+  // const [pastIn, setpastIn] = React.useState(memberList);
   // Used to removing changes made
   let filteredList = allMembers.filter(isInGroup);
-  const [pastOut, setpastOut] = React.useState(filteredList);
+  // const [pastOut, setpastOut] = React.useState(filteredList);
 
   const handleSave = () => {
     // clicking save just gets emails from groupUser and assigns them to the API

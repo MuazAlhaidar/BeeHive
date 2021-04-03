@@ -2,7 +2,7 @@ import React from "react";
 import "../CSS/TransferManagerModal.css";
 import * as UserAPI from "../api/User";
 import * as EventAPI from "../api/Event";
-import { store } from "../store";
+// import { store } from "../store";
 import { MemberInfo } from "../Interfaces";
 
 interface IProps {
@@ -31,7 +31,7 @@ function TransferManagerModal({
     fakeMembers.sort((a, b) => (a.points < b.points ? 1 : -1))
   );
   React.useEffect(() => {
-    UserAPI.getall().then((res) => {
+    UserAPI.getallUsers().then((res) => {
       setSortedList(res.data);
     });
   }, []);
@@ -69,11 +69,13 @@ function TransferManagerModal({
                       className="TransferManagerModal-SetManagerButton"
                       onClick={() => {
                         handleCancel();
-                        let id = store.getState().state.id;
+                        // let id = store.getState().state.id;
                         console.log(event);
-                        EventAPI.Transfer(event, member.email).then((res) => {
-                          setReload(!reload);
-                        });
+                        EventAPI.transferEvent(event, member.email).then(
+                          (res) => {
+                            setReload(!reload);
+                          }
+                        );
                       }}
                     >
                       Set As Manager

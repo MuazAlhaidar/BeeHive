@@ -12,6 +12,7 @@ interface Message {
 function genMessage(_data: any, _msg: any) {
   return { msg: _msg, data: _data };
 }
+
 async function login(email: string, password: string): Promise<Message> {
   return Fire.default
     .auth()
@@ -28,7 +29,8 @@ async function login(email: string, password: string): Promise<Message> {
     })
     .catch((res: any) => genMessage(false, "failed to login"));
 }
-async function new_user(
+
+async function newUser(
   email: string,
   password: string,
   fName: string,
@@ -66,14 +68,16 @@ async function new_user(
     })
     .catch((err: any) => genMessage(2, "User already exists"));
 }
-async function reset_password(_email: string): Promise<Message> {
+
+async function resetPassword(_email: string): Promise<Message> {
   return Fire.default
     .auth()
     .sendPasswordResetEmail(_email)
     .then((res: any) => genMessage(true, "Reset password email sent"))
     .catch((res: any) => genMessage(false, "Failed to send password"));
 }
-async function getall(): Promise<Message> {
+
+async function getallUsers(): Promise<Message> {
   return Fire.default
     .firestore()
     .collection("Users-WEB")
@@ -86,7 +90,8 @@ async function getall(): Promise<Message> {
     )
     .catch((res: any) => res);
 }
-async function changeemail(
+
+async function changeEmail(
   oldemail: any,
   newemail: string
 ): Promise<Message | undefined> {
@@ -107,4 +112,4 @@ async function changeemail(
     .catch((error: any) => genMessage(false, "Couldn't change email," + error));
 }
 
-export { login, new_user, reset_password, getall, changeemail };
+export { login, newUser, resetPassword, getallUsers, changeEmail };

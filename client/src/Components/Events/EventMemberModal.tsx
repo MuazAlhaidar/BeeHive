@@ -1,7 +1,7 @@
 import React from "react";
 import EditMemberPointsButton from "../EditMemberPointsButton";
 import "../../CSS/Events/EventMemberModal.css";
-import { store, redux_index, redux_rsvp } from "../../store";
+// import { store, redux_index, redux_rsvp } from "../../store";
 // import {update_points} from "../../api/Event"
 import { MemberInfo } from "../../Interfaces";
 

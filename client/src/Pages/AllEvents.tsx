@@ -21,17 +21,15 @@ async function reload(id: any) {
   const events = allevents.map((i: any) => {
     let date_obj = new Date(i.date.toDate());
     let _relation = null;
-    {
-      switch (i.relation) {
-        case Relation.Manager:
-          _relation = Relation.Manager;
-          break;
-        case Relation.RSVP:
-          _relation = Relation.RSVP;
-          break;
-        default:
-          _relation = Relation.NotRSVP;
-      }
+    switch (i.relation) {
+      case Relation.Manager:
+        _relation = Relation.Manager;
+        break;
+      case Relation.RSVP:
+        _relation = Relation.RSVP;
+        break;
+      default:
+        _relation = Relation.NotRSVP;
     }
     return {
       title: i.title,
@@ -49,14 +47,14 @@ async function reload(id: any) {
 
 function MyEvents({ name, id }: IProp) {
   const [events, setEvents] = React.useState(Array<EventInfo2>());
-  const set_relation = (i: number) => {
-    API.RSVP(events[i].title, id);
-    if (events[i].relation === Relation.RSVP) {
-      events[i].relation = Relation.NotRSVP;
-    } else if (events[i].relation === Relation.NotRSVP) {
-      events[i].relation = Relation.RSVP;
-    }
-  };
+  // const set_relation = (i: number) => {
+  //   API.RSVP(events[i].title, id);
+  //   if (events[i].relation === Relation.RSVP) {
+  //     events[i].relation = Relation.NotRSVP;
+  //   } else if (events[i].relation === Relation.NotRSVP) {
+  //     events[i].relation = Relation.RSVP;
+  //   }
+  // };
   React.useEffect(() => {
     reload(id).then((res) => setEvents(res));
   }, []);

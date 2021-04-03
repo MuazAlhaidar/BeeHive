@@ -1,7 +1,6 @@
-import React from "react";
 import "../../CSS/Members/MemberList.css";
-import { MemberInfo } from "../../Interfaces";
-import Member from "./Member";
+// import { MemberInfo } from "../../Interfaces";
+// import Member from "./Member";
 
 interface IProps {
   groupId: string;

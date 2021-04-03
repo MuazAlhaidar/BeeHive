@@ -4,7 +4,7 @@ import * as API from "../api/User";
 import { store } from "../store";
 
 function SettingsPage() {
-  const [oldEmail, setOldEmail] = React.useState("");
+  // const [oldEmail, setOldEmail] = React.useState("");
   const [newEmail, setNewEmail] = React.useState("");
 
   return (
@@ -25,7 +25,7 @@ function SettingsPage() {
             className="SettingsPage-LigtButton"
             onClick={() => {
               let id = store.getState().state.id;
-              API.changeemail(id, newEmail).then((res) => {
+              API.changeEmail(id, newEmail).then((res) => {
                 if (res) alert("Change email successfully");
                 else alert("Failed to change email");
               });

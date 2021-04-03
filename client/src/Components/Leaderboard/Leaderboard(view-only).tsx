@@ -1,6 +1,6 @@
 import React from "react";
 import "../../CSS/Leaderboard.css";
-import { getall } from "../../api/User";
+import { getallUsers } from "../../api/User";
 import { MemberInfo } from "../../Interfaces";
 
 function Leaderboard() {
@@ -16,7 +16,7 @@ function Leaderboard() {
   const [sortedList, setSortedList] = React.useState(Array<MemberInfo>());
 
   React.useEffect(() => {
-    getall().then((res) => {
+    getallUsers().then((res) => {
       if (res === undefined || res === null) {
       } else {
         let test = res.data.map((x: any) => {

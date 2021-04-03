@@ -3,8 +3,8 @@ import TwitterLogo from "../../Images/Twitter_Social_Icon_Rounded_Square_Color.p
 import FacebookLogo from "../../Images/f_logo_RGB-Blue_58.png";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import "../../CSS/Events/EventsForm(view-only).css";
-import * as API from "../../api/Event";
-import { store, redux_index, redux_rsvp } from "../../store";
+// import * as API from "../../api/Event";
+import { store, redux_rsvp } from "../../store";
 import { getFormattedDate, getFormattedTime } from "../../DateAndTimeFormat";
 import { EventInfo } from "../../Interfaces";
 
@@ -19,15 +19,15 @@ interface IProps {
 
 function EventsForm({ event }: IProps) {
   const [displayRSVP, setIsRSVP] = React.useState(false);
-  const [change, setChange] = React.useState(false);
-  const _tmp = () => {
-    console.log(store.getState());
-    setChange(!change);
-  };
+  // const [change, setChange] = React.useState(false);
+  // const _tmp = () => {
+  //   console.log(store.getState());
+  //   setChange(!change);
+  // };
   const setRSVP = () => {
     const state = store.getState().state;
     const relation = state.relation;
-    const id = state.index;
+    // const id = state.index;
     // set_relation(id);
     if (relation === Relation.RSVP) {
       setIsRSVP(false);

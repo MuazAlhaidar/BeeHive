@@ -8,12 +8,11 @@ interface IProps {
   eventList: Array<EventInfo>;
   selectEvent: (i: number) => void;
   addEvent: (
-    name: string,
+    title: string,
     address: string,
     time: string,
     date: string,
-    description: string,
-    id: number
+    description: string
   ) => void;
 }
 

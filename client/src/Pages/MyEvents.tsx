@@ -8,13 +8,13 @@ import EventMemberModal from "../Components/Events/EventMemberModal";
 import TransferManagerModal from "../Components/TransferManagerModal";
 import ConfirmationModal from "../Components/ConfirmationModal";
 import * as API from "../api/Event";
-import { store, redux_index, redux_members } from "../store";
+import { store, redux_index } from "../store";
 import { MemberInfo, EventInfo } from "../Interfaces";
 import { getFormattedDate, getFormattedTime } from "../DateAndTimeFormat";
 
 async function reload(user: string) {
-  const _myevents = await API.getEventManager(user);
-  const _mymembers = await API.getMembers(user);
+  const _myevents = await API.getEventsForManager(user);
+  const _mymembers = await API.getEventMembers(user);
   const myevents = _myevents.data;
   const members = _mymembers.data;
 
@@ -172,7 +172,7 @@ function MyEvents(props: { id: any }) {
       let [month, day, year] = date.split("-").map((i) => parseInt(i));
       let [hour, minute] = time.split(":").map((i) => parseInt(i));
       let thedate = new Date(year, month - 1, day, hour - 5, minute);
-      await API.update(title, description, address, thedate);
+      await API.updateEvent(title, description, address, thedate);
       const e = events.slice();
       e[eventIndex].title = title;
       e[eventIndex].address = address;
@@ -194,7 +194,7 @@ function MyEvents(props: { id: any }) {
 
   const removeEvent = async (i: number) => {
     if (events[i] !== undefined) {
-      await API.Delete(events[i].title);
+      await API.deleteEvent(events[i].title);
       const e = events.slice();
       e.splice(i, 1);
       setEvents(e);

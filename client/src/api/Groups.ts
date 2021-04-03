@@ -11,7 +11,7 @@ function genMessage(_data: any, _msg: any) {
   return { msg: _msg, data: _data };
 }
 
-async function getGroups() {
+async function getAllGroups() {
   return Fire.default
     .firestore()
     .collection("Groups-WEB")
@@ -52,7 +52,7 @@ async function newGroup(name: string, description: string) {
   } else return find;
 }
 
-async function removeGroup(name: string) {
+async function deleteGroup(name: string) {
   return Fire.default
     .firestore()
     .collection("Groups-WEB")
@@ -93,7 +93,7 @@ async function updateGroup(name: string, description: string) {
   }
 }
 
-async function setMembers(name: string, members: string[]) {
+async function setGroupMembers(name: string, members: string[]) {
   return Fire.default
     .firestore()
     .collection("Groups-WEB")
@@ -105,7 +105,7 @@ async function setMembers(name: string, members: string[]) {
     .catch((res: any) => genMessage(res, "Failed to add people to groups"));
 }
 
-async function getMembers(name: string) {
+async function getGroupMembers(name: string) {
   let users = await Fire.default
     .firestore()
     .collection("Groups-WEB")
@@ -134,7 +134,7 @@ async function email(name: string, subject: string, body: string) {
     .doc(name)
     .get()
     .then((res: any) => {
-      let data = res.data();
+      // let data = res.data();
       // return Fire.default.firestore().collection("User-WEB").where("user", "in",
     })
     .catch((err: any) =>
@@ -143,11 +143,11 @@ async function email(name: string, subject: string, body: string) {
 }
 
 export {
-  getGroups,
+  getAllGroups,
   newGroup,
-  removeGroup,
+  deleteGroup,
   updateGroup,
-  setMembers,
-  getMembers,
+  setGroupMembers,
+  getGroupMembers,
   email,
 };
