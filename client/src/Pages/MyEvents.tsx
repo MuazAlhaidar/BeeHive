@@ -61,7 +61,15 @@ async function reload(user: string) {
 }
 
 function MyEvents(props: { id: any }) {
-  const emptyEvent = {} as EventInfo;
+  const emptyEvent: EventInfo = {
+    title: "",
+    creator: "",
+    address: "",
+    date: new Date(2000, 1, 1, 0, 0),
+    description: "",
+    rsvp: Array<string>(),
+    sigin: Array<string>(),
+  };
 
   const [events, setEvents] = React.useState(Array<EventInfo>());
   const [eventIndex, setEventIndex] = React.useState(-1);

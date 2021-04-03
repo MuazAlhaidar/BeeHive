@@ -59,7 +59,7 @@ function MyEvents({ name, id }: IProp) {
     reload(id).then((res) => setEvents(res));
   }, []);
   const [eventIndex, setEventIndex] = React.useState(-1);
-  const emptyEvent = {
+  const emptyEvent: EventInfo2 = {
     title: "",
     creator: "",
     address: "",
@@ -68,7 +68,7 @@ function MyEvents({ name, id }: IProp) {
     rsvp: Array<string>(),
     sigin: Array<string>(),
     relation: Relation.NotRSVP,
-  } as EventInfo2;
+  };
 
   const selectEvent = (i: number) => {
     let index = i === undefined ? 0 : i;
