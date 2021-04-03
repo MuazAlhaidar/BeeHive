@@ -19,8 +19,6 @@ function LogIn(props: { setName: any; setId: any; setOwner: any }) {
           setStatus(1);
           props.setName(username);
           props.setId(data.email);
-          console.log(res.msg);
-          console.log(data[0]);
           store.dispatch(redux_id(data.email));
           // props.setOwner(data[1]);
           return true;
