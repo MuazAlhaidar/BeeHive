@@ -16,12 +16,12 @@ import ResetReq from "./Pages/ResetReq";
 
 function App() {
   const [name, setName] = React.useState("");
-  const [id, setId] = React.useState(-1);
+  const [id, setId] = React.useState("");
   const [owner, setOwner] = React.useState(0);
 
   const logOut = () => {
     setName("");
-    setId(-1);
+    setId("");
     setOwner(0);
   };
 

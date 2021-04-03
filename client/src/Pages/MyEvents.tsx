@@ -13,7 +13,10 @@ import { MemberInfo, EventInfo } from "../Interfaces";
 import { getFormattedDate, getFormattedTime } from "../DateAndTimeFormat";
 
 async function reload(user: string) {
+  console.log(`UserID: ${user}`);
   const _myevents = await API.getEventsForManager(user);
+  console.log(_myevents.msg);
+  console.log(_myevents.data);
   const _mymembers = await API.getEventMembers(user);
   const myevents = _myevents.data;
   const members = _mymembers.data;

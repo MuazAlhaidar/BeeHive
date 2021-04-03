@@ -23,8 +23,8 @@ async function login(email: string, password: string): Promise<Message> {
         .collection("Users-WEB")
         .doc(email)
         .get()
-        .then((re2: any) => {
-          return genMessage(re2.data(), "success");
+        .then((res: any) => {
+          return genMessage(res.data(), "success");
         });
     })
     .catch((res: any) => genMessage(false, "failed to login"));

@@ -1,7 +1,16 @@
 import React from "react";
 import "../CSS/SignUpPanel.css";
 
-function SignInPanel(props: { addUser: any }) {
+interface IProps {
+  addUser: (
+    _firstname: string,
+    _lastname: string,
+    _password: string,
+    _email: string
+  ) => void;
+}
+
+function SignInPanel({ addUser }: IProps) {
   const [firstname, setFirstname] = React.useState("");
   const [lastname, setLastname] = React.useState("");
   const [username, setUsername] = React.useState("");
@@ -31,15 +40,6 @@ function SignInPanel(props: { addUser: any }) {
           />
         </div>
 
-        <p className="SignUpPanel-InputTitle">Enter a new Username</p>
-        <input
-          className="SignUpPanel-Input"
-          type="text"
-          onChange={(e) => setUsername(e.target.value)}
-          id="Username"
-          value={username}
-        />
-
         <p className="SignUpPanel-InputTitle">Enter your Email</p>
         <input
           className="SignUpPanel-Input"
@@ -61,9 +61,7 @@ function SignInPanel(props: { addUser: any }) {
       <div className="SignUpPanel-Buttons">
         <button
           className="SignUpPanel-SignUpButton"
-          onClick={() =>
-            props.addUser(firstname, lastname, username, password, email)
-          }
+          onClick={() => addUser(firstname, lastname, password, email)}
         >
           Sign Up
         </button>

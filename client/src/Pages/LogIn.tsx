@@ -14,13 +14,14 @@ function LogIn(props: { setName: any; setId: any; setOwner: any }) {
     return API.login(username, password)
       .then((res) => {
         let data = res.data;
-        if (data[0] !== -1) {
+        if (data !== false) {
           setUser(username);
           setStatus(1);
           props.setName(username);
           props.setId(data[0]);
+          console.log(res.msg);
+          console.log(data[0]);
           store.dispatch(redux_id(data[0]));
-
           props.setOwner(data[1]);
           return true;
         } else {

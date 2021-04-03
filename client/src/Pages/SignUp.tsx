@@ -61,7 +61,6 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
       case 0:
         return (
           <div>
-            {" "}
             <h1> Welcome {user} </h1> <Redirect push to="/" />{" "}
           </div>
         );
