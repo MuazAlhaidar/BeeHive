@@ -41,6 +41,7 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
         setStatus(0);
         props.setName(_firstname);
         props.setId(_email);
+        props.setOwner(false);
         return true;
     }
     return false;

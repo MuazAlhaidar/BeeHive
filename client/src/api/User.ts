@@ -53,6 +53,7 @@ async function newUser(
               lastName: lName,
               email: email,
               points: 0,
+              isowner: false,
             };
             Fire.default
               .firestore()

@@ -17,12 +17,12 @@ import ResetReq from "./Pages/ResetReq";
 function App() {
   const [name, setName] = React.useState("");
   const [id, setId] = React.useState("");
-  const [owner, setOwner] = React.useState(0);
+  const [owner, setOwner] = React.useState(false);
 
   const logOut = () => {
     setName("");
     setId("");
-    setOwner(0);
+    setOwner(false);
   };
 
   return (
@@ -42,7 +42,7 @@ function App() {
                   MyEvents
                 </Link>
               ) : null}
-              {owner === 1 ? (
+              {owner ? (
                 <Link className="App-link" to="/MyGroups">
                   MyGroups
                 </Link>

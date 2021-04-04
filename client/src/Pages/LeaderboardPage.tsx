@@ -3,13 +3,13 @@ import LeaderboardOwner from "../Components/Leaderboard/Leaderboard";
 import "../CSS/LeaderboardPage.css";
 
 interface IProps {
-  isOwner: number;
+  isOwner: boolean;
 }
 
 function Leaderboard({ isOwner }: IProps) {
   return (
     <div className="Leaderboard-Module">
-      {isOwner === 1 ? <LeaderboardOwner /> : <LeaderboardViewOnly />}
+      {isOwner ? <LeaderboardOwner /> : <LeaderboardViewOnly />}
     </div>
   );
 }

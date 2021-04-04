@@ -3,6 +3,7 @@ interface MemberInfo {
   lastname: string;
   email: string;
   points: number;
+  isowner: boolean;
 }
 
 interface EventInfo {

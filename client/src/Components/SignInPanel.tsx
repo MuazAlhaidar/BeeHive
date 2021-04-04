@@ -13,7 +13,6 @@ interface IProps {
 function SignInPanel({ addUser }: IProps) {
   const [firstname, setFirstname] = React.useState("");
   const [lastname, setLastname] = React.useState("");
-  const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [email, setEmail] = React.useState("");
 
