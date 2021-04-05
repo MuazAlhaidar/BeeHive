@@ -82,7 +82,7 @@ function EventsForm({
             className="EventsForm-BrightButton"
             onClick={toggleEventEditModal}
           >
-            Edit Event
+            Edit
           </button>
           <button
             className="EventsForm-BrightButton"
@@ -94,7 +94,7 @@ function EventsForm({
             className="EventsForm-BrightButton"
             onClick={toggleEmailModal}
           >
-            Email Members
+            Email
           </button>
           <button
             className="EventsForm-BrightButton"
@@ -108,7 +108,7 @@ function EventsForm({
             className="EventsForm-DarkButton"
             onClick={toggleConfirmationModal}
           >
-            Delete Event
+            Delete
           </button>
         </div>
       </div>

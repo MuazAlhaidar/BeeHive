@@ -12,7 +12,7 @@ import "../../CSS/Members/MemberModal.css";
 interface IProps {
   // TODO Get the Group ID
   // For IsInGroup
-  // Only way we can ge the members
+  // Only way we can get the members
   groupID: string;
   allMembers: Array<MemberInfo>;
   memberList: Array<string>;

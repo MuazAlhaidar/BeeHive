@@ -20,7 +20,7 @@ function LogIn(props: { setName: any; setId: any; setOwner: any }) {
           props.setName(username);
           props.setId(data.email);
           store.dispatch(redux_id(data.email));
-          // props.setOwner(data[1]);
+          props.setOwner(data.isowner);
           return true;
         } else {
           setStatus(-1);

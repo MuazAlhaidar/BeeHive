@@ -18,7 +18,9 @@ interface IProp {
 
 async function reload(id: any) {
   const allevents = await API.getAllEvents();
+  // Turn the Promise to and Array of events
   const events = allevents.map((i: any) => {
+    // Convert from TIMESTAMP to Date
     let date_obj = new Date(i.date.toDate());
     let _relation = null;
     switch (i.relation) {
@@ -31,7 +33,6 @@ async function reload(id: any) {
       default:
         _relation = Relation.NotRSVP;
     }
-    console.log(date_obj, typeof date_obj)
     return {
       title: i.title,
       creator: i.creator,
@@ -75,7 +76,6 @@ function MyEvents({ name, id }: IProp) {
     let index = i === undefined ? 0 : i;
     store.dispatch(redux_index(i));
     store.dispatch(redux_rsvp(events[i].relation));
-    console.log(`EventDate: ${events[index].date.getMonth()}`);
     setEventIndex(index);
   };
 
@@ -85,6 +85,9 @@ function MyEvents({ name, id }: IProp) {
         <EventList eventList={events} selectEvent={selectEvent} />
       </div>
       <div className="MyEvents-EventForm">
+        {/* If the user is not logged in
+            shot the nonMember page, else 
+            show the regular event form */}
         {name === "" ? (
           eventIndex > events.length - 1 || eventIndex < 0 ? (
             <EventsFormNonMember event={emptyEvent} />

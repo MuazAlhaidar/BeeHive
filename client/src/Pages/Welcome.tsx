@@ -1,4 +1,3 @@
-import React from "react";
 import blackLogo from "../Images/Members App Logo - Final Large.png";
 import whiteLogo from "../Images/Members App Logo - White Large.png";
 

@@ -3,7 +3,7 @@ import "../../CSS/Events/EventsEdit.css";
 
 interface IProps {
   showModal: boolean;
-  curEvent: {
+  currentEvent: {
     title: string;
     address: string;
     time: string;
@@ -31,17 +31,17 @@ function EventEdit({
   showModal,
   setShowModal,
   editEvent,
-  curEvent,
+  currentEvent,
   setCurEvent,
 }: IProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     editEvent(
-      curEvent.title,
-      curEvent.address,
-      curEvent.time,
-      curEvent.date,
-      curEvent.description
+      currentEvent.title,
+      currentEvent.address,
+      currentEvent.time,
+      currentEvent.date,
+      currentEvent.description
     );
     setShowModal(!showModal);
   };
@@ -62,14 +62,14 @@ function EventEdit({
                   className="EventEdit-Name"
                   type="text"
                   id="name"
-                  value={curEvent.title}
+                  value={currentEvent.title}
                   onChange={(e) =>
                     setCurEvent({
                       title: e.target.value,
-                      address: curEvent.address,
-                      time: curEvent.time,
-                      date: curEvent.date,
-                      description: curEvent.description,
+                      address: currentEvent.address,
+                      time: currentEvent.time,
+                      date: currentEvent.date,
+                      description: currentEvent.description,
                     })
                   }
                 />
@@ -85,14 +85,14 @@ function EventEdit({
                     className="EventEdit-Address"
                     type="text"
                     id="address"
-                    value={curEvent.address}
+                    value={currentEvent.address}
                     onChange={(e) =>
                       setCurEvent({
-                        title: curEvent.title,
+                        title: currentEvent.title,
                         address: e.target.value,
-                        time: curEvent.time,
-                        date: curEvent.date,
-                        description: curEvent.description,
+                        time: currentEvent.time,
+                        date: currentEvent.date,
+                        description: currentEvent.description,
                       })
                     }
                   />
@@ -100,14 +100,14 @@ function EventEdit({
                     className="EventEdit-Time"
                     type="time"
                     id="time"
-                    value={curEvent.time}
+                    value={currentEvent.time}
                     onChange={(e) =>
                       setCurEvent({
-                        title: curEvent.title,
-                        address: curEvent.address,
+                        title: currentEvent.title,
+                        address: currentEvent.address,
                         time: e.target.value,
-                        date: curEvent.date,
-                        description: curEvent.description,
+                        date: currentEvent.date,
+                        description: currentEvent.description,
                       })
                     }
                   />
@@ -115,14 +115,14 @@ function EventEdit({
                     className="EventEdit-Date"
                     type="date"
                     id="date"
-                    value={curEvent.date}
+                    value={currentEvent.date}
                     onChange={(e) =>
                       setCurEvent({
-                        title: curEvent.title,
-                        address: curEvent.address,
-                        time: curEvent.time,
+                        title: currentEvent.title,
+                        address: currentEvent.address,
+                        time: currentEvent.time,
                         date: e.target.value,
-                        description: curEvent.description,
+                        description: currentEvent.description,
                       })
                     }
                   />
@@ -136,13 +136,13 @@ function EventEdit({
                   className="EventEdit-Description"
                   aria-multiline
                   id="description"
-                  value={curEvent.description}
+                  value={currentEvent.description}
                   onChange={(e) =>
                     setCurEvent({
-                      title: curEvent.title,
-                      address: curEvent.address,
-                      time: curEvent.time,
-                      date: curEvent.date,
+                      title: currentEvent.title,
+                      address: currentEvent.address,
+                      time: currentEvent.time,
+                      date: currentEvent.date,
                       description: e.target.value,
                     })
                   }

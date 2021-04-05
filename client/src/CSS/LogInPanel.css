@@ -18,6 +18,15 @@
   width: 295px;
 }
 
+.LoginPanel-Buttons {
+  display: flex;
+  justify-content: space-around;
+  font-size: 20px;
+  font-weight: bold;
+  height: 50px;
+  margin: 20px 48px 10px 50px;
+}
+
 .LoginPanel-LoginAsGuest {
   background-color: #ffffff;
   border: 2px solid lightgray;
@@ -26,18 +35,14 @@
   width: 130px;
   border-radius: 5px;
   font-weight: bold;
-}
-
-.LoginPanel-Buttons {
-  display: flex;
-  justify-content: space-around;
-  font-size: 20px;
-  font-weight: bold;
-  height: 50px;
-  padding: 20px 15px 10px 15px;
+  margin-right: 50px;
 }
 
 .LoginPanel-Login {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
   background-color: #ff9442;
   border: 1px solid #ff9442;
   box-shadow: 3px 3px 5px gray;

@@ -11,6 +11,7 @@ function Leaderboard() {
       lastname: "default",
       email: "default",
       points: 0,
+      isowner: false,
     })
   );
 
@@ -34,7 +35,6 @@ function Leaderboard() {
           return ret;
         });
         test = test as MemberInfo[];
-        // setReload(false)
         setMembers(test);
         setSortedList(test);
         setReload(true);

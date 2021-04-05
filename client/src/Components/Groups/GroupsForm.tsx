@@ -31,13 +31,13 @@ function GroupsForm({
             className="GroupsForm-BrightButton"
             onClick={toggleGroupEditModal}
           >
-            Edit Group
+            Edit
           </button>
           <button
             className="GroupsForm-BrightButton"
             onClick={toggleEmailModal}
           >
-            Email Group
+            Email
           </button>
         </div>
         <div className="GroupsForm-DarkButtonGroup">
@@ -45,7 +45,7 @@ function GroupsForm({
             className="GroupsForm-DarkButton"
             onClick={toggleConfirmationModal}
           >
-            Delete Group
+            Delete
           </button>
         </div>
       </div>

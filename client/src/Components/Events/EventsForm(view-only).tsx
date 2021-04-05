@@ -37,7 +37,7 @@ function EventsForm({ event }: IProps) {
       setIsRSVP(true);
       store.dispatch(redux_rsvp(Relation.RSVP));
     } else {
-      console.log("OH NOOOOOOOOOOOOOOO");
+      console.log(`Could Not change RSVP, CURRENT RELATION: ${relation}`);
     }
     changeIndex();
   };

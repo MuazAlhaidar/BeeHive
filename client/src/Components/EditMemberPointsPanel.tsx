@@ -29,7 +29,6 @@ function EditMemberPointsPanel({ member, reloadParent }: IProps) {
     member.points = newNumber;
     // update_points([member])
     console.log(member);
-
     reloadParent();
   };
 

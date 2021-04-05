@@ -13,16 +13,15 @@ import { MemberInfo, EventInfo } from "../Interfaces";
 import { getFormattedDate, getFormattedTime } from "../DateAndTimeFormat";
 
 async function reload(user: string) {
-  const myevents = ((await API.getEventsForManager(user)).data) as Array<EventInfo>;
-  let tmp = myevents.map(async (i:EventInfo)=>{
-          i.rsvp = (await API.getEventMembers(i.title)).data
-          let tmp = i.date as any
-          i.date = tmp.toDate()
-          // i.title = "Justice"
-          return i
-  })
-  return Promise.all(tmp) .then((res:Array<EventInfo>)=>res)
-
+  const myevents = (await API.getEventsForManager(user))
+    .data as Array<EventInfo>;
+  let tmp = myevents.map(async (i: EventInfo) => {
+    i.rsvp = (await API.getEventMembers(i.title)).data;
+    let tmp = i.date as any;
+    i.date = tmp.toDate();
+    return i;
+  });
+  return Promise.all(tmp).then((res: Array<EventInfo>) => res);
 }
 
 function MyEvents(props: { id: any }) {
@@ -58,9 +57,7 @@ function MyEvents(props: { id: any }) {
   });
 
   React.useEffect(() => {
-          // alert(props.id)
     reload(props.id).then((res) => setEvents(res));
-    // reload(props.id)
   }, [eventIndex, checkReload]);
 
   const toggleEmailModal = () => {
@@ -192,7 +189,7 @@ function MyEvents(props: { id: any }) {
         showModal={showEventEditModal}
         setShowModal={setShowEventEditModal}
         editEvent={editEvent}
-        curEvent={curEvent}
+        currentEvent={curEvent}
         setCurEvent={setCurEvent}
       />
       <EventMemberModal

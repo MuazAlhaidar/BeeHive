@@ -137,7 +137,7 @@ function MyGroups() {
         showModal={showGroupEditModal}
         setShowModal={setShowGroupEditModal}
         editGroup={editGroup}
-        curGroup={curGroup}
+        currentGroup={curGroup}
         setCurGroup={setCurGroup}
       />
       <ConfirmationModal

@@ -15,7 +15,7 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
     _password: string,
     _email: string
   ): Promise<boolean> {
-    // Checkinging fields
+    // Checking if the email is valid with this regex
     const re = /\S+@\S+\.\S+/;
 
     if (!re.test(_email)) {
@@ -24,7 +24,7 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
     }
 
     let res = await API.newUser(_email, _password, _firstname, _lastname);
-    // Backend shit
+    // Backend
     switch (res.data) {
       case 1:
         setStatus(1);
@@ -52,13 +52,11 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
       case -1:
         return <h1> Sign Up </h1>;
       case 1:
-        return <h1> Sign up failed: username/email already in database</h1>;
+        return <h1> Sign up failed: username/email already in use</h1>;
       case 2:
-        return (
-          <h1> Sign up failed: DEV ERROR: empty fields have been inserted</h1>
-        );
+        return <h1> Sign up failed: There are empty fields</h1>;
       case 4:
-        return <h1> Sign up failed: Bad email format. </h1>;
+        return <h1> Sign up failed: Email format is invalid. </h1>;
       case 0:
         return (
           <div>
@@ -66,7 +64,7 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
           </div>
         );
       default:
-        return <h1> Sign up failed: another reason </h1>;
+        return <h1> Sign up failed - Error Code {status} </h1>;
     }
   }
 

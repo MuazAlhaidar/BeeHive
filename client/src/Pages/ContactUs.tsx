@@ -1,4 +1,3 @@
-import React from "react";
 import ContactUsInfo from "../Components/ContactUsInfo";
 import "../CSS/ContactUs.css";
 

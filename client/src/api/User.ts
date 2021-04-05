@@ -14,6 +14,7 @@ function genMessage(_data: any, _msg: any) {
 }
 
 async function login(email: string, password: string): Promise<Message> {
+  // Take in user login credentials and authenticate them
   return Fire.default
     .auth()
     .signInWithEmailAndPassword(email, password)
@@ -33,10 +34,9 @@ async function login(email: string, password: string): Promise<Message> {
 async function newUser(
   email: string,
   password: string,
-  fName: string,
-  lName: string
+  firstname: string,
+  lastname: string
 ): Promise<Message> {
-  // async function new_user(email,  password, fName, lName){
   return Fire.default
     .auth()
     .createUserWithEmailAndPassword(email, password)
@@ -47,10 +47,11 @@ async function newUser(
         .doc(email)
         .get()
         .then((snapshot: any) => {
+          // Only add the user if the user does not already exist
           if (!snapshot.exists) {
             let user = {
-              firstName: fName,
-              lastName: lName,
+              firstname: firstname,
+              lastname: lastname,
               email: email,
               points: 0,
               isowner: false,
@@ -70,10 +71,10 @@ async function newUser(
     .catch((err: any) => genMessage(2, "User already exists"));
 }
 
-async function resetPassword(_email: string): Promise<Message> {
+async function resetPassword(email: string): Promise<Message> {
   return Fire.default
     .auth()
-    .sendPasswordResetEmail(_email)
+    .sendPasswordResetEmail(email)
     .then((res: any) => genMessage(true, "Reset password email sent"))
     .catch((res: any) => genMessage(false, "Failed to send password"));
 }
@@ -84,6 +85,8 @@ async function getallUsers(): Promise<Message> {
     .collection("Users-WEB")
     .get()
     .then((res: any) =>
+      // Get all of the users in the database
+      // for points adustments and the leaderboard
       genMessage(
         res.docs.map((x: any) => x.data()),
         "All Members"
@@ -92,6 +95,10 @@ async function getallUsers(): Promise<Message> {
     .catch((res: any) => res);
 }
 
+// TODO We are gonna have alot of problems with this
+// the old email will become the new email which
+// means that we can no longer find the user if
+// their email has changed since we cant change IDs
 async function changeEmail(
   oldemail: any,
   newemail: string

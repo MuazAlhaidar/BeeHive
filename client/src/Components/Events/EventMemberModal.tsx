@@ -12,16 +12,17 @@ interface IProps {
 }
 
 function EventMemberModal({ showModal, setShowModal, members }: IProps) {
-  // const [members, setMembers] = React.useState(store.getState().state.members);
-
   let sortedList = Array<MemberInfo>({
     firstname: "",
     lastname: "",
     email: "",
     points: 0,
+    isowner: false,
   });
+
   if (members! !== null) {
-    var _members = (members as unknown) as MemberInfo[];
+    let _members = (members as unknown) as MemberInfo[];
+    // Sort the members from highest points to lowest
     sortedList = _members.sort((a, b) => (a.points < b.points ? 1 : -1));
   }
 
@@ -53,6 +54,7 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
               <div className="EventMemberModal-Points">Points</div>
             </div>
             <div className="EventMemberModal-MemberList">
+              {/* List all of them members out */}
               {sortedList[0].email !== ""
                 ? sortedList.map((member, index) => {
                     return (

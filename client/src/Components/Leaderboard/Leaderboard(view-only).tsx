@@ -10,6 +10,7 @@ function Leaderboard() {
       lastname: "default",
       email: "default",
       points: 0,
+      isowner: false,
     })
   );
   const [reload, setReload] = React.useState(false);
@@ -29,7 +30,6 @@ function Leaderboard() {
           return ret;
         });
         test = test as MemberInfo[];
-        // setReload(false)
         setMembers(test);
         let list = allMembers.sort((a, b) => (a.points < b.points ? 1 : -1));
         setSortedList(list);

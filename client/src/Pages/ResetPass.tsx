@@ -80,8 +80,7 @@ function ResetPassword(props: { token: any }) {
               request(evt);
             }}
           >
-            {" "}
-            Reset Password{" "}
+            Reset Password
           </button>
         </div>
       </div>

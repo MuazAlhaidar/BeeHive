@@ -25,6 +25,7 @@ function TransferManagerModal({
     lastname: "",
     email: "",
     points: 0,
+    isowner: false,
   });
 
   const [sortedList, setSortedList] = React.useState(

@@ -3,7 +3,7 @@ import "../../CSS/Groups/GroupsEdit.css";
 
 interface IProps {
   showModal: boolean;
-  curGroup: {
+  currentGroup: {
     name: string;
     description: string;
   };
@@ -16,12 +16,12 @@ function GroupsEdit({
   showModal,
   setShowModal,
   editGroup,
-  curGroup,
+  currentGroup,
   setCurGroup,
 }: IProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    editGroup(curGroup.name, curGroup.description);
+    editGroup(currentGroup.name, currentGroup.description);
     setShowModal(!showModal);
     setCurGroup({ name: "", description: "" });
   };
@@ -43,11 +43,11 @@ function GroupsEdit({
                   className="GroupsEdit-Name"
                   type="text"
                   id="name"
-                  value={curGroup.name}
+                  value={currentGroup.name}
                   onChange={(e) =>
                     setCurGroup({
                       name: e.target.value,
-                      description: curGroup.description,
+                      description: currentGroup.description,
                     })
                   }
                 />
@@ -60,10 +60,10 @@ function GroupsEdit({
                   className="GroupsEdit-ContactInfo"
                   aria-multiline
                   id="description"
-                  value={curGroup.description}
+                  value={currentGroup.description}
                   onChange={(e) =>
                     setCurGroup({
-                      name: curGroup.name,
+                      name: currentGroup.name,
                       description: e.target.value,
                     })
                   }

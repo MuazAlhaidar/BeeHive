@@ -1,4 +1,3 @@
-import React from "react";
 import { OverlayTrigger } from "react-bootstrap";
 import EditMemberPointsPanel from "./EditMemberPointsPanel";
 import "../CSS/EditMemberPointsButtom.css";

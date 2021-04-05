@@ -1,4 +1,3 @@
-import React from "react";
 import "../../CSS/Events/Event.css";
 
 interface IProps {
@@ -10,6 +9,8 @@ interface IProps {
 function Event({ name, index, selectEvent }: IProps) {
   return (
     <div className="Event">
+      {/* if the event gets clicked on, run the select
+          event function in the MyEvents or AllEvents pages */}
       <button
         className="Event-Button"
         onClick={() => {

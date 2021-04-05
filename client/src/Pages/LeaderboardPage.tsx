@@ -9,6 +9,9 @@ interface IProps {
 function Leaderboard({ isOwner }: IProps) {
   return (
     <div className="Leaderboard-Module">
+      {/* If the user is an owner, show the 
+          leaderboard with editable points
+          else show the view only leaderboard */}
       {isOwner ? <LeaderboardOwner /> : <LeaderboardViewOnly />}
     </div>
   );
