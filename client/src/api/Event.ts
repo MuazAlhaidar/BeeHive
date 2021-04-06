@@ -104,10 +104,18 @@ async function getAllEvents() {
       .collection("Events-WEB")
       .get()
       // Return all Events
-      .then((res: any) => res.docs.map((x: any) => x.data()))
+      .then((res: any) => res.docs.map((x: any) =>{
+              let tmp = x.data()
+              tmp["id"] = tmp.id
+              return tmp
+
+      }))
       .catch((res: any) => res)
   );
 }
+getAllEvents().then(res=>{
+        console.log(res)
+})
 
 // Only returns true
 async function deleteEvent(EventTitle: string) {
