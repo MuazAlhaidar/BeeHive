@@ -13,6 +13,7 @@ interface IProps {
 
 function EventMemberModal({ showModal, setShowModal, members }: IProps) {
   let sortedList = Array<MemberInfo>({
+    id: "0",
     firstname: "",
     lastname: "",
     email: "",

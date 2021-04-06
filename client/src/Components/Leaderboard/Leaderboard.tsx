@@ -7,6 +7,7 @@ import { MemberInfo } from "../../Interfaces";
 function Leaderboard() {
   const [allMembers, setMembers] = React.useState(
     Array<MemberInfo>({
+      id: "0",
       firstname: "default",
       lastname: "default",
       email: "default",

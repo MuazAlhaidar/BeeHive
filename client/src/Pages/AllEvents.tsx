@@ -62,6 +62,7 @@ function MyEvents({ name, id }: IProp) {
   }, []);
   const [eventIndex, setEventIndex] = React.useState(-1);
   const emptyEvent: EventInfo2 = {
+    id: "0",
     title: "",
     creator: "",
     address: "",

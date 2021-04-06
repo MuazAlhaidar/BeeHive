@@ -93,7 +93,8 @@ function MyGroups() {
   const addGroup = (name: string, description: string, members: any) => {
     API.newGroup(name, description).then((res) => {
       const g = groups.slice();
-      g.push({ name, description, members });
+      // TODO Have this take in a UUID
+      g.push({ id: "0", name, description, members });
       setGroups(g);
       setGroupIndex(groups.length);
       setCurGroup({
@@ -106,6 +107,7 @@ function MyGroups() {
 
   const editGroup = (name: string, description: string) => {
     if (groups[groupIndex] !== undefined) {
+      // TODO Have this take in a UUID
       API.updateGroup(name, description).then((res) => {
         const g = groups.slice();
         g[groupIndex].name = name;
@@ -121,6 +123,7 @@ function MyGroups() {
 
   const removeGroup = (i: number) => {
     if (groups[groupIndex] !== undefined)
+      // TODO Have this take in a UUID
       API.deleteGroup(groups[groupIndex].name).then((res) => {
         const g = groups.slice();
         g.splice(i, 1);

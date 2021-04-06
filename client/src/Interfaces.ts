@@ -1,4 +1,5 @@
 interface MemberInfo {
+  id: string;
   firstname: string;
   lastname: string;
   email: string;
@@ -7,6 +8,7 @@ interface MemberInfo {
 }
 
 interface EventInfo {
+  id: string;
   title: string;
   creator: string;
   address: string;
@@ -17,6 +19,7 @@ interface EventInfo {
 }
 
 interface GroupInfo {
+  id: string;
   name: string;
   description: string;
   members: Array<string>;

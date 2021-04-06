@@ -21,6 +21,7 @@ function TransferManagerModal({
   event,
 }: IProps) {
   const fakeMembers = Array<MemberInfo>({
+    id: "0",
     firstname: "",
     lastname: "",
     email: "",

@@ -16,6 +16,7 @@ async function reload(user: string) {
   const myevents = (await API.getEventsForManager(user))
     .data as Array<EventInfo>;
   let tmp = myevents.map(async (i: EventInfo) => {
+    // TODO have this take in an ID
     i.rsvp = (await API.getEventMembers(i.title)).data;
     let tmp = i.date as any;
     i.date = tmp.toDate();
@@ -26,6 +27,7 @@ async function reload(user: string) {
 
 function MyEvents(props: { id: any }) {
   const emptyEvent: EventInfo = {
+    id: "0",
     title: "",
     creator: "",
     address: "",
@@ -111,9 +113,12 @@ function MyEvents(props: { id: any }) {
     let [month, day, year] = date.split("-").map((i) => parseInt(i));
     let [hour, minute] = time.split(":").map((i) => parseInt(i));
     let thedate = new Date(year, month - 1, day, hour, minute);
+    // TODO Have this take in a UUID
     let _tmp = await API.newEvent(title, description, address, thedate);
     const e = events.slice();
     e.push({
+      // TODO generate an actual UUID
+      id: "0",
       title,
       address,
       date: thedate,
@@ -144,6 +149,7 @@ function MyEvents(props: { id: any }) {
       let [month, day, year] = date.split("-").map((i) => parseInt(i));
       let [hour, minute] = time.split(":").map((i) => parseInt(i));
       let thedate = new Date(year, month - 1, day, hour - 5, minute);
+      // TODO Have this take in an ID
       await API.updateEvent(title, description, address, thedate);
       const e = events.slice();
       e[eventIndex].title = title;
@@ -166,6 +172,7 @@ function MyEvents(props: { id: any }) {
 
   const removeEvent = async (i: number) => {
     if (events[i] !== undefined) {
+      // TODO Have this take in an ID
       await API.deleteEvent(events[i].title);
       const e = events.slice();
       e.splice(i, 1);
