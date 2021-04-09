@@ -1,4 +1,5 @@
 import { Fire } from "./config.js";
+import * from "./Firebase" as FireAPI
 import "firebase/auth";
 import "firebase/firestore";
 
