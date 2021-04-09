@@ -70,7 +70,6 @@ async function newUser(
     })
     .catch((err: any) => genMessage(2, "User already exists"));
 }
-
 async function resetPassword(email: string): Promise<Message> {
   return Fire.default
     .auth()
