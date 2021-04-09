@@ -1,5 +1,5 @@
 import { Fire } from "./config.js";
-import * from "./Firebase" as FireAPI
+import * as FireAPI from "./Firebase";
 import "firebase/auth";
 import "firebase/firestore";
 
@@ -39,11 +39,7 @@ async function newEvent(
   let email = user?.currentUser?.email;
   if (find === true) {
     // If the event does not exist
-    return Fire.default
-      .firestore()
-      .collection("Events-WEB")
-      .doc(title) // We use a title as the ID for an event
-      .set({
+    return FireAPI.newDoc("Events-WEB", {
         title: title,
         address: address,
         date: date,
@@ -51,94 +47,41 @@ async function newEvent(
         creator: email,
         rsvp: [],
         signin: [],
-      })
-      .then((res: any) => genMessage(title, "Made a new event"))
-      .catch((err: any) => genMessage(err, "Failed to make event"));
+      }, "title")
   } else return find;
 }
 
 async function updateEvent(
+  id:string,
   title: string,
   desc: string,
   address: string,
   date: Date
 ) {
-  let find = await Fire.default
-    .firestore()
-    .collection("Events-WEB")
-    .doc(title)
-    .get()
-    .then((documentSnapshot: any) => {
-      if (documentSnapshot.exists) {
-        return genMessage(
-          -1,
-          "This Event already exists. \n Please enter a new Name."
-        );
-      } else {
-        return true;
-      }
-    });
-
-  if (find === true) {
-    // If the provided event name does not exist
-    return Fire.default
-      .firestore()
-      .collection("Events-WEB")
-      .doc(title)
-      .update({
+        return FireAPI.updateDoc("Events-WEB", {
         title: title,
         description: desc,
         address: address,
         date: date,
-      })
-      .then((res: any) => genMessage(res, "Updated event"))
-      .catch((res: any) => genMessage(res, "Failed to Updated event"));
-  } else {
-    return find;
-  }
+      }, id, "title")
+
 }
 
 async function getAllEvents() {
-  return (
-    Fire.default
-      .firestore()
-      .collection("Events-WEB")
-      .get()
-      // Return all Events
-      .then((res: any) => res.docs.map((x: any) =>{
-              let tmp = x.data()
-              tmp["id"] = tmp.id
-              return tmp
-
-      }))
-      .catch((res: any) => res)
-  );
+        return FireAPI.getDoc("Events-WEB")
 }
-getAllEvents().then(res=>{
-        console.log(res)
-})
 
 // Only returns true
-async function deleteEvent(EventTitle: string) {
-  return (
-    Fire.default
-      .firestore()
-      .collection("Events-WEB")
-      // Using the title (since we are using it as an ID)
-      // Find the event and delete it
-      .doc(EventTitle)
-      .delete()
-      .then((res: any) => genMessage(res, "Deleted the event"))
-      .catch((res: any) => genMessage(res, "Failed to delete event"))
-  );
+async function deleteEvent(EventId: string) {
+        return FireAPI.delet("Events-WEB", EventId)
 }
 
 // TODO have a function to unRSVP from an event
-async function updateRSVP(EventTitle: string, email: string) {
+async function updateRSVP(EventId: string, email: string) {
   Fire.default
     .firestore()
     .collection("Events-WEB")
-    .doc(EventTitle)
+    .doc(EventId)
     // Using the title we find the event
     // Update the RSVP list of the event
     .update({ rsvp: Fire.default.firestore.FieldValue.arrayUnion(email) });

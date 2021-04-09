@@ -108,5 +108,9 @@ export async function getDocsSub(collection, subcollection, subterm:string, subq
 
 export async function update(collection, id, obj){
         const ref = Fire.default.firestore().collection(collection)
-        return ref.doc(id).update(obj)
+        return genMessage(await ref.doc(id).update(obj), "Updated " + collection+"/"+id)
+}
+export async function delet(collection, id){
+        const ref = Fire.default.firestore().collection(collection)
+        return genMessage(await ref.doc(id).delete(), "Delete "+collection+"/" + id)
 }
