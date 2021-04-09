@@ -13,8 +13,20 @@ function getid(value:{id:string, data:()=>any}){
         tmp["id"]=value.id
         return tmp
 }
+export async function query(collection, queryTerm=undefined, query=undefined){
+        const ref = Fire.default.firestore().collection(collection)
+        if(queryTerm!==undefined){
+                return ref.where(queryTerm, "==", query).get()
+        }
+        else{
+                return ref.get()
+        }
+
+}
 export async function newDoc(collection, entry,queryTerm=undefined  ){
         const ref = Fire.default.firestore().collection(collection)
+        let result = query(collection, entry, queryTerm)
+        /*
         if(queryTerm!==undefined){
                 let find = await ref.where(queryTerm, "==",entry[queryTerm]).get()
                 .then((documentSnapshot: any) => {
@@ -48,6 +60,9 @@ export async function newDoc(collection, entry,queryTerm=undefined  ){
                 .then((res: any) => genMessage(entry["queryTerm"], "Made a new "+collection))
                 .catch((err: any) => genMessage(err, "Failed to make a "+collection));
         }
+        */
+       return result
+
 
 }
 
@@ -104,16 +119,6 @@ export async function getDoc(collection, queryTerm=undefined, query=""){
                 })
 
         }
-}
-export async function query(collection, queryTerm=undefined, query=undefined){
-        const ref = Fire.default.firestore().collection(collection)
-        if(queryTerm!==undefined){
-                return ref.where(queryTerm, "==", query).get()
-        }
-        else{
-                return ref.get()
-        }
-
 }
 
 export async function subquery(collection, subcollection, subterm:string, subqueryTerm=undefined, queryTerm=undefined, cquery=undefined){
