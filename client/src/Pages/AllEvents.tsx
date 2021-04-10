@@ -16,13 +16,14 @@ interface IProp {
   id: number | any;
 }
 
-async function reload(id: any) {
-  const allevents = await API.getAllEvents();
+async function reload(id: any)  {
+  const allevents = await API.getAllEvents(id);
   // Turn the Promise to and Array of events
-  const events = allevents.data.map((i: any) => {
+  const events = allevents.map((i: any) => {
     // Convert from TIMESTAMP to Date
-    let date_obj = new Date(i.date.toDate());
+    // let date_obj = new Date(i.date.toDate());
     let _relation = null;
+    console.log("I relation!", i.relation)
     switch (i.relation) {
       case Relation.Manager:
         _relation = Relation.Manager;
@@ -33,18 +34,22 @@ async function reload(id: any) {
       default:
         _relation = Relation.NotRSVP;
     }
+    console.log(i)
     return {
+            id: i.id,
       title: i.title,
       creator: i.creator,
       description: i.description,
       address: i.address,
-      date: date_obj,
+      date: i.date,
       rsvp: i.rsvp,
       signin: i.signin,
       relation: _relation,
     };
   });
   return events;
+  /*
+  */
 }
 
 function MyEvents({ name, id }: IProp) {
@@ -57,8 +62,11 @@ function MyEvents({ name, id }: IProp) {
   //     events[i].relation = Relation.RSVP;
   //   }
   // };
+  /*
+  */
   React.useEffect(() => {
     reload(id).then((res) => setEvents(res));
+    // reload(id)
   }, []);
   const [eventIndex, setEventIndex] = React.useState(-1);
   const emptyEvent: EventInfo2 = {

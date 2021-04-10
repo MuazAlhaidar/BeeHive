@@ -3,7 +3,7 @@ import TwitterLogo from "../../Images/Twitter_Social_Icon_Rounded_Square_Color.p
 import FacebookLogo from "../../Images/f_logo_RGB-Blue_58.png";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import "../../CSS/Events/EventsForm(view-only).css";
-// import * as API from "../../api/Event";
+import * as API from "../../api/Event";
 import { store, redux_rsvp } from "../../store";
 import { getFormattedDate, getFormattedTime } from "../../DateAndTimeFormat";
 import { EventInfo } from "../../Interfaces";
@@ -29,10 +29,12 @@ function EventsForm({ event }: IProps) {
     const relation = state.relation;
     // const id = state.index;
     // set_relation(id);
+    console.log(event.id, relation, state.id)
     if (relation === Relation.RSVP) {
       setIsRSVP(false);
       store.dispatch(redux_rsvp(Relation.NotRSVP));
     } else if (relation === Relation.NotRSVP) {
+      API.updateRSVP(event.id, state.id)
       changeIndex();
       setIsRSVP(true);
       store.dispatch(redux_rsvp(Relation.RSVP));

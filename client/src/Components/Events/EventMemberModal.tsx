@@ -21,7 +21,8 @@ function EventMemberModal({ showModal, setShowModal, members }: IProps) {
     isowner: false,
   });
 
-  if (members! !== null) {
+  if (members !== null && members.length !=0) {
+    
     let _members = (members as unknown) as MemberInfo[];
     // Sort the members from highest points to lowest
     sortedList = _members.sort((a, b) => (a.points < b.points ? 1 : -1));

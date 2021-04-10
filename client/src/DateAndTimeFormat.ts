@@ -50,7 +50,7 @@ function getFormattedTime(event: EventInfo) {
   // return "engineer"
   }
   catch(e){
-          console.log(e)
+          console.log(event.date)
           return "this/sucks"
   }
 }

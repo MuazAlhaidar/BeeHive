@@ -24,7 +24,6 @@ async function newEvent(
   let user = Fire.default.auth();
   let email = user?.currentUser?.email;
   // let userid =await FireAPI.getDoc("Users-WEB", "email", email)
-  console.log("LOVE")
 
     // If the event does not exist
     let tmp= await FireAPI.newDoc("Events-WEB", {
@@ -57,8 +56,21 @@ async function updateEvent(
 
 }
 
-async function getAllEvents() {
-        return FireAPI.getDoc("Events-WEB")
+async function getAllEvents(id:string|undefined) {
+        // return FireAPI.getDoc("Events-WEB")
+
+        return (await FireAPI.getDoc("Events-WEB")).data.map((x:any)=>{
+                if(x.creator==id)
+                        return null
+                x["date"] = x["date"].toDate()
+
+                // Sorry for htis
+                // if it's 0, then it will return true, or the user IS rsvp to an event
+                // else, it will return 1, or the user is not rsvp to an event
+                x["relation"] = x["rsvp"].includes(id)? 0:1
+              return x
+
+      }).filter((x:any)=>x!=null)
 }
 
 // Only returns true
@@ -67,6 +79,7 @@ async function deleteEvent(EventId: string) {
 }
 
 async function updateRSVP(EventId: string, userId: string) {
+        console.log("Rap snitches")
   Fire.default
     .firestore()
     .collection("Events-WEB")
