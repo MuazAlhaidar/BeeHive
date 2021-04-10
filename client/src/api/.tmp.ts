@@ -4,11 +4,12 @@ import {newEvent, updateEvent, getAllEvents, deleteEvent, transferEvent, getEven
 // newUser("ahmedzakariya355@gmail.com", "passpass", "Zaki", "Ahmed")
 // login("ahmedzakariya355@gmail.com", "passpass")
 
-getEventsForManager("graphinetime@gmail.com")
-.then(res=>{
-        console.log(res)
-})
 
-.catch(res=>{
-        console.log(res)
-})
+// getEventsForManager("og1pncoW4SdP4Y1LaQYA")
+// .then(res=>{
+//         console.log(res)
+// })
+
+// .catch(res=>{
+//         console.log(res)
+// })
