@@ -17,27 +17,13 @@ async function newEvent(
   desc: string,
   address: string,
   date: Date
-) {
-  let find = await Fire.default
-    .firestore()
-    .collection("Events-WEB")
-    .doc(title) // We use a title as the ID for an event
-    .get()
-    .then((documentSnapshot: any) => {
-      // If the document already exists then fail
-      if (documentSnapshot.exists) {
-        return genMessage(
-          -1,
-          "This Event already exists. \n Please enter a new Name."
-        );
-      } else {
-        return true;
-      }
-    });
 
+) {
   let user = Fire.default.auth();
   let email = user?.currentUser?.email;
-  if (find === true) {
+  let userid =await FireAPI.getDoc("Users-WEB", "email", email)
+  console.log(userid)
+
     // If the event does not exist
     return FireAPI.newDoc("Events-WEB", {
         title: title,
@@ -48,8 +34,8 @@ async function newEvent(
         rsvp: [],
         signin: [],
       }, "title")
-  } else return find;
-}
+  } 
+
 
 async function updateEvent(
   id:string,
@@ -87,18 +73,8 @@ async function updateRSVP(EventId: string, email: string) {
     .update({ rsvp: Fire.default.firestore.FieldValue.arrayUnion(email) });
 }
 
-async function transferEvent(EventTitle: string, User: string) {
-  return (
-    Fire.default
-      .firestore()
-      .collection("Events-WEB")
-      .doc(EventTitle)
-      // Find the event using the title
-      // and change the creator to the new user
-      .update({ creator: User })
-      .then((res: any) => genMessage(true, "Successfully transfer an event"))
-      .catch((err: any) => genMessage(false, "Failed to transfer an event"))
-  );
+async function transferEvent(EventId: string, UserId: string) {
+        return FireAPI.update("Events-WEB", EventId, {email:UserId})
 }
 
 async function getEventsForManager(user: string) {
