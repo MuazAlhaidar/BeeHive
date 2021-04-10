@@ -1,4 +1,5 @@
 import { Fire } from "./config.js";
+import * as FireAPI from "./Firebase";
 import "firebase/auth";
 import "firebase/firestore";
 
@@ -19,56 +20,45 @@ async function login(email: string, password: string): Promise<Message> {
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then(async (res: any) => {
-      return Fire.default
-        .firestore()
-        .collection("Users-WEB")
-        .doc(email)
-        .get()
-        .then((res: any) => {
-          return genMessage(res.data(), "success");
-        });
+            let tmp= FireAPI.getDoc("Users-WEB", "email", email)
+            // Since we're getDoc, getdoc returns the found users as an array
+            // but we don't want an array, there could be only one person found
+            // so watta bing batta boom: just retunr the first entry, which should be the user
+            return {data:tmp["data"][0], msg:tmp.msg}
     })
     .catch((res: any) => genMessage(false, "failed to login"));
 }
 
+// Returns {true, made a new user if successful}
+// Returns {false, Failed to sginpu} if user's name is bad
+// Returns {err, failed to mkae collection} if failed
 async function newUser(
   email: string,
   password: string,
   firstname: string,
   lastname: string
 ): Promise<Message> {
-  return Fire.default
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then((res: any) => {
-      return Fire.default
-        .firestore()
-        .collection("User-WEB")
-        .doc(email)
-        .get()
-        .then((snapshot: any) => {
-          // Only add the user if the user does not already exist
-          if (!snapshot.exists) {
-            let user = {
-              firstname: firstname,
-              lastname: lastname,
-              email: email,
-              points: 0,
-              isowner: false,
-            };
-            Fire.default
-              .firestore()
-              .collection("Users-WEB")
-              .doc(email)
-              .set(user);
-            return genMessage(user, "Success");
-          } else {
-            return genMessage(1, "User already exists");
-          }
-        })
-        .catch((err: any) => genMessage(3, "Failed to login"));
-    })
-    .catch((err: any) => genMessage(2, "User already exists"));
+        let newuser =await FireAPI.newDoc("Users-WEB", {
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                points: 0,
+                isowner: false,
+        }, "email")
+
+        if(newuser["data"] !== false){
+                 return Fire.default
+                .auth()
+                .createUserWithEmailAndPassword(email, password)
+                .then((res: any) => {
+                        return newuser
+                })
+                .catch((err: any) => genMessage(1, "Failed to login"));
+        }
+        else{
+                return genMessage(2, "Failed to make user")
+                // return newuser
+        }
 }
 async function resetPassword(email: string): Promise<Message> {
   return Fire.default
@@ -79,19 +69,7 @@ async function resetPassword(email: string): Promise<Message> {
 }
 
 async function getallUsers(): Promise<Message> {
-  return Fire.default
-    .firestore()
-    .collection("Users-WEB")
-    .get()
-    .then((res: any) =>
-      // Get all of the users in the database
-      // for points adustments and the leaderboard
-      genMessage(
-        res.docs.map((x: any) => x.data()),
-        "All Members"
-      )
-    )
-    .catch((res: any) => res);
+        return FireAPI.getDoc("Users-WEB")
 }
 
 // TODO We are gonna have alot of problems with this

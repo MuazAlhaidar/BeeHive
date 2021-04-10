@@ -13,6 +13,7 @@ function genMessage(_data: any, _msg: any) {
 }
 
 async function newEvent(
+  userid:string,
   title: string,
   desc: string,
   address: string,
@@ -21,7 +22,7 @@ async function newEvent(
 ) {
   let user = Fire.default.auth();
   let email = user?.currentUser?.email;
-  let userid =await FireAPI.getDoc("Users-WEB", "email", email)
+  // let userid =await FireAPI.getDoc("Users-WEB", "email", email)
   console.log(userid)
 
     // If the event does not exist
@@ -30,7 +31,7 @@ async function newEvent(
         address: address,
         date: date,
         description: desc,
-        creator: email,
+        creator: userid,
         rsvp: [],
         signin: [],
       }, "title")
@@ -62,40 +63,40 @@ async function deleteEvent(EventId: string) {
         return FireAPI.delet("Events-WEB", EventId)
 }
 
-// TODO have a function to unRSVP from an event
-async function updateRSVP(EventId: string, email: string) {
+async function updateRSVP(EventId: string, userId: string) {
   Fire.default
     .firestore()
     .collection("Events-WEB")
     .doc(EventId)
     // Using the title we find the event
     // Update the RSVP list of the event
-    .update({ rsvp: Fire.default.firestore.FieldValue.arrayUnion(email) });
+    .update({ rsvp: Fire.default.firestore.FieldValue.arrayUnion(userId) });
 }
 
 async function transferEvent(EventId: string, UserId: string) {
-        return FireAPI.update("Events-WEB", EventId, {email:UserId})
+        return FireAPI.update("Events-WEB", EventId, {creator:UserId})
 }
 
-async function getEventsForManager(user: string) {
-  return (
-    Fire.default
-      .firestore()
-      .collection("Events-WEB")
-      // Find the event with the given user as the creator
-      .where("creator", "==", user)
-      .get()
-      .then((res: any) =>
-        // Return the Events
-        genMessage(
-          res.docs.map((x: any) => x.data()),
-          "All events that the current user manages"
-        )
-      )
-      .catch((err: any) =>
-        genMessage(err, "Failed to get all events the user manages")
-      )
-  );
+async function getEventsForManager(userid: string) {
+        return FireAPI.getDocsSub("Events-WEB", "Users-WEB", "rsvp", "email", "creator", userid)
+  // return (
+  //   Fire.default
+  //     .firestore()
+  //     .collection("Events-WEB")
+  //     // Find the event with the given user as the creator
+  //     .where("creator", "==", user)
+  //     .get()
+  //     .then((res: any) =>
+  //       // Return the Events
+  //       genMessage(
+  //         res.docs.map((x: any) => x.data()),
+  //         "All events that the current user manages"
+  //       )
+  //     )
+  //     .catch((err: any) =>
+  //       genMessage(err, "Failed to get all events the user manages")
+  //     )
+  // );
 }
 
 async function getEventMembers(EventTitle: string) {

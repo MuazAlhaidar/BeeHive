@@ -1,21 +1,24 @@
 import { Fire } from "./config.js";
 import "firebase/auth";
 import "firebase/firestore";
-interface Message {
+export interface Message {
         data: any;
         msg: string | number;
 }
-function genMessage(_data: any, _msg: any) {
+export function genMessage(_data: any, _msg: any) {
   return { msg: _msg, data: _data };
 }
-function getid(value:{id:string, data:()=>any}){
+export function getid(value:{id:string, data:()=>any}){
         let tmp = value.data()
         tmp["id"]=value.id
         return tmp
 }
-export async function query(collection, queryTerm=undefined, query=undefined){
+export async function query(collection, queryTerm=undefined, query=undefined, id=false){
         const ref = Fire.default.firestore().collection(collection)
-        if(queryTerm!==undefined){
+        if(id){
+                return ref.doc(id).get()
+        }
+        else if(queryTerm!==undefined){
                 return ref.where(queryTerm, "==", query).get()
         }
         else{
@@ -27,10 +30,14 @@ export async function newDoc(collection, entry,queryTerm=undefined  ){
         const ref = Fire.default.firestore().collection(collection)
         function makeDoc(entry){
                 return ref
-                .doc() // We use a title as the ID for an event
-                .set(entry)
-                .then((res: any) => genMessage(true, "Made a new "+collection))
-                .catch((err: any) => genMessage(err, "Failed to make a "+collection));
+                .add(entry)
+                .then((res: any) => {
+                        // let ret = getid(res)
+                        let ret = entry
+                        ret["id"]=res.id
+                        return genMessage(ret, "Made a new "+collection)
+                })
+                .catch((err: any) => genMessage(false, "Failed to make a "+collection));
         }
         if(queryTerm === undefined){
                 return makeDoc(entry)
@@ -38,7 +45,7 @@ export async function newDoc(collection, entry,queryTerm=undefined  ){
         else {
                 let result = await query(collection,  queryTerm, entry[queryTerm])
                 if(result.size >0){
-                        return genMessage(-1, collection + "  already exist for value " + queryTerm + " which is "  + entry[queryTerm])
+                        return genMessage(false, collection + "  already exist for value " + queryTerm + " which is "  + entry[queryTerm])
                 }
                 else{
                         return makeDoc(entry)
@@ -69,7 +76,7 @@ export async function updateDoc(collection, entry, id, queryTerm=undefined){
                                 return updateDoc(id,entry)
                         }
                         else{
-                                return genMessage(-1, collection + "  already exist for value " + queryTerm)
+                                return genMessage(false, collection + "  already exist for value " + queryTerm)
                         }
                 }
                 else{
