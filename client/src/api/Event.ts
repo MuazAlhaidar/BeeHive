@@ -23,7 +23,7 @@ async function newEvent(
   let user = Fire.default.auth();
   let email = user?.currentUser?.email;
   // let userid =await FireAPI.getDoc("Users-WEB", "email", email)
-  console.log(userid)
+  console.log("LOVE")
 
     // If the event does not exist
     return FireAPI.newDoc("Events-WEB", {
@@ -78,57 +78,39 @@ async function transferEvent(EventId: string, UserId: string) {
 }
 
 async function getEventsForManager(userid: string) {
-        return FireAPI.getDocsSub("Events-WEB", "Users-WEB", "rsvp", "email", "creator", userid)
-  // return (
-  //   Fire.default
-  //     .firestore()
-  //     .collection("Events-WEB")
-  //     // Find the event with the given user as the creator
-  //     .where("creator", "==", user)
-  //     .get()
-  //     .then((res: any) =>
-  //       // Return the Events
-  //       genMessage(
-  //         res.docs.map((x: any) => x.data()),
-  //         "All events that the current user manages"
-  //       )
-  //     )
-  //     .catch((err: any) =>
-  //       genMessage(err, "Failed to get all events the user manages")
-  //     )
-  // );
+        return FireAPI.getDocUser("Events-WEB", "rsvp", "creator", userid)
 }
 
-async function getEventMembers(EventTitle: string) {
-  // Get the event object
-  let event = await Fire.default
-    .firestore()
-    .collection("Events-WEB")
-    .doc(EventTitle)
-    .get();
-  let data = (await event.data()) as any;
-  // Return all RSVPs of that event
-  // In the form of a User
-  // This way we can update user points and such
-  let promises = data.rsvp.map(async (user: any) => {
-    let tmp = await Fire.default
-      .firestore()
-      .collection("Users-WEB")
-      .doc(user)
-      .get();
-    return tmp.data();
-  });
+// async function getEventMembers(EventTitle: string) {
+//   // Get the event object
+//   let event = await Fire.default
+//     .firestore()
+//     .collection("Events-WEB")
+//     .doc(EventTitle)
+//     .get();
+//   let data = (await event.data()) as any;
+//   // Return all RSVPs of that event
+//   // In the form of a User
+//   // This way we can update user points and such
+//   let promises = data.rsvp.map(async (user: any) => {
+//     let tmp = await Fire.default
+//       .firestore()
+//       .collection("Users-WEB")
+//       .doc(user)
+//       .get();
+//     return tmp.data();
+//   });
 
-  return Promise.all(promises)
-    .then((res: any) => genMessage(res, "All members for an event"))
-    .catch((err: any) =>
-      genMessage(err, "Failed to get all members for an event")
-    );
-}
+//   return Promise.all(promises)
+//     .then((res: any) => genMessage(res, "All members for an event"))
+//     .catch((err: any) =>
+//       genMessage(err, "Failed to get all members for an event")
+//     );
+// }
 
 async function memberEventUpdate(
   users: [{ user: string; points: number; signin: boolean }],
-  EventTitle: string
+  EventId: string
 ) {
   let signin: any[] = [];
   async function inner() {
@@ -140,6 +122,7 @@ async function memberEventUpdate(
       Fire.default
         .firestore()
         .collection("Users-WEB")
+        // GETS THE ID, NOT THE USERNMAME
         .doc(user.user)
         // Update the points of users
         .update({ points: user.points });
@@ -147,7 +130,7 @@ async function memberEventUpdate(
     Fire.default
       .firestore()
       .collection("Events-WEB")
-      .doc(EventTitle)
+      .doc(EventId)
       .update({ signin });
   }
   return inner()
@@ -164,7 +147,7 @@ export {
   deleteEvent,
   transferEvent,
   getEventsForManager,
-  getEventMembers,
+  // getEventMembers,
   memberEventUpdate,
   updateRSVP,
 };

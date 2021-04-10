@@ -94,24 +94,44 @@ export async function getDoc(collection, queryTerm=undefined, cquery=""){
         return getALLdocs(result)
 }
 
-export async function getDocsSub(collection, subcollection, subterm:string, subqueryTerm=undefined, queryTerm=undefined, cquery=undefined){
-        let main = await  query(collection, queryTerm, cquery)
-        let enteries = main.docs.map(x=>getid(x))
-        let tmp= Promise.all(enteries.map( async doc=>{
-                let subs= await Promise.all(doc[subterm].map(async entry=>{
-                        let found = await query(subcollection, subqueryTerm, entry)
-                        // Reason we want [0] is because the query form above
-                        // should only return one entyr:
-                        // ala we are getting the primary key for thid doc
-                        let tmp =  found.docs.map(x=>getid(x))[0]
-                        return  tmp
-                }))
-                doc["."+subterm] = subs
-                // return doc
-                return doc
+export async function getDocUser(collection, subterm, queryTerm, cquery){
+        const ref = Fire.default.firestore().collection(collection)
+        const usercol = 'Users-WEB'
+        const userref = Fire.default.firestore().collection(usercol)
+        let docs = await query(collection, queryTerm, cquery)
+        let found = Promise.all(docs["docs"].map(async x=>{
+               x = getid(x)
+               let foundusers= await Promise.all(x[subterm].map(async user=>{
+                       let userdata =  getid(await userref.doc(user).get())
+                       return userdata
+               }))
+               x[subterm] = foundusers
+               return x
         }))
-        return tmp
+
+
+        return found;
+
 }
+// export async function getDocsSub(collection, subcollection, subterm:string, subqueryTerm=undefined, queryTerm=undefined, cquery=undefined){
+//         let main = await  query(collection, queryTerm, cquery)
+//         let enteries = main.docs.map(x=>getid(x))
+//         let tmp= Promise.all(enteries.map( async doc=>{
+//                 let subs= await Promise.all(doc[subterm].map(async entry=>{
+//                         // let found = await query(subcollection, subqueryTerm, entry)
+//                         // ref.docs(subcollection).doc(entry.id)
+//                         // Reason we want [0] is because the query form above
+//                         // should only return one entyr:
+//                         // ala we are getting the primary key for thid doc
+//                         let tmp =  found.docs.map(x=>getid(x))[0]
+//                         return  tmp
+//                 }))
+//                 doc["."+subterm] = subs
+//                 // return doc
+//                 return doc
+//         }))
+//         return tmp
+// }
 
 export async function update(collection, id, obj){
         const ref = Fire.default.firestore().collection(collection)
