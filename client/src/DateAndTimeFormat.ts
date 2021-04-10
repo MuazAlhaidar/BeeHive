@@ -21,11 +21,12 @@ function getFormattedDate(event: EventInfo) {
     event.date.getFullYear() < 10
       ? "0" + event.date.getFullYear()
       : event.date.getFullYear();
-  console.log(`${month}/${day}/${year}`)
+  // console.log(`${month}/${day}/${year}`)
   return `${month}/${day}/${year}`;
   }
   catch(e){
-          console.log(event.title, event.date)
+          // console.log(e)
+          // console.log(event.title, event.date)
           return "wow/this/sucks"
   }
 
@@ -46,6 +47,7 @@ function getFormattedTime(event: EventInfo) {
       : event.date.getMinutes();
 
   return `${hour}:${minute}`;
+  // return "engineer"
   }
   catch(e){
           console.log(e)

@@ -81,7 +81,10 @@ async function transferEvent(EventId: string, UserId: string) {
 }
 
 async function getEventsForManager(userid: string) {
-        return FireAPI.getDocUser("Events-WEB", "rsvp", "creator", userid)
+        return (await FireAPI.getDocUser("Events-WEB", "rsvp", "creator", userid)).map((x:any)=>{
+                x["date"] = x["date"].toDate()
+              return x
+      })
 }
 
 // async function getEventMembers(EventTitle: string) {

@@ -18,8 +18,8 @@ function LogIn(props: { setName: any; setId: any; setOwner: any }) {
           setUser(username);
           setStatus(1);
           props.setName(username);
-          props.setId(data.email);
-          store.dispatch(redux_id(data.email));
+          props.setId(data.id);
+          store.dispatch(redux_id(data.id));
           props.setOwner(data.isowner);
           return true;
         } else {

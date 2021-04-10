@@ -14,16 +14,6 @@ import { getFormattedDate, getFormattedTime } from "../DateAndTimeFormat";
 
 async function reload(user: string) {
         return await API.getEventsForManager(user)
-  // const myevents = (await API.getEventsForManager(user))
-  //   .data as Array<EventInfo>;
-  // let tmp = myevents.map(async (i: EventInfo) => {
-  //   // TODO have this take in an ID
-  //   i.rsvp = (await API.getEventMembers(i.title)).data;
-  //   let tmp = i.date as any;
-  //   i.date = tmp.toDate();
-  //   return i;
-  // });
-  // return Promise.all(tmp).then((res: Array<EventInfo>) => res);
 }
 
 function MyEvents(props: { id: any }) {
