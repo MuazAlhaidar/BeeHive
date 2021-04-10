@@ -20,7 +20,7 @@ async function login(email: string, password: string): Promise<Message> {
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then(async (res: any) => {
-            let tmp= FireAPI.getDoc("Users-WEB", "email", email)
+            let tmp= await FireAPI.getDoc("Users-WEB", "email", email)
             // Since we're getDoc, getdoc returns the found users as an array
             // but we don't want an array, there could be only one person found
             // so watta bing batta boom: just retunr the first entry, which should be the user

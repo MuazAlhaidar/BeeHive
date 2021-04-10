@@ -19,7 +19,7 @@ interface IProp {
 async function reload(id: any) {
   const allevents = await API.getAllEvents();
   // Turn the Promise to and Array of events
-  const events = allevents.map((i: any) => {
+  const events = allevents.data.map((i: any) => {
     // Convert from TIMESTAMP to Date
     let date_obj = new Date(i.date.toDate());
     let _relation = null;

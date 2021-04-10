@@ -2,6 +2,7 @@ import { Fire } from "./config.js";
 import * as FireAPI from "./Firebase";
 import "firebase/auth";
 import "firebase/firestore";
+import * as Interface from "../Interfaces" 
 
 interface Message {
   data: any;
@@ -26,7 +27,7 @@ async function newEvent(
   console.log("LOVE")
 
     // If the event does not exist
-    return FireAPI.newDoc("Events-WEB", {
+    let tmp= await FireAPI.newDoc("Events-WEB", {
         title: title,
         address: address,
         date: date,
@@ -35,6 +36,8 @@ async function newEvent(
         rsvp: [],
         signin: [],
       }, "title")
+      tmp["data"] as Interface.EventInfo;
+      return tmp
   } 
 
 

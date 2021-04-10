@@ -13,12 +13,9 @@ export function getid(value:{id:string, data:()=>any}){
         tmp["id"]=value.id
         return tmp
 }
-export async function query(collection, queryTerm=undefined, query=undefined, id=false){
+export async function query(collection:string, queryTerm:string|undefined=undefined, query:string|undefined=undefined){
         const ref = Fire.default.firestore().collection(collection)
-        if(id){
-                return ref.doc(id).get()
-        }
-        else if(queryTerm!==undefined){
+        if(queryTerm!==undefined){
                 return ref.where(queryTerm, "==", query).get()
         }
         else{
@@ -26,9 +23,9 @@ export async function query(collection, queryTerm=undefined, query=undefined, id
         }
 
 }
-export async function newDoc(collection, entry,queryTerm=undefined  ){
+export async function newDoc(collection:string, entry:any,queryTerm:string|undefined=undefined  ){
         const ref = Fire.default.firestore().collection(collection)
-        function makeDoc(entry){
+        function makeDoc(entry:any){
                 return ref
                 .add(entry)
                 .then((res: any) => {
@@ -54,9 +51,9 @@ export async function newDoc(collection, entry,queryTerm=undefined  ){
 }
 
 
-export async function updateDoc(collection, entry, id, queryTerm=undefined){
+export async function updateDoc(collection:string, entry:any, id:string, queryTerm:string|undefined=undefined){
         const ref = Fire.default.firestore().collection(collection)
-        function updateDoc(id,entry){
+        function updateDoc(id:any,entry:any){
                 return ref
                 .doc(id) // We use a title as the ID for an event
                 .update(entry)
@@ -85,59 +82,37 @@ export async function updateDoc(collection, entry, id, queryTerm=undefined){
         }
 
 }
-export async function getDoc(collection, queryTerm=undefined, cquery=""){
+export async function getDoc(collection:string, queryTerm:string|undefined=undefined, cquery:string|undefined=""){
         const ref = Fire.default.firestore().collection(collection)
-        function getALLdocs(res){
+        function getALLdocs(res:any){
                 return genMessage(res.docs.map((x:any)=>getid(x)), "Got documents for " + collection + " that matches" + cquery)
         }
         let result = await query(collection, queryTerm, cquery)
         return getALLdocs(result)
 }
 
-export async function getDocUser(collection, subterm, queryTerm, cquery){
+export async function getDocUser(collection:string, subterm:string, queryTerm:any, cquery:any){
         const ref = Fire.default.firestore().collection(collection)
         const usercol = 'Users-WEB'
         const userref = Fire.default.firestore().collection(usercol)
         let docs = await query(collection, queryTerm, cquery)
-        let found = Promise.all(docs["docs"].map(async x=>{
-               x = getid(x)
-               let foundusers= await Promise.all(x[subterm].map(async user=>{
+        return Promise.all(docs["docs"].map(async x=>{
+               let tmp = getid(x)
+               let foundusers= await Promise.all(x.get(subterm).map(async (user:any)=>{
                        let userdata =  getid(await userref.doc(user).get())
                        return userdata
                }))
-               x[subterm] = foundusers
-               return x
+               tmp[subterm] = foundusers
+               return tmp
         }))
 
-
-        return found;
-
 }
-// export async function getDocsSub(collection, subcollection, subterm:string, subqueryTerm=undefined, queryTerm=undefined, cquery=undefined){
-//         let main = await  query(collection, queryTerm, cquery)
-//         let enteries = main.docs.map(x=>getid(x))
-//         let tmp= Promise.all(enteries.map( async doc=>{
-//                 let subs= await Promise.all(doc[subterm].map(async entry=>{
-//                         // let found = await query(subcollection, subqueryTerm, entry)
-//                         // ref.docs(subcollection).doc(entry.id)
-//                         // Reason we want [0] is because the query form above
-//                         // should only return one entyr:
-//                         // ala we are getting the primary key for thid doc
-//                         let tmp =  found.docs.map(x=>getid(x))[0]
-//                         return  tmp
-//                 }))
-//                 doc["."+subterm] = subs
-//                 // return doc
-//                 return doc
-//         }))
-//         return tmp
-// }
 
-export async function update(collection, id, obj){
+export async function update(collection:string, id:string, obj:any){
         const ref = Fire.default.firestore().collection(collection)
         return genMessage(await ref.doc(id).update(obj), "Updated " + collection+"/"+id)
 }
-export async function delet(collection, id){
+export async function delet(collection:string, id:string){
         const ref = Fire.default.firestore().collection(collection)
         return genMessage(await ref.doc(id).delete(), "Delete "+collection+"/" + id)
 }

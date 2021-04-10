@@ -16,7 +16,9 @@ let zaki="og1pncoW4SdP4Y1LaQYA"
 // })
 //
 // getDocUser("Events-WEB", "rsvp", "creator", zaki)
-getEventsForManager(zaki)
+// getEventsForManager(zaki)
+// newEvent(zaki, "Toture me", "I'm on my knees", "TOUTRE ME", new Date())
+getAllEvents()
 .then(res=>{
         console.log(res)
 })

@@ -13,16 +13,17 @@ import { MemberInfo, EventInfo } from "../Interfaces";
 import { getFormattedDate, getFormattedTime } from "../DateAndTimeFormat";
 
 async function reload(user: string) {
-  const myevents = (await API.getEventsForManager(user))
-    .data as Array<EventInfo>;
-  let tmp = myevents.map(async (i: EventInfo) => {
-    // TODO have this take in an ID
-    i.rsvp = (await API.getEventMembers(i.title)).data;
-    let tmp = i.date as any;
-    i.date = tmp.toDate();
-    return i;
-  });
-  return Promise.all(tmp).then((res: Array<EventInfo>) => res);
+        return await API.getEventsForManager(user)
+  // const myevents = (await API.getEventsForManager(user))
+  //   .data as Array<EventInfo>;
+  // let tmp = myevents.map(async (i: EventInfo) => {
+  //   // TODO have this take in an ID
+  //   i.rsvp = (await API.getEventMembers(i.title)).data;
+  //   let tmp = i.date as any;
+  //   i.date = tmp.toDate();
+  //   return i;
+  // });
+  // return Promise.all(tmp).then((res: Array<EventInfo>) => res);
 }
 
 function MyEvents(props: { id: any }) {
@@ -114,7 +115,7 @@ function MyEvents(props: { id: any }) {
     let [hour, minute] = time.split(":").map((i) => parseInt(i));
     let thedate = new Date(year, month - 1, day, hour, minute);
     // TODO Have this take in a UUID
-    let _tmp = await API.newEvent(title, description, address, thedate);
+    let _tmp = await API.newEvent(props.id, title, description, address, thedate);
     const e = events.slice();
     e.push({
       // TODO generate an actual UUID
@@ -150,7 +151,7 @@ function MyEvents(props: { id: any }) {
       let [hour, minute] = time.split(":").map((i) => parseInt(i));
       let thedate = new Date(year, month - 1, day, hour - 5, minute);
       // TODO Have this take in an ID
-      await API.updateEvent(title, description, address, thedate);
+      await API.updateEvent(props.id, title, description, address, thedate);
       const e = events.slice();
       e[eventIndex].title = title;
       e[eventIndex].address = address;
