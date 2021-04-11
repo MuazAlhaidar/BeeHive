@@ -22,7 +22,7 @@ interface GroupInfo {
   id: string;
   name: string;
   description: string;
-  members: Array<string>;
+  members: Array<MemberInfo>;
 }
 interface MemberInfoSign extends MemberInfo{
         signin: boolean;

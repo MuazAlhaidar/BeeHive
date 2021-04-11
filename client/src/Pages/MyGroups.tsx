@@ -34,7 +34,7 @@ function MyGroups() {
     name: "",
     description: "",
   });
-  const [memList, setMemList] = React.useState(Array<string>());
+  const [memList, setMemList] = React.useState(Array<MemberInfo>());
   console.log(groups);
 
   const toggleMemberModal = () => {
@@ -53,7 +53,7 @@ function MyGroups() {
     setShowConfirmationModal(!showConfirmationModal);
   };
 
-  const set_groupmembers = (memberList: Array<string>, index: number) => {
+  const set_groupmembers = (memberList: Array<any>, index: number) => {
     const m = groups.slice();
     m[index].members = memberList.map((x) => x);
     setGroups(m);
@@ -64,7 +64,7 @@ function MyGroups() {
       name: "",
       description: "",
     });
-    setMemList(Array<string>());
+    setMemList(Array<MemberInfo>());
   };
 
   const setGroupAndMemList = (i: number) => {
@@ -198,10 +198,11 @@ function MyGroups() {
       </div>
       <div className="MyGroups-MemberList">
         {groupIndex > groups.length - 1 || groupIndex < 0 ? (
-          <MemberList groupId={""} toggleMemberModal={toggleMemberModal} />
+          <MemberList groupId={""} users={[]} toggleMemberModal={toggleMemberModal} />
         ) : (
           <MemberList
             groupId={groups[groupIndex].name}
+            users={groups[groupIndex].members}
             toggleMemberModal={toggleMemberModal}
           />
         )}

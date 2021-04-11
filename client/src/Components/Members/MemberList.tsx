@@ -1,15 +1,17 @@
 import "../../CSS/Members/MemberList.css";
-// import { MemberInfo } from "../../Interfaces";
-// import Member from "./Member";
+import { MemberInfo } from "../../Interfaces";
+import Member from "./Member";
 
 interface IProps {
   groupId: string;
+  users:MemberInfo[];
   toggleMemberModal: () => void;
 }
 
-function MemberList({ groupId, toggleMemberModal }: IProps) {
+function MemberList({ groupId, toggleMemberModal,users }: IProps) {
   // TODO use emails to get names and display them in the map
   // Use groupId to get all members
+  console.log(users)
   return (
     <div>
       <div className="MemberList-Top">
@@ -19,14 +21,14 @@ function MemberList({ groupId, toggleMemberModal }: IProps) {
         </button>
       </div>
       <div>
-        {/* {members.map((curMember) => {
+        {users.map((curMember) => {
           return (
             <Member
-              Firstname={curMember.Firstname}
-              Lastname={curMember.Lastname}
+              Firstname={curMember.firstname}
+              Lastname={curMember.lastname}
             />
           );
-        })} */}
+        })} 
       </div>
     </div>
   );

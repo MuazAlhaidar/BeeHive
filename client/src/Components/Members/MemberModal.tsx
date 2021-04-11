@@ -15,11 +15,11 @@ interface IProps {
   // Only way we can get the members
   groupID: string;
   allMembers: Array<MemberInfo>;
-  memberList: Array<string>;
-  setMemberList: (memberList: Array<string>) => void;
+  memberList: Array<any>;
+  setMemberList: (memberList: Array<MemberInfo>) => void;
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
-  setMembers: (memberList: Array<string>, index: number) => void;
+  setMembers: (memberList: Array<MemberInfo>, index: number) => void;
 }
 
 function MemberModal({
@@ -32,18 +32,20 @@ function MemberModal({
   setMembers,
 }: IProps) {
   // TODO
+  // console.log(memberList)
+  // console.log(allMembers)
   const [reload, setReload] = React.useState(false);
 
   // let tmp = (memberList.map(x=>{
   //         return x.id
   // }))
   // console.log(tmp)
-  let groupEmailList =memberList
+  let groupEmailList =memberList.map(x=>x.id)
 
 
   let groupMembers = Array<MemberInfo>();
   allMembers.forEach((member) => {
-    console.log(groupEmailList, member.id)
+          // console.log(groupEmailList, member.id, groupEmailList.includes(member.id))
     if (groupEmailList.includes(member.id)) {
       groupMembers.push(member);
     }
@@ -73,9 +75,9 @@ function MemberModal({
 
     // Save it on the frontend
     // console.log(groupID, index);
-    setMembers(groupEmails, index);
+    setMembers(groupMembers, index);
     // console.log(groupID, memberList, index);
-    setMemberList(groupEmails);
+    setMemberList(groupMembers);
     APIsetMembers(groupID, groupEmails);
 
     setShowModal(!showModal);
