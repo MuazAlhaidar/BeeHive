@@ -79,7 +79,6 @@ async function deleteEvent(EventId: string) {
 }
 
 async function updateRSVP(EventId: string, userId: string) {
-        console.log("Rap snitches")
   Fire.default
     .firestore()
     .collection("Events-WEB")
@@ -87,6 +86,15 @@ async function updateRSVP(EventId: string, userId: string) {
     // Using the title we find the event
     // Update the RSVP list of the event
     .update({ rsvp: Fire.default.firestore.FieldValue.arrayUnion(userId) });
+}
+ async function removeRSVP(EventId: string, userId: string) {
+         Fire.default
+    .firestore()
+    .collection("Events-WEB")
+    .doc(EventId)
+    // Using the title we find the event
+    // Update the RSVP list of the event
+    .update({ rsvp: Fire.default.firestore.FieldValue.arrayRemove(userId), signin:Fire.default.firestore.FieldValue.arrayRemove(userId) });
 }
 
 async function transferEvent(EventId: string, UserId: string) {
@@ -128,7 +136,8 @@ async function getEventsForManager(userid: string) {
 // }
 
 async function memberEventUpdate(
-  users: [{ user: string; points: number; signin: boolean }],
+  // users: [{ id: string; points: number; signin: boolean }],
+  users: Interface.MemberInfoSign[],
   EventId: string
 ) {
   let signin: any[] = [];
@@ -136,13 +145,13 @@ async function memberEventUpdate(
     // Update the attendee list
     users.forEach((user) => {
       if (user.signin === true) {
-        signin.push(user.user);
+        signin.push(user.id);
       }
       Fire.default
         .firestore()
         .collection("Users-WEB")
         // GETS THE ID, NOT THE USERNMAME
-        .doc(user.user)
+        .doc(user.id)
         // Update the points of users
         .update({ points: user.points });
     });
@@ -169,4 +178,5 @@ export {
   // getEventMembers,
   memberEventUpdate,
   updateRSVP,
+  removeRSVP ,
 };

@@ -4,6 +4,7 @@ import * as UserAPI from "../api/User";
 import * as EventAPI from "../api/Event";
 // import { store } from "../store";
 import { MemberInfo } from "../Interfaces";
+import { store} from "../store";
 
 interface IProps {
   showModal: boolean;
@@ -28,13 +29,14 @@ function TransferManagerModal({
     points: 0,
     isowner: false,
   });
+  const state = store.getState().state.id
 
   const [sortedList, setSortedList] = React.useState(
-    fakeMembers.sort((a, b) => (a.points < b.points ? 1 : -1))
-  );
+          fakeMembers.filter((x:any)=>(x.id!=state)).sort((a, b) => (a.points < b.points ? 1 : -1))
+                            );
   React.useEffect(() => {
     UserAPI.getallUsers().then((res) => {
-      setSortedList(res.data);
+      setSortedList(res.data.filter((x:any)=>(x.id!=state)));
     });
   }, []);
 
@@ -72,8 +74,8 @@ function TransferManagerModal({
                       onClick={() => {
                         handleCancel();
                         // let id = store.getState().state.id;
-                        console.log(event);
-                        EventAPI.transferEvent(event, member.email).then(
+                        console.log(event, member.id);
+                        EventAPI.transferEvent(event, member.id).then(
                           (res) => {
                             setReload(!reload);
                           }

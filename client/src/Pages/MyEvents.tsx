@@ -13,7 +13,9 @@ import { MemberInfo, EventInfo } from "../Interfaces";
 import { getFormattedDate, getFormattedTime } from "../DateAndTimeFormat";
 
 async function reload(user: string) {
-        return await API.getEventsForManager(user)
+        let tmp= await API.getEventsForManager(user)
+        console.log("COKIEEEEEEEEEES", tmp)
+        return tmp
 }
 
 function MyEvents(props: { id: any }) {
@@ -24,8 +26,8 @@ function MyEvents(props: { id: any }) {
     address: "",
     date: new Date(2000, 1, 1, 0, 0),
     description: "",
-    rsvp: Array<string>(),
-    sigin: Array<string>(),
+    rsvp: Array<MemberInfo>(),
+    signin: Array<string>(),
   };
 
   const [events, setEvents] = React.useState(Array<EventInfo>());
@@ -42,6 +44,7 @@ function MyEvents(props: { id: any }) {
     false
   );
   const [curEvent, setCurEvent] = React.useState({
+    id:"",
     title: "",
     address: "",
     time: "",
@@ -50,7 +53,9 @@ function MyEvents(props: { id: any }) {
   });
 
   React.useEffect(() => {
-    reload(props.id).then((res) => setEvents(res));
+    reload(props.id).then((res) => {
+            setEvents(res)
+    });
   }, [eventIndex, checkReload]);
 
   const toggleEmailModal = () => {
@@ -78,6 +83,7 @@ function MyEvents(props: { id: any }) {
     setEventIndex(index);
     i === undefined
       ? setCurEvent({
+              id:"",
           title: "",
           address: "",
           time: "",
@@ -85,6 +91,7 @@ function MyEvents(props: { id: any }) {
           description: "",
         })
       : setCurEvent({
+          id: events[index].id,
           title: events[index].title,
           address: events[index].address,
           time: getFormattedTime(events[index]),
@@ -114,13 +121,15 @@ function MyEvents(props: { id: any }) {
       address,
       date: thedate,
       description,
-      rsvp: Array<string>(),
-      sigin: Array<string>(),
+      rsvp: Array<MemberInfo>(),
+      signin: Array<string>(),
       creator: "",
     });
     setEvents(e);
     setEventIndex(events.length);
+    let id=""
     setCurEvent({
+            id,
       title,
       address,
       time,
@@ -130,6 +139,7 @@ function MyEvents(props: { id: any }) {
   };
 
   const editEvent = async (
+    id:string,
     title: string,
     address: string,
     time: string,
@@ -141,7 +151,7 @@ function MyEvents(props: { id: any }) {
       let [hour, minute] = time.split(":").map((i) => parseInt(i));
       let thedate = new Date(year, month - 1, day, hour - 5, minute);
       // TODO Have this take in an ID
-      await API.updateEvent(props.id, title, description, address, thedate);
+      await API.updateEvent(id, title, description, address, thedate);
       const e = events.slice();
       e[eventIndex].title = title;
       e[eventIndex].address = address;
@@ -149,6 +159,7 @@ function MyEvents(props: { id: any }) {
       e[eventIndex].description = description;
       setEvents(e);
       setCurEvent({
+              id: events[eventIndex].id,
         title: events[eventIndex].title,
         address: events[eventIndex].address,
         time:
@@ -164,7 +175,7 @@ function MyEvents(props: { id: any }) {
   const removeEvent = async (i: number) => {
     if (events[i] !== undefined) {
       // TODO Have this take in an ID
-      await API.deleteEvent(events[i].title);
+      await API.deleteEvent(events[i].id);
       const e = events.slice();
       e.splice(i, 1);
       setEvents(e);
@@ -172,6 +183,7 @@ function MyEvents(props: { id: any }) {
     }
 
     setCurEvent({
+      id:"",
       title: "",
       address: "",
       time: "",
@@ -194,7 +206,13 @@ function MyEvents(props: { id: any }) {
         showModal={showEventMemberModal}
         setShowModal={setShowEventMemberModal}
         members={
-          events[eventIndex] !== undefined ? events[eventIndex].rsvp : null
+          events[eventIndex] !== undefined ? events[eventIndex].rsvp as MemberInfo[] : null
+        }
+        signin={
+          events[eventIndex] !== undefined ? events[eventIndex].signin: null
+        }
+        eventid={
+          events[eventIndex] !== undefined ? events[eventIndex].id : null
         }
       />
       <TransferManagerModal
@@ -202,7 +220,7 @@ function MyEvents(props: { id: any }) {
         setShowModal={setShowTransferManagerModal}
         setReload={setReload}
         event={
-          events[eventIndex] !== undefined ? events[eventIndex].title : null
+          events[eventIndex] !== undefined ? events[eventIndex].id : null
         }
         reload={checkReload}
       />

@@ -40,7 +40,7 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
         setUser(_email);
         setStatus(0);
         props.setName(_firstname);
-        props.setId(_email);
+        props.setId(res.data.id);
         props.setOwner(false);
         return true;
     }

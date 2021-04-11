@@ -32,6 +32,7 @@ function EventsForm({ event }: IProps) {
     console.log(event.id, relation, state.id)
     if (relation === Relation.RSVP) {
       setIsRSVP(false);
+      API.removeRSVP(event.id, state.id)
       store.dispatch(redux_rsvp(Relation.NotRSVP));
     } else if (relation === Relation.NotRSVP) {
       API.updateRSVP(event.id, state.id)

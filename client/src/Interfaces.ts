@@ -14,8 +14,8 @@ interface EventInfo {
   address: string;
   date: Date;
   description: string;
-  rsvp: Array<string>;
-  sigin: Array<string>;
+  rsvp: Array<MemberInfo>|Array<String>;
+  signin: Array<string>;
 }
 
 interface GroupInfo {
@@ -25,4 +25,4 @@ interface GroupInfo {
   members: Array<string>;
 }
 
-export type { EventInfo, GroupInfo, MemberInfo };
+export type { EventInfo, GroupInfo, MemberInfo, MemberInfoSign };

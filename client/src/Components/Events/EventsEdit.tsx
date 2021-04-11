@@ -4,6 +4,7 @@ import "../../CSS/Events/EventsEdit.css";
 interface IProps {
   showModal: boolean;
   currentEvent: {
+          id:string;
     title: string;
     address: string;
     time: string;
@@ -11,6 +12,7 @@ interface IProps {
     description: string;
   };
   setCurEvent: (curEvent: {
+          id:string,
     title: string;
     address: string;
     time: string;
@@ -19,6 +21,7 @@ interface IProps {
   }) => void;
   setShowModal: (showModal: boolean) => void;
   editEvent: (
+          id:string,
     title: string,
     address: string,
     time: string,
@@ -37,6 +40,7 @@ function EventEdit({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     editEvent(
+            currentEvent.id,
       currentEvent.title,
       currentEvent.address,
       currentEvent.time,
@@ -65,6 +69,7 @@ function EventEdit({
                   value={currentEvent.title}
                   onChange={(e) =>
                     setCurEvent({
+                            id: currentEvent.id,
                       title: e.target.value,
                       address: currentEvent.address,
                       time: currentEvent.time,
@@ -88,6 +93,7 @@ function EventEdit({
                     value={currentEvent.address}
                     onChange={(e) =>
                       setCurEvent({
+                            id: currentEvent.id,
                         title: currentEvent.title,
                         address: e.target.value,
                         time: currentEvent.time,
@@ -103,6 +109,7 @@ function EventEdit({
                     value={currentEvent.time}
                     onChange={(e) =>
                       setCurEvent({
+                            id: currentEvent.id,
                         title: currentEvent.title,
                         address: currentEvent.address,
                         time: e.target.value,
@@ -118,6 +125,7 @@ function EventEdit({
                     value={currentEvent.date}
                     onChange={(e) =>
                       setCurEvent({
+                            id: currentEvent.id,
                         title: currentEvent.title,
                         address: currentEvent.address,
                         time: currentEvent.time,
@@ -139,6 +147,7 @@ function EventEdit({
                   value={currentEvent.description}
                   onChange={(e) =>
                     setCurEvent({
+                            id: currentEvent.id,
                       title: currentEvent.title,
                       address: currentEvent.address,
                       time: currentEvent.time,
