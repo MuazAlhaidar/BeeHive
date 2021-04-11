@@ -46,8 +46,8 @@ function Leaderboard() {
   return (
     <div className="Leaderboard">
       <div className="Leaderboard-Topbar">
-        <div className="Leaderboard-firstname">First Name</div>
-        <div className="Leaderboard-lastname">Last Name</div>
+        <div className="Leaderboard-Firstname">First Name</div>
+        <div className="Leaderboard-Lastname">Last Name</div>
         <div className="Leaderboar-PointsLabel">Points</div>
       </div>
       <div className="Leaderboard-List">
@@ -61,10 +61,10 @@ function Leaderboard() {
                       : "Leaderboard-MemberInfo-white"
                   }
                 >
-                  <div className="Leaderboard-firstname">
+                  <div className="Leaderboard-Firstname">
                     {member.firstname}
                   </div>
-                  <div className="Leaderboard-lastname">{member.lastname}</div>
+                  <div className="Leaderboard-Lastname">{member.lastname}</div>
                   <div className="Leaderboard-Points">{member.points}</div>
                   <EditMemberPointsButton
                     member={member}

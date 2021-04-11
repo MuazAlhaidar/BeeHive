@@ -13,9 +13,9 @@ import { MemberInfo, EventInfo } from "../Interfaces";
 import { getFormattedDate, getFormattedTime } from "../DateAndTimeFormat";
 
 async function reload(user: string) {
-        let tmp= await API.getEventsForManager(user)
-        console.log("COKIEEEEEEEEEES", tmp)
-        return tmp
+  let tmp = await API.getEventsForManager(user);
+  console.log("COKIEEEEEEEEEES", tmp);
+  return tmp;
 }
 
 function MyEvents(props: { id: any }) {
@@ -44,7 +44,7 @@ function MyEvents(props: { id: any }) {
     false
   );
   const [curEvent, setCurEvent] = React.useState({
-    id:"",
+    id: "",
     title: "",
     address: "",
     time: "",
@@ -54,7 +54,7 @@ function MyEvents(props: { id: any }) {
 
   React.useEffect(() => {
     reload(props.id).then((res) => {
-            setEvents(res)
+      setEvents(res);
     });
   }, [eventIndex, checkReload]);
 
@@ -83,7 +83,7 @@ function MyEvents(props: { id: any }) {
     setEventIndex(index);
     i === undefined
       ? setCurEvent({
-              id:"",
+          id: "",
           title: "",
           address: "",
           time: "",
@@ -112,7 +112,13 @@ function MyEvents(props: { id: any }) {
     let [hour, minute] = time.split(":").map((i) => parseInt(i));
     let thedate = new Date(year, month - 1, day, hour, minute);
     // TODO Have this take in a UUID
-    let _tmp = await API.newEvent(props.id, title, description, address, thedate);
+    let _tmp = await API.newEvent(
+      props.id,
+      title,
+      description,
+      address,
+      thedate
+    );
     const e = events.slice();
     e.push({
       // TODO generate an actual UUID
@@ -127,9 +133,9 @@ function MyEvents(props: { id: any }) {
     });
     setEvents(e);
     setEventIndex(events.length);
-    let id=""
+    let id = "";
     setCurEvent({
-            id,
+      id,
       title,
       address,
       time,
@@ -139,7 +145,7 @@ function MyEvents(props: { id: any }) {
   };
 
   const editEvent = async (
-    id:string,
+    id: string,
     title: string,
     address: string,
     time: string,
@@ -159,7 +165,7 @@ function MyEvents(props: { id: any }) {
       e[eventIndex].description = description;
       setEvents(e);
       setCurEvent({
-              id: events[eventIndex].id,
+        id: events[eventIndex].id,
         title: events[eventIndex].title,
         address: events[eventIndex].address,
         time:
@@ -183,7 +189,7 @@ function MyEvents(props: { id: any }) {
     }
 
     setCurEvent({
-      id:"",
+      id: "",
       title: "",
       address: "",
       time: "",
@@ -206,24 +212,24 @@ function MyEvents(props: { id: any }) {
         showModal={showEventMemberModal}
         setShowModal={setShowEventMemberModal}
         members={
-          events[eventIndex] !== undefined ? events[eventIndex].rsvp as MemberInfo[] : null
+          events[eventIndex] !== undefined
+            ? (events[eventIndex].rsvp as MemberInfo[])
+            : null
         }
         signin={
-          events[eventIndex] !== undefined ? events[eventIndex].signin: null
+          events[eventIndex] !== undefined ? events[eventIndex].signin : null
         }
         eventid={
           events[eventIndex] !== undefined ? events[eventIndex].id : null
         }
-              reloadPage={() => setReload(!checkReload)}
-
+        setReloadPage={setReload}
+        reloadPage={checkReload}
       />
       <TransferManagerModal
         showModal={showTransferManagerModal}
         setShowModal={setShowTransferManagerModal}
         setReload={setReload}
-        event={
-          events[eventIndex] !== undefined ? events[eventIndex].id : null
-        }
+        event={events[eventIndex] !== undefined ? events[eventIndex].id : null}
         reload={checkReload}
       />
       <ConfirmationModal

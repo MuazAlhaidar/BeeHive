@@ -2,19 +2,28 @@ import React from "react";
 import EditMemberPointsButton from "../EditMemberPointsButton";
 import "../../CSS/Events/EventMemberModal.css";
 // import { store, redux_index, redux_rsvp } from "../../store";
-import {memberEventUpdate} from "../../api/Event"
-import { MemberInfo, MemberInfoSign} from "../../Interfaces";
+import { memberEventUpdate } from "../../api/Event";
+import { MemberInfo, MemberInfoSign } from "../../Interfaces";
 
 interface IProps {
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
   members: MemberInfo[] | null;
-  eventid: string|null;
+  eventid: string | null;
   signin: String[] | null;
-  reloadPage: ()=>void;
+  reloadPage: boolean;
+  setReloadPage: (reloadPage: boolean) => void;
 }
 
-function EventMemberModal({ showModal, setShowModal, members, eventid, signin, reloadPage}: IProps) {
+function EventMemberModal({
+  showModal,
+  setShowModal,
+  members,
+  eventid,
+  signin,
+  reloadPage,
+  setReloadPage,
+}: IProps) {
   let sortedList = Array<MemberInfoSign>({
     id: "",
     firstname: "",
@@ -22,53 +31,51 @@ function EventMemberModal({ showModal, setShowModal, members, eventid, signin, r
     email: "",
     points: 0,
     isowner: false,
-    signin:false
+    signin: false,
   });
 
+  if (members !== null && members.length != 0) {
+    console.log("SHEETTTTTTTTTTTTTTTTT", signin, members);
+    let _members = (members as unknown) as MemberInfo[];
+    // Sort the members from highest points to lowest
+    sortedList = _members
+      .sort((a, b) => (a.points < b.points ? 1 : -1))
+      .map(
+        (member: any): MemberInfoSign => {
+          // Sets whether the user is signin or not
+          let tmp = member;
+          if (signin != null) {
+            console.log(signin.includes(member.id));
+            let issignin = signin.includes(member.id);
+            tmp["signin"] = issignin;
+          } else tmp["signin"] = false;
 
-  if (members !== null  && members.length !=0) {
-
-          console.log("SHEETTTTTTTTTTTTTTTTT", signin, members)
-          let _members = (members as unknown) as MemberInfo[];
-          // Sort the members from highest points to lowest
-          sortedList = _members.sort((a, b) => (a.points < b.points ? 1 : -1))
-          .map((member:any):MemberInfoSign=>{
-               // Sets whether the user is signin or not
-               let tmp =member;
-               if(signin !=null){
-                       console.log(signin.includes(member.id))
-                        let issignin=signin.includes(member.id)
-                        tmp["signin"] = issignin
-               }
-               else
-                       tmp["signin"] = false
-
-                return tmp
-
-          })
-          console.log(sortedList)
+          return tmp;
+        }
+      );
+    console.log(sortedList);
   }
 
   const [hasAttended, setHasAttended] = React.useState(false);
   const [reload, setReload] = React.useState(false);
 
-  const setAttended = (e:any) => {
+  const setAttended = (e: any) => {
     setHasAttended(!hasAttended);
   };
 
   const handleSave = () => {
     // update_points(members as any)
-    console.log(sortedList)
-    if(sortedList !=null && sortedList.length > 0 && eventid !== null){
-            console.log(sortedList, eventid)
-            memberEventUpdate(sortedList, eventid)
-          reloadPage()
+    console.log(sortedList);
+    if (sortedList != null && sortedList.length > 0 && eventid !== null) {
+      console.log(sortedList, eventid);
+      memberEventUpdate(sortedList, eventid);
+      setReloadPage(!reloadPage);
     }
     setShowModal(!showModal);
   };
 
   const handleCancel = () => {
-          reloadPage()
+      setReloadPage(!reloadPage);
     setShowModal(!showModal);
   };
 
@@ -105,9 +112,9 @@ function EventMemberModal({ showModal, setShowModal, members, eventid, signin, r
                           <input
                             type="checkbox"
                             defaultChecked={member.signin}
-                                  onChange={()=>{
-                                          sortedList[index].signin = !member.signin;
-                                  }}
+                            onChange={() => {
+                              sortedList[index].signin = !member.signin;
+                            }}
                           />
                         </form>
                         <div className="EventMemberModal-Points">
