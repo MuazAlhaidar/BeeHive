@@ -34,7 +34,7 @@ async function newEvent(
         creator: userid,
         rsvp: [],
         signin: [],
-      }, "title")
+      })
       tmp["data"] as Interface.EventInfo;
       return tmp
   } 
@@ -52,7 +52,7 @@ async function updateEvent(
         description: desc,
         address: address,
         date: date,
-      }, id, "title")
+      }, id)
 
 }
 
@@ -108,35 +108,8 @@ async function getEventsForManager(userid: string) {
       })
 }
 
-// async function getEventMembers(EventTitle: string) {
-//   // Get the event object
-//   let event = await Fire.default
-//     .firestore()
-//     .collection("Events-WEB")
-//     .doc(EventTitle)
-//     .get();
-//   let data = (await event.data()) as any;
-//   // Return all RSVPs of that event
-//   // In the form of a User
-//   // This way we can update user points and such
-//   let promises = data.rsvp.map(async (user: any) => {
-//     let tmp = await Fire.default
-//       .firestore()
-//       .collection("Users-WEB")
-//       .doc(user)
-//       .get();
-//     return tmp.data();
-//   });
-
-//   return Promise.all(promises)
-//     .then((res: any) => genMessage(res, "All members for an event"))
-//     .catch((err: any) =>
-//       genMessage(err, "Failed to get all members for an event")
-//     );
-// }
 
 async function memberEventUpdate(
-  // users: [{ id: string; points: number; signin: boolean }],
   users: Interface.MemberInfoSign[],
   EventId: string
 ) {

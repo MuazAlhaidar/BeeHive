@@ -47,7 +47,10 @@ function EventMemberModal({
             console.log(signin.includes(member.id));
             let issignin = signin.includes(member.id);
             tmp["signin"] = issignin;
-          } else tmp["signin"] = false;
+            tmp["inital"] = issignin;
+          } else 
+                  tmp["signin"] = false;
+                  tmp["inital"] = false;
 
           return tmp;
         }
@@ -74,7 +77,12 @@ function EventMemberModal({
   };
 
   const handleCancel = () => {
-      setReloadPage(!reloadPage);
+          if(members!=null){
+                  members.forEach((member:any)=>{
+                          member["signin"] = member["inital"]
+                  })
+          }
+    setReloadPage(!reloadPage);
     setShowModal(!showModal);
   };
 

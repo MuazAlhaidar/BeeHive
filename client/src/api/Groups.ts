@@ -1,5 +1,6 @@
 import { Fire } from "./config.js";
 import * as FireAPI from "./Firebase";
+import * as Interface from "../Interfaces" 
 import {getallUsers} from "./User"
 import "firebase/auth";
 import "firebase/firestore";
@@ -20,34 +21,12 @@ async function getAllGroups() {
 }
 
 async function newGroup(name: string, description: string) {
-  let find = await Fire.default
-    .firestore()
-    .collection("Groups-WEB")
-    .doc(name)
-    // Using the document name as ID
-    // Find if the group already exists
-    .get()
-    .then((documentSnapshot: any) => {
-      if (documentSnapshot.exists) {
-        return genMessage(
-          -1,
-          "This Group already exists. \n Please enter a new Name."
-        );
-      } else {
-        return true;
-      }
-    });
-
-  if (find === true) {
-    // If the Group does not exist
-    return Fire.default
-      .firestore()
-      .collection("Groups-WEB")
-      .doc()
-      .set({ name: name, description, members: [] })
-      .then((res: any) => genMessage(res, "Made a new group"))
-      .catch((err: any) => genMessage(err, "Failed to make group"));
-  } else return find;
+    let tmp= await FireAPI.newDoc("Events-WEB", {
+            name:name,
+            description:description
+      })
+      tmp["data"] as Interface.GroupInfo;
+      return tmp
 }
 
 async function deleteGroup(name: string) {
@@ -64,41 +43,11 @@ async function deleteGroup(name: string) {
   );
 }
 
-async function updateGroup(name: string, description: string) {
-  let find = await Fire.default
-    .firestore()
-    .collection("Groups-WEB")
-    .doc(name)
-    // Using the document name as ID
-    // Find if the group already exists
-    .get()
-    .then((documentSnapshot: any) => {
-      if (documentSnapshot.exists) {
-        return genMessage(
-          -1,
-          "This Group already exists. \n Please enter a new Name."
-        );
-      } else {
-        return true;
-      }
-    });
-
-  if (find === true) {
-    // The Group name is not found
-    // Upate the current group with a new name
-    return Fire.default
-      .firestore()
-      .collection("Groups-WEB")
-      .doc(name)
-      .update({
-        name,
-        description,
-      })
-      .then((res: any) => genMessage(res, "Updated group"))
-      .catch((res: any) => genMessage(res, "Failed to Updated evnet"));
-  } else {
-    return find;
-  }
+async function updateGroup(id:string, name: string, description: string) {
+        return FireAPI.updateDoc("Groups-WEB", {
+        name: name,
+        description: description,
+      }, id)
 }
 
 async function setGroupMembers(GroupName: string, members: string[]) {

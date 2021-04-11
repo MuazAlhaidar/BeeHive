@@ -15,9 +15,10 @@ enum Relation {
 
 interface IProps {
   event: EventInfo;
+  setChange: ()=>void;
 }
 
-function EventsForm({ event }: IProps) {
+function EventsForm({ event, setChange }: IProps) {
   const [displayRSVP, setIsRSVP] = React.useState(false);
   // const [change, setChange] = React.useState(false);
   // const _tmp = () => {
@@ -29,15 +30,16 @@ function EventsForm({ event }: IProps) {
     const relation = state.relation;
     // const id = state.index;
     // set_relation(id);
-    console.log(event.id, relation, state.id)
     if (relation === Relation.RSVP) {
       setIsRSVP(false);
+      setChange()
       API.removeRSVP(event.id, state.id)
       store.dispatch(redux_rsvp(Relation.NotRSVP));
     } else if (relation === Relation.NotRSVP) {
       API.updateRSVP(event.id, state.id)
       changeIndex();
       setIsRSVP(true);
+      setChange()
       store.dispatch(redux_rsvp(Relation.RSVP));
     } else {
       console.log(`Could Not change RSVP, CURRENT RELATION: ${relation}`);
@@ -50,8 +52,10 @@ function EventsForm({ event }: IProps) {
 
     if (relation === Relation.RSVP) {
       setIsRSVP(true);
+      setChange()
     } else if (relation === Relation.NotRSVP) {
       setIsRSVP(false);
+      setChange()
     }
   };
   React.useEffect(() => {

@@ -23,7 +23,6 @@ async function reload(id: any)  {
     // Convert from TIMESTAMP to Date
     // let date_obj = new Date(i.date.toDate());
     let _relation = null;
-    console.log("I relation!", i.relation)
     switch (i.relation) {
       case Relation.Manager:
         _relation = Relation.Manager;
@@ -34,7 +33,6 @@ async function reload(id: any)  {
       default:
         _relation = Relation.NotRSVP;
     }
-    console.log(i)
     return {
             id: i.id,
       title: i.title,
@@ -54,20 +52,11 @@ async function reload(id: any)  {
 
 function MyEvents({ name, id }: IProp) {
   const [events, setEvents] = React.useState(Array<EventInfo2>());
-  // const set_relation = (i: number) => {
-  //   API.RSVP(events[i].title, id);
-  //   if (events[i].relation === Relation.RSVP) {
-  //     events[i].relation = Relation.NotRSVP;
-  //   } else if (events[i].relation === Relation.NotRSVP) {
-  //     events[i].relation = Relation.RSVP;
-  //   }
-  // };
-  /*
-  */
+  const [change, setChange] = React.useState(true);
   React.useEffect(() => {
     reload(id).then((res) => setEvents(res));
     // reload(id)
-  }, []);
+  }, [change]);
   const [eventIndex, setEventIndex] = React.useState(-1);
   const emptyEvent: EventInfo2 = {
     id: "0",
@@ -104,9 +93,9 @@ function MyEvents({ name, id }: IProp) {
             <EventsFormNonMember event={events[eventIndex]} />
           )
         ) : eventIndex > events.length - 1 || eventIndex < 0 ? (
-          <EventsForm event={emptyEvent} />
+                <EventsForm event={emptyEvent} setChange={()=>{setChange(!change)}}/>
         ) : (
-          <EventsForm event={events[eventIndex]} />
+          <EventsForm event={events[eventIndex]}  setChange={()=>{setChange(!change)}}/>
         )}
       </div>
     </div>

@@ -112,7 +112,7 @@ function MyGroups() {
   const editGroup = (name: string, description: string) => {
     if (groups[groupIndex] !== undefined) {
       // TODO Have this take in a UUID
-      API.updateGroup(name, description).then((res) => {
+      API.updateGroup(groups[groupIndex].id,name, description).then((res) => {
         const g = groups.slice();
         g[groupIndex].name = name;
         g[groupIndex].description = description;
@@ -128,7 +128,7 @@ function MyGroups() {
   const removeGroup = (i: number) => {
     if (groups[groupIndex] !== undefined)
       // TODO Have this take in a UUID
-      API.deleteGroup(groups[groupIndex].name).then((res) => {
+      API.deleteGroup(groups[groupIndex].id).then((res) => {
         const g = groups.slice();
         g.splice(i, 1);
         setGroups(g);
