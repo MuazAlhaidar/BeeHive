@@ -35,7 +35,6 @@ function EventMemberModal({
   });
 
   if (members !== null && members.length != 0) {
-    console.log("SHEETTTTTTTTTTTTTTTTT", signin, members);
     let _members = (members as unknown) as MemberInfo[];
     // Sort the members from highest points to lowest
     sortedList = _members

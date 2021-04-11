@@ -1,49 +1,44 @@
 import React from "react";
-import EditMemberPointsButton from "../EditMemberPointsButton";
+import EditMemberPointsButton from "../EditMemberPointsButtonLeader";
 import "../../CSS/Leaderboard.css";
-import { getallUsers } from "../../api/User";
+import { getallUsers} from "../../api/User";
 import { MemberInfo } from "../../Interfaces";
 
 function Leaderboard() {
-  const [allMembers, setMembers] = React.useState(
+
+  const [sortedList, setSortedList] = React.useState(
     Array<MemberInfo>({
-      id: "0",
+      id: "",
       firstname: "default",
       lastname: "default",
       email: "default",
       points: 0,
       isowner: false,
     })
-  );
 
-  const [sortedList, setSortedList] = React.useState(
-    allMembers.sort((a, b) => (a.points < b.points ? 1 : -1))
   );
 
   const [reload, setReload] = React.useState(false);
   React.useEffect(() => {
-    getallUsers().then((res) => {
-      if (res === undefined || res === null) {
-      } else {
-        console.log(res);
-        let test = res.data.map((x: any) => {
-          let ret = {
-            id: x.id,
-            firstname: x.firstname,
-            lastname: x.lastname,
-            points: x.points,
-          };
-          return ret;
-        });
-        test = test as MemberInfo[];
-        setMembers(test);
-        setSortedList(test);
-        setReload(true);
-      }
-    });
+          getallUsers().then((res) => {
+                  if (res === undefined || res === null ) {
+                  }
+                  else {
+                          let tmp = res.data.sort((a:MemberInfo,b:MemberInfo)=>{
+                                  if(a.points != b.points)
+                                          return a.points < b.points ? 1 : -1
+                                  return a.lastname > b.lastname ? 1 : -1
+
+                          });
+                          setSortedList(tmp)
+                          setReload(true)
+                  }
+
+          });
   }, [reload]);
 
   return (
+          <div>
     <div className="Leaderboard">
       <div className="Leaderboard-Topbar">
         <div className="Leaderboard-Firstname">First Name</div>
@@ -69,7 +64,7 @@ function Leaderboard() {
                   <EditMemberPointsButton
                     member={member}
                     reloadParent={() => {
-                      setReload(!reload);
+                      setReload(false);
                     }}
                   />
                 </div>
@@ -78,6 +73,7 @@ function Leaderboard() {
           : null}
       </div>
     </div>
+  </div>
   );
 }
 

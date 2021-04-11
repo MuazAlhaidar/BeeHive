@@ -165,6 +165,12 @@ async function memberEventUpdate(
     .then((res: any) => genMessage(res, "Updated members for events"))
     .catch((err: any) => genMessage(err, "Failed to updated events"));
 }
+async function memberupdate(
+  // users: [{ id: string; points: number; signin: boolean }],
+  user: Interface.MemberInfo,
+) {
+    return Fire.default.firestore().collection("Users-WEB").doc(user.id).update({points:user.points})
+}
 
 // TODO EMAIL
 
@@ -177,6 +183,7 @@ export {
   getEventsForManager,
   // getEventMembers,
   memberEventUpdate,
+  memberupdate,
   updateRSVP,
   removeRSVP ,
 };
