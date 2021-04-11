@@ -14,7 +14,7 @@ import { MemberInfo, GroupInfo } from "../Interfaces";
 // async function reload(id: number): Promise<Array<GroupInfo>> {
 async function reload(): Promise<any> {
   const data = await API.getAllGroups();
-  return data.data;
+  return data;
 }
 
 function MyGroups() {
@@ -79,6 +79,7 @@ function MyGroups() {
     reload().then((res) => {
       setGroups(res.groups);
       setAllMembers(res.users);
+      console.log(res.users)
     });
   }, []);
 

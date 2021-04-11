@@ -1,4 +1,6 @@
 import { Fire } from "./config.js";
+import * as FireAPI from "./Firebase";
+import {getallUsers} from "./User"
 import "firebase/auth";
 import "firebase/firestore";
 
@@ -12,18 +14,9 @@ function genMessage(_data: any, _msg: any) {
 }
 
 async function getAllGroups() {
-  return Fire.default
-    .firestore()
-    .collection("Groups-WEB")
-    .get()
-    .then((res: any) =>
-      // Return all groups
-      genMessage(
-        res.docs.map((x: any) => x.data()),
-        "Success"
-      )
-    )
-    .catch((err: any) => genMessage(err, "Failed to get groups"));
+        let allgroups = await FireAPI.getDocUser("Groups-WEB", "members",undefined,undefined)
+        let users = await  getallUsers()
+        return {groups:allgroups, users:users.data}
 }
 
 async function newGroup(name: string, description: string) {
@@ -121,29 +114,29 @@ async function setGroupMembers(GroupName: string, members: string[]) {
     .catch((res: any) => genMessage(res, "Failed to add people to groups"));
 }
 
-async function getGroupMembers(GroupName: string) {
-  // Get the group's fields first
-  let group = await Fire.default
-    .firestore()
-    .collection("Groups-WEB")
-    .doc(GroupName)
-    .get();
-  let data = (await group.data()) as any;
-  // Get all members of a group
-  let promises = data["members"].map(async (user: any) => {
-    let tmp = await Fire.default
-      .firestore()
-      .collection("Users-WEB")
-      .doc(user)
-      .get();
-    return tmp.data();
-  });
-  return Promise.all(promises)
-    .then((res: any) => genMessage(res, "All members for a group"))
-    .catch((err: any) =>
-      genMessage(err, "Failed to get all members for a group")
-    );
-}
+// async function getGroupMembers(GroupName: string) {
+//   // Get the group's fields first
+//   let group = await Fire.default
+//     .firestore()
+//     .collection("Groups-WEB")
+//     .doc(GroupName)
+//     .get();
+//   let data = (await group.data()) as any;
+//   // Get all members of a group
+//   let promises = data["members"].map(async (user: any) => {
+//     let tmp = await Fire.default
+//       .firestore()
+//       .collection("Users-WEB")
+//       .doc(user)
+//       .get();
+//     return tmp.data();
+//   });
+//   return Promise.all(promises)
+//     .then((res: any) => genMessage(res, "All members for a group"))
+//     .catch((err: any) =>
+//       genMessage(err, "Failed to get all members for a group")
+//     );
+// }
 
 // TODO Emailing
 async function email(name: string, subject: string, body: string) {
@@ -167,6 +160,6 @@ export {
   deleteGroup,
   updateGroup,
   setGroupMembers,
-  getGroupMembers,
+  // getGroupMembers,
   email,
 };

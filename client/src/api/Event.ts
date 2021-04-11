@@ -23,7 +23,7 @@ async function newEvent(
 ) {
   let user = Fire.default.auth();
   let email = user?.currentUser?.email;
-  // let userid =await FireAPI.getDoc("Users-WEB", "email", email)
+  // let userid =await FireAPI.etDoc("Users-WEB", "email", email)
 
     // If the event does not exist
     let tmp= await FireAPI.newDoc("Events-WEB", {

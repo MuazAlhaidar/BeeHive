@@ -3,7 +3,7 @@ import Member from "./Member";
 import { store } from "../../store";
 import {
   setGroupMembers as APIsetMembers,
-  getGroupMembers as APIgetMembers,
+  // getGroupMembers as APIgetMembers,
 } from "../../api/Groups";
 import { MemberInfo } from "../../Interfaces";
 import "../../CSS/Members/MemberModal.css";
@@ -34,14 +34,17 @@ function MemberModal({
   // TODO
   const [reload, setReload] = React.useState(false);
 
-  let groupEmailList = Array<string>();
-  APIgetMembers(groupID).then((response: any) => {
-    groupEmailList = response.data.members;
-  });
+  // let tmp = (memberList.map(x=>{
+  //         return x.id
+  // }))
+  // console.log(tmp)
+  let groupEmailList =memberList
+
 
   let groupMembers = Array<MemberInfo>();
   allMembers.forEach((member) => {
-    if (groupEmailList.includes(member.email)) {
+    console.log(groupEmailList, member.id)
+    if (groupEmailList.includes(member.id)) {
       groupMembers.push(member);
     }
   });
@@ -49,7 +52,7 @@ function MemberModal({
   function isInGroup(value: MemberInfo, index: number, array: MemberInfo[]) {
     let retme = true;
     groupMembers.forEach((m) => {
-      if (m.email === value.email) {
+      if (m.id === value.id) {
         retme = false;
       }
     });
@@ -66,12 +69,12 @@ function MemberModal({
     // API Call for this group this is the member list
     const state = store.getState().state;
     const index = state.index;
-    const groupEmails = groupMembers.map((x) => x.email);
+    const groupEmails = groupMembers.map((x) => x.id);
 
     // Save it on the frontend
-    console.log(groupID, index);
+    // console.log(groupID, index);
     setMembers(groupEmails, index);
-    console.log(groupID, memberList, index);
+    // console.log(groupID, memberList, index);
     setMemberList(groupEmails);
     APIsetMembers(groupID, groupEmails);
 
