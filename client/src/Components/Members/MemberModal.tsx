@@ -33,29 +33,29 @@ function MemberModal({
   setMembers,
 }: IProps) {
   // TODO
+  console.log(memberList)
   const [reload, setReload] = React.useState(false);
-  let groupMembers =memberList;
+  const [groupMembers, setGroupMembers] = React.useState(memberList);
   const refreshFilter = () =>{
-          console.log(allMembers, memberList)
+          // console.log(allMembers, groupMembers)
          let RETURN= allMembers.filter((member)=> {
                   let retme=true;
-                  memberList.forEach((x)=>{
+                  groupMembers.forEach((x)=>{
                           if(x.id == member.id)
                                   retme=false
                   })
                   return retme
 
           })
-          console.log(RETURN)
+          // console.log(RETURN)
           return RETURN
   }
   let [NonMembers, setNonMembers] = React.useState(
           refreshFilter()
   );
-  // React.useEffect(()=>{
-  //         setNonMembers(refreshFilter())
-  //         setGroupMembers(memberList)
-  // }, [reload])
+  React.useEffect(()=>{
+          setNonMembers(refreshFilter())
+  }, [reload])
 
   // console.log("Memberlist", memberList)
   // console.log("IN--------------------",groupMembers)
@@ -86,14 +86,14 @@ function MemberModal({
   const addToGroup = (member: MemberInfo) => {
     const m = groupMembers.slice();
     m.push(member);
-    groupMembers = m;
+    setGroupMembers(m)
     setReload(!reload);
   };
 
   const removeFromGroup = (index: number) => {
     const m = groupMembers.slice();
     m.splice(index, 1);
-    groupMembers = m;
+    setGroupMembers(m)
     setReload(!reload);
   };
 
