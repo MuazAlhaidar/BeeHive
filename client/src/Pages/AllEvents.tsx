@@ -77,7 +77,7 @@ function MyEvents({ name, id }: IProp) {
     date: new Date(2000, 1, 1, 0, 0),
     description: "",
     rsvp: Array<string>(),
-    sigin: Array<string>(),
+    signin: Array<string>(),
     relation: Relation.NotRSVP,
   };
 

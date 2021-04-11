@@ -24,5 +24,9 @@ interface GroupInfo {
   description: string;
   members: Array<string>;
 }
+interface MemberInfoSign extends MemberInfo{
+        signin: boolean;
+}
 
-export type { EventInfo, GroupInfo, MemberInfo, MemberInfoSign };
+
+export type { EventInfo, GroupInfo, MemberInfo, MemberInfoSign  };

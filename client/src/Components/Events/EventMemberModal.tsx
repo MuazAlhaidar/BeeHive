@@ -3,20 +3,18 @@ import EditMemberPointsButton from "../EditMemberPointsButton";
 import "../../CSS/Events/EventMemberModal.css";
 // import { store, redux_index, redux_rsvp } from "../../store";
 import {memberEventUpdate} from "../../api/Event"
-import { MemberInfo} from "../../Interfaces";
+import { MemberInfo, MemberInfoSign} from "../../Interfaces";
 
-interface MemberInfoSign extends MemberInfo{
-        signin: boolean;
-}
 interface IProps {
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
   members: MemberInfo[] | null;
   eventid: string|null;
   signin: String[] | null;
+  reloadPage: (arg0:boolean)=>void;
 }
 
-function EventMemberModal({ showModal, setShowModal, members, eventid, signin}: IProps) {
+function EventMemberModal({ showModal, setShowModal, members, eventid, signin, reloadPage}: IProps) {
   let sortedList = Array<MemberInfoSign>({
     id: "",
     firstname: "",
@@ -30,7 +28,7 @@ function EventMemberModal({ showModal, setShowModal, members, eventid, signin}: 
 
   if (members !== null  && members.length !=0) {
 
-          console.log("SHEETTTTTTTTTTTTTTTTT", signin)
+          console.log("SHEETTTTTTTTTTTTTTTTT", signin, members)
           let _members = (members as unknown) as MemberInfo[];
           // Sort the members from highest points to lowest
           sortedList = _members.sort((a, b) => (a.points < b.points ? 1 : -1))
@@ -38,6 +36,7 @@ function EventMemberModal({ showModal, setShowModal, members, eventid, signin}: 
                // Sets whether the user is signin or not
                let tmp =member;
                if(signin !=null){
+                       console.log(signin.includes(member.id))
                         let issignin=signin.includes(member.id)
                         tmp["signin"] = issignin
                }
@@ -63,6 +62,9 @@ function EventMemberModal({ showModal, setShowModal, members, eventid, signin}: 
     if(sortedList !=null && sortedList.length > 0 && eventid !== null){
             console.log(sortedList, eventid)
             memberEventUpdate(sortedList, eventid)
+            reloadPage(false)
+            reloadPage(true)
+            reloadPage(false)
     }
     setShowModal(!showModal);
   };
@@ -103,7 +105,7 @@ function EventMemberModal({ showModal, setShowModal, members, eventid, signin}: 
                         <form className="EventMemberModal-Attended">
                           <input
                             type="checkbox"
-                            defaultChecked={false}
+                            defaultChecked={member.signin}
                                   onChange={()=>{
                                           sortedList[index].signin = !member.signin;
                                   }}
