@@ -103,6 +103,7 @@ async function updateGroup(name: string, description: string) {
 
 async function setGroupMembers(GroupName: string, members: string[]) {
   // Bulk set the members of a group
+  console.log(members)
   return Fire.default
     .firestore()
     .collection("Groups-WEB")

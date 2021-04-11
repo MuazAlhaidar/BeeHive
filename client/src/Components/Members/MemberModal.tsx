@@ -32,52 +32,29 @@ function MemberModal({
   setMembers,
 }: IProps) {
   // TODO
-  // console.log(memberList)
-  // console.log(allMembers)
   const [reload, setReload] = React.useState(false);
+  let [groupMembers, setGroupMembers] = React.useState(memberList);
+  let [NonMembers, setNonMembers] = React.useState(
+          allMembers.filter((member)=> !groupMembers.includes(member))
+  );
 
-  // let tmp = (memberList.map(x=>{
-  //         return x.id
-  // }))
-  // console.log(tmp)
-  let groupEmailList =memberList.map(x=>x.id)
-
-
-  let groupMembers = Array<MemberInfo>();
-  allMembers.forEach((member) => {
-          // console.log(groupEmailList, member.id, groupEmailList.includes(member.id))
-    if (groupEmailList.includes(member.id)) {
-      groupMembers.push(member);
-    }
-  });
-
-  function isInGroup(value: MemberInfo, index: number, array: MemberInfo[]) {
-    let retme = true;
-    groupMembers.forEach((m) => {
-      if (m.id === value.id) {
-        retme = false;
-      }
-    });
-    return retme;
-  }
-
-  // const [pastIn, setpastIn] = React.useState(memberList);
-  // Used to removing changes made
-  let filteredList = allMembers.filter(isInGroup);
-  // const [pastOut, setpastOut] = React.useState(filteredList);
+  console.log("Memberlist", memberList)
+  console.log("IN--------------------",groupMembers)
+  console.log("OUT--------------------",NonMembers)
+  
 
   const handleSave = () => {
     // clicking save just gets emails from groupUser and assigns them to the API
     // API Call for this group this is the member list
     const state = store.getState().state;
     const index = state.index;
-    const groupEmails = groupMembers.map((x) => x.id);
 
     // Save it on the frontend
-    // console.log(groupID, index);
     setMembers(groupMembers, index);
-    // console.log(groupID, memberList, index);
     setMemberList(groupMembers);
+
+    const groupEmails = groupMembers.map((x) => x.id);
+    console.log("Danger", groupID, groupEmails);
     APIsetMembers(groupID, groupEmails);
 
     setShowModal(!showModal);
@@ -91,13 +68,15 @@ function MemberModal({
     const m = groupMembers.slice();
     m.push(member);
     groupMembers = m;
+    setGroupMembers(m)
+    setReload(!reload);
     setReload(!reload);
   };
 
   const removeFromGroup = (index: number) => {
     const m = groupMembers.slice();
     m.splice(index, 1);
-    groupMembers = m;
+    setGroupMembers(m)
     setReload(!reload);
   };
 
@@ -113,9 +92,10 @@ function MemberModal({
             </div>
             <div className="MemberModal-Body">
               <div className="MemberModal-NotInGroup">
-                {!Array.isArray(filteredList) || !filteredList.length
+                      {allMembers.length==0
                   ? null
-                  : filteredList.map((curMem: MemberInfo, index: number) => {
+                  : NonMembers.map((curMem: MemberInfo, index: number) => {
+                          console.log("YES")
                       return (
                         <div className="MemberModal-NotInGroupMembers">
                           <div className="MemberModal-MemberDiv">
@@ -137,9 +117,10 @@ function MemberModal({
                     })}
               </div>
               <div className="MemberModal-InGroup">
-                {!Array.isArray(memberList) || !memberList.length
+                {groupMembers.length==0
                   ? null
                   : groupMembers.map((curMem: MemberInfo, index: number) => {
+                          console.log("NOPE")
                       return (
                         <div className="MemberModal-InGroupMembers">
                           <div className="MemberModal-MemberDiv">

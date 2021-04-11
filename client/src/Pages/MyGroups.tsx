@@ -35,7 +35,7 @@ function MyGroups() {
     description: "",
   });
   const [memList, setMemList] = React.useState(Array<MemberInfo>());
-  console.log(groups);
+  // console.log(groups);
 
   const toggleMemberModal = () => {
     setShowMembersEditModal(!showMembersEditModal);
@@ -79,7 +79,7 @@ function MyGroups() {
     reload().then((res) => {
       setGroups(res.groups);
       setAllMembers(res.users);
-      console.log(res.users)
+      // console.log(res.users)
     });
   }, []);
 
@@ -163,7 +163,7 @@ function MyGroups() {
         />
       ) : (
         <MemberModal
-          groupID={groups[groupIndex].name}
+          groupID={groups[groupIndex].id}
           allMembers={allMembers}
           memberList={memList}
           setMemberList={setMemList}

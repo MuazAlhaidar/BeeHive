@@ -11,7 +11,6 @@ interface IProps {
 function MemberList({ groupId, toggleMemberModal,users }: IProps) {
   // TODO use emails to get names and display them in the map
   // Use groupId to get all members
-  console.log(users)
   return (
     <div>
       <div className="MemberList-Top">
