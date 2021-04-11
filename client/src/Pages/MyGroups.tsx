@@ -18,7 +18,7 @@ async function reload(): Promise<any> {
 }
 
 function MyGroups() {
-  const emptyMembersList = new Array<string>();
+  const emptyMembersList = new Array<MemberInfo>();
   const emptyGroup = {} as GroupInfo;
 
   const [allMembers, setAllMembers] = React.useState(new Array<MemberInfo>());
@@ -82,6 +82,9 @@ function MyGroups() {
       // console.log(res.users)
     });
   }, []);
+  React.useEffect(()=>{
+
+  }, [groupIndex])
 
   const selectGroup = (i: number) => {
     let index = i === undefined ? 0 : i;
@@ -160,6 +163,7 @@ function MyGroups() {
           showModal={showMembersEditModal}
           setShowModal={setShowMembersEditModal}
           setMembers={set_groupmembers}
+          index={groupIndex}
         />
       ) : (
         <MemberModal
@@ -170,6 +174,7 @@ function MyGroups() {
           showModal={showMembersEditModal}
           setShowModal={setShowMembersEditModal}
           setMembers={set_groupmembers}
+          index={groupIndex}
         />
       )}
       <div className="MyGroups-GroupList">

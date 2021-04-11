@@ -15,11 +15,12 @@ interface IProps {
   // Only way we can get the members
   groupID: string;
   allMembers: Array<MemberInfo>;
-  memberList: Array<any>;
+  memberList: Array<MemberInfo>;
   setMemberList: (memberList: Array<MemberInfo>) => void;
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
   setMembers: (memberList: Array<MemberInfo>, index: number) => void;
+  index: number
 }
 
 
@@ -31,35 +32,35 @@ function MemberModal({
   showModal,
   setShowModal,
   setMembers,
+  index
 }: IProps) {
   // TODO
-  console.log(memberList)
   const [reload, setReload] = React.useState(false);
   const [groupMembers, setGroupMembers] = React.useState(memberList);
-  const refreshFilter = () =>{
-          // console.log(allMembers, groupMembers)
+  const refreshFilter = (lst:any) =>{
          let RETURN= allMembers.filter((member)=> {
                   let retme=true;
-                  groupMembers.forEach((x)=>{
+                  lst.forEach((x:any)=>{
                           if(x.id == member.id)
                                   retme=false
                   })
                   return retme
 
           })
-          // console.log(RETURN)
           return RETURN
   }
   let [NonMembers, setNonMembers] = React.useState(
-          refreshFilter()
+          refreshFilter(memberList)
   );
   React.useEffect(()=>{
-          setNonMembers(refreshFilter())
-  }, [reload])
+          setNonMembers(refreshFilter(groupMembers))
+  }, [reload,])
+  React.useEffect(()=>{
+          setGroupMembers(memberList)
+          setNonMembers(refreshFilter(memberList))
+  },[memberList, index])
+  refreshFilter(memberList)
 
-  // console.log("Memberlist", memberList)
-  // console.log("IN--------------------",groupMembers)
-  // console.log("OUT--------------------",NonMembers)
   
 
   const handleSave = () => {
@@ -73,13 +74,14 @@ function MemberModal({
     setMemberList(groupMembers);
 
     const groupEmails = groupMembers.map((x) => x.id);
-    // console.log("Danger", groupID, groupEmails);
     APIsetMembers(groupID, groupEmails);
 
     setShowModal(!showModal);
   };
 
   const handleCancel = () => {
+          setGroupMembers(memberList)
+          setReload(!reload)
     setShowModal(!showModal);
   };
 
@@ -112,7 +114,6 @@ function MemberModal({
                       {allMembers.length==0
                   ? null
                   : NonMembers.map((curMem: MemberInfo, index: number) => {
-                          // console.log("YES")
                       return (
                         <div className="MemberModal-NotInGroupMembers">
                           <div className="MemberModal-MemberDiv">
@@ -137,7 +138,6 @@ function MemberModal({
                 {groupMembers.length==0
                   ? null
                   : groupMembers.map((curMem: MemberInfo, index: number) => {
-                          // console.log("NOPE")
                       return (
                         <div className="MemberModal-InGroupMembers">
                           <div className="MemberModal-MemberDiv">
