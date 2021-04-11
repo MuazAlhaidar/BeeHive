@@ -77,17 +77,18 @@ async function getallUsers(): Promise<Message> {
 // means that we can no longer find the user if
 // their email has changed since we cant change IDs
 async function changeEmail(
-  oldemail: any,
-  newemail: string
+  id: any,
+  newemail: string,
 ): Promise<Message | undefined> {
   var user = Fire.default.auth().currentUser;
+  console.log(id)
   return user
     ?.updateEmail(newemail)
     .then(() => {
       return Fire.default
         .firestore()
-        .collection("User-WEB")
-        .doc(oldemail)
+        .collection("Users-WEB")
+        .doc(id)
         .update({ email: newemail })
         .then(() => genMessage(true, "Changed email"))
         .catch((error: any) =>
