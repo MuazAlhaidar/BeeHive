@@ -11,7 +11,7 @@ interface IProps {
   members: MemberInfo[] | null;
   eventid: string|null;
   signin: String[] | null;
-  reloadPage: (arg0:boolean)=>void;
+  reloadPage: ()=>void;
 }
 
 function EventMemberModal({ showModal, setShowModal, members, eventid, signin, reloadPage}: IProps) {
@@ -62,14 +62,13 @@ function EventMemberModal({ showModal, setShowModal, members, eventid, signin, r
     if(sortedList !=null && sortedList.length > 0 && eventid !== null){
             console.log(sortedList, eventid)
             memberEventUpdate(sortedList, eventid)
-            reloadPage(false)
-            reloadPage(true)
-            reloadPage(false)
+          reloadPage()
     }
     setShowModal(!showModal);
   };
 
   const handleCancel = () => {
+          reloadPage()
     setShowModal(!showModal);
   };
 

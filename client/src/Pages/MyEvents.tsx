@@ -214,7 +214,7 @@ function MyEvents(props: { id: any }) {
         eventid={
           events[eventIndex] !== undefined ? events[eventIndex].id : null
         }
-        reloadPage={setReload}
+              reloadPage={() => setReload(!checkReload)}
 
       />
       <TransferManagerModal
