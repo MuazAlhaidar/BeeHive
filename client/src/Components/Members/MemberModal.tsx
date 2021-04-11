@@ -22,6 +22,7 @@ interface IProps {
   setMembers: (memberList: Array<MemberInfo>, index: number) => void;
 }
 
+
 function MemberModal({
   groupID,
   allMembers,
@@ -33,14 +34,32 @@ function MemberModal({
 }: IProps) {
   // TODO
   const [reload, setReload] = React.useState(false);
-  let [groupMembers, setGroupMembers] = React.useState(memberList);
-  let [NonMembers, setNonMembers] = React.useState(
-          allMembers.filter((member)=> !groupMembers.includes(member))
-  );
+  let groupMembers =memberList;
+  const refreshFilter = () =>{
+          console.log(allMembers, memberList)
+         let RETURN= allMembers.filter((member)=> {
+                  let retme=true;
+                  memberList.forEach((x)=>{
+                          if(x.id == member.id)
+                                  retme=false
+                  })
+                  return retme
 
-  console.log("Memberlist", memberList)
-  console.log("IN--------------------",groupMembers)
-  console.log("OUT--------------------",NonMembers)
+          })
+          console.log(RETURN)
+          return RETURN
+  }
+  let [NonMembers, setNonMembers] = React.useState(
+          refreshFilter()
+  );
+  // React.useEffect(()=>{
+  //         setNonMembers(refreshFilter())
+  //         setGroupMembers(memberList)
+  // }, [reload])
+
+  // console.log("Memberlist", memberList)
+  // console.log("IN--------------------",groupMembers)
+  // console.log("OUT--------------------",NonMembers)
   
 
   const handleSave = () => {
@@ -54,7 +73,7 @@ function MemberModal({
     setMemberList(groupMembers);
 
     const groupEmails = groupMembers.map((x) => x.id);
-    console.log("Danger", groupID, groupEmails);
+    // console.log("Danger", groupID, groupEmails);
     APIsetMembers(groupID, groupEmails);
 
     setShowModal(!showModal);
@@ -68,15 +87,13 @@ function MemberModal({
     const m = groupMembers.slice();
     m.push(member);
     groupMembers = m;
-    setGroupMembers(m)
-    setReload(!reload);
     setReload(!reload);
   };
 
   const removeFromGroup = (index: number) => {
     const m = groupMembers.slice();
     m.splice(index, 1);
-    setGroupMembers(m)
+    groupMembers = m;
     setReload(!reload);
   };
 
@@ -95,7 +112,7 @@ function MemberModal({
                       {allMembers.length==0
                   ? null
                   : NonMembers.map((curMem: MemberInfo, index: number) => {
-                          console.log("YES")
+                          // console.log("YES")
                       return (
                         <div className="MemberModal-NotInGroupMembers">
                           <div className="MemberModal-MemberDiv">
@@ -120,7 +137,7 @@ function MemberModal({
                 {groupMembers.length==0
                   ? null
                   : groupMembers.map((curMem: MemberInfo, index: number) => {
-                          console.log("NOPE")
+                          // console.log("NOPE")
                       return (
                         <div className="MemberModal-InGroupMembers">
                           <div className="MemberModal-MemberDiv">
