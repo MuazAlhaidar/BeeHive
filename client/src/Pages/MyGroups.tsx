@@ -139,7 +139,13 @@ function MyGroups() {
 
   return (
     <div className="MyGroups">
-      <EmailModal showModal={showEmailModal} setShowModal={setShowEmailModal} />
+      <EmailModal showModal={showEmailModal} setShowModal={setShowEmailModal} 
+        members={
+          groups[groupIndex] !== undefined
+            ? (groups[groupIndex].members as MemberInfo[])
+            : null
+        }
+            />
       <GroupsEdit
         showModal={showGroupEditModal}
         setShowModal={setShowGroupEditModal}

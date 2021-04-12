@@ -4,6 +4,7 @@ import * as Interface from "../Interfaces"
 import {getallUsers} from "./User"
 import "firebase/auth";
 import "firebase/firestore";
+import * as fs from "fs"
 
 interface Message {
   data: any;
@@ -21,7 +22,7 @@ async function getAllGroups() {
 }
 
 async function newGroup(name: string, description: string) {
-    let tmp= await FireAPI.newDoc("Events-WEB", {
+    let tmp= await FireAPI.newDoc("Groups-WEB", {
             name:name,
             description:description
       })
@@ -64,52 +65,34 @@ async function setGroupMembers(GroupName: string, members: string[]) {
     .catch((res: any) => genMessage(res, "Failed to add people to groups"));
 }
 
-// async function getGroupMembers(GroupName: string) {
-//   // Get the group's fields first
-//   let group = await Fire.default
-//     .firestore()
-//     .collection("Groups-WEB")
-//     .doc(GroupName)
-//     .get();
-//   let data = (await group.data()) as any;
-//   // Get all members of a group
-//   let promises = data["members"].map(async (user: any) => {
-//     let tmp = await Fire.default
-//       .firestore()
-//       .collection("Users-WEB")
-//       .doc(user)
-//       .get();
-//     return tmp.data();
-//   });
-//   return Promise.all(promises)
-//     .then((res: any) => genMessage(res, "All members for a group"))
-//     .catch((err: any) =>
-//       genMessage(err, "Failed to get all members for a group")
-//     );
-// }
-
-// TODO Emailing
-async function email(name: string, subject: string, body: string) {
-  return Fire.default
-    .firestore()
-    .collection("Groups-WEB")
-    .doc(name)
-    .get()
-    .then((res: any) => {
-      // let data = res.data();
-      // return Fire.default.firestore().collection("User-WEB").where("user", "in",
-    })
-    .catch((err: any) =>
-      genMessage(false, "Failed to get people from a group")
-    );
+async function email(users:Interface.MemberInfo[], subject:string, body:string){
+        let emails = users.map((x:Interface.MemberInfo)=>x.email)
+        // console.log(emails)
+        const handleSaveToPC = (jsonData:any) => {
+                const fileData = JSON.stringify(jsonData);
+                const blob = new Blob([fileData], {type: "text/plain"});
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.download =subject+".json";
+                link.href = url;
+                link.click();
+        }
+        handleSaveToPC({subject:subject, body:body, bcc:emails})
+        // Fire.firestore().collection('mail').add({
+        //         bcc:emails,
+        //         message: {
+        //                 subject:subject,
+        //                 html:body,
+        //         },
+        // })
 }
 
 export {
-  getAllGroups,
-  newGroup,
-  deleteGroup,
-  updateGroup,
-  setGroupMembers,
-  // getGroupMembers,
-  email,
+        getAllGroups,
+        newGroup,
+        deleteGroup,
+        updateGroup,
+        setGroupMembers,
+        // getGroupMembers,
+        email,
 };

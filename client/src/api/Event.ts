@@ -145,8 +145,6 @@ async function memberupdate(
     return Fire.default.firestore().collection("Users-WEB").doc(user.id).update({points:user.points})
 }
 
-// TODO EMAIL
-
 export {
   newEvent,
   updateEvent,

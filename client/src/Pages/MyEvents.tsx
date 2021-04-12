@@ -200,7 +200,13 @@ function MyEvents(props: { id: any }) {
 
   return (
     <div className="MyEvents">
-      <EmailModal showModal={showEmailModal} setShowModal={setShowEmailModal} />
+      <EmailModal showModal={showEmailModal} setShowModal={setShowEmailModal} 
+        members={
+          events[eventIndex] !== undefined
+            ? (events[eventIndex].rsvp as MemberInfo[])
+            : null
+        }
+            />
       <EventEdit
         showModal={showEventEditModal}
         setShowModal={setShowEventEditModal}
