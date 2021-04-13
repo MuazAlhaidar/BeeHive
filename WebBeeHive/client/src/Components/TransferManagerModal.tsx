@@ -75,11 +75,15 @@ function TransferManagerModal({
                       className="TransferManagerModal-SetManagerButton"
                       onClick={() => {
                         handleCancel();
-                        // let id = store.getState().state.id;
-                        console.log(event, member.id);
-                        EventAPI.transferEvent(event, member.id).then((res) => {
-                          setReload(!reload);
-                        });
+                        // If an event is not selected
+                        // then dont transfer anything
+                        if (event !== null) {
+                          EventAPI.transferEvent(event, member.id).then(
+                            (res) => {
+                              setReload(!reload);
+                            }
+                          );
+                        }
                       }}
                     >
                       Set As Manager
