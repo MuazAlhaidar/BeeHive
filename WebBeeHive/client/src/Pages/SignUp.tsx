@@ -24,6 +24,7 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
     }
 
     let res = await API.newUser(_email, _password, _firstname, _lastname);
+    console.log(res)
     // Backend
     switch (res.data) {
       case 1:

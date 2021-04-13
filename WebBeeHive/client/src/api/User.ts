@@ -38,22 +38,39 @@ async function newUser(
   firstname: string,
   lastname: string
 ): Promise<Message> {
-        let newuser =await FireAPI.newDoc("Users-WEB", {
-                firstname: firstname,
-                lastname: lastname,
-                email: email,
-                points: 0,
-                isowner: false,
-        }, "email")
+        let finduser = await  FireAPI.getDoc("Users-WEB", "email", email)
+        console.log(finduser)
 
-        if(newuser["data"] !== false){
+        if(finduser["data"].length==0){
                  return Fire.default
                 .auth()
                 .createUserWithEmailAndPassword(email, password)
-                .then((res: any) => {
-                        return newuser
+                .then(async (res: any) => {
+                        // return genMessage(0, "WOW")
+
+
+
+                        const id = res.user.uid
+                        let newuser =await Fire.default.firestore().collection("Users-WEB")
+                        .doc(id).set({
+                                firstname: firstname,
+                                lastname: lastname,
+                                email: email,
+                                points: 0,
+                                isowner: false,
+                                id: id
+                        }) 
+                        // FireAPI.newDoc("Users-WEB", , "email")
+                        return genMessage({
+                                firstname: firstname,
+                                lastname: lastname,
+                                email: email,
+                                points: 0,
+                                isowner: false,
+                                id: id
+                        }, "Success")
                 })
-                .catch((err: any) => genMessage(1, "Failed to login"));
+                .catch((err: any) => genMessage(1, err+"\nFailed to sign up"));
         }
         else{
                 return genMessage(2, "Failed to make user")
