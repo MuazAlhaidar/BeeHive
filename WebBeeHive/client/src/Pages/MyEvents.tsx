@@ -110,10 +110,10 @@ function MyEvents(props: { id: any }) {
     let [year, month, day] = date.split("-").map((i) => parseInt(i));
     let [hour, minute] = time.split(":").map((i) => parseInt(i));
     let thedate = new Date(year, month - 1, day, hour, minute);
-    console.log(date)
-    console.log(time)
-    console.log(thedate)
-    console.log(`Year:${year}\n Month:${month}\n Day:${day}\n Hour:${hour}\n ${minute}`)
+    // console.log(date)
+    // console.log(time)
+    // console.log(thedate)
+    // console.log(`Year:${year}\n Month:${month}\n Day:${day}\n Hour:${hour}\n ${minute}`)
     // TODO Have this take in a UUID
     let _tmp = await API.newEvent(
       props.id,
