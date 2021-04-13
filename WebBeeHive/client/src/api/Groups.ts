@@ -5,11 +5,6 @@ import { getallUsers } from "./User";
 import "firebase/auth";
 import "firebase/firestore";
 
-interface Message {
-  data: any;
-  msg: string | number;
-}
-
 function genMessage(_data: any, _msg: any) {
   return { msg: _msg, data: _data };
 }
@@ -21,8 +16,8 @@ async function getAllGroups() {
     undefined,
     undefined
   );
-  let users = (await getallUsers()).data.filter((x:any)=>{
-          return !x.isowner
+  let users = (await getallUsers()).data.filter((x: any) => {
+    return !x.isowner;
   });
   return { groups: allgroups, users: users };
 }

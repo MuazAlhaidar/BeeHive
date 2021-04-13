@@ -29,7 +29,6 @@ function SignUp({ setId, setOwner }: IProps) {
     }
 
     let res = await API.newUser(_email, _password, _firstname, _lastname);
-    console.log(res)
     // Backend
     switch (res.data) {
       case 1:

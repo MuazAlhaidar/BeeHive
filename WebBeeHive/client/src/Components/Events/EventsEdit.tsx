@@ -57,12 +57,6 @@ function EventEdit({
   const handleCancel = () => {
     setShowModal(!showModal);
   };
-  // React.useEffect(()=>{
-  //         let tmpdate = currentEvent.date.replaceAll("/", "-")
-  //         let [month, day, year] = tmpdate.split("-")
-  //         senddate = `${year}-${month}-${day}`
-  //         console.log(senddate)
-  // }, [index])
 
 
   return (
@@ -144,7 +138,6 @@ function EventEdit({
                         description: currentEvent.description,
                       })
                       setindex(e.target.value)
-                      
                     }}
                   />
                 </div>
