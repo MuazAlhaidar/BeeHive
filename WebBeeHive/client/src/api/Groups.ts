@@ -24,7 +24,8 @@ async function getAllGroups() {
 async function newGroup(name: string, description: string) {
     let tmp= await FireAPI.newDoc("Groups-WEB", {
             name:name,
-            description:description
+            description:description,
+            members:[]
       })
       tmp["data"] as Interface.GroupInfo;
       return tmp

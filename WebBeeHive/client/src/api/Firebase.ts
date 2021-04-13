@@ -61,7 +61,6 @@ export async function updateDoc(collection:string, entry:any, id:string, queryTe
                 .catch((err: any) => genMessage(err, "Failed to update a "+collection));
         }
         if(queryTerm === undefined){
-                console.log(queryTerm, "Am i fucking undefined?")
                 return updateDoc(id, entry)
         }
         else {
@@ -83,7 +82,6 @@ export async function updateDoc(collection:string, entry:any, id:string, queryTe
 
 }
 export async function getDoc(collection:string, queryTerm:string|undefined=undefined, cquery:string|undefined=""){
-        const ref = Fire.default.firestore().collection(collection)
         function getALLdocs(res:any){
                 return genMessage(res.docs.map((x:any)=>getid(x)), "Got documents for " + collection + " that matches" + cquery)
         }
@@ -99,7 +97,10 @@ export async function getDocUser(collection:string, subterm:string, queryTerm:an
         return Promise.all(docs["docs"].map(async x=>{
                let tmp = getid(x)
                let foundusers= await Promise.all(x.get(subterm).map(async (user:any)=>{
-                       let userdata =  getid(await userref.doc(user).get())
+                       console.log("WOW", user)
+                       let userdata =  await userref.doc(user).get()
+                       console.log("FUCK",  userdata.data())
+                       userdata =  getid(await userref.doc(user).get())
                        return userdata
                }))
                tmp[subterm] = foundusers

@@ -4,4 +4,5 @@ const config = {
   projectId: "beehive-6cba8",
 };
 Fire.default.initializeApp(config);
+module.exports = { Fire };
 

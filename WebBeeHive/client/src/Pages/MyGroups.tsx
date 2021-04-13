@@ -98,7 +98,8 @@ function MyGroups() {
     API.newGroup(name, description).then((res) => {
       const g = groups.slice();
       // TODO Have this take in a UUID
-      g.push({ id: "0", name, description, members });
+      console.log(res)
+      g.push({ id: res.data.id, name, description, members });
       setGroups(g);
       setGroupIndex(groups.length);
       setCurGroup({

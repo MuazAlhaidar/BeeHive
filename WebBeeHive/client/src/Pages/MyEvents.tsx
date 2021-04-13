@@ -14,7 +14,6 @@ import { getFormattedDate, getFormattedTime } from "../DateAndTimeFormat";
 
 async function reload(user: string) {
   let tmp = await API.getEventsForManager(user);
-  console.log("COKIEEEEEEEEEES", tmp);
   return tmp;
 }
 
@@ -120,9 +119,10 @@ function MyEvents(props: { id: any }) {
       thedate
     );
     const e = events.slice();
+    console.log(_tmp)
     e.push({
       // TODO generate an actual UUID
-      id: "0",
+      id: _tmp.data.id,
       title,
       address,
       date: thedate,

@@ -5,11 +5,11 @@ import EventsForm from "../Components/Events/EventsForm(view-only)";
 import EventsFormNonMember from "../Components/Events/EventsForm(NonMember)";
 import * as API from "../api/Event";
 import { store, redux_index, redux_rsvp, Relation } from "../store";
-import { EventInfo } from "../Interfaces";
+import { EventInfo, EventInfo2 } from "../Interfaces";
 
-interface EventInfo2 extends EventInfo {
-  relation: Relation;
-}
+// interface EventInfo2 extends EventInfo {
+//   relation: Relation;
+// }
 
 interface IProp {
   name: string;

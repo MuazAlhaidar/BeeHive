@@ -20,12 +20,13 @@ export default function Request(props: {}) {
             evt.preventDefault();
 
             API.resetPassword(email).then((res) => {
-              if (res) {
+              if (res.data) {
                 alert(
                   "Your request has been done successfully. Check email for the code"
                 );
                 history.push("/");
               } else {
+                      alert("This email does not exist")
               }
             });
           }}

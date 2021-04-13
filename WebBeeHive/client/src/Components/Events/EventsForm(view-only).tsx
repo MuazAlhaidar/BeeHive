@@ -6,7 +6,7 @@ import "../../CSS/Events/EventsForm(view-only).css";
 import * as API from "../../api/Event";
 import { store, redux_rsvp } from "../../store";
 import { getFormattedDate, getFormattedTime } from "../../DateAndTimeFormat";
-import { EventInfo } from "../../Interfaces";
+import { EventInfo2 } from "../../Interfaces";
 
 enum Relation {
   RSVP,
@@ -14,7 +14,7 @@ enum Relation {
 }
 
 interface IProps {
-  event: EventInfo;
+  event: EventInfo2;
   setChange: ()=>void;
 }
 
@@ -34,12 +34,14 @@ function EventsForm({ event, setChange }: IProps) {
       setIsRSVP(false);
       setChange()
       API.removeRSVP(event.id, state.id)
+     event["relation"]  =  Relation.NotRSVP;
       store.dispatch(redux_rsvp(Relation.NotRSVP));
     } else if (relation === Relation.NotRSVP) {
       API.updateRSVP(event.id, state.id)
       changeIndex();
       setIsRSVP(true);
       setChange()
+     event["relation"]  =  Relation.RSVP;
       store.dispatch(redux_rsvp(Relation.RSVP));
     } else {
       console.log(`Could Not change RSVP, CURRENT RELATION: ${relation}`);

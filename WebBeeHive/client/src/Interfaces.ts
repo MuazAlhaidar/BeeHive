@@ -1,3 +1,5 @@
+import {Relation} from "./store"
+
 interface MemberInfo {
   id: string;
   firstname: string;
@@ -17,6 +19,10 @@ interface EventInfo {
   rsvp: Array<MemberInfo>|Array<String>;
   signin: Array<string>;
 }
+interface EventInfo2 extends EventInfo {
+  relation: Relation;
+}
+
 
 interface GroupInfo {
   id: string;
@@ -29,4 +35,4 @@ interface MemberInfoSign extends MemberInfo{
 }
 
 
-export type { EventInfo, GroupInfo, MemberInfo, MemberInfoSign  };
+export type { EventInfo, GroupInfo, MemberInfo, MemberInfoSign , EventInfo2 };
