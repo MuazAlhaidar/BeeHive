@@ -1,13 +1,12 @@
 import React from "react";
 import "../CSS/EmailModal.css";
-import { email as sendEmail } from "../api/Groups";
-import { store } from "../store";
-import { MemberInfo } from "../Interfaces"
+import { email as sendEmail } from "../api/User";
+import { MemberInfo } from "../Interfaces";
 
 interface IProps {
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
-  members: MemberInfo[] | null
+  members: MemberInfo[] | null;
 }
 
 function EmailModal({ showModal, setShowModal, members }: IProps) {
@@ -20,14 +19,10 @@ function EmailModal({ showModal, setShowModal, members }: IProps) {
     e.preventDefault();
     setShowModal(!showModal);
 
-    const state = store.getState().state;
-    // TODO  Have it so we actually have the group ID
-    const group_id = state.group;
-    if(members === null){
-            alert("List of people to email to is empty")
-    }
-    else{
-            sendEmail(members, email.subject, email.body);
+    if (members === null) {
+      alert("List of people to email to is empty");
+    } else {
+      sendEmail(members, email.subject, email.body);
     }
     setEmail({ subject: "", body: "" });
   };

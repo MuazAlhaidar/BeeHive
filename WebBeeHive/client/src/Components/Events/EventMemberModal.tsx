@@ -1,7 +1,6 @@
 import React from "react";
 import EditMemberPointsButton from "../EditMemberPointsButton";
 import "../../CSS/Events/EventMemberModal.css";
-// import { store, redux_index, redux_rsvp } from "../../store";
 import { memberEventUpdate } from "../../api/Event";
 import { MemberInfo, MemberInfoSign } from "../../Interfaces";
 
@@ -34,7 +33,7 @@ function EventMemberModal({
     signin: false,
   });
 
-  if (members !== null && members.length != 0) {
+  if (members !== null && members.length !== 0) {
     let _members = (members as unknown) as MemberInfo[];
     // Sort the members from highest points to lowest
     sortedList = _members
@@ -44,32 +43,21 @@ function EventMemberModal({
           // Sets whether the user is signin or not
           let tmp = member;
           if (signin != null) {
-            console.log(signin.includes(member.id));
             let issignin = signin.includes(member.id);
             tmp["signin"] = issignin;
             tmp["inital"] = issignin;
-          } else 
-                  tmp["signin"] = false;
-                  tmp["inital"] = false;
+          } else tmp["signin"] = false;
+          tmp["inital"] = false;
 
           return tmp;
         }
       );
-    console.log(sortedList);
   }
 
-  const [hasAttended, setHasAttended] = React.useState(false);
   const [reload, setReload] = React.useState(false);
 
-  const setAttended = (e: any) => {
-    setHasAttended(!hasAttended);
-  };
-
   const handleSave = () => {
-    // update_points(members as any)
-    console.log(sortedList);
     if (sortedList != null && sortedList.length > 0 && eventid !== null) {
-      console.log(sortedList, eventid);
       memberEventUpdate(sortedList, eventid);
       setReloadPage(!reloadPage);
     }
@@ -77,11 +65,11 @@ function EventMemberModal({
   };
 
   const handleCancel = () => {
-          if(members!=null){
-                  members.forEach((member:any)=>{
-                          member["signin"] = member["inital"]
-                  })
-          }
+    if (members != null) {
+      members.forEach((member: any) => {
+        member["signin"] = member["inital"];
+      });
+    }
     setReloadPage(!reloadPage);
     setShowModal(!showModal);
   };

@@ -32,6 +32,7 @@ function Leaderboard() {
         });
         test = test as MemberInfo[];
         setMembers(test);
+        // Sort the users from highest to lowest points
         let list = allMembers.sort((a, b) => (a.points < b.points ? 1 : -1));
         setSortedList(list);
         setReload(true);

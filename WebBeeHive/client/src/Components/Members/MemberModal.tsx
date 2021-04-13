@@ -1,16 +1,12 @@
 import React from "react";
 import Member from "./Member";
 import { store } from "../../store";
-import {
-  setGroupMembers as APIsetMembers,
-  // getGroupMembers as APIgetMembers,
-} from "../../api/Groups";
+import { setGroupMembers as APIsetMembers } from "../../api/Groups";
 import { MemberInfo } from "../../Interfaces";
 import "../../CSS/Members/MemberModal.css";
-// import { resolve } from "dns";
 
 interface IProps {
-  // TODO Get the Group ID
+  // Group ID
   // For IsInGroup
   // Only way we can get the members
   groupID: string;
@@ -20,9 +16,8 @@ interface IProps {
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
   setMembers: (memberList: Array<MemberInfo>, index: number) => void;
-  index: number
+  index: number;
 }
-
 
 function MemberModal({
   groupID,
@@ -32,39 +27,37 @@ function MemberModal({
   showModal,
   setShowModal,
   setMembers,
-  index
+  index,
 }: IProps) {
-  // TODO
   const [reload, setReload] = React.useState(false);
   const [groupMembers, setGroupMembers] = React.useState(memberList);
-  const refreshFilter = (lst:any) =>{
-         let RETURN= allMembers.filter((member)=> {
-                  let retme=true;
-                  lst.forEach((x:any)=>{
-                          if(x.id == member.id)
-                                  retme=false
-                  })
-                  return retme
+  const refreshFilter = (lst: any) => {
+    let RETURN = allMembers.filter((member) => {
+      let retme = true;
+      lst.forEach((x: any) => {
+        if (x.id === member.id) retme = false;
+      });
+      return retme;
+    });
+    return RETURN;
+  };
 
-          })
-          return RETURN
-  }
-  let [NonMembers, setNonMembers] = React.useState(
-          refreshFilter(memberList)
-  );
-  React.useEffect(()=>{
-          setNonMembers(refreshFilter(groupMembers))
-  }, [reload,])
-  React.useEffect(()=>{
-          setGroupMembers(memberList)
-          setNonMembers(refreshFilter(memberList))
-  },[memberList, index])
-  refreshFilter(memberList)
+  let [NonMembers, setNonMembers] = React.useState(refreshFilter(memberList));
 
-  
+  React.useEffect(() => {
+    setNonMembers(refreshFilter(groupMembers));
+  }, [reload]);
+
+  React.useEffect(() => {
+    setGroupMembers(memberList);
+    setNonMembers(refreshFilter(memberList));
+  }, [memberList, index]);
+
+  refreshFilter(memberList);
 
   const handleSave = () => {
-    // clicking save just gets emails from groupUser and assigns them to the API
+    // Clicking save just gets member ids from groupUser
+    // and assigns them to the API
     // API Call for this group this is the member list
     const state = store.getState().state;
     const index = state.index;
@@ -73,29 +66,29 @@ function MemberModal({
     setMembers(groupMembers, index);
     setMemberList(groupMembers);
 
-    const groupEmails = groupMembers.map((x) => x.id);
-    APIsetMembers(groupID, groupEmails);
+    const memberIds = groupMembers.map((x) => x.id);
+    APIsetMembers(groupID, memberIds);
 
     setShowModal(!showModal);
   };
 
   const handleCancel = () => {
-          setGroupMembers(memberList)
-          setReload(!reload)
+    setGroupMembers(memberList);
+    setReload(!reload);
     setShowModal(!showModal);
   };
 
   const addToGroup = (member: MemberInfo) => {
     const m = groupMembers.slice();
     m.push(member);
-    setGroupMembers(m)
+    setGroupMembers(m);
     setReload(!reload);
   };
 
   const removeFromGroup = (index: number) => {
     const m = groupMembers.slice();
     m.splice(index, 1);
-    setGroupMembers(m)
+    setGroupMembers(m);
     setReload(!reload);
   };
 
@@ -111,7 +104,7 @@ function MemberModal({
             </div>
             <div className="MemberModal-Body">
               <div className="MemberModal-NotInGroup">
-                      {allMembers.length==0
+                {allMembers.length === 0
                   ? null
                   : NonMembers.map((curMem: MemberInfo, index: number) => {
                       return (
@@ -135,7 +128,7 @@ function MemberModal({
                     })}
               </div>
               <div className="MemberModal-InGroup">
-                {groupMembers.length==0
+                {groupMembers.length === 0
                   ? null
                   : groupMembers.map((curMem: MemberInfo, index: number) => {
                       return (

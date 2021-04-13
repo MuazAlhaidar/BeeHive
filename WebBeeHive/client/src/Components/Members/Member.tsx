@@ -1,4 +1,3 @@
-import React from "react";
 import "../../CSS/Members/Member.css";
 
 interface IProps {

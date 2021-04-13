@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import * as API from "../api/User";
 import "../CSS/LogInPanel.css";
 
-export default function Request(props: {}) {
+export default function Request() {
   const [email, setEmail] = React.useState("");
   const history = useHistory();
   return (
@@ -26,7 +26,7 @@ export default function Request(props: {}) {
                 );
                 history.push("/");
               } else {
-                      alert("This email does not exist")
+                alert("This email does not exist");
               }
             });
           }}

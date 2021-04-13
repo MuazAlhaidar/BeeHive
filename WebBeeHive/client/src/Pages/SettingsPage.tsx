@@ -1,15 +1,12 @@
 import React from "react";
 import "../CSS/SettingsPage.css";
 import * as API from "../api/User";
-import { store } from "../store";
 
 interface IProp {
   id: string;
 }
 
-
-function SettingsPage({id}:IProp) {
-  // const [oldEmail, setOldEmail] = React.useState("");
+function SettingsPage({ id }: IProp) {
   const [newEmail, setNewEmail] = React.useState("");
 
   return (
@@ -30,7 +27,7 @@ function SettingsPage({id}:IProp) {
             className="SettingsPage-LigtButton"
             onClick={() => {
               API.changeEmail(id, newEmail).then((res) => {
-                      console.log(res)
+                console.log(res);
                 if (res) alert("Change email successfully");
                 else alert("Failed to change email");
               });

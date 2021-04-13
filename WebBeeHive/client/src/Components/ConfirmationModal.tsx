@@ -1,4 +1,3 @@
-import React from "react";
 import "../CSS/ConfirmationModal.css";
 
 interface IProps {

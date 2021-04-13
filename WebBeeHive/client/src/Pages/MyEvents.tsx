@@ -119,9 +119,7 @@ function MyEvents(props: { id: any }) {
       thedate
     );
     const e = events.slice();
-    console.log(_tmp)
     e.push({
-      // TODO generate an actual UUID
       id: _tmp.data.id,
       title,
       address,
@@ -156,7 +154,6 @@ function MyEvents(props: { id: any }) {
       let [month, day, year] = date.split("-").map((i) => parseInt(i));
       let [hour, minute] = time.split(":").map((i) => parseInt(i));
       let thedate = new Date(year, month - 1, day, hour - 5, minute);
-      // TODO Have this take in an ID
       await API.updateEvent(id, title, description, address, thedate);
       const e = events.slice();
       e[eventIndex].title = title;
@@ -180,7 +177,6 @@ function MyEvents(props: { id: any }) {
 
   const removeEvent = async (i: number) => {
     if (events[i] !== undefined) {
-      // TODO Have this take in an ID
       await API.deleteEvent(events[i].id);
       const e = events.slice();
       e.splice(i, 1);
@@ -200,13 +196,15 @@ function MyEvents(props: { id: any }) {
 
   return (
     <div className="MyEvents">
-      <EmailModal showModal={showEmailModal} setShowModal={setShowEmailModal} 
+      <EmailModal
+        showModal={showEmailModal}
+        setShowModal={setShowEmailModal}
         members={
           events[eventIndex] !== undefined
             ? (events[eventIndex].rsvp as MemberInfo[])
             : null
         }
-            />
+      />
       <EventEdit
         showModal={showEventEditModal}
         setShowModal={setShowEventEditModal}

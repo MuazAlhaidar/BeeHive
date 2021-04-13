@@ -1,4 +1,3 @@
-import React from "react";
 import "../../CSS/Groups/GroupsForm.css";
 import { GroupInfo } from "../../Interfaces";
 

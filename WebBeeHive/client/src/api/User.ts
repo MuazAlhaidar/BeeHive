@@ -1,10 +1,9 @@
 import { Fire } from "./config.js";
 import * as FireAPI from "./Firebase";
+import * as Interface from "../Interfaces";
 import "firebase/auth";
 import "firebase/firestore";
 
-// TODO FIX INTERHIPJIO
-// Fire.initializeApp(config);
 interface Message {
   data: any;
   msg: string | number;
@@ -20,11 +19,11 @@ async function login(email: string, password: string): Promise<Message> {
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then(async (res: any) => {
-            let tmp= await FireAPI.getDoc("Users-WEB", "email", email)
-            // Since we're getDoc, getdoc returns the found users as an array
-            // but we don't want an array, there could be only one person found
-            // so watta bing batta boom: just retunr the first entry, which should be the user
-            return {data:tmp["data"][0], msg:tmp.msg}
+      let tmp = await FireAPI.getDoc("Users-WEB", "email", email);
+      // Since we're getDoc, getdoc returns the found users as an array
+      // but we don't want an array, there could be only one person found
+      // so want to just return the first entry, which should be the user
+      return { data: tmp["data"][0], msg: tmp.msg };
     })
     .catch((res: any) => genMessage(false, "failed to login"));
 }
@@ -86,19 +85,15 @@ async function resetPassword(email: string): Promise<Message> {
 }
 
 async function getallUsers(): Promise<Message> {
-        return FireAPI.getDoc("Users-WEB")
+  return FireAPI.getDoc("Users-WEB");
 }
 
-// TODO We are gonna have alot of problems with this
-// the old email will become the new email which
-// means that we can no longer find the user if
-// their email has changed since we cant change IDs
 async function changeEmail(
   id: any,
-  newemail: string,
+  newemail: string
 ): Promise<Message | undefined> {
   var user = Fire.default.auth().currentUser;
-  console.log(id)
+  console.log(id);
   return user
     ?.updateEmail(newemail)
     .then(() => {
@@ -115,4 +110,34 @@ async function changeEmail(
     .catch((error: any) => genMessage(false, "Couldn't change email," + error));
 }
 
-export { login, newUser, resetPassword, getallUsers, changeEmail };
+async function email(
+  users: Interface.MemberInfo[],
+  subject: string,
+  body: string
+) {
+  let emails = users.map((x: Interface.MemberInfo) => x.email);
+  const handleSaveToPC = (jsonData: any) => {
+    const fileData = JSON.stringify(jsonData);
+    const blob = new Blob([fileData], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.download = subject + ".json";
+    link.href = url;
+    link.click();
+  };
+  handleSaveToPC({ subject: subject, body: body, bcc: emails });
+
+  // This is the code for when the emailing
+  // plan is added to the database
+  // Fire.firestore()
+  //   .collection("mail")
+  //   .add({
+  //     bcc: emails,
+  //     message: {
+  //       subject: subject,
+  //       html: body,
+  //     },
+  //   });
+}
+
+export { login, newUser, resetPassword, getallUsers, changeEmail, email };

@@ -15,36 +15,27 @@ enum Relation {
 
 interface IProps {
   event: EventInfo2;
-  setChange: ()=>void;
+  setChange: () => void;
 }
 
 function EventsForm({ event, setChange }: IProps) {
   const [displayRSVP, setIsRSVP] = React.useState(false);
-  // const [change, setChange] = React.useState(false);
-  // const _tmp = () => {
-  //   console.log(store.getState());
-  //   setChange(!change);
-  // };
   const setRSVP = () => {
     const state = store.getState().state;
     const relation = state.relation;
-    // const id = state.index;
-    // set_relation(id);
     if (relation === Relation.RSVP) {
       setIsRSVP(false);
-      setChange()
-      API.removeRSVP(event.id, state.id)
-     event["relation"]  =  Relation.NotRSVP;
+      setChange();
+      API.removeRSVP(event.id, state.id);
+      event["relation"] = Relation.NotRSVP;
       store.dispatch(redux_rsvp(Relation.NotRSVP));
     } else if (relation === Relation.NotRSVP) {
-      API.updateRSVP(event.id, state.id)
+      API.updateRSVP(event.id, state.id);
       changeIndex();
       setIsRSVP(true);
-      setChange()
-     event["relation"]  =  Relation.RSVP;
+      setChange();
+      event["relation"] = Relation.RSVP;
       store.dispatch(redux_rsvp(Relation.RSVP));
-    } else {
-      console.log(`Could Not change RSVP, CURRENT RELATION: ${relation}`);
     }
     changeIndex();
   };
@@ -54,12 +45,13 @@ function EventsForm({ event, setChange }: IProps) {
 
     if (relation === Relation.RSVP) {
       setIsRSVP(true);
-      setChange()
+      setChange();
     } else if (relation === Relation.NotRSVP) {
       setIsRSVP(false);
-      setChange()
+      setChange();
     }
   };
+
   React.useEffect(() => {
     store.subscribe(changeIndex);
   });
@@ -129,7 +121,6 @@ function EventsForm({ event, setChange }: IProps) {
           {event.description}
         </div>
       </div>
-
       <div
         className={
           displayRSVP
