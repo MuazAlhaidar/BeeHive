@@ -28,6 +28,8 @@ interface IProps {
     date: string,
     description: string
   ) => void;
+    index: string;
+    setindex: (arg0:string)=>void;
 }
 
 function EventEdit({
@@ -36,6 +38,8 @@ function EventEdit({
   editEvent,
   currentEvent,
   setCurEvent,
+  index,
+  setindex
 }: IProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,10 +57,13 @@ function EventEdit({
   const handleCancel = () => {
     setShowModal(!showModal);
   };
-  let tmpdate = currentEvent.date.replaceAll("/", "-")
-  let [month, day, year] = tmpdate.split("-")
-  let senddate = `${year}-${month}-${day}`
-  console.log(senddate)
+  // React.useEffect(()=>{
+  //         let tmpdate = currentEvent.date.replaceAll("/", "-")
+  //         let [month, day, year] = tmpdate.split("-")
+  //         senddate = `${year}-${month}-${day}`
+  //         console.log(senddate)
+  // }, [index])
+
 
   return (
     <div>
@@ -126,8 +133,8 @@ function EventEdit({
                     className="EventEdit-Date"
                     type="date"
                     id="date"
-                    value={senddate}
-                    onChange={(e) =>
+                    value={index}
+                    onChange={(e) =>{
                       setCurEvent({
                         id: currentEvent.id,
                         title: currentEvent.title,
@@ -136,7 +143,9 @@ function EventEdit({
                         date: e.target.value,
                         description: currentEvent.description,
                       })
-                    }
+                      setindex(e.target.value)
+                      
+                    }}
                   />
                 </div>
               </div>

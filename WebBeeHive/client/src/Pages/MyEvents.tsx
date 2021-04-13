@@ -57,6 +57,13 @@ function MyEvents(props: { id: any }) {
     });
   }, [eventIndex, checkReload]);
 
+  const [senddate, setdate] = React.useState("")
+  React.useEffect(()=>{
+          let tmpdate = curEvent.date.replaceAll("/", "-")
+          let [month, day, year] = tmpdate.split("-")
+          setdate(`${year}-${month}-${day}`)
+  }, [eventIndex, checkReload])
+
   const toggleEmailModal = () => {
     setShowEmailModal(!showEmailModal);
   };
@@ -219,6 +226,8 @@ function MyEvents(props: { id: any }) {
         editEvent={editEvent}
         currentEvent={curEvent}
         setCurEvent={setCurEvent}
+        index={senddate}
+        setindex={setdate}
       />
       <EventMemberModal
         showModal={showEventMemberModal}
