@@ -4,7 +4,7 @@ import { EventInfo } from "../../Interfaces";
 
 interface IProps {
   eventList: Array<EventInfo>;
-  selectEvent: (i: number) => void;
+  selectEvent: (index: number) => void;
 }
 
 function EventList({ eventList, selectEvent }: IProps) {

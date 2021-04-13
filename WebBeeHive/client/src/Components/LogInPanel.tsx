@@ -17,6 +17,7 @@ function LogInPanel(props: { changeUser: any }) {
           id="Username"
           value={email}
         />
+
         <p className="LoginPanel-InputTitle">Password</p>
         <input
           className="LoginPanel-Input"

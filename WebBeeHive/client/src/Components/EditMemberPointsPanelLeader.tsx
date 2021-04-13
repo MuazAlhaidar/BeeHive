@@ -1,8 +1,7 @@
 import React from "react";
 import "../CSS/EditMemberPointsPanel.css";
-// import {update_points} from "../api/Event"
 import { MemberInfo } from "../Interfaces";
-import { memberupdate } from "../api/Event"
+import { memberupdate } from "../api/Event";
 
 interface IProps {
   member: MemberInfo;
@@ -28,8 +27,7 @@ function EditMemberPointsPanel({ member, reloadParent }: IProps) {
 
   const handleSet = () => {
     member.points = newNumber;
-    // update_points([member])
-    memberupdate(member).then(()=> reloadParent())
+    memberupdate(member).then(() => reloadParent());
   };
 
   return (

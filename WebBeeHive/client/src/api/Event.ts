@@ -2,7 +2,7 @@ import { Fire } from "./config.js";
 import * as FireAPI from "./Firebase";
 import "firebase/auth";
 import "firebase/firestore";
-import * as Interface from "../Interfaces" 
+import * as Interface from "../Interfaces";
 
 interface Message {
   data: any;
@@ -14,68 +14,63 @@ function genMessage(_data: any, _msg: any) {
 }
 
 async function newEvent(
-  userid:string,
-  title: string,
-  desc: string,
-  address: string,
-  date: Date
-
-) {
-  let user = Fire.default.auth();
-  let email = user?.currentUser?.email;
-  // let userid =await FireAPI.etDoc("Users-WEB", "email", email)
-
-    // If the event does not exist
-    let tmp= await FireAPI.newDoc("Events-WEB", {
-        title: title,
-        address: address,
-        date: date,
-        description: desc,
-        creator: userid,
-        rsvp: [],
-        signin: [],
-      })
-      tmp["data"] as Interface.EventInfo;
-      return tmp
-  } 
-
-
-async function updateEvent(
-  id:string,
+  userid: string,
   title: string,
   desc: string,
   address: string,
   date: Date
 ) {
-        return FireAPI.updateDoc("Events-WEB", {
-        title: title,
-        description: desc,
-        address: address,
-        date: date,
-      }, id)
-
+  // Adding the event to the Events-WEB table
+  let tmp = await FireAPI.newDoc("Events-WEB", {
+    title: title,
+    address: address,
+    date: date,
+    description: desc,
+    creator: userid,
+    rsvp: [],
+    signin: [],
+  });
+  tmp["data"] as Interface.EventInfo;
+  return tmp;
 }
 
-async function getAllEvents(id:string|undefined) {
-        // return FireAPI.getDoc("Events-WEB")
+async function updateEvent(
+  id: string,
+  title: string,
+  desc: string,
+  address: string,
+  date: Date
+) {
+  // Updating the document based on the ID
+  return FireAPI.updateDoc(
+    "Events-WEB",
+    {
+      title: title,
+      description: desc,
+      address: address,
+      date: date,
+    },
+    id
+  );
+}
 
-        return (await FireAPI.getDoc("Events-WEB")).data.map((x:any)=>{
-                if(x.creator==id)
-                        return null
-                x["date"] = x["date"].toDate()
-
-                // Sorry for htis
-                // if it's 0, then it will return true, or the user IS rsvp to an event
-                // else, it will return 1, or the user is not rsvp to an event
-                x["relation"] = x["rsvp"].includes(id)? 0:1
-              return x
-
-      }).filter((x:any)=>x!=null)
+async function getAllEvents(id: string | undefined) {
+  return (await FireAPI.getDoc("Events-WEB")).data
+    .map((x: any) => {
+      if (x.creator === id) return null;
+      x["date"] = x["date"].toDate();
+      // If it's 0, then it will return true, or the user IS rsvp to an event
+      // else, it will return 1, or the user is not rsvp to an event
+      x["relation"] = x["rsvp"].includes(id) ? 0 : 1;
+      return x;
+    })
+    .filter((x: any) => x != null);
 }
 
 // Only returns true
 async function deleteEvent(EventId: string) {
-        return FireAPI.delet("Events-WEB", EventId)
+  // Delete an event using an ID
+  return FireAPI.deleteDoc("Events-WEB", EventId);
 }
 
 async function updateRSVP(EventId: string, userId: string) {
@@ -83,31 +78,38 @@ async function updateRSVP(EventId: string, userId: string) {
     .firestore()
     .collection("Events-WEB")
     .doc(EventId)
-    // Using the title we find the event
+    // Using the ID we find the event
     // Update the RSVP list of the event
     .update({ rsvp: Fire.default.firestore.FieldValue.arrayUnion(userId) });
 }
- async function removeRSVP(EventId: string, userId: string) {
-         Fire.default
+async function removeRSVP(EventId: string, userId: string) {
+  Fire.default
     .firestore()
     .collection("Events-WEB")
     .doc(EventId)
-    // Using the title we find the event
+    // Using the ID we find the event
     // Update the RSVP list of the event
-    .update({ rsvp: Fire.default.firestore.FieldValue.arrayRemove(userId), signin:Fire.default.firestore.FieldValue.arrayRemove(userId) });
+    .update({
+      rsvp: Fire.default.firestore.FieldValue.arrayRemove(userId),
+      signin: Fire.default.firestore.FieldValue.arrayRemove(userId),
+    });
 }
 
 async function transferEvent(EventId: string, UserId: string) {
-        return FireAPI.update("Events-WEB", EventId, {creator:UserId})
+  // Use the event ID to update the creator field of the event
+  return FireAPI.updateField("Events-WEB", EventId, { creator: UserId });
 }
 
 async function getEventsForManager(userid: string) {
-        return (await FireAPI.getDocUser("Events-WEB", "rsvp", "creator", userid)).map((x:any)=>{
-                x["date"] = x["date"].toDate()
-              return x
-      })
+  // Get all of the events that have a creator field that matches
+  // the user's ID
+  return (
+    await FireAPI.getDocUser("Events-WEB", "rsvp", "creator", userid)
+  ).map((x: any) => {
+    x["date"] = x["date"].toDate();
+    return x;
+  });
 }
-
 
 async function memberEventUpdate(
   users: Interface.MemberInfoSign[],
@@ -123,7 +125,7 @@ async function memberEventUpdate(
       Fire.default
         .firestore()
         .collection("Users-WEB")
-        // GETS THE ID, NOT THE USERNMAME
+        // Gets the ID
         .doc(user.id)
         // Update the points of users
         .update({ points: user.points });
@@ -140,9 +142,13 @@ async function memberEventUpdate(
 }
 async function memberupdate(
   // users: [{ id: string; points: number; signin: boolean }],
-  user: Interface.MemberInfo,
+  user: Interface.MemberInfo
 ) {
-    return Fire.default.firestore().collection("Users-WEB").doc(user.id).update({points:user.points})
+  return Fire.default
+    .firestore()
+    .collection("Users-WEB")
+    .doc(user.id)
+    .update({ points: user.points });
 }
 
 export {
@@ -152,9 +158,8 @@ export {
   deleteEvent,
   transferEvent,
   getEventsForManager,
-  // getEventMembers,
   memberEventUpdate,
   memberupdate,
   updateRSVP,
-  removeRSVP ,
+  removeRSVP,
 };

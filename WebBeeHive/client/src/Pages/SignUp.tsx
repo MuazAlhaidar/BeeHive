@@ -5,7 +5,12 @@ import * as API from "../api/User";
 import { Redirect } from "react-router-dom";
 import "../CSS/LogIn.css";
 
-function SignUp(props: { setName: any; setId: any; setOwner: any }) {
+interface IProps {
+  setId: (id: string) => void;
+  setOwner: (isOwner: boolean) => void;
+}
+
+function SignUp({ setId, setOwner }: IProps) {
   const [user, setUser] = React.useState("");
   const [status, setStatus] = React.useState(-1);
 
@@ -36,12 +41,10 @@ function SignUp(props: { setName: any; setId: any; setOwner: any }) {
         setStatus(3);
         break;
       default:
-        // TODO Change values here
         setUser(_email);
         setStatus(0);
-        props.setName(_firstname);
-        props.setId(res.data.id);
-        props.setOwner(false);
+        setId(res.data.id);
+        setOwner(false);
         return true;
     }
     return false;

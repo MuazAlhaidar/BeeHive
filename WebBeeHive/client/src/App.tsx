@@ -11,16 +11,13 @@ import Leaderboard from "./Pages/LeaderboardPage";
 import Settings from "./Pages/SettingsPage";
 import Welcome from "./Pages/Welcome";
 import LogoAndTitle from "./Components/LogoAndTitle";
-import ResetPass from "./Pages/ResetPass";
 import ResetReq from "./Pages/ResetReq";
 
 function App() {
-  const [name, setName] = React.useState("");
   const [id, setId] = React.useState("");
   const [owner, setOwner] = React.useState(false);
 
   const logOut = () => {
-    setName("");
     setId("");
     setOwner(false);
   };
@@ -37,7 +34,7 @@ function App() {
               <Link className="App-link" to="/AllEvents">
                 All Events
               </Link>
-              {name !== "" ? (
+              {id !== "" ? (
                 <Link className="App-link" to="/MyEvents">
                   MyEvents
                 </Link>
@@ -53,7 +50,7 @@ function App() {
               <Link className="App-link" to="/ContactUs">
                 Contact Us
               </Link>
-              {name === "" ? (
+              {id === "" ? (
                 <Link className="App-link" to="/LogIn">
                   Log In/Sign Up
                 </Link>
@@ -71,28 +68,28 @@ function App() {
           </div>
           <Switch>
             <Route exact path="/AllEvents">
-              <AllEvents name={name} id={id} />
+              <AllEvents id={id} />
             </Route>
             <Route path="/LogIn">
-              <LogIn setName={setName} setOwner={setOwner} setId={setId} />
+              <LogIn setOwner={setOwner} setId={setId} />
             </Route>
             <Route path="/Signup">
-              <SignUp setName={setName} setOwner={setOwner} setId={setId} />
+              <SignUp setOwner={setOwner} setId={setId} />
             </Route>{" "}
             */
             <Route path="/ContactUs">
               <ContactUs />
             </Route>
             <Route path="/MyEvents">
-              {name === "" ? (
-                <LogIn setName={setName} setOwner={setOwner} setId={setId} />
+              {id === "" ? (
+                <LogIn setOwner={setOwner} setId={setId} />
               ) : (
                 <MyEventsPage id={id} />
               )}
             </Route>
             <Route path="/MyGroups">
-              {name === "" ? (
-                <LogIn setName={setName} setOwner={setOwner} setId={setId} />
+              {id === "" ? (
+                <LogIn setOwner={setOwner} setId={setId} />
               ) : (
                 <MyGroupsPage />
               )}
@@ -101,10 +98,7 @@ function App() {
               <Leaderboard isOwner={owner} />
             </Route>
             <Route path="/Settings">
-              <Settings  id={id} />
-            </Route>
-            <Route path="/resetPassword">
-              <ResetPass />
+              <Settings id={id} />
             </Route>
             <Route path="/forgotpassword">
               <ResetReq />

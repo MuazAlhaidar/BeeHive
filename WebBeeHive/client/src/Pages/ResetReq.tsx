@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import * as API from "../api/User";
 import "../CSS/LogInPanel.css";
 
-export default function Request(props: {}) {
+export default function Request() {
   const [email, setEmail] = React.useState("");
   const history = useHistory();
   return (
@@ -20,12 +20,13 @@ export default function Request(props: {}) {
             evt.preventDefault();
 
             API.resetPassword(email).then((res) => {
-              if (res) {
+              if (res.data) {
                 alert(
                   "Your request has been done successfully. Check email for the code"
                 );
                 history.push("/");
               } else {
+                alert("This email does not exist");
               }
             });
           }}

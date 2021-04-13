@@ -1,6 +1,4 @@
-import React from "react";
 import logo from "../Images/Members App Logo - White Large.png";
-
 import "../CSS/LogoAndTitle.css";
 
 function LogoAndTitle() {

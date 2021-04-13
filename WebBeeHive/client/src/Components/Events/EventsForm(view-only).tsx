@@ -6,7 +6,7 @@ import "../../CSS/Events/EventsForm(view-only).css";
 import * as API from "../../api/Event";
 import { store, redux_rsvp } from "../../store";
 import { getFormattedDate, getFormattedTime } from "../../DateAndTimeFormat";
-import { EventInfo } from "../../Interfaces";
+import { EventInfo2 } from "../../Interfaces";
 
 enum Relation {
   RSVP,
@@ -14,35 +14,28 @@ enum Relation {
 }
 
 interface IProps {
-  event: EventInfo;
-  setChange: ()=>void;
+  event: EventInfo2;
+  setChange: () => void;
 }
 
 function EventsForm({ event, setChange }: IProps) {
   const [displayRSVP, setIsRSVP] = React.useState(false);
-  // const [change, setChange] = React.useState(false);
-  // const _tmp = () => {
-  //   console.log(store.getState());
-  //   setChange(!change);
-  // };
   const setRSVP = () => {
     const state = store.getState().state;
     const relation = state.relation;
-    // const id = state.index;
-    // set_relation(id);
     if (relation === Relation.RSVP) {
       setIsRSVP(false);
-      setChange()
-      API.removeRSVP(event.id, state.id)
+      setChange();
+      API.removeRSVP(event.id, state.id);
+      event["relation"] = Relation.NotRSVP;
       store.dispatch(redux_rsvp(Relation.NotRSVP));
     } else if (relation === Relation.NotRSVP) {
-      API.updateRSVP(event.id, state.id)
+      API.updateRSVP(event.id, state.id);
       changeIndex();
       setIsRSVP(true);
-      setChange()
+      setChange();
+      event["relation"] = Relation.RSVP;
       store.dispatch(redux_rsvp(Relation.RSVP));
-    } else {
-      console.log(`Could Not change RSVP, CURRENT RELATION: ${relation}`);
     }
     changeIndex();
   };
@@ -52,12 +45,13 @@ function EventsForm({ event, setChange }: IProps) {
 
     if (relation === Relation.RSVP) {
       setIsRSVP(true);
-      setChange()
+      setChange();
     } else if (relation === Relation.NotRSVP) {
       setIsRSVP(false);
-      setChange()
+      setChange();
     }
   };
+
   React.useEffect(() => {
     store.subscribe(changeIndex);
   });
@@ -127,7 +121,6 @@ function EventsForm({ event, setChange }: IProps) {
           {event.description}
         </div>
       </div>
-
       <div
         className={
           displayRSVP

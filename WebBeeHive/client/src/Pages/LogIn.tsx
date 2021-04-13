@@ -7,7 +7,12 @@ import { Redirect } from "react-router-dom";
 import "../CSS/LogIn.css";
 import { store, redux_id } from "../store";
 
-function LogIn(props: { setName: any; setId: any; setOwner: any }) {
+interface IProp {
+  setId: (id: string) => void;
+  setOwner: (isOwner: boolean) => void;
+}
+
+function LogIn({ setId, setOwner }: IProp) {
   const [user, setUser] = React.useState("");
   const [status, setStatus] = React.useState(0);
   function checkuser(username: string, password: string): Promise<boolean> {
@@ -17,10 +22,9 @@ function LogIn(props: { setName: any; setId: any; setOwner: any }) {
         if (data !== false) {
           setUser(username);
           setStatus(1);
-          props.setName(username);
-          props.setId(data.id);
+          setId(data.id);
           store.dispatch(redux_id(data.id));
-          props.setOwner(data.isowner);
+          setOwner(data.isowner);
           return true;
         } else {
           setStatus(-1);
@@ -42,8 +46,7 @@ function LogIn(props: { setName: any; setId: any; setOwner: any }) {
       case 1:
         return (
           <div>
-            {" "}
-            <h1> Welcome {user} </h1> <Redirect push to="/" />{" "}
+            <h1> Welcome {user} </h1> <Redirect push to="/" />
           </div>
         );
     }

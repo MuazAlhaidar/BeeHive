@@ -11,7 +11,6 @@ import * as API from "../api/Groups";
 import { store, redux_index, redux_group } from "../store";
 import { MemberInfo, GroupInfo } from "../Interfaces";
 
-// async function reload(id: number): Promise<Array<GroupInfo>> {
 async function reload(): Promise<any> {
   const data = await API.getAllGroups();
   return data;
@@ -35,7 +34,6 @@ function MyGroups() {
     description: "",
   });
   const [memList, setMemList] = React.useState(Array<MemberInfo>());
-  // console.log(groups);
 
   const toggleMemberModal = () => {
     setShowMembersEditModal(!showMembersEditModal);
@@ -79,12 +77,9 @@ function MyGroups() {
     reload().then((res) => {
       setGroups(res.groups);
       setAllMembers(res.users);
-      // console.log(res.users)
     });
   }, []);
-  React.useEffect(()=>{
-
-  }, [groupIndex])
+  React.useEffect(() => {}, [groupIndex]);
 
   const selectGroup = (i: number) => {
     let index = i === undefined ? 0 : i;
@@ -98,7 +93,7 @@ function MyGroups() {
     API.newGroup(name, description).then((res) => {
       const g = groups.slice();
       // TODO Have this take in a UUID
-      g.push({ id: "0", name, description, members });
+      g.push({ id: res.data.id, name, description, members });
       setGroups(g);
       setGroupIndex(groups.length);
       setCurGroup({
@@ -111,8 +106,7 @@ function MyGroups() {
 
   const editGroup = (name: string, description: string) => {
     if (groups[groupIndex] !== undefined) {
-      // TODO Have this take in a UUID
-      API.updateGroup(groups[groupIndex].id,name, description).then((res) => {
+      API.updateGroup(groups[groupIndex].id, name, description).then((res) => {
         const g = groups.slice();
         g[groupIndex].name = name;
         g[groupIndex].description = description;
@@ -127,7 +121,6 @@ function MyGroups() {
 
   const removeGroup = (i: number) => {
     if (groups[groupIndex] !== undefined)
-      // TODO Have this take in a UUID
       API.deleteGroup(groups[groupIndex].id).then((res) => {
         const g = groups.slice();
         g.splice(i, 1);
@@ -139,13 +132,15 @@ function MyGroups() {
 
   return (
     <div className="MyGroups">
-      <EmailModal showModal={showEmailModal} setShowModal={setShowEmailModal} 
+      <EmailModal
+        showModal={showEmailModal}
+        setShowModal={setShowEmailModal}
         members={
           groups[groupIndex] !== undefined
             ? (groups[groupIndex].members as MemberInfo[])
             : null
         }
-            />
+      />
       <GroupsEdit
         showModal={showGroupEditModal}
         setShowModal={setShowGroupEditModal}
@@ -209,10 +204,9 @@ function MyGroups() {
       </div>
       <div className="MyGroups-MemberList">
         {groupIndex > groups.length - 1 || groupIndex < 0 ? (
-          <MemberList groupId={""} users={[]} toggleMemberModal={toggleMemberModal} />
+          <MemberList users={[]} toggleMemberModal={toggleMemberModal} />
         ) : (
           <MemberList
-            groupId={groups[groupIndex].name}
             users={groups[groupIndex].members}
             toggleMemberModal={toggleMemberModal}
           />

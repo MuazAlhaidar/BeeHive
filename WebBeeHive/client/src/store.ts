@@ -6,7 +6,7 @@ export enum Relation {
   NotRSVP,
 }
 
-// ACTIOn
+// ACTION
 const redux_index = (new_index: number) => {
   return { type: "INDEX", payload: new_index };
 };
@@ -50,6 +50,7 @@ const change_index = (
       return { ...state, index: state.index, relation: state.relation };
   }
 };
+
 // REDUX END
 const store = configureStore({ reducer: { state: change_index } });
 
