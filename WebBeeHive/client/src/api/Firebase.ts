@@ -74,7 +74,7 @@ export async function updateDoc(
   const ref = Fire.default.firestore().collection(collection);
   function updateDoc(id: any, entry: any) {
     return ref
-      .doc(id) // We use a title as the ID for an event
+      .doc(id)
       .update(entry)
       .then((res: any) => genMessage(true, "Updated " + collection))
       .catch((err: any) => genMessage(err, "Failed to update a " + collection));
