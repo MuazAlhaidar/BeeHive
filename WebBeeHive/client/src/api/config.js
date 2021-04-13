@@ -5,4 +5,3 @@ const config = {
 };
 Fire.default.initializeApp(config);
 module.exports = { Fire };
-
