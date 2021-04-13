@@ -56,18 +56,20 @@ function MemberModal({
   refreshFilter(memberList);
 
   const handleSave = () => {
-    // Clicking save just gets member ids from groupUser
-    // and assigns them to the API
-    // API Call for this group this is the member list
-    const state = store.getState().state;
-    const index = state.index;
+    if (groupID !== "") {
+      // Clicking save just gets member ids from groupUser
+      // and assigns them to the API
+      // API Call for this group this is the member list
+      const state = store.getState().state;
+      const index = state.index;
 
-    // Save it on the frontend
-    setMembers(groupMembers, index);
-    setMemberList(groupMembers);
+      // Save it on the frontend
+      setMembers(groupMembers, index);
+      setMemberList(groupMembers);
 
-    const memberIds = groupMembers.map((x) => x.id);
-    APIsetMembers(groupID, memberIds);
+      const memberIds = groupMembers.map((x) => x.id);
+      APIsetMembers(groupID, memberIds);
+    }
 
     setShowModal(!showModal);
   };
