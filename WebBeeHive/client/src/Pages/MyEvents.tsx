@@ -168,6 +168,7 @@ function MyEvents(props: { id: any }) {
       e[eventIndex].date = thedate;
       e[eventIndex].description = description;
       setEvents(e);
+      // console.log(events[eventIndex].date.getDate().toString())
       setCurEvent({
         id: events[eventIndex].id,
         title: events[eventIndex].title,

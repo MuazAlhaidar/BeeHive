@@ -53,6 +53,10 @@ function EventEdit({
   const handleCancel = () => {
     setShowModal(!showModal);
   };
+  let tmpdate = currentEvent.date.replaceAll("/", "-")
+  let [month, day, year] = tmpdate.split("-")
+  let senddate = `${year}-${month}-${day}`
+  console.log(senddate)
 
   return (
     <div>
@@ -122,7 +126,7 @@ function EventEdit({
                     className="EventEdit-Date"
                     type="date"
                     id="date"
-                    value={currentEvent.date}
+                    value={senddate}
                     onChange={(e) =>
                       setCurEvent({
                         id: currentEvent.id,
