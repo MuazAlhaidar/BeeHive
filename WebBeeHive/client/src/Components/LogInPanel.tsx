@@ -9,7 +9,7 @@ function LogInPanel(props: { changeUser: any }) {
   return (
     <div className="LoginPanel">
       <form>
-        <p className="LoginPanel-InputTitle">Username</p>
+        <p className="LoginPanel-InputTitle">Email</p>
         <input
           className="LoginPanel-Input"
           type="text"
