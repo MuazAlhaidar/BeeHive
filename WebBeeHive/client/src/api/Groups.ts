@@ -21,8 +21,10 @@ async function getAllGroups() {
     undefined,
     undefined
   );
-  let users = await getallUsers();
-  return { groups: allgroups, users: users.data };
+  let users = (await getallUsers()).data.filter((x:any)=>{
+          return !x.isowner
+  });
+  return { groups: allgroups, users: users };
 }
 
 async function newGroup(name: string, description: string) {

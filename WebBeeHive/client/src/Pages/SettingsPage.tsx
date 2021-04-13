@@ -27,9 +27,9 @@ function SettingsPage({ id }: IProp) {
             className="SettingsPage-LigtButton"
             onClick={() => {
               API.changeEmail(id, newEmail).then((res) => {
-                console.log(res);
-                if (res) alert("Change email successfully");
-                else alert("Failed to change email");
+                      console.log(res)
+                if (res.data) alert("Change email successfully");
+                else alert("Email is already in used");
               });
             }}
           >

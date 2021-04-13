@@ -91,23 +91,29 @@ async function getallUsers(): Promise<Message> {
 async function changeEmail(
   id: any,
   newemail: string
-): Promise<Message | undefined> {
-  var user = Fire.default.auth().currentUser;
-  console.log(id);
-  return user
-    ?.updateEmail(newemail)
-    .then(() => {
-      return Fire.default
-        .firestore()
-        .collection("Users-WEB")
-        .doc(id)
-        .update({ email: newemail })
-        .then(() => genMessage(true, "Changed email"))
-        .catch((error: any) =>
-          genMessage(false, "Couldn't change email," + error)
-        );
-    })
-    .catch((error: any) => genMessage(false, "Couldn't change email," + error));
+): Promise<Message > {
+        let foundusers = await FireAPI.getDoc("Users-WEB", "email", newemail)
+        if(foundusers.data.length ===0){
+                var user = Fire.default.auth().currentUser;
+                if(user!==null){
+                return user.updateEmail(newemail)
+                        .then(() => {
+                                return Fire.default
+                                .firestore()
+                                .collection("Users-WEB")
+                                .doc(id)
+                                .update({ email: newemail })
+                                .then(() => genMessage(true, "Changed email"))
+                                .catch((error: any) => genMessage(false, "Couldn't change email," + error));
+                        })
+                }
+                else{
+                return genMessage(false, "This hsouldn't happen");
+                }
+        }
+        else{
+                return genMessage(false, "Email is already taken");
+        }
 }
 
 async function email(
