@@ -13,7 +13,7 @@ interface IProp {
 
 async function reload(id: any) {
   const allevents = await API.getAllEvents(id);
-  // Turn the Promise to and Array of events
+  // Turn the Promise to an Array of events
   const events = allevents.map((i: any) => {
     let _relation = null;
     switch (i.relation) {

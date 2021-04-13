@@ -4,16 +4,14 @@ import * as Interface from "../Interfaces";
 import "firebase/auth";
 import "firebase/firestore";
 
-interface Message {
-  data: any;
-  msg: string | number;
-}
-
 function genMessage(_data: any, _msg: any) {
   return { msg: _msg, data: _data };
 }
 
-async function login(email: string, password: string): Promise<Message> {
+async function login(
+  email: string,
+  password: string
+): Promise<Interface.Message> {
   // Take in user login credentials and authenticate them
   return Fire.default
     .auth()
@@ -36,47 +34,41 @@ async function newUser(
   password: string,
   firstname: string,
   lastname: string
-): Promise<Message> {
-        let finduser = await  FireAPI.getDoc("Users-WEB", "email", email)
-        console.log(finduser)
+): Promise<Interface.Message> {
+  let finduser = await FireAPI.getDoc("Users-WEB", "email", email);
 
-        if(finduser["data"].length==0){
-                 return Fire.default
-                .auth()
-                .createUserWithEmailAndPassword(email, password)
-                .then(async (res: any) => {
-                        // return genMessage(0, "WOW")
-
-
-
-                        const id = res.user.uid
-                        let newuser =await Fire.default.firestore().collection("Users-WEB")
-                        .doc(id).set({
-                                firstname: firstname,
-                                lastname: lastname,
-                                email: email,
-                                points: 0,
-                                isowner: false,
-                                id: id
-                        }) 
-                        // FireAPI.newDoc("Users-WEB", , "email")
-                        return genMessage({
-                                firstname: firstname,
-                                lastname: lastname,
-                                email: email,
-                                points: 0,
-                                isowner: false,
-                                id: id
-                        }, "Success")
-                })
-                .catch((err: any) => genMessage(1, err+"\nFailed to sign up"));
-        }
-        else{
-                return genMessage(2, "Failed to make user")
-                // return newuser
-        }
+  if (finduser["data"].length === 0) {
+    return Fire.default
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(async (res: any) => {
+        const id = res.user.uid;
+        await Fire.default.firestore().collection("Users-WEB").doc(id).set({
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          points: 0,
+          isowner: false,
+          id: id,
+        });
+        return genMessage(
+          {
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            points: 0,
+            isowner: false,
+            id: id,
+          },
+          "Success"
+        );
+      })
+      .catch((err: any) => genMessage(1, err + "\nFailed to sign up"));
+  } else {
+    return genMessage(2, "Failed to make user");
+  }
 }
-async function resetPassword(email: string): Promise<Message> {
+async function resetPassword(email: string): Promise<Interface.Message> {
   return Fire.default
     .auth()
     .sendPasswordResetEmail(email)
@@ -84,36 +76,35 @@ async function resetPassword(email: string): Promise<Message> {
     .catch((res: any) => genMessage(false, "Failed to send password"));
 }
 
-async function getallUsers(): Promise<Message> {
+async function getallUsers(): Promise<Interface.Message> {
   return FireAPI.getDoc("Users-WEB");
 }
 
 async function changeEmail(
   id: any,
   newemail: string
-): Promise<Message > {
-        let foundusers = await FireAPI.getDoc("Users-WEB", "email", newemail)
-        if(foundusers.data.length ===0){
-                var user = Fire.default.auth().currentUser;
-                if(user!==null){
-                return user.updateEmail(newemail)
-                        .then(() => {
-                                return Fire.default
-                                .firestore()
-                                .collection("Users-WEB")
-                                .doc(id)
-                                .update({ email: newemail })
-                                .then(() => genMessage(true, "Changed email"))
-                                .catch((error: any) => genMessage(false, "Couldn't change email," + error));
-                        })
-                }
-                else{
-                return genMessage(false, "This hsouldn't happen");
-                }
-        }
-        else{
-                return genMessage(false, "Email is already taken");
-        }
+): Promise<Interface.Message> {
+  let foundusers = await FireAPI.getDoc("Users-WEB", "email", newemail);
+  if (foundusers.data.length === 0) {
+    var user = Fire.default.auth().currentUser;
+    if (user !== null) {
+      return user.updateEmail(newemail).then(() => {
+        return Fire.default
+          .firestore()
+          .collection("Users-WEB")
+          .doc(id)
+          .update({ email: newemail })
+          .then(() => genMessage(true, "Changed email"))
+          .catch((error: any) =>
+            genMessage(false, "Couldn't change email," + error)
+          );
+      });
+    } else {
+      return genMessage(false, "This hsouldn't happen");
+    }
+  } else {
+    return genMessage(false, "Email is already taken");
+  }
 }
 
 async function email(

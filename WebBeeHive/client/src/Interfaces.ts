@@ -35,4 +35,16 @@ interface MemberInfoSign extends MemberInfo {
   signin: boolean;
 }
 
-export type { EventInfo, GroupInfo, MemberInfo, MemberInfoSign, EventInfo2 };
+interface Message {
+  data: any;
+  msg: string | number;
+}
+
+export type {
+  EventInfo,
+  GroupInfo,
+  MemberInfo,
+  MemberInfoSign,
+  EventInfo2,
+  Message,
+};

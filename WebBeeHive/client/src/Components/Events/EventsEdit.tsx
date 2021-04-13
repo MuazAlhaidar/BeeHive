@@ -53,10 +53,9 @@ function EventEdit({
   const handleCancel = () => {
     setShowModal(!showModal);
   };
-  let tmpdate = currentEvent.date.replaceAll("/", "-")
-  let [month, day, year] = tmpdate.split("-")
-  let senddate = `${year}-${month}-${day}`
-  console.log(senddate)
+  let tmpdate = currentEvent.date.replaceAll("/", "-");
+  let [month, day, year] = tmpdate.split("-");
+  let senddate = `${year}-${month}-${day}`;
 
   return (
     <div>

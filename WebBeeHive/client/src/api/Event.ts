@@ -4,11 +4,6 @@ import "firebase/auth";
 import "firebase/firestore";
 import * as Interface from "../Interfaces";
 
-interface Message {
-  data: any;
-  msg: string | number;
-}
-
 function genMessage(_data: any, _msg: any) {
   return { msg: _msg, data: _data };
 }

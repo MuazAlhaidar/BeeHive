@@ -110,11 +110,6 @@ function MyEvents(props: { id: any }) {
     let [year, month, day] = date.split("-").map((i) => parseInt(i));
     let [hour, minute] = time.split(":").map((i) => parseInt(i));
     let thedate = new Date(year, month - 1, day, hour, minute);
-    // console.log(date)
-    // console.log(time)
-    // console.log(thedate)
-    // console.log(`Year:${year}\n Month:${month}\n Day:${day}\n Hour:${hour}\n ${minute}`)
-    // TODO Have this take in a UUID
     let _tmp = await API.newEvent(
       props.id,
       title,
@@ -155,9 +150,6 @@ function MyEvents(props: { id: any }) {
     description: string
   ) => {
     if (events[eventIndex] !== undefined) {
-      // let [month, day, year] = date.split("-").map((i) => parseInt(i));
-      // let [hour, minute] = time.split(":").map((i) => parseInt(i));
-      // let thedate = new Date(year, month - 1, day, hour - 5, minute);
       let [year, month, day] = date.split("-").map((i) => parseInt(i));
       let [hour, minute] = time.split(":").map((i) => parseInt(i));
       let thedate = new Date(year, month - 1, day, hour, minute);
@@ -168,7 +160,6 @@ function MyEvents(props: { id: any }) {
       e[eventIndex].date = thedate;
       e[eventIndex].description = description;
       setEvents(e);
-      // console.log(events[eventIndex].date.getDate().toString())
       setCurEvent({
         id: events[eventIndex].id,
         title: events[eventIndex].title,
