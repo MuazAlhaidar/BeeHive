@@ -58,6 +58,7 @@ function MyEvents(props: { id: any }) {
   }, [eventIndex, checkReload]);
 
   const [senddate, setdate] = React.useState("")
+
   React.useEffect(()=>{
           let tmpdate = curEvent.date.replaceAll("/", "-")
           let [month, day, year] = tmpdate.split("-")
@@ -219,6 +220,7 @@ function MyEvents(props: { id: any }) {
         setCurEvent={setCurEvent}
         index={senddate}
         setindex={setdate}
+        prevEvent={events[eventIndex] !== undefined ? events[eventIndex] : null}
       />
       <EventMemberModal
         showModal={showEventMemberModal}

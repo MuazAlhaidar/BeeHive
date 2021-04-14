@@ -1,5 +1,7 @@
 import React from "react";
 import "../../CSS/Events/EventsEdit.css";
+import {EventInfo} from "../../Interfaces";
+import { getFormattedDate, getFormattedTime } from "../../DateAndTimeFormat";
 
 interface IProps {
   showModal: boolean;
@@ -30,6 +32,7 @@ interface IProps {
   ) => void;
     index: string;
     setindex: (arg0:string)=>void;
+    prevEvent: EventInfo | null;
 }
 
 function EventEdit({
@@ -39,7 +42,8 @@ function EventEdit({
   currentEvent,
   setCurEvent,
   index,
-  setindex
+  setindex,
+  prevEvent
 }: IProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,6 +59,16 @@ function EventEdit({
   };
 
   const handleCancel = () => {
+          if(prevEvent != null){
+                  setCurEvent({
+                          id:prevEvent.id,
+                          title:prevEvent.title,
+                          address:prevEvent.address,
+                          time:getFormattedTime(prevEvent),
+                          date:getFormattedDate(prevEvent),
+                          description:prevEvent.description
+                  })
+          }
     setShowModal(!showModal);
   };
 
@@ -106,6 +120,7 @@ function EventEdit({
                         description: currentEvent.description,
                       })
                     }
+                          required
                   />
                   <input
                     className="EventEdit-Time"
@@ -122,6 +137,7 @@ function EventEdit({
                         description: currentEvent.description,
                       })
                     }
+                          required
                   />
                   <input
                     className="EventEdit-Date"
@@ -139,6 +155,7 @@ function EventEdit({
                       })
                       setindex(e.target.value)
                     }}
+                      required
                   />
                 </div>
               </div>
@@ -161,6 +178,7 @@ function EventEdit({
                       description: e.target.value,
                     })
                   }
+                      required
                 />
               </div>
               <div className="EventEdit-BtnDiv">
