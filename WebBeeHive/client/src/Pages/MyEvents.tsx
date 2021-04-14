@@ -8,20 +8,22 @@ import EventMemberModal from "../Components/Events/EventMemberModal";
 import TransferManagerModal from "../Components/TransferManagerModal";
 import ConfirmationModal from "../Components/ConfirmationModal";
 import * as API from "../api/Event";
+import {getallUsers} from "../api/User";
 import { store, redux_index } from "../store";
 import { MemberInfo, EventInfo } from "../Interfaces";
 import { getFormattedDate, getFormattedTime } from "../DateAndTimeFormat";
 
 async function reload(user: string) {
   let tmp = await API.getEventsForManager(user);
-  return tmp;
+  let users = await getallUsers()
+  return {events:tmp, users:users}
 }
 
 function MyEvents(props: { id: any }) {
   const emptyEvent: EventInfo = {
     id: "0",
     title: "",
-    creator: "",
+    manager: "",
     address: "",
     date: new Date(2000, 1, 1, 0, 0),
     description: "",
@@ -30,6 +32,7 @@ function MyEvents(props: { id: any }) {
   };
 
   const [events, setEvents] = React.useState(Array<EventInfo>());
+  const [allusers, setallusers] = React.useState(Array<MemberInfo>());
   const [eventIndex, setEventIndex] = React.useState(-1);
   const [showEventEditModal, setShowEventEditModal] = React.useState(false);
   const [showEventMemberModal, setShowEventMemberModal] = React.useState(false);
@@ -53,7 +56,8 @@ function MyEvents(props: { id: any }) {
 
   React.useEffect(() => {
     reload(props.id).then((res) => {
-      setEvents(res);
+      setEvents(res.events);
+      setallusers(res.users.data);
     });
   }, [eventIndex, checkReload]);
 
@@ -134,7 +138,7 @@ function MyEvents(props: { id: any }) {
       description,
       rsvp: Array<MemberInfo>(),
       signin: Array<string>(),
-      creator: "",
+      manager: "",
     });
     setEvents(e);
     setEventIndex(events.length);
@@ -226,9 +230,10 @@ function MyEvents(props: { id: any }) {
         showModal={showEventMemberModal}
         setShowModal={setShowEventMemberModal}
         members={
-          events[eventIndex] !== undefined
-            ? (events[eventIndex].rsvp as MemberInfo[])
-            : null
+                allusers as MemberInfo[]
+          // events[eventIndex] !== undefined
+          //   ? (events[eventIndex].rsvp as MemberInfo[])
+          //   : null
         }
         signin={
           events[eventIndex] !== undefined ? events[eventIndex].signin : null

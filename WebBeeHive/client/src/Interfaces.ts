@@ -12,7 +12,7 @@ interface MemberInfo {
 interface EventInfo {
   id: string;
   title: string;
-  creator: string;
+  manager: string;
   address: string;
   date: Date;
   description: string;

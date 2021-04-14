@@ -29,7 +29,7 @@ async function reload(id: any) {
     return {
       id: i.id,
       title: i.title,
-      creator: i.creator,
+      manager: i.manager,
       description: i.description,
       address: i.address,
       date: i.date,
@@ -51,7 +51,7 @@ function MyEvents({ id }: IProp) {
   const emptyEvent: EventInfo2 = {
     id: "0",
     title: "",
-    creator: "",
+    manager: "",
     address: "",
     date: new Date(2000, 1, 1, 0, 0),
     description: "",

@@ -21,7 +21,7 @@ async function newEvent(
     address: address,
     date: date,
     description: desc,
-    creator: userid,
+    manager: userid,
     rsvp: [],
     signin: [],
   });
@@ -52,7 +52,7 @@ async function updateEvent(
 async function getAllEvents(id: string | undefined) {
   return (await FireAPI.getDoc("Events-WEB")).data
     .map((x: any) => {
-      if (x.creator === id) return null;
+      if (x.manager === id) return null;
       x["date"] = x["date"].toDate();
       // If it's 0, then it will return true, or the user IS rsvp to an event
       // else, it will return 1, or the user is not rsvp to an event
@@ -93,15 +93,15 @@ async function removeRSVP(EventId: string, userId: string) {
 }
 
 async function transferEvent(EventId: string, UserId: string) {
-  // Use the event ID to update the creator field of the event
-  return FireAPI.updateField("Events-WEB", EventId, { creator: UserId });
+  // Use the event ID to update the manager field of the event
+  return FireAPI.updateField("Events-WEB", EventId, { manager: UserId });
 }
 
 async function getEventsForManager(userid: string) {
-  // Get all of the events that have a creator field that matches
+  // Get all of the events that have a manager field that matches
   // the user's ID
   return (
-    await FireAPI.getDocUser("Events-WEB", "rsvp", "creator", userid)
+    await FireAPI.getDocUser("Events-WEB", "rsvp", "manager", userid)
   ).map((x: any) => {
     x["date"] = x["date"].toDate();
     return x;
