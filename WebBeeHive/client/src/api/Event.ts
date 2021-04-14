@@ -56,7 +56,9 @@ async function getAllEvents(id: string | undefined) {
       x["date"] = x["date"].toDate();
       // If it's 0, then it will return true, or the user IS rsvp to an event
       // else, it will return 1, or the user is not rsvp to an event
-      x["relation"] = x["rsvp"].includes(id) ? 0 : 1;
+      if(x["rsvp"]!=undefined){
+              x["relation"] = x["rsvp"].includes(id) ? 0 : 1;
+      }
       return x;
     })
     .filter((x: any) => x != null);

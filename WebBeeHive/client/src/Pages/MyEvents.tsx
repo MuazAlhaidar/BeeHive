@@ -63,7 +63,7 @@ function MyEvents(props: { id: any }) {
           let tmpdate = curEvent.date.replaceAll("/", "-")
           let [month, day, year] = tmpdate.split("-")
           setdate(`${year}-${month}-${day}`)
-  }, [eventIndex, checkReload])
+  }, [eventIndex, checkReload, showEventEditModal])
 
   const toggleEmailModal = () => {
     setShowEmailModal(!showEmailModal);
