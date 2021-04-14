@@ -96,6 +96,7 @@ function EventEdit({
                       description: currentEvent.description,
                     })
                   }
+                        required
                 />
               </div>
               <div className="EventEdit-AddressTimeDateDiv">

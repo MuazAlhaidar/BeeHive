@@ -78,6 +78,7 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                       id: newEvent.id,
                     })
                   }
+                        required
                 />
               </div>
               <div className="EventsAdd-AddressTimeDateDiv">
@@ -102,6 +103,7 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                         id: newEvent.id,
                       })
                     }
+                          required
                   />
                   <input
                     className="EventsAdd-Time"
@@ -118,6 +120,7 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                         id: newEvent.id,
                       })
                     }
+                          required
                   />
                   <input
                     className="EventsAdd-Date"
@@ -134,6 +137,7 @@ function EventAdd({ addEvent, showModal, setShowModal }: IProps) {
                         id: newEvent.id,
                       })
                     }
+                          required
                   />
                 </div>
               </div>

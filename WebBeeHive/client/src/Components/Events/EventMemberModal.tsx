@@ -110,6 +110,7 @@ function EventMemberModal({
                             onChange={() => {
                               sortedList[index].signin = !member.signin;
                             }}
+                                  required
                           />
                         </form>
                         <div className="EventMemberModal-Points">

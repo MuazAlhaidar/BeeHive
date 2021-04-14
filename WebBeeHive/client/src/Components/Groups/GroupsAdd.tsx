@@ -51,6 +51,7 @@ function GroupsAdd({ addGroup, showModal, setShowModal }: IProps) {
                       contactInfo: newGroup.contactInfo,
                     })
                   }
+                        required
                 />
               </div>
               <div className="GroupsAdd-ContactInfoDiv">
@@ -68,6 +69,7 @@ function GroupsAdd({ addGroup, showModal, setShowModal }: IProps) {
                       contactInfo: e.target.value,
                     })
                   }
+                        required
                 />
               </div>
               <div className="GroupsAdd-BtnDiv">
