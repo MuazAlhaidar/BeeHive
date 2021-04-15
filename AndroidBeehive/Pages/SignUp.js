@@ -27,7 +27,7 @@ function SignUp({navigation}) {
           .doc(userCredentials.user.uid);
         newDoc.set({
           firstname: fName,
-          lastame: lName,
+          lastname: lName,
           email: email,
           points: 0,
           isowner: false,
