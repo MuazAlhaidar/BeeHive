@@ -1,6 +1,6 @@
 import React from "react";
 import "../../CSS/Events/EventsEdit.css";
-import {EventInfo} from "../../Interfaces";
+import { EventInfo } from "../../Interfaces";
 import { getFormattedDate, getFormattedTime } from "../../DateAndTimeFormat";
 
 interface IProps {
@@ -30,9 +30,9 @@ interface IProps {
     date: string,
     description: string
   ) => void;
-    index: string;
-    setindex: (arg0:string)=>void;
-    prevEvent: EventInfo | null;
+  index: string;
+  setindex: (arg0: string) => void;
+  prevEvent: EventInfo | null;
 }
 
 function EventEdit({
@@ -43,7 +43,7 @@ function EventEdit({
   setCurEvent,
   index,
   setindex,
-  prevEvent
+  prevEvent,
 }: IProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,19 +59,18 @@ function EventEdit({
   };
 
   const handleCancel = () => {
-          if(prevEvent != null){
-                  setCurEvent({
-                          id:prevEvent.id,
-                          title:prevEvent.title,
-                          address:prevEvent.address,
-                          time:getFormattedTime(prevEvent),
-                          date:getFormattedDate(prevEvent),
-                          description:prevEvent.description
-                  })
-          }
+    if (prevEvent != null) {
+      setCurEvent({
+        id: prevEvent.id,
+        title: prevEvent.title,
+        address: prevEvent.address,
+        time: getFormattedTime(prevEvent),
+        date: getFormattedDate(prevEvent),
+        description: prevEvent.description,
+      });
+    }
     setShowModal(!showModal);
   };
-
 
   return (
     <div>
@@ -96,7 +95,7 @@ function EventEdit({
                       description: currentEvent.description,
                     })
                   }
-                        required
+                  required
                 />
               </div>
               <div className="EventEdit-AddressTimeDateDiv">
@@ -121,7 +120,7 @@ function EventEdit({
                         description: currentEvent.description,
                       })
                     }
-                          required
+                    required
                   />
                   <input
                     className="EventEdit-Time"
@@ -138,14 +137,14 @@ function EventEdit({
                         description: currentEvent.description,
                       })
                     }
-                          required
+                    required
                   />
                   <input
                     className="EventEdit-Date"
                     type="date"
                     id="date"
                     value={index}
-                    onChange={(e) =>{
+                    onChange={(e) => {
                       setCurEvent({
                         id: currentEvent.id,
                         title: currentEvent.title,
@@ -153,10 +152,10 @@ function EventEdit({
                         time: currentEvent.time,
                         date: e.target.value,
                         description: currentEvent.description,
-                      })
-                      setindex(e.target.value)
+                      });
+                      setindex(e.target.value);
                     }}
-                      required
+                    required
                   />
                 </div>
               </div>
@@ -179,7 +178,7 @@ function EventEdit({
                       description: e.target.value,
                     })
                   }
-                      required
+                  required
                 />
               </div>
               <div className="EventEdit-BtnDiv">

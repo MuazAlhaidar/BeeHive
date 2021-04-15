@@ -50,7 +50,7 @@ function GroupsEdit({
                       description: currentGroup.description,
                     })
                   }
-                        required
+                  required
                 />
               </div>
               <div className="GroupsEdit-ContactInfoDiv">
@@ -68,7 +68,7 @@ function GroupsEdit({
                       description: e.target.value,
                     })
                   }
-                        required
+                  required
                 />
               </div>
               <div className="GroupsEdit-BtnDiv">

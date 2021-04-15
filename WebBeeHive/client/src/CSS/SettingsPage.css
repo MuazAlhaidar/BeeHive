@@ -6,11 +6,12 @@
 }
 
 .SettingsPage-FormDiv {
+  display: flex;
   border: solid 2px lightgray;
   border-radius: 10px;
   background-color: white;
   box-shadow: 5px 5px 5px gray;
-  height: 300px;
+  height: 220px;
   width: 400px;
   color: #ff9442;
   flex-direction: column;

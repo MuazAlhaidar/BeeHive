@@ -16,9 +16,14 @@ function SignInPanel({ addUser }: IProps) {
   const [password, setPassword] = React.useState("");
   const [email, setEmail] = React.useState("");
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    addUser(firstname, lastname, password, email);
+  };
+
   return (
     <div className="SignUpPanel">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <p className="SignUpPanel-InputTitle">Enter your Firstname</p>
           <input
@@ -27,6 +32,7 @@ function SignInPanel({ addUser }: IProps) {
             onChange={(e) => setFirstname(e.target.value)}
             id="Firstname"
             value={firstname}
+            required
           />
 
           <p className="SignUpPanel-InputTitle">Enter your Lastname</p>
@@ -36,6 +42,7 @@ function SignInPanel({ addUser }: IProps) {
             onChange={(e) => setLastname(e.target.value)}
             id="Lastname"
             value={lastname}
+            required
           />
         </div>
 
@@ -46,6 +53,7 @@ function SignInPanel({ addUser }: IProps) {
           onChange={(e) => setEmail(e.target.value)}
           id="Email"
           value={email}
+          required
         />
 
         <p className="SignUpPanel-InputTitle">Enter a new Password</p>
@@ -55,16 +63,17 @@ function SignInPanel({ addUser }: IProps) {
           id="Password"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
+          required
         />
+
+        <div className="SignUpPanel-Buttons">
+          <input
+            className="SignUpPanel-SignUpButton"
+            type="submit"
+            value="Sign Up"
+          />
+        </div>
       </form>
-      <div className="SignUpPanel-Buttons">
-        <button
-          className="SignUpPanel-SignUpButton"
-          onClick={() => addUser(firstname, lastname, password, email)}
-        >
-          Sign Up
-        </button>
-      </div>
     </div>
   );
 }

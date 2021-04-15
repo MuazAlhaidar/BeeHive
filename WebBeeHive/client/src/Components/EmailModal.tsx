@@ -51,7 +51,7 @@ function EmailModal({ showModal, setShowModal, members }: IProps) {
                       body: email.body,
                     })
                   }
-                        required
+                  required
                 />
               </div>
               <div className="EmailModal-BodyDiv">
@@ -67,7 +67,7 @@ function EmailModal({ showModal, setShowModal, members }: IProps) {
                       body: e.target.value,
                     })
                   }
-                        required
+                  required
                 />
               </div>
               <div className="EmailModal-BtnDiv">
