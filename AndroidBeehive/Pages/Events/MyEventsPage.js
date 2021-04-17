@@ -65,26 +65,13 @@ function MyEventPage({navigation}) {
   //transfer manager, data from transfermodal
   function TransferManager(member) {
     firestore()
-      .collection('Users-WEB')
-      .where('email', '==', member)
-      .onSnapshot((querySnapshot) => {
-        const newUser = [];
-        querySnapshot.forEach((doc) => {
-          newUser.push({
-            id: doc.id,
-            ...doc.data(),
-          });
-        });
-
-        firestore()
-          .collection('Events-WEB')
-          .doc(eventId)
-          .update({
-            creator: transferUser,
-          })
-          .then(function () {
-            alert('New manager has been assigned');
-          });
+      .collection('Events-WEB')
+      .doc(eventId)
+      .update({
+        manager: member,
+      })
+      .then(function () {
+        alert('New manager has been assigned');
       });
   }
   //sets the specific event to do the actions with
@@ -108,10 +95,12 @@ function MyEventPage({navigation}) {
     setEventId(eventId);
     setModalVisibleEdit(true);
   }
-  function setButtons() {}
-  const myShare = async () => {
+
+  const myShare = async ({item}) => {
     const options = {
-      message: 'Check out my event!',
+      message: `Check out my event ${item.title} at ${
+        item.address
+      } on ${item.date.toDate().toDateString()} on the Beehive App!`,
     };
     const newShare = Share.open(options);
   };
@@ -125,7 +114,7 @@ function MyEventPage({navigation}) {
       address: address,
       date: date,
       description: description,
-      creator: user,
+      manager: user,
       id: newDoc.id,
     });
   };
@@ -140,7 +129,7 @@ function MyEventPage({navigation}) {
         address: address,
         date: date,
         description: description,
-        creator: user,
+        manager: user,
         id: newDoc.id,
       })
       .then(() => {
@@ -175,7 +164,7 @@ function MyEventPage({navigation}) {
             style={Event.deleteEvent}>
             <Image style={Event.image} source={require('../../Trashcan.png')} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => myShare()}>
+          <TouchableOpacity onPress={() => myShare({item})}>
             <Icon name="share-outline" color="#ff8000" size={35} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => SignInButton(item.id)}>
@@ -193,10 +182,10 @@ function MyEventPage({navigation}) {
   useEffect(() => {
     const user = firebase.auth().currentUser;
     const currUser = user.uid;
-
+    const currEmail = user.email;
     const event = firestore()
       .collection('Events-WEB')
-      .where('manager', '==', currUser)
+      .where('manager', 'in', [currUser, currEmail])
       .onSnapshot((querySnapshot) => {
         const events = [];
         if (querySnapshot.empty) {
@@ -291,8 +280,9 @@ function MyEventPage({navigation}) {
       <FlatList
         data={events}
         renderItem={renderItem}
-        keyExtractor={(item) => item.title}
+        keyExtractor={(item) => item.id}
       />
+      <Text>{eventId}</Text>
     </View>
   );
 }

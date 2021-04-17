@@ -103,7 +103,7 @@ function MyGroupPage({navigation}) {
   };
 
   var groupObject = groups.filter((obj) => {
-    return obj.name === groupId;
+    return obj.id === groupId;
   });
 
   const ListGroups = ({item}) => {

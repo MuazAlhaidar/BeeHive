@@ -75,6 +75,7 @@ function EventPage({navigation}) {
     setCurrentUser(currUser);
     const event = firestore()
       .collection('Events-WEB')
+      .orderBy('title', 'desc')
       .onSnapshot((querySnapshot) => {
         const events = [];
 

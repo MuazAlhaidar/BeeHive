@@ -32,21 +32,21 @@ function LeaderboardPage({navigation}) {
   const ListLeaderboards = ({item}) => (
     <View style={Leaderboard.leaderboardList}>
       <Text style={Leaderboard.leaderboardText}>
-        {item.FirstName} {item.LastName}
+        {item.firstname} {item.lastname}
       </Text>
       <TouchableOpacity
-        onPress={() => editButton(item.email)}
+        onPress={() => editButton(item.id)}
         style={Leaderboard.viewLeaderboard}>
-        <Text style={Leaderboard.leaderboardText}>{item.userPoints}</Text>
+        <Text style={Leaderboard.leaderboardText}>{item.points}</Text>
       </TouchableOpacity>
     </View>
   );
   const EditPoints = async (userPoints) => {
     firestore()
-      .collection('Users')
+      .collection('Users-WEB')
       .doc(leaderboardId)
       .update({
-        userPoints: userPoints,
+        points: userPoints,
       })
       .then(() => {
         console.log('User updated!');
@@ -60,7 +60,8 @@ function LeaderboardPage({navigation}) {
 
   useEffect(() => {
     const leaderboardList = firestore()
-      .collection('Users')
+      .collection('Users-WEB')
+      .orderBy('points', 'desc')
       .onSnapshot((querySnapshot) => {
         const leaderboard = [];
 
