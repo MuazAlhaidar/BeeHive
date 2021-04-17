@@ -11,7 +11,7 @@ function EditEvent({events, modal}) {
   const [description, setDescription] = useState('');
   const Edit = async () => {
     modal(false);
-    events(title, address, date, time, description);
+    events(title, address, date, description);
   };
   return (
     <View style={EditEventStyles.container}>

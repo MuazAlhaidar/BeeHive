@@ -20,8 +20,6 @@ function ViewEvent({events}) {
           {item.date.toDate().toDateString()}
         </Text>
       </View>
-      <Text style={ViewStyles.label}>Time</Text>
-
       <Text style={ViewStyles.label}>Description</Text>
       <View style={ViewStyles.inputViewDescription}>
         <Text style={ViewStyles.textView}>{item.description}</Text>

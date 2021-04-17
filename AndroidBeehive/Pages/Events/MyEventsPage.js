@@ -189,7 +189,6 @@ function MyEventPage({navigation}) {
       .onSnapshot((querySnapshot) => {
         const events = [];
         if (querySnapshot.empty) {
-          alert('No events found');
         }
         querySnapshot.forEach((documentSnapshot) => {
           events.push({
@@ -282,7 +281,6 @@ function MyEventPage({navigation}) {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
-      <Text>{eventId}</Text>
     </View>
   );
 }

@@ -17,7 +17,7 @@ function AddEvent({events, modal}) {
   const [description, setDescription] = useState('');
   const Add = async () => {
     modal(false);
-    events(title, address, date, time, description);
+    events(title, address, date, description);
   };
   return (
     <ScrollView>
