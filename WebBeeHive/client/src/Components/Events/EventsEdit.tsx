@@ -52,7 +52,7 @@ function EventEdit({
       currentEvent.title,
       currentEvent.address,
       currentEvent.time,
-      currentEvent.date,
+      index,
       currentEvent.description
     );
     setShowModal(!showModal);

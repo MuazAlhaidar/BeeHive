@@ -8,15 +8,15 @@ import EventMemberModal from "../Components/Events/EventMemberModal";
 import TransferManagerModal from "../Components/TransferManagerModal";
 import ConfirmationModal from "../Components/ConfirmationModal";
 import * as API from "../api/Event";
-import {getallUsers} from "../api/User";
+import { getallUsers } from "../api/User";
 import { store, redux_index } from "../store";
 import { MemberInfo, EventInfo } from "../Interfaces";
 import { getFormattedDate, getFormattedTime } from "../DateAndTimeFormat";
 
 async function reload(user: string) {
   let tmp = await API.getEventsForManager(user);
-  let users = await getallUsers()
-  return {events:tmp, users:users}
+  let users = await getallUsers();
+  return { events: tmp, users: users };
 }
 
 function MyEvents(props: { id: any }) {
@@ -61,13 +61,13 @@ function MyEvents(props: { id: any }) {
     });
   }, [eventIndex, checkReload]);
 
-  const [senddate, setdate] = React.useState("")
+  const [senddate, setdate] = React.useState("");
 
-  React.useEffect(()=>{
-          let tmpdate = curEvent.date.replaceAll("/", "-")
-          let [month, day, year] = tmpdate.split("-")
-          setdate(`${year}-${month}-${day}`)
-  }, [eventIndex, checkReload, showEventEditModal])
+  React.useEffect(() => {
+    let tmpdate = curEvent.date.replaceAll("/", "-");
+    let [month, day, year] = tmpdate.split("-");
+    setdate(`${year}-${month}-${day}`);
+  }, [eventIndex, checkReload, showEventEditModal]);
 
   const toggleEmailModal = () => {
     setShowEmailModal(!showEmailModal);
@@ -230,7 +230,7 @@ function MyEvents(props: { id: any }) {
         showModal={showEventMemberModal}
         setShowModal={setShowEventMemberModal}
         members={
-                allusers as MemberInfo[]
+          allusers as MemberInfo[]
           // events[eventIndex] !== undefined
           //   ? (events[eventIndex].rsvp as MemberInfo[])
           //   : null
