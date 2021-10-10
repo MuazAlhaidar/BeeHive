@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@popperjs/core": "^2.10.2",
     "@reduxjs/toolkit": "^1.5.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
@@ -54,6 +55,12 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.7",
+    "jest-circus": "^27.2.5",
+    "jest-haste-map": "^27.2.5",
+    "jest-jasmine2": "^27.2.5",
+    "jest-runner": "^27.2.5",
+    "jest-runtime": "^27.2.5",
+    "jest-snapshot": "^27.2.5",
     "react-router-dom": "^5.2.0"
   }
 }
